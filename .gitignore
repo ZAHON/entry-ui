@@ -33,6 +33,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Config
+.npmrc
+
 # Editor
 .vscode/*
 !.vscode/launch.json
