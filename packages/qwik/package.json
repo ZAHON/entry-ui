@@ -1,0 +1,79 @@
+{
+  "name": "@entry-ui/qwik",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/ZAHON/entry-ui#readme",
+  "license": "MIT",
+  "author": "ZAHON",
+  "type": "module",
+  "main": "./lib/index.qwik.mjs",
+  "qwik": "./lib/index.qwik.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.qwik.mjs"
+    }
+  },
+  "files": [
+    "lib"
+  ],
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZAHON/entry-ui",
+    "directory": "packages/qwik"
+  },
+  "bugs": {
+    "url": "https://github.com/ZAHON/entry-ui/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
+  },
+  "scripts": {
+    "build": "bun run lint && bun run test && bun run clean && bun run build:lib && bun run build:types",
+    "build:lib": "vite build --mode lib",
+    "build:types": "tsc -p ./tsconfig.build.json --emitDeclarationOnly --incremental false",
+    "clean": "rm -rf ./lib ./tsconfig.build.tsbuildinfo",
+    "dev": "vite --mode ssr",
+    "fmt": "prettier --write . --ignore-path ../../.prettierignore",
+    "fmt:check": "prettier --check . --ignore-path ../../.prettierignore",
+    "lint": "eslint \"./src/**/*.ts*\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:browser": "vitest run --project browser",
+    "test:browser:watch": "vitest --project browser",
+    "test:unit": "vitest run --project unit",
+    "test:unit:watch": "vitest --project unit",
+    "typecheck": "tsc --noEmit",
+    "qwik": "qwik"
+  },
+  "dependencies": {
+    "@entry-ui/utilities": "workspace:*"
+  },
+  "devDependencies": {
+    "@entry-ui/eslint": "workspace:*",
+    "@entry-ui/prettier": "workspace:*",
+    "@playwright/test": "^1.57.0",
+    "@qwik.dev/core": "2.0.0-beta.17",
+    "@qwik.dev/router": "2.0.0-beta.17",
+    "@types/node": "^25.0.8",
+    "@vitest/browser-playwright": "^4.0.17",
+    "eslint": "^9.39.2",
+    "jsdom": "^27.4.0",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3",
+    "undici": "^7.18.2",
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^6.0.4",
+    "vitest": "^4.0.17",
+    "vitest-browser-qwik": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@qwik.dev/core": ">=2.0.0-beta.17"
+  }
+}

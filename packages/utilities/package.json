@@ -1,0 +1,61 @@
+{
+  "name": "@entry-ui/utilities",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/ZAHON/entry-ui/tree/main/packages/utilities#readme",
+  "license": "MIT",
+  "author": "ZAHON",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZAHON/entry-ui",
+    "directory": "packages/utilities"
+  },
+  "bugs": {
+    "url": "https://github.com/ZAHON/entry-ui/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "bun run lint && bun run test && bun run clean && tsup",
+    "clean": "rm -rf dist",
+    "fmt": "prettier --write . --ignore-path ../../.prettierignore",
+    "fmt:check": "prettier --check . --ignore-path ../../.prettierignore",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "style-to-object": "^1.0.14"
+  },
+  "devDependencies": {
+    "@entry-ui/eslint": "workspace:*",
+    "@entry-ui/prettier": "workspace:*",
+    "csstype": "^3.2.3",
+    "eslint": "^9.39.2",
+    "jsdom": "^27.4.0",
+    "prettier": "^3.7.4",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.17"
+  }
+}

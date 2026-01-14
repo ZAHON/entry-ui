@@ -1,0 +1,43 @@
+{
+  "name": "entry-ui-qwik-playground",
+  "description": "Playground for @entry-ui/qwik package testing",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
+  },
+  "engines-annotation": "Mostly required by sharp which needs a Node-API v9 compatible runtime",
+  "scripts": {
+    "build": "qwik build",
+    "build.client": "vite build",
+    "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.types": "tsc --incremental --noEmit",
+    "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
+    "dev": "vite --mode ssr",
+    "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
+    "fmt": "prettier --write . --ignore-path ../../.prettierignore",
+    "fmt:check": "prettier --check . --ignore-path ../../.prettierignore",
+    "lint": "eslint \"./src/**/*.ts*\"",
+    "preview": "qwik build preview && vite preview",
+    "start": "vite --open --mode ssr",
+    "typecheck": "tsc --noEmit",
+    "qwik": "qwik"
+  },
+  "devDependencies": {
+    "@entry-ui/eslint": "workspace:*",
+    "@entry-ui/prettier": "workspace:*",
+    "@entry-ui/qwik": "workspace:*",
+    "@qwik.dev/core": "2.0.0-beta.17",
+    "@qwik.dev/router": "2.0.0-beta.17",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^25.0.8",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "undici": "^7.18.2",
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^6.0.4"
+  }
+}

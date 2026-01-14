@@ -1,0 +1,29 @@
+{
+  "name": "@entry-ui/eslint",
+  "private": true,
+  "description": "",
+  "license": "MIT",
+  "author": "ZAHON",
+  "type": "module",
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZAHON/entry-ui",
+    "directory": "configs/eslint"
+  },
+  "dependencies": {
+    "@eslint/js": "^9.39.2",
+    "@typescript-eslint/parser": "^8.53.0",
+    "astro-eslint-parser": "^1.2.2",
+    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-qwik": "2.0.0-beta.17",
+    "globals": "^17.0.0",
+    "typescript-eslint": "^8.53.0"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0"
+  }
+}

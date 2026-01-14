@@ -1,0 +1,21 @@
+{
+  "name": "entry-ui",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/ZAHON/entry-ui#readme",
+  "license": "MIT",
+  "author": "ZAHON",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZAHON/entry-ui"
+  },
+  "bugs": {
+    "url": "https://github.com/ZAHON/entry-ui/issues"
+  },
+  "workspaces": [
+    "configs/*",
+    "packages/*",
+    "playgrounds/*"
+  ]
+}

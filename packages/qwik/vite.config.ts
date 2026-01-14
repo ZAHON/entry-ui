@@ -1,0 +1,66 @@
+import { defineConfig } from 'vite';
+import { qwikVite } from '@qwik.dev/core/optimizer';
+import { qwikRouter } from '@qwik.dev/router/vite';
+import pkg from './package.json';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import { playwright } from '@vitest/browser-playwright';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const { dependencies = {}, peerDependencies = {} } = pkg as any;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const makeRegex = (dep: any) => new RegExp(`^${dep}(/.*)?$`);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
+
+export default defineConfig(() => {
+  return {
+    build: {
+      target: 'es2020',
+      lib: {
+        entry: {
+          index: 'src/index.ts',
+        },
+        formats: ['es'],
+        fileName: (_, entryName) => `${entryName}.qwik.mjs`,
+      },
+      rollupOptions: {
+        external: [/^node:.*/, ...excludeAll(dependencies), ...excludeAll(peerDependencies)],
+        output: {
+          exports: 'named',
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+        },
+      },
+    },
+    test: {
+      reporters: ['tree'],
+      projects: [
+        {
+          test: {
+            name: 'unit',
+            environment: 'jsdom',
+            include: ['src/**/*.unit.test.{ts,tsx}'],
+          },
+          plugins: [tsconfigPaths({ root: '.' })],
+        },
+        {
+          test: {
+            name: 'browser',
+            testTimeout: 2000,
+            browser: {
+              enabled: true,
+              headless: true,
+              provider: playwright(),
+              instances: [{ browser: 'chromium' }, { browser: 'firefox' }],
+            },
+            include: ['src/**/*.browser.test.{ts,tsx}'],
+          },
+          plugins: [qwikVite(), tsconfigPaths({ root: '.' })],
+        },
+      ],
+    },
+    plugins: [qwikVite(), qwikRouter(), tsconfigPaths({ root: '.' })],
+  };
+});

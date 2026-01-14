@@ -1,0 +1,19 @@
+{
+  "name": "@entry-ui/prettier",
+  "private": true,
+  "description": "",
+  "license": "MIT",
+  "author": "ZAHON",
+  "type": "module",
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZAHON/entry-ui",
+    "directory": "configs/prettier"
+  },
+  "peerDependencies": {
+    "prettier": ">=3.0.0"
+  }
+}
