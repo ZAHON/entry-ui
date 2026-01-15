@@ -25,7 +25,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/ZAHON/entry-ui",
+    "url": "git+https://github.com/ZAHON/entry-ui.git",
     "directory": "packages/utilities"
   },
   "bugs": {
