@@ -21,6 +21,7 @@ export default defineConfig(() => {
       lib: {
         entry: {
           index: 'src/index.ts',
+          'components/separator/index': 'src/components/separator/index.ts',
         },
         formats: ['es'],
         fileName: (_, entryName) => `${entryName}.qwik.mjs`,
