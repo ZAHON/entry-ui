@@ -14,6 +14,10 @@
     ".": {
       "types": "./lib/index.d.ts",
       "import": "./lib/index.qwik.mjs"
+    },
+    "./separator": {
+      "types": "./lib/components/separator/index.d.ts",
+      "import": "./lib/components/separator/index.qwik.mjs"
     }
   },
   "files": [
