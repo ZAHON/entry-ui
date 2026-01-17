@@ -12,7 +12,7 @@ Visually or semantically separates content.
 
 - Support for purely decorative elements to improve accessibility.
 
-### Import
+## Import
 
 ```tsx
 import { Separator } from '@entry-ui/qwik/separator';
