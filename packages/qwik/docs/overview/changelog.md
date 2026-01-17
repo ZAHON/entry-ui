@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 (2026-01-17)
+
+### Features
+
+- **Introduce `Alert` component for important feedback messages.** A new accessible component following the WAI-ARIA alert pattern. It supports polymorphic rendering via the `as` prop, allows for flexible composition with icons and titles, and ensures automatic announcements by screen readers.
+
 ## 0.2.0 (2026-01-17)
 
 ### Features
