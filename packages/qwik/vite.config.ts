@@ -21,6 +21,7 @@ export default defineConfig(() => {
       lib: {
         entry: {
           index: 'src/index.ts',
+          'components/alert/index': 'src/components/alert/index.ts',
           'components/separator/index': 'src/components/separator/index.ts',
         },
         formats: ['es'],
