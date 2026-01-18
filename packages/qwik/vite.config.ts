@@ -20,7 +20,10 @@ export default defineConfig(() => {
       target: 'es2020',
       lib: {
         entry: {
+          // main entry point
           index: 'src/index.ts',
+
+          // components
           'components/alert/index': 'src/components/alert/index.ts',
           'components/separator/index': 'src/components/separator/index.ts',
 
