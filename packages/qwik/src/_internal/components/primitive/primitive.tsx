@@ -6,7 +6,7 @@ import { component$, Slot } from '@qwik.dev/core';
  * List of HTML elements that can be created as primitive components.
  * Each node in this array will have a corresponding component in the `Primitive` object.
  */
-const NODES = ['div', 'span'] as const;
+const NODES = ['button', 'div', 'span'] as const;
 
 /**
  * HTML void elements that cannot have children.
