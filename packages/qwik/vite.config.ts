@@ -23,6 +23,9 @@ export default defineConfig(() => {
           index: 'src/index.ts',
           'components/alert/index': 'src/components/alert/index.ts',
           'components/separator/index': 'src/components/separator/index.ts',
+
+          // hooks
+          'hooks/use-boolean/index': 'src/hooks/use-boolean/index.ts',
         },
         formats: ['es'],
         fileName: (_, entryName) => `${entryName}.qwik.mjs`,
