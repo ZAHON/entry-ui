@@ -48,7 +48,7 @@ This section provides a detailed technical overview of the `useBoolean` hook, in
 
 The `useBoolean` hook accepts a single, optional parameter to initialize the state:
 
-| Param          | Type      | Default | Description                              |
+| Parameter      | Type      | Default | Description                              |
 | :------------- | :-------- | :------ | :--------------------------------------- |
 | `initialState` | `boolean` | `false` | The initial value for the boolean state. |
 
