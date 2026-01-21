@@ -44,9 +44,6 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "style-to-object": "^1.0.14"
-  },
   "devDependencies": {
     "@entry-ui/eslint": "workspace:*",
     "@entry-ui/prettier": "workspace:*",

@@ -34,7 +34,7 @@
     },
     "packages/qwik": {
       "name": "@entry-ui/qwik",
-      "version": "0.1.0",
+      "version": "0.3.0",
       "dependencies": {
         "@entry-ui/utilities": "workspace:*",
       },
@@ -63,9 +63,6 @@
     "packages/utilities": {
       "name": "@entry-ui/utilities",
       "version": "0.1.0",
-      "dependencies": {
-        "style-to-object": "^1.0.14",
-      },
       "devDependencies": {
         "@entry-ui/eslint": "workspace:*",
         "@entry-ui/prettier": "workspace:*",
