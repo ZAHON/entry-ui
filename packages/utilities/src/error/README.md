@@ -30,7 +30,7 @@ This section provides a detailed technical overview of the `error` function, inc
 
 ### Parameters
 
-The `error` function accepts a single object as its parameter, with the following properties:
+The `error` function accepts a single object as its parameter, with the following properties (required properties are marked with an asterisk `*`):
 
 | Property    | Type       | Default | Description                                                                                                                                            |
 | :---------- | :--------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
