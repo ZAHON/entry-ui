@@ -30,7 +30,7 @@ This section provides a detailed technical overview of the `warn` function, incl
 
 ### Parameters
 
-The `warn` function accepts a single object as its parameter, with the following properties:
+The `warn` function accepts a single object as its parameter, with the following properties (required properties are marked with an asterisk `*`):
 
 | Property    | Type       | Default | Description                                                                                                                                 |
 | :---------- | :--------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------ |
