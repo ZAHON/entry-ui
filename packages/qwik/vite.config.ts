@@ -33,6 +33,7 @@ export default defineConfig(() => {
 
           // utilities
           'utilities/merge-refs/index': 'src/utilities/merge-refs/index.ts',
+          'utilities/merge-styles/index': 'src/utilities/merge-styles/index.ts',
         },
         formats: ['es'],
         fileName: (_, entryName) => `${entryName}.qwik.mjs`,

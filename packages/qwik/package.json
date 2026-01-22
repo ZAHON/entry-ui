@@ -34,6 +34,10 @@
     "./merge-refs": {
       "types": "./lib/utilities/merge-refs/index.d.ts",
       "import": "./lib/utilities/merge-refs/index.qwik.mjs"
+    },
+    "./merge-styles": {
+      "types": "./lib/utilities/merge-styles/index.d.ts",
+      "import": "./lib/utilities/merge-styles/index.qwik.mjs"
     }
   },
   "files": [
