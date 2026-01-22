@@ -1,5 +1,7 @@
 # Changelog
 
+Changelogs for each `@entry-ui/qwik` release.
+
 ## 0.3.0 (2026-01-17)
 
 ### Features
