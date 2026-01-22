@@ -50,7 +50,7 @@ This section provides a detailed technical overview of the `mergeStyles` functio
 
 ### Parameters
 
-The `mergeStyles` function accepts a single argument containing an array of style sources. Each element in the array is evaluated and merged into the final result, allowing for a mix of different formats.
+The `mergeStyles` function accepts a single required parameter (marked with an asterisk `*`) containing an array of style sources. Each element in the array is evaluated and merged into the final result, allowing for a mix of different formats:
 
 | Parameter | Type              | Default | Description                                                                                                                                                                     |
 | :-------- | :---------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
