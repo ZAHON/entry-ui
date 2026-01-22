@@ -30,6 +30,9 @@ export default defineConfig(() => {
           // hooks
           'hooks/use-boolean/index': 'src/hooks/use-boolean/index.ts',
           'hooks/use-cycle/index': 'src/hooks/use-cycle/index.ts',
+
+          // utilities
+          'utilities/merge-refs/index': 'src/utilities/merge-refs/index.ts',
         },
         formats: ['es'],
         fileName: (_, entryName) => `${entryName}.qwik.mjs`,

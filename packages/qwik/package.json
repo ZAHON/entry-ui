@@ -30,6 +30,10 @@
     "./use-cycle": {
       "types": "./lib/hooks/use-cycle/index.d.ts",
       "import": "./lib/hooks/use-cycle/index.qwik.mjs"
+    },
+    "./merge-refs": {
+      "types": "./lib/utilities/merge-refs/index.d.ts",
+      "import": "./lib/utilities/merge-refs/index.qwik.mjs"
     }
   },
   "files": [
