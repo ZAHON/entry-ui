@@ -8,11 +8,14 @@ module.exports = {
     'body-max-line-length': [0, 'always', Infinity],
 
     /**
-     * Enforce the commit subject to always start with a lower-case letter.
-     * Example: feat(core): add something (Correct)
-     * Example: feat(core): Add something (Incorrect)
+     * Enforce the commit subject to start with a lower-case letter.
+     * By forbidding cases that start with a capital letter, we allow subjects
+     * to start with lowercase while preserved technical acronyms like API, URL, or ID.
+     * Example: feat(core): handle API response (Correct)
+     * Example: feat(core): fix URL redirect (Correct)
+     * Example: feat(core): Add API support (Incorrect - starts with capital)
      */
-    'subject-case': [2, 'always', 'lower-case'],
+    'subject-case': [2, 'never', ['sentence-case', 'start-case', 'pascal-case', 'upper-case']],
 
     /**
      * Prevent the commit subject from ending with a full stop (period).
