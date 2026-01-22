@@ -1,5 +1,7 @@
 # Changelog
 
+Changelogs for each `@entry-ui/utilities` release.
+
 ## 0.2.0 (2026-01-22)
 
 ### Features
