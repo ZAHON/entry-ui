@@ -1,5 +1,8 @@
 import type { ReadonlySignal, QRL } from '@qwik.dev/core';
 
+/**
+ * Configuration parameters for the `useCycle` hook.
+ */
 export interface UseCycleParams<T> {
   /**
    * A readonly array of values to cycle through.
@@ -27,6 +30,9 @@ export interface UseCycleParams<T> {
   loop?: boolean;
 }
 
+/**
+ * Represents the object returned by the `useCycle` hook.
+ */
 export interface UseCycleReturnValue<T> {
   /**
    * A readonly signal whose value represents the currently active option from the provided array.
