@@ -19,11 +19,11 @@ The utility is designed to handle the complexity of CSS styling in JavaScript en
 
 - **Kebab-case to camelCase:** `background-color` becomes `backgroundColor`.
 
-- **Vendor Prefixes:** Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
+- **Vendor prefixes**: Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
 
-- **IE Prefix:** The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
+- **IE prefix**: The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
 
-- **CSS Variables**: Properties starting with `--` (e.g., `--custom-color`) are preserved in their original format.
+- **CSS variables**: Properties starting with `--` (e.g., `--custom-color`) are preserved in their original format.
 
 ```tsx
 import type { PropsOf } from '@qwik.dev/core';
