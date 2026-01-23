@@ -21,6 +21,10 @@ Changelogs for each `@entry-ui/qwik` release.
 - **Introduce `mergeStyles` utility for unified style management.**
   A powerful utility that combines different style formats—such as CSS strings, objects, and props—into a single, normalized style object. It follows the CSS cascade principle, ensuring that styles are applied correctly and consistently across different platforms.
 
+### Dependencies
+
+- **Update `@entry-ui/utilities` to version `0.2.0`.**
+
 ## 0.3.0 (2026-01-17)
 
 ### Features
