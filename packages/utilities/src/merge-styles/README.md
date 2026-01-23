@@ -17,13 +17,13 @@ The `mergeStyles` utility is designed to handle the complexity of CSS styling in
 
 To ensure compatibility with JavaScript-based styling engines, the function applies the following transformations:
 
-- **Kebab-case to camelCase:** `background-color` becomes `backgroundColor`.
+- **Kebab-case to camelCase**: `background-color` becomes `backgroundColor`.
 
-- **Vendor Prefixes:** Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
+- **Vendor prefixes**: Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
 
-- **IE Prefix:** The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
+- **IE prefix**: The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
 
-- **CSS Variables**: Properties starting with `--` are preserved in their original format.
+- **CSS variables**: Properties starting with `--` are preserved in their original format.
 
 ```ts
 import { mergeStyles } from '@entry-ui/utilities/merge-styles';
