@@ -55,7 +55,13 @@ This section details the internal types used by `mergeRefs` to ensure full TypeS
 
 ### PossibleRef\<T>
 
-The `PossibleRef<T>` type is a union that ensures compatibility with various ways of handling DOM elements in Qwik.
+The `PossibleRef<T>` type is a union that ensures flexibility in how references are handled, supporting various patterns for DOM access:
+
+- **`Signal<T | undefined>` or `Signal<Element | undefined>`**: The standard Qwik approach using `useSignal`. It allows the element to be reactively tracked within the `.value` property.
+
+- **`(node: T) => void`**: A callback ref (ref-callback) that provides direct access to the DOM node upon mounting.
+
+- **`undefined`**: Designed for optional references. This allows you to pass component props directly into the utility without manual null-checks.
 
 ```ts
 type PossibleRef<T> = Signal<Element | undefined> | Signal<T | undefined> | ((node: T) => void) | undefined;
