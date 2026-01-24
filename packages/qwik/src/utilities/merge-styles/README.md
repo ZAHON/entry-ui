@@ -17,13 +17,17 @@ Use `mergeStyles` when you need to combine different style formats — such as C
 
 The utility is designed to handle the complexity of CSS styling in JavaScript environments. It allows developers to combine inline strings and structured objects while ensuring that property keys are correctly normalized. To ensure compatibility with Qwik and other JavaScript-based styling engines, the function applies the following transformations:
 
-- **Kebab-case to camelCase:** `background-color` becomes `backgroundColor`.
+- **Kebab-case to camelCase:**
+  `background-color` becomes `backgroundColor`.
 
-- **Vendor prefixes**: Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
+- **Vendor prefixes**:
+  Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
 
-- **IE prefix**: The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
+- **IE prefix**:
+  The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
 
-- **CSS variables**: Properties starting with `--` (e.g., `--custom-color`) are preserved in their original format.
+- **CSS variables**:
+  Properties starting with `--` (e.g., `--custom-color`) are preserved in their original format.
 
 ```tsx
 import type { PropsOf } from '@qwik.dev/core';
@@ -67,11 +71,14 @@ This section details the internal types used by `mergeStyles` to ensure full Typ
 
 The `PossibleStyle` type is a union that ensures flexibility in how styles are defined, supporting various formats out of the box:
 
-- **`string`**: Standard inline CSS strings (e.g., `"color: red; padding: 10px"`).
+- **`string`**:
+  Standard inline CSS strings (e.g., `"color: red; padding: 10px"`).
 
-- **`CSSProperties`**: A structured object of CSS declarations from `@qwik.dev/core` (e.g., `{ color: "red" }`).
+- **`CSSProperties`**:
+  A structured object of CSS declarations from `@qwik.dev/core` (e.g., `{ color: "red" }`).
 
-- **`undefined`**: Useful for conditional styling where a style might not be present. Since `boolean` is not accepted, use ternary operators or logical OR to ensure a valid type (e.g., `isActive ? "color: red" : undefined`).
+- **`undefined`**:
+  Useful for conditional styling where a style might not be present. Since `boolean` is not accepted, use ternary operators or logical OR to ensure a valid type (e.g., `isActive ? "color: red" : undefined`).
 
 ```ts
 type PossibleStyle = string | CSSProperties | undefined;
