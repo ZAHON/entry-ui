@@ -17,13 +17,17 @@ The `mergeStyles` utility is designed to handle the complexity of CSS styling in
 
 To ensure compatibility with JavaScript-based styling engines, the function applies the following transformations:
 
-- **Kebab-case to camelCase**: `background-color` becomes `backgroundColor`.
+- **Kebab-case to camelCase**:
+  `background-color` becomes `backgroundColor`.
 
-- **Vendor prefixes**: Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
+- **Vendor prefixes**:
+  Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
 
-- **IE prefix**: The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
+- **IE prefix**:
+  The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
 
-- **CSS variables**: Properties starting with `--` are preserved in their original format.
+- **CSS variables**:
+  Properties starting with `--` are preserved in their original format.
 
 ```ts
 import { mergeStyles } from '@entry-ui/utilities/merge-styles';
@@ -72,11 +76,14 @@ This section details the internal types used by `mergeStyles` to ensure full Typ
 
 The `PossibleStyle` type is a union that ensures flexibility in how styles are defined, supporting various formats out of the box:
 
-- **`string`**: Standard inline CSS strings (e.g., `"color: red; padding: 10px"`).
+- **`string`**:
+  Standard inline CSS strings (e.g., `"color: red; padding: 10px"`).
 
-- **`Record<string, string | number | undefined>`**: A structured object of CSS declarations. Supports camelCase, kebab-case, and CSS custom properties (e.g., `{ color: "red", "margin-top": 10, "--spacing-unit": "20px" }`).
+- **`Record<string, string | number | undefined>`**:
+  A structured object of CSS declarations. Supports camelCase, kebab-case, and CSS custom properties (e.g., `{ color: "red", "margin-top": 10, "--spacing-unit": "20px" }`).
 
-- **`undefined`**: Useful for conditional styling where a style might not be present. Since `boolean` is not accepted, use ternary operators or logical OR to ensure a valid type (e.g., `isActive ? "color: red" : undefined`).
+- **`undefined`**:
+  Useful for conditional styling where a style might not be present. Since `boolean` is not accepted, use ternary operators or logical OR to ensure a valid type (e.g., `isActive ? "color: red" : undefined`).
 
 ```ts
 type PossibleStyle = string | Record<string, string | number | undefined> | undefined;
