@@ -1,12 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { renderHook } from 'vitest-browser-qwik';
+import { wait } from '@entry-ui/utilities/wait';
 import { useSignal, $ } from '@qwik.dev/core';
 import { useControllable } from '.';
-
-// TODO: move to `@entry-ui/utilities` in the next release
-const wait = (delayMs: number) => {
-  return new Promise((resolve) => setTimeout(resolve, delayMs));
-};
 
 describe('useControllable', () => {
   it('should initialize with default value in uncontrolled mode', async () => {
