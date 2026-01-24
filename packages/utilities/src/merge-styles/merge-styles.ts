@@ -15,7 +15,7 @@ import type { PossibleStyle } from './merge-styles.types';
  *
  * @example
  * ```ts
- * mergeStyles(["color: red; margin-top: 10px;"", { marginTop: "20px", "--spacing-unit": "20px" }]);
+ * mergeStyles(["color: red; margin-top: 10px;", { marginTop: "20px", "--spacing-unit": "20px" }]);
  * // Returns: { color: "red", marginTop: "20px", "--spacing-unit": "20px" }
  * ```
  */
