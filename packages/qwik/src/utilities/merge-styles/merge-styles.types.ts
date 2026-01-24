@@ -7,7 +7,7 @@ import type { CSSProperties } from '@qwik.dev/core';
  *
  * - `string`: Standard inline CSS strings (e.g., `"color: red; padding: 10px"`).
  *
- * - `CSSProperties`: A structured object of CSS declarations (e.g., `{ color: 'red' }`).
+ * - `CSSProperties`: A structured object of CSS declarations (e.g., `{ color: "red" }`).
  *
  * - `undefined`: Useful for conditional styling where a style might not be present.
  * Since `boolean` is not accepted, use ternary operators or logical OR
