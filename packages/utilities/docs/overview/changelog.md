@@ -2,6 +2,22 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.3.0 (2026-01-25)
+
+### Features
+
+- **Introduce `wait` utility for asynchronous execution delays.**
+  A clean, Promise-based approach for pausing asynchronous execution for a specified duration. This utility replaces the need for manual Promise wrappers around `setTimeout`, offering a non-blocking way to manage execution timing, throttle operations, or simulate latency in testing environments with full async/await compatibility.
+
+- **Introduce `addEventListenerOnce` utility for managed one-time events.**
+  A specialized helper for registering event listeners that are automatically removed after their first execution. It enforces the `once: true` behavior internally and returns a manual cleanup function, providing a type-safe and reliable way to handle transient interactions across `HTMLElement`, `Document`, and `Window` targets.
+
+- **Introduce `visuallyHiddenStyle` constant for improved accessibility.**
+  A specialized CSS-in-JS object designed to hide elements visually while keeping them fully accessible to screen readers. It utilizes a combination of modern clipping techniques and fixed positioning to ensure zero visual presence without affecting the layout, while maintaining full compatibility with frameworks like Qwik, React, and Astro.
+
+- **Introduce `visuallyHiddenInputStyle` constant for custom form elements.**
+  A specialized CSS-in-JS object tailored for hiding native form inputs (checkboxes, radio buttons, file inputs) without losing focusability or accessibility. It utilizes absolute positioning to remove the element from the visual flow while preserving its functional presence, enabling the creation of custom-styled form controls across Qwik, React, and Astro.
+
 ## 0.2.0 (2026-01-22)
 
 ### Features
