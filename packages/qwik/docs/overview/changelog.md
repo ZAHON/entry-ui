@@ -2,6 +2,26 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.5.0 (2026-01-28)
+
+### Features
+
+- **Introduce `Toggle` component for two-state interactive buttons.**
+  A two-state button that allows users to switch between on and off states. It supports both controlled and uncontrolled modes, provides full keyboard navigation, and adheres to WAI-ARIA button patterns. Includes data attributes for state-based styling and a dedicated hook for accessing internal state.
+
+- **Introduce `makeEventPreventable` utility for granular event control.**
+  A utility that augments standard DOM events with the ability to prevent internal library handlers. It allows developers to intercept events and conditionally skip default component behaviors or state updates without stopping native event propagation.
+
+- **Introduce `EntryUIQwikEvent` type for augmented event handling.**
+  A specialized type that extends standard DOM events with custom prevention logic. It provides the `preventEntryUIQwikHandler` method and the `entryUIQwikHandlerPrevented` flag, enabling type-safe management of internal component logic within the Entry UI Qwik ecosystem.
+
+- **Introduce `EntryUIQwikEventState` type for internal event state checking.**
+  A specialized version of the event object that includes only the prevention state flag. It is designed for use in internal handlers to determine if a preceding handler in the execution chain has requested to skip default logic.
+
+### Dependencies
+
+- **Update `@entry-ui/utilities` to version `0.3.0`.**
+
 ## 0.4.0 (2026-01-23)
 
 ### Features
