@@ -141,7 +141,7 @@ Explore different ways to implement and customize the `Alert` component to suit 
 
 ### Rendering different elements
 
-By default, the `Alert.Root` component renders an `<div>` element. For a complete overview of the default elements, refer to the [Rendered elements](#rendered-elements) section.
+By default, the `Alert.Root` component renders a `<div>` element. For a complete overview of the default elements, refer to the [Rendered elements](#rendered-elements) section.
 
 You can customize the underlying HTML element rendered by this component, or even compose it with your own custom Qwik components, by using the `as` prop. This provides immense flexibility, allowing you to:
 
