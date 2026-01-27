@@ -33,6 +33,7 @@ export default defineConfig(() => {
           'hooks/use-cycle/index': 'src/hooks/use-cycle/index.ts',
 
           // utilities
+          'utilities/make-event-preventable/index': 'src/utilities/make-event-preventable/index.ts',
           'utilities/merge-refs/index': 'src/utilities/merge-refs/index.ts',
           'utilities/merge-styles/index': 'src/utilities/merge-styles/index.ts',
         },

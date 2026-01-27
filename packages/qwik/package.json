@@ -35,6 +35,10 @@
       "types": "./lib/hooks/use-cycle/index.d.ts",
       "import": "./lib/hooks/use-cycle/index.qwik.mjs"
     },
+    "./make-event-preventable": {
+      "types": "./lib/utilities/make-event-preventable/index.d.ts",
+      "import": "./lib/utilities/make-event-preventable/index.qwik.mjs"
+    },
     "./merge-refs": {
       "types": "./lib/utilities/merge-refs/index.d.ts",
       "import": "./lib/utilities/merge-refs/index.qwik.mjs"
