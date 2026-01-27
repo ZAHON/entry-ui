@@ -23,6 +23,10 @@
       "types": "./lib/components/separator/index.d.ts",
       "import": "./lib/components/separator/index.qwik.mjs"
     },
+    "./toggle": {
+      "types": "./lib/components/toggle/index.d.ts",
+      "import": "./lib/components/toggle/index.qwik.mjs"
+    },
     "./use-boolean": {
       "types": "./lib/hooks/use-boolean/index.d.ts",
       "import": "./lib/hooks/use-boolean/index.qwik.mjs"
