@@ -2,6 +2,16 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.4.0 (2026-01-28)
+
+### Features
+
+- **Introduce `isValidNumber` utility for robust numeric validation.**
+  A TypeScript type guard designed to verify if a value is a valid, finite number. Unlike the native `typeof` operator, this utility explicitly excludes `NaN` and `Infinity`, providing a reliable way to ensure numeric integrity during mathematical operations or API data processing by narrowing the type to a usable, finite state.
+
+- **Introduce `clamp` utility for numerical range restriction.**
+  A specialized function that restricts a number to remain within a specified minimum and maximum boundary. It provides strict validation, throwing errors if parameters are non-finite or if the minimum boundary exceeds the maximum, making it ideal for maintaining state integrity in UI components like sliders, progress bars, or scroll controllers.
+
 ## 0.3.0 (2026-01-25)
 
 ### Features
