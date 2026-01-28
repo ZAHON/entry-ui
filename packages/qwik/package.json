@@ -35,6 +35,10 @@
       "types": "./lib/hooks/use-controllable/index.d.ts",
       "import": "./lib/hooks/use-controllable/index.qwik.mjs"
     },
+    "./use-counter": {
+      "types": "./lib/hooks/use-counter/index.d.ts",
+      "import": "./lib/hooks/use-counter/index.qwik.mjs"
+    },
     "./use-cycle": {
       "types": "./lib/hooks/use-cycle/index.d.ts",
       "import": "./lib/hooks/use-cycle/index.qwik.mjs"

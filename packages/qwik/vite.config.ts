@@ -31,6 +31,7 @@ export default defineConfig(() => {
           // hooks
           'hooks/use-boolean/index': 'src/hooks/use-boolean/index.ts',
           'hooks/use-controllable/index': 'src/hooks/use-controllable/index.ts',
+          'hooks/use-counter/index': 'src/hooks/use-counter/index.ts',
           'hooks/use-cycle/index': 'src/hooks/use-cycle/index.ts',
 
           // utilities
