@@ -19,6 +19,9 @@ The hook's behavior is determined by its configuration: providing a `controlledS
 
 To maintain a predictable data flow, the hook returns a `state` as a readonly signal. Regardless of the operating mode, all state updates are performed through the `setState$` state-dispatching `QRL` function. In controlled mode, this function triggers the `onChange$` callback to notify the parent of requested changes, while in uncontrolled mode, it updates the internal state directly and then invokes the callback.
 
+> [!CAUTION]
+> Although `defaultValue` and `controlledSignal` are marked as optional in the type definition, you must provide at least one. If both are `undefined`, the hook will throw an exception in development mode because it cannot determine the initial state or the management mode.
+
 ```tsx
 import type { Signal, QRL } from '@qwik.dev/core';
 import { component$ } from '@qwik.dev/core';
