@@ -1,6 +1,7 @@
 export * from './add-event-listener-once';
 export * from './error';
 export * from './fail';
+export * from './is-valid-number';
 export * from './merge-styles';
 export * from './visually-hidden-input-style';
 export * from './visually-hidden-style';
