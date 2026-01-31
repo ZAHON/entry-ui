@@ -2,6 +2,7 @@ export * from './add-event-listener-once';
 export * from './clamp';
 export * from './error';
 export * from './fail';
+export * from './get-computed-style';
 export * from './get-window';
 export * from './has-window';
 export * from './is-html-element';
