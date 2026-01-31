@@ -2,6 +2,7 @@ export * from './add-event-listener-once';
 export * from './clamp';
 export * from './error';
 export * from './fail';
+export * from './has-window';
 export * from './is-valid-number';
 export * from './merge-styles';
 export * from './visually-hidden-input-style';
