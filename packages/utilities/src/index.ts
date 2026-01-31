@@ -4,6 +4,7 @@ export * from './error';
 export * from './fail';
 export * from './get-window';
 export * from './has-window';
+export * from './is-html-element';
 export * from './is-valid-number';
 export * from './merge-styles';
 export * from './visually-hidden-input-style';
