@@ -2,6 +2,28 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.5.0 (2026-01-31)
+
+### Features
+
+- **Introduce `hasWindow` utility for environment detection.**
+  A reliable check to determine if the code is executing in a browser environment. It prevents "window is not defined" reference errors during Server-Side Rendering (SSR) in frameworks like Next.js or Astro by safely verifying the presence of the global `window` object before accessing browser-only APIs.
+
+- **Introduce `getWindow` utility for cross-context window retrieval.**
+  A specialized helper that identifies the correct global `window` object for a given DOM node. This ensures that window-level APIs are accessed from the correct execution context, which is essential when working with elements residing in `iframes` or multiple browser windows.
+
+- **Introduce `isHTMLElement` utility for cross-realm type guarding.**
+  A robust TypeScript type guard that verifies if a value is an instance of `HTMLElement`. Unlike standard checks, it is "cross-realm safe," accurately identifying elements even when they originate from different window contexts (like iframes) where standard constructors may differ.
+
+- **Introduce `getComputedStyle` utility for context-aware style retrieval.**
+  A reliable wrapper around the native browser API that ensures style properties are retrieved from the element's actual execution context. It automatically resolves the correct owner window, guaranteeing accurate `CSSStyleDeclaration` results for elements across various DOM environments.
+
+- **Introduce `getCssDimensions` utility for accurate layout measurement.**
+  A hybrid measurement tool that calculates an element's physical dimensions by reconciling computed CSS values with actual layout geometry. It addresses inconsistencies in testing environments (like JSDOM) and provides a "source of truth" for sizing, even for complex elements like SVGs.
+
+- **Introduce `getHiddenElementHeight` utility for measuring intrinsic dimensions.**
+  A specialized utility designed to measure the natural height of hidden elements (e.g., `display: none`) without disrupting the user experience. By using a temporary, off-screen cloning strategy, it enables precise animations for components like accordions or collapsibles.
+
 ## 0.4.0 (2026-01-28)
 
 ### Features
