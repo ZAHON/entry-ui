@@ -43,6 +43,10 @@
       "types": "./lib/hooks/use-cycle/index.d.ts",
       "import": "./lib/hooks/use-cycle/index.qwik.mjs"
     },
+    "./use-lifecycle": {
+      "types": "./lib/hooks/use-lifecycle/index.d.ts",
+      "import": "./lib/hooks/use-lifecycle/index.qwik.mjs"
+    },
     "./make-event-preventable": {
       "types": "./lib/utilities/make-event-preventable/index.d.ts",
       "import": "./lib/utilities/make-event-preventable/index.qwik.mjs"
