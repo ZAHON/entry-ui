@@ -19,6 +19,10 @@
       "types": "./lib/components/alert/index.d.ts",
       "import": "./lib/components/alert/index.qwik.mjs"
     },
+    "./collapsible": {
+      "types": "./lib/components/collapsible/index.d.ts",
+      "import": "./lib/components/collapsible/index.qwik.mjs"
+    },
     "./separator": {
       "types": "./lib/components/separator/index.d.ts",
       "import": "./lib/components/separator/index.qwik.mjs"
