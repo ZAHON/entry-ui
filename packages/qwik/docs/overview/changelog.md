@@ -2,6 +2,26 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.6.0 (2026-02-05)
+
+### Features
+
+- **Introduce `Collapsible` component for expandable panels.**
+  A modular disclosure component controlled by a trigger button, built following the WAI-ARIA Disclosure pattern. It supports both controlled and uncontrolled states, full keyboard navigation, and nested structures for multi-level disclosures. Features include automatic height calculation via CSS variables for smooth animations, and a `hiddenUntilFound` mode that allows browser-native searching within collapsed content.
+
+- **Introduce `useLifecycle` hook for robust component lifecycle management.**
+  A performance-optimized hook that ensures reliable execution of mount and unmount logic across the server-to-browser boundary. It solves the "lost cleanup" problem in resumable applications by using a global `MutationObserver` to track element presence without requiring eager JavaScript execution. This allows for dependable teardown logic in server-rendered components while maintaining low Total Blocking Time (TBT).
+
+- **Introduce `useCounter` hook for managed numeric state.**
+  A specialized hook for handling numeric values with built-in boundary control and validation. It provides a readonly state accessible only through validated methods, ensuring the count remains a finite number within specified minimum and maximum limits. Ideal for building quantity selectors, pagination, and other UI elements requiring strict numerical constraints.
+
+- **Introduce `SignalOrReadonlySignal` type for flexible signal handling.**
+  A utility type that facilitates the development of components and hooks by accepting both mutable `Signal` and `ReadonlySignal` types. It simplifies prop definitions and internal logic when a component only needs to read a value, regardless of whether it originates from a standard signal or a computed one.
+
+### Dependencies
+
+- **Update `@entry-ui/utilities` to version `0.5.0`.**
+
 ## 0.5.0 (2026-01-28)
 
 ### Features
