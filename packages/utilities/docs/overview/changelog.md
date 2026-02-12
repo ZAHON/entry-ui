@@ -2,6 +2,13 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.6.0 (2026-02-13)
+
+### Features
+
+- **Introduce `scrollIntoViewIfNeeded` utility for smart element visibility.**
+  A "smart-scroll" wrapper that ensures an element is visible in the viewport only when necessary. It prioritizes the Chromium/WebKit-specific `scrollIntoViewIfNeeded` method to prevent jarring layout jumps if the element is already visible, while providing a seamless fallback to the standard `scrollIntoView` API for browsers like Firefox. Key features include configurable centering logic and a focus on non-disruptive user experience during automated focus management.
+
 ## 0.5.0 (2026-01-31)
 
 ### Features
