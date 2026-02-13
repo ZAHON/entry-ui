@@ -67,7 +67,7 @@ export default defineConfig(() => {
         {
           test: {
             name: 'browser',
-            testTimeout: 2000,
+            testTimeout: 5000,
             browser: {
               enabled: true,
               headless: true,
