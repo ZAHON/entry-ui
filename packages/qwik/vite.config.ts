@@ -24,6 +24,7 @@ export default defineConfig(() => {
           index: 'src/index.ts',
 
           // components
+          'components/accordion/index': 'src/components/accordion/index.ts',
           'components/alert/index': 'src/components/alert/index.ts',
           'components/collapsible/index': 'src/components/collapsible/index.ts',
           'components/separator/index': 'src/components/separator/index.ts',

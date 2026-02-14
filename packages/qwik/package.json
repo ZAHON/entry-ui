@@ -15,6 +15,10 @@
       "types": "./lib/index.d.ts",
       "import": "./lib/index.qwik.mjs"
     },
+    "./accordion": {
+      "types": "./lib/components/accordion/index.d.ts",
+      "import": "./lib/components/accordion/index.qwik.mjs"
+    },
     "./alert": {
       "types": "./lib/components/alert/index.d.ts",
       "import": "./lib/components/alert/index.qwik.mjs"
