@@ -117,7 +117,7 @@ const Usage = component$(() => {
 
 ## Rendered elements
 
-Each of `Alert`'s subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
+Each of `Alert` subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
 
 | Component    | Default rendered element |
 | :----------- | :----------------------- |
