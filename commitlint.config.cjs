@@ -56,6 +56,6 @@ module.exports = {
     /**
      * Limit the allowed commit types to maintain a clean and predictable history.
      */
-    'type-enum': [2, 'always', ['feat', 'chore', 'refactor', 'fix', 'docs']],
+    'type-enum': [2, 'always', ['feat', 'chore', 'refactor', 'fix', 'docs', 'test']],
   },
 };
