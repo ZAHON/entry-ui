@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render } from 'vitest-browser-qwik';
+import { userEvent } from 'vitest/browser';
 import { Primitive } from '@/_internal/components/primitive';
 import { Collapsible } from '.';
 
@@ -42,12 +43,12 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="closed" when the "defaultOpen" prop is false', async () => {
+    it('should have data-state="closed" when the collapsible is closed', async () => {
       const screen = await render(<Collapsible.Root defaultOpen={false} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="open" when the "defaultOpen" prop is true', async () => {
+    it('should have data-state="open" when the collapsible is open', async () => {
       const screen = await render(<Collapsible.Root defaultOpen={true} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-state', 'open');
     });
@@ -78,11 +79,13 @@ describe('Collapsible', () => {
       const screen = await render(
         <Collapsible.Root style={COLLAPSIBLE_ROOT_STYLE} data-testid={COLLAPSIBLE_ROOT_TESTID} />
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveStyle(COLLAPSIBLE_ROOT_STYLE);
     });
 
     it('should have the "data-entry-ui-qwik-collapsible-root" attribute with an empty value', async () => {
       const screen = await render(<Collapsible.Root data-testid={COLLAPSIBLE_ROOT_TESTID} />);
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID))
         .toHaveAttribute('data-entry-ui-qwik-collapsible-root', '');
@@ -96,6 +99,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toBeInstanceOf(HTMLButtonElement);
     });
 
@@ -105,6 +109,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger as="div" data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
@@ -137,6 +142,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('type', 'button');
     });
 
@@ -146,6 +152,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('id');
     });
 
@@ -155,6 +162,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger id={undefined} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('id');
     });
 
@@ -164,6 +172,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger id=" " data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('id');
     });
 
@@ -175,6 +184,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger id={COLLAPSIBLE_TRIGGER_ID} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID))
         .toHaveAttribute('id', COLLAPSIBLE_TRIGGER_ID);
@@ -186,6 +196,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
     });
 
@@ -195,6 +206,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
     });
 
@@ -204,6 +216,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toBeDisabled();
     });
 
@@ -213,6 +226,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger disabled={false} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
     });
 
@@ -222,6 +236,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger disabled={true} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('disabled');
     });
 
@@ -231,6 +246,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('aria-controls');
     });
 
@@ -241,6 +257,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('aria-controls');
     });
 
@@ -250,6 +267,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('aria-controls');
     });
 
@@ -262,6 +280,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel id={COLLAPSIBLE_PANEL_ID} />
         </Collapsible.Root>
       );
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID))
         .toHaveAttribute('aria-controls', COLLAPSIBLE_PANEL_ID);
@@ -273,6 +292,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('aria-expanded');
     });
 
@@ -283,6 +303,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('aria-expanded', 'false');
     });
 
@@ -293,6 +314,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('aria-expanded', 'true');
     });
 
@@ -302,24 +324,27 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="closed" when the "defaultOpen" prop is false on Collapsible.Root', async () => {
+    it('should have data-state="closed" when the collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="open" when the "defaultOpen" prop is true on Collapsible.Root', async () => {
+    it('should have data-state="open" when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-state', 'open');
     });
 
@@ -329,6 +354,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
@@ -338,6 +364,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
@@ -347,6 +374,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-disabled', '');
     });
 
@@ -356,6 +384,7 @@ describe('Collapsible', () => {
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID))
         .toHaveAttribute('data-entry-ui-qwik-collapsible-trigger', '');
@@ -369,6 +398,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
@@ -378,6 +408,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel as="span" data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
@@ -387,6 +418,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel as={Primitive.span} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
@@ -400,6 +432,7 @@ describe('Collapsible', () => {
           </Collapsible.Panel>
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByText(COLLAPSIBLE_PANEL_TEXT)).toBeInstanceOf(HTMLSpanElement);
     });
 
@@ -409,24 +442,27 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('id');
     });
 
     it('should have a generated id even when the "id" prop is undefined', async () => {
       const screen = await render(
         <Collapsible.Root>
-          <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
+          <Collapsible.Panel id={undefined} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('id');
     });
 
     it('should have a generated id when an empty string is provided as "id" prop', async () => {
       const screen = await render(
         <Collapsible.Root>
-          <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
+          <Collapsible.Panel id=" " data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('id');
     });
 
@@ -438,7 +474,29 @@ describe('Collapsible', () => {
           <Collapsible.Panel id={COLLAPSIBLE_PANEL_ID} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('id', COLLAPSIBLE_PANEL_ID);
+    });
+
+    it('should not have "role" attribute when Collapsible.Root not contains Collapsible.Trigger', async () => {
+      const screen = render(
+        <Collapsible.Root>
+          <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('role');
+    });
+
+    it('should have role="group" when Collapsible.Root contains Collapsible.Trigger', async () => {
+      const screen = render(
+        <Collapsible.Root>
+          <Collapsible.Trigger />
+          <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('role', 'group');
     });
 
     it('should not have "hidden" attribute when the collapsible is open', async () => {
@@ -447,6 +505,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('hidden');
     });
 
@@ -456,6 +515,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden');
     });
 
@@ -465,6 +525,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
     });
 
@@ -474,6 +535,37 @@ describe('Collapsible', () => {
           <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'until-found');
+    });
+
+    it('should have hidden="hidden" when the collapsible is closed and "hiddenUntilFound" is true but the collapsible is disabled', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={false} disabled={true}>
+          <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
+    });
+
+    it('should have hidden="hidden" when the collapsible is closed, "hiddenUntilFound" is false and collapsible is disabled', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={false} disabled={true}>
+          <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
+    });
+
+    it('should have hidden="until-found" when the collapsible is closed, NOT disabled and "hiddenUntilFound" is true', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={false} disabled={false}>
+          <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'until-found');
     });
 
@@ -483,6 +575,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('aria-labelledby');
     });
 
@@ -495,6 +588,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID))
         .toHaveAttribute('aria-labelledby', COLLAPSIBLE_TRIGGER_ID);
@@ -506,24 +600,27 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="closed" when the "defaultOpen" prop is false on Collapsible.Root', async () => {
+    it('should have data-state="closed" when the collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="open" when the "defaultOpen" prop is true on Collapsible.Root', async () => {
+    it('should have data-state="open" when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'open');
     });
 
@@ -533,6 +630,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
@@ -542,6 +640,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
@@ -551,6 +650,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-disabled', '');
     });
 
@@ -560,6 +660,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('display');
     });
 
@@ -569,6 +670,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('display');
     });
 
@@ -578,61 +680,8 @@ describe('Collapsible', () => {
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveStyle({ display: 'none' });
-    });
-
-    it('should not have any inline "content-visibility" style when the collapsible is open', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={true}>
-          <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
-        </Collapsible.Root>
-      );
-      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('content-visibility');
-    });
-
-    it('should not have any inline "content-visibility" style when the collapsible is closed and "hiddenUntilFound" is false', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={false}>
-          <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
-        </Collapsible.Root>
-      );
-      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('content-visibility');
-    });
-
-    it('should have style="content-visibility: hidden" when the collapsible is closed and "hiddenUntilFound" is true', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={false}>
-          <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
-        </Collapsible.Root>
-      );
-      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveStyle({ contentVisibility: 'hidden' });
-    });
-
-    it('should not have any inline "overflow" style when the collapsible is open', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={true}>
-          <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
-        </Collapsible.Root>
-      );
-      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('overflow');
-    });
-
-    it('should not have any inline "overflow" style when the collapsible is closed and "hiddenUntilFound" is false', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={false}>
-          <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
-        </Collapsible.Root>
-      );
-      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('overflow');
-    });
-
-    it('should have style="overflow: visible" when the collapsible is closed and "hiddenUntilFound" is true', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={false}>
-          <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
-        </Collapsible.Root>
-      );
-      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveStyle({ overflow: 'visible' });
     });
 
     it('should temporarily disable animations on initial mount and re-enable them after the first interaction when the collapsible is closed', async () => {
@@ -649,12 +698,12 @@ describe('Collapsible', () => {
       await expect.element(panelElement).toHaveStyle({ transitionDuration: '0s' });
       await expect.element(panelElement).toHaveStyle({ animationDuration: '0s' });
 
-      await triggerElement.click();
+      await userEvent.click(triggerElement);
 
       await expect.element(panelElement).not.toHaveStyle('transition-duration');
       await expect.element(panelElement).not.toHaveStyle('animation-duration');
 
-      await triggerElement.click();
+      await userEvent.click(triggerElement);
 
       await expect.element(panelElement).not.toHaveStyle('transition-duration');
       await expect.element(panelElement).not.toHaveStyle('animation-duration');
@@ -674,12 +723,12 @@ describe('Collapsible', () => {
       await expect.element(panelElement).toHaveStyle({ transitionDuration: '0s' });
       await expect.element(panelElement).toHaveStyle({ animationDuration: '0s' });
 
-      await triggerElement.click();
+      await userEvent.click(triggerElement);
 
       await expect.element(panelElement).not.toHaveStyle('transition-duration');
       await expect.element(panelElement).not.toHaveStyle('animation-duration');
 
-      await triggerElement.click();
+      await userEvent.click(triggerElement);
 
       await expect.element(panelElement).not.toHaveStyle('transition-duration');
       await expect.element(panelElement).not.toHaveStyle('animation-duration');
@@ -691,20 +740,90 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID))
         .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: 0px');
     });
 
-    it('should have style="--entry-ui-qwik-collapsible-panel-height: auto" by default when the collapsible is closed', async () => {
+    it('should have style="--entry-ui-qwik-collapsible-panel-height: auto" by default when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID))
         .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
+    });
+
+    it('should have style="--entry-ui-qwik-collapsible-panel-height: 0px" when "hiddenUntilFound" is false and collapsible is closed', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={false}>
+          <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect
+        .element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID))
+        .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: 0px');
+    });
+
+    it('should have style="--entry-ui-qwik-collapsible-panel-height: auto" when "hiddenUntilFound" is false and collapsible is open', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={true}>
+          <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect
+        .element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID))
+        .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
+    });
+
+    it('should have style="--entry-ui-qwik-collapsible-panel-height: none" when "hiddenUntilFound" is true and collapsible is closed', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={false}>
+          <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect
+        .element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID))
+        .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: none');
+    });
+
+    it('should have style="--entry-ui-qwik-collapsible-panel-height: auto" when "hiddenUntilFound" is true and collapsible is open', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={true}>
+          <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect
+        .element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID))
+        .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
+    });
+
+    it('should call "onOpenChangeComplete$" with the correct state when the panel is opened and closed', async () => {
+      const handleOpenChangeComplete$ = vi.fn();
+
+      const screen = render(
+        <Collapsible.Root>
+          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
+          {/* eslint-disable-next-line qwik/valid-lexical-scope */}
+          <Collapsible.Panel onOpenChangeComplete$={handleOpenChangeComplete$} />
+        </Collapsible.Root>
+      );
+
+      const triggerElement = screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID);
+
+      await userEvent.click(triggerElement);
+      expect(handleOpenChangeComplete$).toHaveBeenCalledWith(true);
+
+      await userEvent.click(triggerElement);
+      expect(handleOpenChangeComplete$).toHaveBeenCalledWith(false);
     });
 
     it('should merge and apply custom inline styles via the "style" prop', async () => {
@@ -715,6 +834,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel style={COLLAPSIBLE_PANEL_STYLE} data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveStyle(COLLAPSIBLE_PANEL_STYLE);
     });
 
@@ -724,6 +844,7 @@ describe('Collapsible', () => {
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
       );
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID))
         .toHaveAttribute('data-entry-ui-qwik-collapsible-panel', '');
@@ -737,6 +858,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
@@ -746,6 +868,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator as="div" data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
@@ -755,6 +878,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator as={Primitive.div} data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
@@ -778,6 +902,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('aria-hidden', 'true');
     });
 
@@ -787,24 +912,27 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="closed" when the "defaultOpen" prop is false on Collapsible.Root', async () => {
+    it('should have data-state="closed" when the collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="open" when the "defaultOpen" prop is true on Collapsible.Root', async () => {
+    it('should have data-state="open" when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'open');
     });
 
@@ -814,6 +942,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
@@ -823,6 +952,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
@@ -832,6 +962,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-disabled', '');
     });
 
@@ -841,6 +972,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveStyle({ pointerEvents: 'none' });
     });
 
@@ -850,6 +982,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveStyle({ userSelect: 'none' });
     });
 
@@ -861,6 +994,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator style={COLLAPSIBLE_INDICATOR_STYLE} data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveStyle(COLLAPSIBLE_INDICATOR_STYLE);
     });
 
@@ -870,6 +1004,7 @@ describe('Collapsible', () => {
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
+
       await expect
         .element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID))
         .toHaveAttribute('data-entry-ui-qwik-collapsible-indicator', '');
