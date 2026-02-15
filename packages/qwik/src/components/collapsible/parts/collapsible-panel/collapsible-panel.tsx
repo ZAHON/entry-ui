@@ -1,4 +1,5 @@
 import type { CollapsiblePanelProps } from './collapsible-panel.types';
+import type { EntryUIQwikEventState } from '@/types';
 import { component$, useSignal, useComputed$, useTask$, $, sync$, Slot } from '@qwik.dev/core';
 import { isBrowser, isDev } from '@qwik.dev/core';
 import { getComputedStyle } from '@entry-ui/utilities/get-computed-style';
@@ -33,19 +34,20 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
   const ref = useSignal<HTMLElement | undefined>(undefined);
   const hidden = useSignal(!open.value);
   const state = useSignal<'open' | 'closed'>(open.value ? 'open' : 'closed');
-  const height = useSignal(open.value ? 'auto' : '0px');
+  // Due to a Chromium bug/behavior, when using hidden="until-found" for
+  // search-and-reveal functionality, the panel's height cannot be set to "0px"
+  // while closed if we intend to animate it via CSS transitions.
+  // If the height is "0px", the browser's "Find in page" feature may fail
+  // to scroll to or correctly reveal the content. To bypass this, we use
+  // "height: none" (or avoid "0px") to ensure the element remains "searchable"
+  // by the browser's engine while logically hidden from the user's view.
+  const height = useSignal(open.value ? 'auto' : hiddenUntilFound ? 'none' : '0px');
+  const isBeforeMatch = useSignal(false);
   const preventInitialAnimation = useSignal(true);
   const mergedStyles = useComputed$(() =>
     mergeStyles([
       {
-        display: hidden.value ? (hiddenUntilFound ? undefined : 'none') : undefined,
-        contentVisibility: hidden.value ? (hiddenUntilFound ? 'hidden' : undefined) : undefined,
-        // When using hidden="until-found", the panel automatically opens when a search
-        // match occurs. However, Chromium-based browsers (like Chrome) will fail to
-        // highlight the matched text if the element has an overflow value other than
-        // "visible". Firefox handles this regardless of the overflow setting, but we force
-        // visible here to ensure cross-browser consistency for the "Find-in-page" feature.
-        overflow: hidden.value ? (hiddenUntilFound ? 'visible' : undefined) : undefined,
+        display: hidden.value ? (hiddenUntilFound ? undefined : 'none !important') : undefined,
         transitionDuration: preventInitialAnimation.value ? '0s' : undefined,
         animationDuration: preventInitialAnimation.value ? '0s' : undefined,
         '--entry-ui-qwik-collapsible-panel-height': height.value,
@@ -66,7 +68,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
     const panelRef = ref.value;
 
     if (isBrowser && panelRef) {
-      if (preventInitialAnimation.value) {
+      if (preventInitialAnimation.value && !isBeforeMatch.value) {
         preventInitialAnimation.value = false;
 
         panelRef.style.removeProperty('transition-duration');
@@ -78,8 +80,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
         panelRef.removeAttribute('hidden');
 
         if (hiddenUntilFound) {
-          panelRef.style.removeProperty('content-visibility');
-          panelRef.style.removeProperty('overflow');
+          isBeforeMatch.value = false;
         } else {
           panelRef.style.removeProperty('display');
         }
@@ -87,10 +88,37 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
         state.value = 'open';
         panelRef.setAttribute('data-state', 'open');
 
+        const { animationDuration, transitionDuration } = getComputedStyle(panelRef);
         const panelHeight = getHiddenElementHeight(panelRef);
 
-        height.value = `${panelHeight}px`;
-        panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', `${panelHeight}px`);
+        if (animationDuration === '0s' && transitionDuration !== '0s') {
+          // When transitioning from "until-found" state ("height: none"), we cannot
+          // transition directly to a pixel value effectively. We first reset it
+          // to "0px" to establish a numeric baseline, then trigger the expansion
+          // to the measured height in the next frame to initiate the animation.
+          if (height.value === 'none') {
+            height.value = '0px';
+            panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', '0px');
+
+            setTimeout(() => {
+              height.value = `${panelHeight}px`;
+              panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', `${panelHeight}px`);
+            }, 0);
+          } else {
+            // If the height is already numeric or in a standard closed state ("0px"),
+            // we immediately update the CSS variable to the full measured height
+            // to trigger the CSS transition.
+            height.value = `${panelHeight}px`;
+            panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', `${panelHeight}px`);
+          }
+        } else {
+          // When using CSS animations (@keyframes) instead of transitions, we set
+          // this CSS variable to the element's full measured height. This allows
+          // the animation to use the current height as a target (e.g., in the "to"
+          // block), ensuring the panel expands precisely to the size of its content.
+          height.value = `${panelHeight}px`;
+          panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', `${panelHeight}px`);
+        }
       } else {
         state.value = 'closed';
         panelRef.setAttribute('data-state', 'closed');
@@ -140,8 +168,21 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
         } else {
           hidden.value = true;
 
-          height.value = '0px';
-          panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', '0px');
+          // If "until-found" is enabled, we revert the height to "none" instead of "0px".
+          // This maintains compatibility with the browser's search-and-reveal feature
+          // for the next time the user searches, avoiding the "0px" height bug
+          // in Chromium-based browsers.
+          if (hiddenUntilFound) {
+            height.value = 'none';
+            panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', 'none');
+          } else {
+            // For standard hidden panels (not using "until-found"), we reset the
+            // height to "0px" after the closing animation completes. This ensures
+            // the element is fully collapsed and properly synchronized with the
+            // "display: none" state, preventing any layout shifts.
+            height.value = '0px';
+            panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', '0px');
+          }
         }
 
         if (onOpenChangeComplete$) {
@@ -186,34 +227,28 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
   });
 
   const handleBeforeMatchSync$ = sync$((event: Event) => {
-    event.preventDefault();
+    const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
+
+    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented) {
+      event.preventDefault();
+    }
   });
 
-  const handleBeforeMatch$ = $((_: Event, currentTarget: HTMLElement) => {
-    setOpen$(true);
+  const handleBeforeMatch$ = $((event: Event) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
 
-    // When the browser finds a match within a hidden panel (using "until-found"),
-    // it triggers the "beforematch" event. We manually scroll the element into
-    // view to ensure the matched content is visible and centered for the user.
-    // We prefer the non-standard `scrollIntoViewIfNeeded` (supported in Chromium/Safari)
-    // to prevent unnecessary jumping if the element is already within the viewport,
-    // providing a smoother "Find-in-page" experience with a standard fallback.
-    if ('scrollIntoViewIfNeeded' in currentTarget) {
-      /**
-       * Internal type helper to support the non-standard `scrollIntoViewIfNeeded`
-       * method available in Chromium and WebKit-based browsers.
-       */
-      type ElementWithScrollIntoViewIfNeeded = HTMLElement & {
-        /**
-         * Scrolls the element into the visible area of the browser window if it
-         * is not already within the visible area.
-         */
-        scrollIntoViewIfNeeded: (centerIfNeeded?: boolean) => void;
-      };
+    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented) {
+      // When the browser's "Find in page" feature discovers content within a
+      // "hidden=until-found" panel, it fires the "beforematch" event.
+      // We set `isBeforeMatch` and `preventInitialAnimation` to true to
+      // bypass height transitions. This ensures the panel snaps open
+      // instantly, allowing the browser to accurately scroll to and
+      // highlight the matching text without being interrupted by
+      // layout shifts from an ongoing animation.
+      isBeforeMatch.value = true;
+      preventInitialAnimation.value = true;
 
-      (currentTarget as ElementWithScrollIntoViewIfNeeded).scrollIntoViewIfNeeded(true);
-    } else {
-      currentTarget.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'nearest' });
+      setOpen$(true);
     }
   });
 
