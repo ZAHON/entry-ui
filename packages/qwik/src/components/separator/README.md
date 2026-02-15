@@ -6,12 +6,6 @@ Visually or semantically separates content.
 [![Issue](https://img.shields.io/badge/Report-Issue-red?logo=github)](https://github.com/ZAHON/entry-ui/issues/new?title=[Entry%20UI%20Qwik%20Separator]%20Issue)
 [![ARIA](https://img.shields.io/badge/ARIA-Pattern-blue?logo=w3c)](https://www.w3.org/TR/wai-aria-1.2/#separator)
 
-## Features
-
-- Support for horizontal and vertical orientation.
-
-- Support for purely decorative elements to improve accessibility.
-
 ## Import
 
 ```tsx
@@ -19,8 +13,6 @@ import { Separator } from '@entry-ui/qwik/separator';
 ```
 
 ## Anatomy
-
-Import the component.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -31,9 +23,53 @@ const Anatomy = component$(() => {
 });
 ```
 
+## Usage
+
+The `Separator` component is most commonly used to create a horizontal line that divides blocks of content, such as separating a heading and description from a list of navigation links. By using `Separator.Root`, you ensure that the division is both visually clear and semantically recognized by assistive technologies.
+
+```tsx
+// index.tsx
+import { component$ } from '@qwik.dev/core';
+import { Separator } from '@entry-ui/qwik/separator';
+import styles from './index.module.css';
+
+const Usage = component$(() => {
+  return (
+    <div>
+      <h3>Entry UI Qwik</h3>
+      <p>
+        A collection of accessible, unstyled components, hooks, and utilities for Qwik, designed for building
+        high-quality web applications and design systems.
+      </p>
+
+      <Separator.Root class={styles['separator-root']} />
+
+      <a href="#">Home</a>
+      <a href="#">Components</a>
+      <a href="#">Hooks</a>
+      <a href="#">Utilities</a>
+    </div>
+  );
+});
+```
+
+```css
+/* index.module.css */
+.separator-root {
+  height: 1px;
+  background-color: oklch(0% 0 0 / 0.149);
+}
+```
+
+## Features
+
+- Support for horizontal and vertical orientation.
+
+- Support for purely decorative elements to improve accessibility.
+
 ## Rendered elements
 
-Each of `Separator`'s subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
+Each of `Separator` subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
 
 | Component        | Default rendered element |
 | :--------------- | :----------------------- |
