@@ -2,6 +2,13 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     /**
+     * Disable the line length limit for the commit header.
+     * This prevents validation errors when using descriptive subjects that
+     * exceed the default 100-character limit.
+     */
+    'header-max-length': [0, 'always', Infinity],
+
+    /**
      * Disable the line length limit for the commit body.
      * This allows for detailed descriptions without triggering validation errors.
      */
