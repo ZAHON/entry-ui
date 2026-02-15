@@ -22,7 +22,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
     as = 'div',
     ref: _ref,
     id,
-    hiddenUntilFound = false,
+    hiddenUntilFound: _hiddenUntilFound = false,
     onOpenChangeComplete$,
     onBeforematch$,
     style,
@@ -41,13 +41,18 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
   // to scroll to or correctly reveal the content. To bypass this, we use
   // "height: none" (or avoid "0px") to ensure the element remains "searchable"
   // by the browser's engine while logically hidden from the user's view.
-  const height = useSignal(open.value ? 'auto' : hiddenUntilFound ? 'none' : '0px');
+  const height = useSignal(open.value ? 'auto' : _hiddenUntilFound ? (disabled.value ? '0px' : 'none') : '0px');
   const isBeforeMatch = useSignal(false);
   const preventInitialAnimation = useSignal(true);
+  // We disable the "until-found" behavior if the component is disabled.
+  // This ensures that a disabled panel remains truly inactive and won't
+  // be automatically revealed or opened by the browser's search discovery
+  // feature, maintaining consistent state management.
+  const hiddenUntilFound = useComputed$(() => (disabled.value ? false : _hiddenUntilFound));
   const mergedStyles = useComputed$(() =>
     mergeStyles([
       {
-        display: hidden.value ? (hiddenUntilFound ? undefined : 'none !important') : undefined,
+        display: hidden.value ? (hiddenUntilFound.value ? undefined : 'none !important') : undefined,
         transitionDuration: preventInitialAnimation.value ? '0s' : undefined,
         animationDuration: preventInitialAnimation.value ? '0s' : undefined,
         '--entry-ui-qwik-collapsible-panel-height': height.value,
@@ -60,6 +65,19 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
     element: ref,
     onMount$: $(() => panelId.set$(id)),
     onUnmount$: $(() => panelId.delete$()),
+  });
+
+  useTask$(({ track }) => {
+    const isHiddenUntilFound = track(() => hiddenUntilFound.value);
+
+    const panelRef = ref.value;
+
+    if (isBrowser && panelRef) {
+      const panelHeight = open.value ? 'auto' : isHiddenUntilFound ? 'none' : '0px';
+
+      height.value = panelHeight;
+      panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', panelHeight);
+    }
   });
 
   useTask$(({ track, cleanup }) => {
@@ -79,7 +97,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
         hidden.value = false;
         panelRef.removeAttribute('hidden');
 
-        if (hiddenUntilFound) {
+        if (hiddenUntilFound.value) {
           isBeforeMatch.value = false;
         } else {
           panelRef.style.removeProperty('display');
@@ -172,7 +190,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
           // This maintains compatibility with the browser's search-and-reveal feature
           // for the next time the user searches, avoiding the "0px" height bug
           // in Chromium-based browsers.
-          if (hiddenUntilFound) {
+          if (hiddenUntilFound.value) {
             height.value = 'none';
             panelRef.style.setProperty('--entry-ui-qwik-collapsible-panel-height', 'none');
           } else {
@@ -258,7 +276,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
       ref={mergeRefs([_ref, ref])}
       id={panelId.id.value}
       role={triggerId.id.value ? 'group' : undefined}
-      hidden={hidden.value ? (hiddenUntilFound ? 'until-found' : 'hidden') : undefined}
+      hidden={hidden.value ? (hiddenUntilFound.value ? 'until-found' : 'hidden') : undefined}
       aria-labelledby={triggerId.id.value}
       data-entry-ui-qwik-collapsible-panel=""
       data-state={state.value}
