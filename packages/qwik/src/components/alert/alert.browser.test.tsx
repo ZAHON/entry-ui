@@ -17,7 +17,7 @@ describe('Alert', () => {
       await expect.element(screen.getByTestId(ALERT_ROOT_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should render as a span when the "as" prop is a Primitive component', async () => {
+    it('should render as a span when the "as" prop is a Primitive.span component', async () => {
       const screen = await render(<Alert.Root as={Primitive.span} data-testid={ALERT_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(ALERT_ROOT_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
@@ -33,7 +33,7 @@ describe('Alert', () => {
       await expect.element(screen.getByText(ALERT_ROOT_TEXT)).toBeInstanceOf(HTMLDivElement);
     });
 
-    it('should have role="alert"', async () => {
+    it('should have role="alert" by default', async () => {
       const screen = await render(<Alert.Root data-testid={ALERT_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(ALERT_ROOT_TESTID)).toHaveAttribute('role', 'alert');
     });
