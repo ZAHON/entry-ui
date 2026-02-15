@@ -257,6 +257,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
       as={as}
       ref={mergeRefs([_ref, ref])}
       id={panelId.id.value}
+      role={triggerId.id.value ? 'group' : undefined}
       hidden={hidden.value ? (hiddenUntilFound ? 'until-found' : 'hidden') : undefined}
       aria-labelledby={triggerId.id.value}
       data-entry-ui-qwik-collapsible-panel=""
