@@ -53,13 +53,13 @@ const Usage = component$(() => {
 
 ## Features
 
-- Can be uncontrolled or controlled.
-
 - Full keyboard navigation.
+
+- Can be uncontrolled or controlled.
 
 ## Rendered elements
 
-Each of `Toggle`'s subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
+Each of `Toggle` subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
 
 | Component     | Default rendered element |
 | :------------ | :----------------------- |
@@ -91,7 +91,7 @@ Contains the content for the toggle. Renders a `<button>` element.
 
 ### useToggleRootContext
 
-A hook that provides access to the `Toggle.Root` component's internal state. It exposes readonly signals and `QRL` functions to interact with the toggle's state, allowing descendant components to control or react to its pressed/unpressed state.
+A hook that provides access to the `Toggle.Root` component's internal state. It exposes readonly signals and `QRL` functions to interact with the toggle's state, allowing descendant components to control or react to its pressed/unpressed state. This hook returns an object containing the following properties:
 
 | Property      | Type                              | Description                                                                                                                                                   |
 | :------------ | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -103,7 +103,7 @@ A hook that provides access to the `Toggle.Root` component's internal state. It 
 
 Explore the following examples to discover how to effectively implement the `Toggle` component in your application. These examples demonstrate how to manage its state in both uncontrolled and controlled modes, handle disabled interactions, and leverage the `as` prop to render custom elements. You will also see how to utilize data attributes for advanced styling, ensuring a flexible and accessible user interface.
 
-### Uncontrolled
+### Internal state management (Uncontrolled)
 
 When using the uncontrolled mode, the `Toggle` component handles its pressed state internally. You define the initial state by providing a boolean to the `defaultPressed` prop on `Toggle.Root`. The component then takes full control over subsequent state changes based on user interactions, such as clicking the button. This approach is ideal for simpler use cases where the toggle's state does not need to be managed or synchronized by a parent component.
 
@@ -116,7 +116,7 @@ const Example = component$(() => {
 });
 ```
 
-### Controlled
+### External state control (Controlled)
 
 When using the controlled mode, the parent component is responsible for managing the pressed state of the toggle. You achieve this by passing a signal to the `pressed` prop on the `Toggle.Root` component and listening for changes with the `onPressedChange$` event handler. This approach is ideal for more complex use cases, such as synchronizing the toggle state with a database, integrating with external state management, or enabling a parent component to dynamically trigger state changes based on other application logic.
 
@@ -135,7 +135,7 @@ const Example = component$(() => {
 });
 ```
 
-### Disabled
+### Disabled interaction
 
 When the `disabled` prop is set to `true` on the `Toggle.Root` component, it becomes non-interactive and is omitted from the tab order. The component automatically applies the `disabled` HTML attribute and the `data-disabled` state attribute, ensuring accessibility for screen readers and allowing you to apply custom disabled styles. This is useful for preventing user interaction when an action is not currently available or applicable.
 
