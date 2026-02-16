@@ -527,6 +527,9 @@ By default, collapsed accordion panels are hidden from the browser's "Find in pa
 
 When enabled, the component uses the `hidden="until-found"` attribute, allowing the browser to find text within closed panels and automatically expand them when a match is found.
 
+> [!IMPORTANT]
+> If the `Accordion.Root` or a specific `Accordion.Item` is `disabled`, the `hiddenUntilFound` functionality is automatically overridden. In this case, the `Accordion.ItemPanel` uses the standard `hidden="hidden"` attribute. This ensures that content within disabled or non-interactive items is not indexed or automatically revealed by the browser's search discovery feature, maintaining a consistent and predictable state.
+
 > [!NOTE]
 > When a panel is automatically expanded via the "Find in page" feature, height animations are temporarily disabled. This ensures the browser can instantly scroll to and highlight the matching text, providing a better user experience by avoiding "scrolling to a moving target" during the animation.
 
