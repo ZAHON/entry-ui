@@ -1,6 +1,6 @@
 # mergeRefs
 
-Combines multiple references into a single callback ref.
+Merges multiple references into a single callback ref.
 
 [![Source](https://img.shields.io/badge/Source-GitHub-gray?logo=github)](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/utilities/merge-refs)
 [![Issue](https://img.shields.io/badge/Report-Issue-red?logo=github)](https://github.com/ZAHON/entry-ui/issues/new?title=[Entry%20UI%20Qwik%20mergeRefs]%20Issue)
