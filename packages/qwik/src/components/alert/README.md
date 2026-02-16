@@ -1,6 +1,6 @@
 # Alert
 
-Display a brief, important message in a way that attracts the user's attention without interrupting the user's task.
+A brief, important message for providing feedback to the user.
 
 [![Source](https://img.shields.io/badge/Source-GitHub-gray?logo=github)](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/alert)
 [![Issue](https://img.shields.io/badge/Report-Issue-red?logo=github)](https://github.com/ZAHON/entry-ui/issues/new?title=[Entry%20UI%20Qwik%20Alert]%20Issue)
