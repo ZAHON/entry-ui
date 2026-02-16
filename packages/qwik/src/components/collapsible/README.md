@@ -153,7 +153,7 @@ A hook that provides access to the `Collapsible.Trigger` component's internal st
 
 | Property   | Type                      | Description                                                                                                                                                                                                                        |
 | :--------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `ReadonlySignal<boolean>` | A readonly signal representing the effective disabled state of the trigger. This value is computed by prioritizing the trigger's own 'disabled' prop, falling back to the 'Collapsible.Root' disabled state if not explicitly set. |
+| `disabled` | `ReadonlySignal<boolean>` | A readonly signal representing the effective disabled state of the trigger. This value is computed by prioritizing the trigger's own `disabled` prop, falling back to the `Collapsible.Root` disabled state if not explicitly set. |
 
 ## Examples
 
@@ -300,6 +300,12 @@ const Example = component$(() => {
 ### Searchable hidden content
 
 By default, hidden content in a collapsible panel is invisible to the browser's "Find in page" feature. By setting the `hiddenUntilFound` prop to `true`, the `Collapsible.Panel` uses the `hidden="until-found"` HTML attribute. This allows the browser to index and search the content while it is closed. If a match is found, the browser will automatically expand the panel to reveal the content to the user.
+
+> [!IMPORTANT]
+> If the `Collapsible.Root` is `disabled`, the `hiddenUntilFound` functionality is automatically overridden. In this case, the `Collapsible.Panel` uses the standard `hidden="hidden"` attribute, ensuring that non-interactive or disabled content is not indexed or revealed by the browser's search feature.
+
+> [!NOTE]
+> When a panel is automatically expanded via the "Find in page" feature, height animations are temporarily disabled. This ensures the browser can instantly scroll to and highlight the matching text, providing a better user experience by avoiding "scrolling to a moving target" during the animation.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
