@@ -2,6 +2,31 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.7.0 (2026-02-16)
+
+### Features
+
+- **Introduce `Accordion` component for semantic, multi-section disclosures.**
+  A robust implementation of the WAI-ARIA Accordion pattern that manages groups of collapsible panels. Built with a flexible compound component architecture, it enables seamless switching between single and multiple expansion modes. The component provides built-in accessibility through managed keyboard interactions (arrow key navigation with focus wrap) and enhances user experience with automatic height interpolation via CSS variables. It also leverages modern browser capabilities with `hiddenUntilFound` support for searchable collapsed content and offers full rendering flexibility through the polymorphic `as` prop.
+
+- **Support `disabled` state in `Collapsible.Panel` component `hiddenUntilFound` logic.**
+  The `Collapsible.Panel` component now correctly overrides the `until-found` behavior when the component is disabled. In this state, the panel uses a standard `hidden` attribute, preventing the browser from revealing non-interactive content during searches.
+
+- **Enhance `Collapsible.Panel` component accessibility with semantic roles.**
+  The panel now automatically receives a `role="group"` when associated with a trigger. This improves the experience for screen reader users by providing a clearer structural context for the collapsible content.
+
+- **Make `onBeforematch$` preventable in `Collapsible.Panel` component.**
+  Integrated the `makeEventPreventable` utility into `onBeforematch$` handlers. This allows developers to call `preventEntryUIQwikHandler()` to intercept and conditionally cancel the default search-and-reveal behavior (automatic opening and scrolling) without affecting native event propagation.
+
+### Refactors
+
+- **Improve `Collapsible.Panel` component search-and-reveal stability.**
+  Optimized the `hiddenUntilFound` logic to ensure a seamless "Find-in-page" experience, specifically for Chromium-based browsers.
+
+### Dependencies
+
+- **Update `@entry-ui/utilities` to version `0.6.0`.**
+
 ## 0.6.0 (2026-02-05)
 
 ### Features
