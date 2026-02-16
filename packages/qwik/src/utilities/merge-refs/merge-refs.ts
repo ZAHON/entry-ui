@@ -3,7 +3,7 @@ import type { Signal } from '@qwik.dev/core';
 import { $, isSignal, noSerialize } from '@qwik.dev/core';
 
 /**
- * Combines multiple references into a single callback ref.
+ * Merges multiple references into a single callback ref.
  *
  * This utility function allows you to assign a single DOM element to multiple
  * reference handlers (both Qwik Signals and callback functions). It is particularly
