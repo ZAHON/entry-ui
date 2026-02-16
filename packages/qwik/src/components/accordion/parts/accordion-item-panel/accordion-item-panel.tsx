@@ -36,6 +36,7 @@ export const AccordionItemPanel = component$<AccordionItemPanelProps>((props) =>
   const ref = useSignal<HTMLElement | undefined>(undefined);
   const hidden = useSignal(!open.value);
   const state = useSignal<'open' | 'closed'>(open.value ? 'open' : 'closed');
+
   // Due to a Chromium bug/behavior, when using hidden="until-found" for
   // search-and-reveal functionality, the panel's height cannot be set to "0px"
   // while closed if we intend to animate it via CSS transitions.
@@ -43,10 +44,25 @@ export const AccordionItemPanel = component$<AccordionItemPanelProps>((props) =>
   // to scroll to or correctly reveal the content. To bypass this, we use
   // "height: none" (or avoid "0px") to ensure the element remains "searchable"
   // by the browser's engine while logically hidden from the user's view.
-  const height = useSignal(open.value ? 'auto' : _hiddenUntilFound || rootHiddenUntilFound.value ? 'none' : '0px');
+  const height = useSignal(() => {
+    if (open.value) {
+      return 'auto';
+    }
+
+    return _hiddenUntilFound || rootHiddenUntilFound.value ? (disabled.value ? '0px' : 'none') : '0px';
+  });
+
   const isBeforeMatch = useSignal(false);
   const preventInitialAnimation = useSignal(true);
-  const hiddenUntilFound = useComputed$(() => _hiddenUntilFound || rootHiddenUntilFound.value);
+
+  // We disable the "until-found" behavior if the accordion item is disabled.
+  // This ensures that a disabled panel remains truly inactive and won't
+  // be automatically revealed or opened by the browser's search discovery
+  // feature, maintaining consistent state management.
+  const hiddenUntilFound = useComputed$(() =>
+    disabled.value ? false : _hiddenUntilFound || rootHiddenUntilFound.value
+  );
+
   const mergedStyles = useComputed$(() =>
     mergeStyles([
       {
@@ -63,6 +79,19 @@ export const AccordionItemPanel = component$<AccordionItemPanelProps>((props) =>
     element: ref,
     onMount$: $(() => panelId.set$(id)),
     onUnmount$: $(() => panelId.delete$()),
+  });
+
+  useTask$(({ track }) => {
+    const isHiddenUntilFound = track(() => hiddenUntilFound.value);
+
+    const panelRef = ref.value;
+
+    if (isBrowser && panelRef) {
+      const panelHeight = open.value ? 'auto' : isHiddenUntilFound ? 'none' : '0px';
+
+      height.value = panelHeight;
+      panelRef.style.setProperty('--entry-ui-qwik-accordion-item-panel-height', panelHeight);
+    }
   });
 
   useTask$(({ track, cleanup }) => {
