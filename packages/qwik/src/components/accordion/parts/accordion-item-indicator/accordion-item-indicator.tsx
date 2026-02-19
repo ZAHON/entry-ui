@@ -1,7 +1,6 @@
 import type { AccordionItemIndicatorProps } from './accordion-item-indicator.types';
 import { component$, Slot } from '@qwik.dev/core';
-import { mergeStyles } from '@/utilities/merge-styles';
-import { Primitive } from '@/_internal/components/primitive';
+import { Indicator } from '@/_internal/components/indicator';
 import { useAccordionItemContext } from '../../contexts/accordion-item-context';
 
 /**
@@ -11,21 +10,19 @@ import { useAccordionItemContext } from '../../contexts/accordion-item-context';
  * Renders a `<span>` element.
  */
 export const AccordionItemIndicator = component$<AccordionItemIndicatorProps>((props) => {
-  const { as = 'span', style, ...others } = props;
+  const { as = 'span', ...others } = props;
 
   const { open, disabled } = useAccordionItemContext();
 
   return (
-    <Primitive.span
+    <Indicator
       as={as}
-      aria-hidden="true"
       data-entry-ui-qwik-accordion-item-indicator=""
       data-state={open.value ? 'open' : 'closed'}
       data-disabled={disabled.value ? '' : undefined}
-      style={mergeStyles([{ pointerEvents: 'none', userSelect: 'none' }, style])}
       {...others}
     >
       <Slot />
-    </Primitive.span>
+    </Indicator>
   );
 });
