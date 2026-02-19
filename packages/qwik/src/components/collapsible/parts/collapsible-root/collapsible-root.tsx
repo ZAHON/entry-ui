@@ -22,6 +22,25 @@ export const CollapsibleRoot = component$<CollapsibleRootProps>((props) => {
 
   const disabled = useComputed$(() => _disabled);
 
+  const mergedStyles = useComputed$(() =>
+    mergeStyles([
+      {
+        // Performance optimization
+        // The `contain: layout style;` CSS property is used here to improve rendering performance.
+        // `contain: layout;` tells the browser that the internal layout of this component
+        // is self-contained and does not affect the layout of elements outside of it. This prevents
+        // costly re-calculations of the entire page layout when the collapsible panel expands or collapses,
+        // which is especially beneficial during animations.
+        // `contain: style;` ensures that CSS properties that can affect the rest of the page,
+        // like counters, are isolated to this element.
+        // Together, these properties create a performance "bubble," allowing the browser to optimize
+        // rendering by treating the collapsible component as an independent unit.
+        contain: 'layout style',
+      },
+      style,
+    ])
+  );
+
   const triggerId = useIdManager({ prefix: 'entry-ui-qwik-collapsible-trigger-' });
   const panelId = useIdManager({ prefix: 'entry-ui-qwik-collapsible-panel-' });
 
@@ -33,22 +52,7 @@ export const CollapsibleRoot = component$<CollapsibleRootProps>((props) => {
       data-entry-ui-qwik-collapsible-root=""
       data-state={open.value ? 'open' : 'closed'}
       data-disabled={disabled.value ? '' : undefined}
-      style={mergeStyles([
-        {
-          // Performance optimization
-          // The `contain: layout style;` CSS property is used here to improve rendering performance.
-          // `contain: layout;` tells the browser that the internal layout of this component
-          // is self-contained and does not affect the layout of elements outside of it. This prevents
-          // costly re-calculations of the entire page layout when the collapsible panel expands or collapses,
-          // which is especially beneficial during animations.
-          // `contain: style;` ensures that CSS properties that can affect the rest of the page,
-          // like counters, are isolated to this element.
-          // Together, these properties create a performance "bubble," allowing the browser to optimize
-          // rendering by treating the collapsible component as an independent unit.
-          contain: 'layout style',
-        },
-        style,
-      ])}
+      style={mergedStyles.value}
       {...others}
     >
       <Slot />
