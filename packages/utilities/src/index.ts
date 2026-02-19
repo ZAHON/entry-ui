@@ -1,5 +1,6 @@
 export * from './add-event-listener-once';
 export * from './clamp';
+export * from './copy-to-clipboard';
 export * from './error';
 export * from './fail';
 export * from './get-computed-style';
