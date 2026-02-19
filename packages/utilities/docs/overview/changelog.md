@@ -2,6 +2,13 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.7.0 (2026-02-19)
+
+### Features
+
+- **Introduce `copyToClipboard` utility for asynchronous clipboard management.**
+  A robust, Promise-based wrapper for the modern Clipboard API that simplifies transferring text to the system clipboard. It abstracts the complexity of `navigator.clipboard.writeText` into a structured interface, featuring dedicated `onSuccess` and `onError` callbacks for easy UI feedback integration. The utility includes built-in error classification to distinguish between browser support limitations and runtime permission rejections, ensuring a reliable and type-safe experience across different environments.
+
 ## 0.6.0 (2026-02-13)
 
 ### Features
