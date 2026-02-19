@@ -11,12 +11,13 @@ import { useAccordionItemContext } from '../../contexts/accordion-item-context';
  * Renders a `<span>` element.
  */
 export const AccordionItemIndicator = component$<AccordionItemIndicatorProps>((props) => {
-  const { style, ...others } = props;
+  const { as = 'span', style, ...others } = props;
 
   const { open, disabled } = useAccordionItemContext();
 
   return (
     <Primitive.span
+      as={as}
       aria-hidden="true"
       data-entry-ui-qwik-accordion-item-indicator=""
       data-state={open.value ? 'open' : 'closed'}
