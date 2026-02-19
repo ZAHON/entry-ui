@@ -37,6 +37,25 @@ export const AccordionRoot = component$<AccordionRootProps>((props) => {
   const hiddenUntilFound = useComputed$(() => _hiddenUntilFound);
   const disabled = useComputed$(() => _disabled);
 
+  const mergedStyles = useComputed$(() =>
+    mergeStyles([
+      {
+        // Performance optimization
+        // The `contain: layout style;` CSS property is used here to improve rendering performance.
+        // `contain: layout;` tells the browser that the internal layout of this component
+        // is self-contained and does not affect the layout of elements outside of it. This prevents
+        // costly re-calculations of the entire page layout when the collapsible panel expands or collapses,
+        // which is especially beneficial during animations.
+        // `contain: style;` ensures that CSS properties that can affect the rest of the page,
+        // like counters, are isolated to this element.
+        // Together, these properties create a performance "bubble," allowing the browser to optimize
+        // rendering by treating the collapsible component as an independent unit.
+        contain: 'layout style',
+      },
+      style,
+    ])
+  );
+
   if (isDev && !multiple && value.value.length > 1) {
     warn([
       `The 'Accordion.Root' component is in single-selection mode,`,
@@ -135,22 +154,7 @@ export const AccordionRoot = component$<AccordionRootProps>((props) => {
       data-entry-ui-qwik-accordion-root=""
       data-disabled={disabled.value ? '' : undefined}
       onKeyDown$={[onKeyDown$, handleKeyDownSync$, handleKeyDown$]}
-      style={mergeStyles([
-        {
-          // Performance optimization
-          // The `contain: layout style;` CSS property is used here to improve rendering performance.
-          // `contain: layout;` tells the browser that the internal layout of this accordion
-          // is self-contained and does not affect the layout of elements outside of it. This prevents
-          // costly re-calculations of the entire page layout when an accordion item expands or collapses,
-          // which is especially beneficial during animations.
-          // `contain: style;` ensures that CSS properties that can affect the rest of the page,
-          // like counters, are isolated to this element.
-          // Together, these properties create a performance "bubble", allowing the browser to optimize
-          // rendering by treating the accordion component as an independent unit.
-          contain: 'layout style',
-        },
-        style,
-      ])}
+      style={mergedStyles.value}
       {...others}
     >
       <Slot />
