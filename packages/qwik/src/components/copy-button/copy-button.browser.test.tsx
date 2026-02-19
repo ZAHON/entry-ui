@@ -404,7 +404,7 @@ describe('CopyButton', () => {
         </CopyButton.Root>
       );
 
-      await expect.element(screen.getByTestId(COPY_BUTTON_INDICATOT_TESTID)).toHaveStyle({ pointerEvents: 'none' });
+      await expect.element(screen.getByTestId(COPY_BUTTON_INDICATOT_TESTID)).toHaveStyle('pointer-events: none');
     });
 
     it('should have style="user-select: none"', async () => {
@@ -414,16 +414,22 @@ describe('CopyButton', () => {
         </CopyButton.Root>
       );
 
-      await expect.element(screen.getByTestId(COPY_BUTTON_INDICATOT_TESTID)).toHaveStyle({ userSelect: 'none' });
+      await expect.element(screen.getByTestId(COPY_BUTTON_INDICATOT_TESTID)).toHaveStyle('user-select: none');
+    });
+
+    it('should have style="-webkit-user-select: none"', async () => {
+      const screen = await render(
+        <CopyButton.Root>
+          <CopyButton.Indicator data-testid={COPY_BUTTON_INDICATOT_TESTID} />
+        </CopyButton.Root>
+      );
+
+      await expect.element(screen.getByTestId(COPY_BUTTON_INDICATOT_TESTID)).toHaveStyle('-webkit-user-select: none');
     });
 
     it('should merge and apply custom inline styles via the "style" prop', async () => {
-      const COPY_BUTTON_INDICATOT_STYLE = {
-        pointerEvents: 'all',
-        userSelect: 'all',
-        backgroundColor: 'rgb(1, 2, 3)',
-        color: 'rgba(3, 2, 1)',
-      } as const;
+      const COPY_BUTTON_INDICATOT_STYLE =
+        'pointer-events: all; user-select: all; -webkit-user-select: all, background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
 
       const screen = await render(
         <CopyButton.Root>
