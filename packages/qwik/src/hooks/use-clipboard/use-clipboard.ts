@@ -43,11 +43,15 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
     await copyToClipboard({
       value,
       onSuccess: () => {
-        win.clearTimeout(copyTimeout.value);
+        if (copyTimeout.value !== -1) {
+          win.clearTimeout(copyTimeout.value);
+        }
 
         copyTimeout.value = win.setTimeout(() => {
           copied.value = false;
           error.value = null;
+
+          copyTimeout.value = -1;
 
           onStatusChange$?.({ copied: false, error: null });
         }, timeoutMs);
@@ -92,7 +96,10 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
 
     const win = document.defaultView || window;
 
-    win.clearTimeout(copyTimeout.value);
+    if (copyTimeout.value !== -1) {
+      win.clearTimeout(copyTimeout.value);
+      copyTimeout.value = -1;
+    }
 
     onStatusChange$?.({ copied: false, error: null });
   });
