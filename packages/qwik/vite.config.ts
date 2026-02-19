@@ -27,6 +27,7 @@ export default defineConfig(() => {
           'components/accordion/index': 'src/components/accordion/index.ts',
           'components/alert/index': 'src/components/alert/index.ts',
           'components/collapsible/index': 'src/components/collapsible/index.ts',
+          'components/copy-button/index': 'src/components/copy-button/index.ts',
           'components/separator/index': 'src/components/separator/index.ts',
           'components/toggle/index': 'src/components/toggle/index.ts',
 

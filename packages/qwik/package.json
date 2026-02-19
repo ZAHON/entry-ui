@@ -27,6 +27,10 @@
       "types": "./lib/components/collapsible/index.d.ts",
       "import": "./lib/components/collapsible/index.qwik.mjs"
     },
+    "./copy-button": {
+      "types": "./lib/components/copy-button/index.d.ts",
+      "import": "./lib/components/copy-button/index.qwik.mjs"
+    },
     "./separator": {
       "types": "./lib/components/separator/index.d.ts",
       "import": "./lib/components/separator/index.qwik.mjs"
