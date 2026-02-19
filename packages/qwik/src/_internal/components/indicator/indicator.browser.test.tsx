@@ -54,7 +54,8 @@ describe('Indicator', () => {
   });
 
   it('should merge and apply custom inline styles via the "style" prop', async () => {
-    const INDICATOT_STYLE = 'pointer-events: all; user-select: all; -webkit-user-select: all, color: "rgba(3, 2, 1)"';
+    const INDICATOT_STYLE =
+      'pointer-events: all; user-select: all; -webkit-user-select: all; background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
 
     const screen = await render(<Indicator style={INDICATOT_STYLE} data-testid={INDICATOR_TESTID} />);
     await expect.element(screen.getByTestId(INDICATOR_TESTID)).toHaveStyle(INDICATOT_STYLE);
