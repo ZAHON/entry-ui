@@ -662,6 +662,51 @@ const Example = component$(() => {
 }
 ```
 
+### Disabled interaction
+
+Setting the `disabled` prop to `true` on the `Accordion.Root` prevents all user interactions with the entire component, effectively disabling the whole group. For more granular control, you can also manage the disabled state independently on each `Accordion.Item` or `Accordion.ItemTrigger` using their respective `disabled` props.
+
+```tsx
+import { component$ } from '@qwik.dev/core';
+import { Accordion } from '@entry-ui/qwik/accordion';
+
+const Example = component$(() => {
+  return (
+    <Accordion.Root disabled={true}>
+      <Accordion.Item>
+        <Accordion.ItemHeader>
+          <Accordion.ItemTrigger>What is Entry UI Qwik?</Accordion.ItemTrigger>
+        </Accordion.ItemHeader>
+        <Accordion.ItemPanel>
+          A collection of accessible, unstyled components, hooks, and utilities for Qwik, designed for building
+          high-quality web applications and design systems.
+        </Accordion.ItemPanel>
+      </Accordion.Item>
+
+      <Accordion.Item>
+        <Accordion.ItemHeader>
+          <Accordion.ItemTrigger>How do I get started?</Accordion.ItemTrigger>
+        </Accordion.ItemHeader>
+        <Accordion.ItemPanel>
+          Check out our installation guide to add the library to your project. Our intuitive API makes it easy to build
+          complex components in minutes.
+        </Accordion.ItemPanel>
+      </Accordion.Item>
+
+      <Accordion.Item>
+        <Accordion.ItemHeader>
+          <Accordion.ItemTrigger>Can I use it for my project?</Accordion.ItemTrigger>
+        </Accordion.ItemHeader>
+        <Accordion.ItemPanel>
+          Of course! Entry UI Qwik is an open-source project licensed under MIT. You are free to use it in both personal
+          and commercial projects without any restrictions.
+        </Accordion.ItemPanel>
+      </Accordion.Item>
+    </Accordion.Root>
+  );
+});
+```
+
 ### Rendering different elements
 
 By default, the `Accordion` subcomponents render elements that are sensible for their roles, such as a `<button>` for `Accordion.ItemTrigger`, or an `<h3>` for `Accordion.ItemHeader`. For a complete overview of the default elements, refer to the [Rendered elements](#rendered-elements) section.
