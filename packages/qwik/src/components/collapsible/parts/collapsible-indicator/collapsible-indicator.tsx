@@ -1,7 +1,6 @@
 import type { CollapsibleIndicatorProps } from './collapsible-indicator.types';
 import { component$, Slot } from '@qwik.dev/core';
-import { mergeStyles } from '@/utilities/merge-styles';
-import { Primitive } from '@/_internal/components/primitive';
+import { Indicator } from '@/_internal/components/indicator';
 import { useCollapsibleRootContext } from '../../contexts/collapsible-root-context';
 
 /**
@@ -11,21 +10,19 @@ import { useCollapsibleRootContext } from '../../contexts/collapsible-root-conte
  * Renders a `<span>` element.
  */
 export const CollapsibleIndicator = component$<CollapsibleIndicatorProps>((props) => {
-  const { as = 'span', style, ...others } = props;
+  const { as = 'span', ...others } = props;
 
   const { open, disabled } = useCollapsibleRootContext();
 
   return (
-    <Primitive.span
+    <Indicator
       as={as}
-      aria-hidden="true"
       data-entry-ui-qwik-collapsible-indicator=""
       data-state={open.value ? 'open' : 'closed'}
       data-disabled={disabled.value ? '' : undefined}
-      style={mergeStyles([{ pointerEvents: 'none', userSelect: 'none' }, style])}
       {...others}
     >
       <Slot />
-    </Primitive.span>
+    </Indicator>
   );
 });
