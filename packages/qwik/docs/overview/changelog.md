@@ -2,6 +2,20 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.8.0 (2026-02-19)
+
+### Features
+
+- **Introduce `CopyButton` component for streamlined text transfers.**
+  A specialized component designed for transferring text to the system clipboard, strictly adhering to the WAI-ARIA Button design pattern. Built with a modular compound component architecture (`Root`, `Indicator`), it supports both controlled and uncontrolled text states and features a built-in auto-reset mechanism for visual feedback. The component provides granular status monitoring through an `onStatusChange$` callback, handles keyboard interactions (<kbd>Space</kbd>, <kbd>Enter</kbd>), and utilizes data attributes for flexible, state-aware styling of indicators and triggers.
+
+- **Introduce `useClipboard` hook for seamless system clipboard interaction.**
+  A robust hook that provides a declarative interface for the asynchronous Clipboard API within Qwik components. It ensures a predictable, unidirectional data flow by exposing the operation's state through `copied` and `error` readonly signals. Features include a built-in auto-reset mechanism via `timeoutMs`, an `onStatusChange$` callback for global state monitoring, and development-time guardrails to prevent server-side execution, ensuring the hook is only invoked in response to browser-native user gestures.
+
+### Dependencies
+
+- **Update `@entry-ui/utilities` to version `0.7.0`.**
+
 ## 0.7.0 (2026-02-16)
 
 ### Features
