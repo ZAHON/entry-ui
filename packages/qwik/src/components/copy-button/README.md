@@ -184,7 +184,7 @@ const Example = component$(() => {
 });
 ```
 
-### Using visual indicators
+### State-aware visual indicators
 
 You can enhance the user experience by using the `CopyButton.Indicator` component to provide visual feedback. By placing multiple indicators inside the `CopyButton.Root` and leveraging the `data-copied` attribute, you can easily toggle between different icons (like a "copy" and a "check" icon) using CSS. This approach allows you to create highly interactive and accessible buttons that communicate state changes without relying solely on text.
 
