@@ -12,6 +12,15 @@ Components used to organize, structure, and present data or content in a clear a
 | [`Collapsible`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/collapsible) | A collapsible panel controlled by a button.       |
 | [`Separator`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/separator)     | A separator element accessible to screen readers. |
 
+## Buttons
+
+Interactive elements that trigger actions or toggle states. These components are optimized for keyboard accessibility and provide clear feedback for user interactions.
+
+| Component                                                                                            | Description                                           |
+| :--------------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
+| [`CopyButton`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/copy-button) | A button that transfers text to the system clipboard. |
+| [`Toggle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/toggle)          | A two-state button that can be either on or off.      |
+
 ## Feedback
 
 Components that provide important information or status updates to the user. They ensure that users are always informed about the outcomes of their interactions.
@@ -24,6 +33,6 @@ Components that provide important information or status updates to the user. The
 
 Interactive elements that allow users to provide input or trigger actions within your application. These tools are essential for capturing user data while maintaining a smooth and intuitive flow.
 
-| Component                                                                                   | Description                                      |
-| :------------------------------------------------------------------------------------------ | :----------------------------------------------- |
-| [`Toggle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/toggle) | A two-state button that can be either on or off. |
+| Component | Description |
+| :-------- | :---------- |
+|           |             |
