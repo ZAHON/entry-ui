@@ -415,23 +415,44 @@ const Example = component$(() => {
 }
 ```
 
+### Disabled interaction
+
+Setting the `disabled` prop to `true` on the `Collapsible.Root` prevents all user interactions with the component, effectively disabling the entire group. However, you can also manage the disabled state of the `Collapsible.Trigger` independently by using its own `disabled` prop. When a state is set on the root, it is automatically propagated to the trigger, but an explicit prop on the trigger will take precedence. These states are reflected via the `data-disabled` attribute on subcomponents for easy styling.
+
+```tsx
+import { component$ } from '@qwik.dev/core';
+import { Collapsible } from '@entry-ui/qwik/collapsible';
+
+const Example = component$(() => {
+  return (
+    <Collapsible.Root disabled={true}>
+      <Collapsible.Trigger>What is Entry UI Qwik?</Collapsible.Trigger>
+      <Collapsible.Panel>
+        A collection of accessible, unstyled components, hooks, and utilities for Qwik, designed for building
+        high-quality web applications and design systems.
+      </Collapsible.Panel>
+    </Collapsible.Root>
+  );
+});
+```
+
 ### Rendering different elements
 
-By default, the `Collapsible` subcomponents render elements that are sensible for their roles, such as a `<button>` for `Collapsible.Trigger`, or a `<div>` for `Collapsible.Panel`. For a complete overview of the default elements, refer to the [Rendered elements](#rendered-elements) section.
+By default, the `Collapsible` subcomponents render elements that are sensible for their roles, such as a `<div>` for `Collapsible.Root` or a `<button>` for `Collapsible.Trigger`. For a complete overview of the default elements, refer to the [Rendered elements](#rendered-elements) section.
 
 You can customize the underlying HTML element rendered by these components, or even compose them with your own custom Qwik components, by using the `as` prop. This provides immense flexibility, allowing you to:
 
-- Replace the default HTML tag with any other valid HTML element that fits your design and semantic needs (e.g., rendering the `Collapsible.Panel` as a `<ul>` for better list semantics).
+- Replace the default HTML tag with any other valid HTML element that fits your design and semantic needs (e.g., rendering the `Collapsible.Root` as an `<article>` for better list semantics).
 
 - Integrate your own Qwik components, wrapping them with custom styles or behaviors while ensuring the component's core logic and accessibility features remain intact.
 
 > [!IMPORTANT]
-> While it's possible to change the element rendered by `Collapsible.Root`, for accessibility and correct component functionality, it should always render a `<button>` element.
+> While it's possible to change the element rendered by `Collapsible.Trigger`, for accessibility and correct component functionality, it should always render a `<button>` element.
 
 ```tsx
 import type { PropsOf } from '@qwik.dev/core';
 import { component$, Slot } from '@qwik.dev/core';
-import { Collapsible } from '@/components/collapsible';
+import { Collapsible } from '@entry-ui/qwik/collapsible';
 
 const MyCustomButton = component$<PropsOf<'button'>>((props) => {
   return (
@@ -443,12 +464,11 @@ const MyCustomButton = component$<PropsOf<'button'>>((props) => {
 
 const Example = component$(() => {
   return (
-    <Collapsible.Root>
-      <Collapsible.Trigger as={MyCustomButton}>What languages do you support?</Collapsible.Trigger>
-      <Collapsible.Panel as="ul">
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
+    <Collapsible.Root as="article">
+      <Collapsible.Trigger as={MyCustomButton}>What is Entry UI Qwik?</Collapsible.Trigger>
+      <Collapsible.Panel>
+        A collection of accessible, unstyled components, hooks, and utilities for Qwik, designed for building
+        high-quality web applications and design systems.
       </Collapsible.Panel>
     </Collapsible.Root>
   );
