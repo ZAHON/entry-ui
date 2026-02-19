@@ -13,6 +13,14 @@ These hooks provide effective solutions for managing your component's internal d
 | [`useCounter`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-counter)           | A hook that manages a numeric state with built-in clamping and validation logic. |
 | [`useCycle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-cycle)               | A hook that manages navigation through a predefined sequence of options.         |
 
+## Utilities
+
+These hooks provide convenient interfaces for interacting with browser APIs and common web patterns, simplifying complex tasks into easy-to-use functions.
+
+| Hook                                                                                                | Description                                                                |
+| :-------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| [`useClipboard`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-clipboard) | A hook that provides a declarative interface for the system clipboard API. |
+
 ## Lifecycle
 
 These hooks help you bridge the gap between server and browser by providing reliable ways to handle component events. They ensure your setup and teardown logic remain consistent throughout the entire component lifecycle.
