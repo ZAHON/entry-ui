@@ -11,12 +11,13 @@ import { useCollapsibleRootContext } from '../../contexts/collapsible-root-conte
  * Renders a `<span>` element.
  */
 export const CollapsibleIndicator = component$<CollapsibleIndicatorProps>((props) => {
-  const { style, ...others } = props;
+  const { as = 'span', style, ...others } = props;
 
   const { open, disabled } = useCollapsibleRootContext();
 
   return (
     <Primitive.span
+      as={as}
       aria-hidden="true"
       data-entry-ui-qwik-collapsible-indicator=""
       data-state={open.value ? 'open' : 'closed'}
