@@ -211,7 +211,7 @@ describe('Accordion', () => {
     });
 
     it('should merge and apply custom inline styles via the "style" prop', async () => {
-      const ACCORDION_ROOT_STYLE = { backgroundColor: 'rgb(1, 2, 3)', color: 'rgba(3, 2, 1)' };
+      const ACCORDION_ROOT_STYLE = 'contain: none; background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
 
       const screen = await render(<Accordion.Root style={ACCORDION_ROOT_STYLE} data-testid={ACCORDION_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(ACCORDION_ROOT_TESTID)).toHaveStyle(ACCORDION_ROOT_STYLE);
@@ -1375,7 +1375,8 @@ describe('Accordion', () => {
     });
 
     it('should merge and apply custom inline styles via the "style" prop', async () => {
-      const ACCORDION_ITEM_PANEL_STYLE = { backgroundColor: 'rgb(1, 2, 3)', color: 'rgba(3, 2, 1)' };
+      const ACCORDION_ITEM_PANEL_STYLE =
+        'display: block; transitionDuration: 10s; animationDuration: 5s; --entry-ui-qwik-collapsible-panel-height: 100px; background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
 
       const screen = render(
         <Accordion.Root>
@@ -1549,7 +1550,7 @@ describe('Accordion', () => {
         </Accordion.Root>
       );
 
-      await expect.element(screen.getByTestId(ACCORDION_ITEM_INDICATOR_TESTID)).toHaveStyle({ pointerEvents: 'none' });
+      await expect.element(screen.getByTestId(ACCORDION_ITEM_INDICATOR_TESTID)).toHaveStyle('pointer-events: none');
     });
 
     it('should have style="user-select: none"', async () => {
@@ -1561,11 +1562,26 @@ describe('Accordion', () => {
         </Accordion.Root>
       );
 
-      await expect.element(screen.getByTestId(ACCORDION_ITEM_INDICATOR_TESTID)).toHaveStyle({ userSelect: 'none' });
+      await expect.element(screen.getByTestId(ACCORDION_ITEM_INDICATOR_TESTID)).toHaveStyle('user-select: none');
+    });
+
+    it('should have style="-webkit-user-select: none"', async () => {
+      const screen = render(
+        <Accordion.Root>
+          <Accordion.Item>
+            <Accordion.ItemIndicator data-testid={ACCORDION_ITEM_INDICATOR_TESTID} />
+          </Accordion.Item>
+        </Accordion.Root>
+      );
+
+      await expect
+        .element(screen.getByTestId(ACCORDION_ITEM_INDICATOR_TESTID))
+        .toHaveStyle('-webkit-user-select: none');
     });
 
     it('should merge and apply custom inline styles via the "style" prop', async () => {
-      const ACCORDION_ITEM_INDICATOR_STYLE = { backgroundColor: 'rgb(1, 2, 3)', color: 'rgba(3, 2, 1)' };
+      const ACCORDION_ITEM_INDICATOR_STYLE =
+        'pointer-events: all; user-select: all; -webkit-user-select: all; background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
 
       const screen = render(
         <Accordion.Root>
