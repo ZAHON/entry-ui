@@ -39,6 +39,10 @@
       "types": "./lib/hooks/use-boolean/index.d.ts",
       "import": "./lib/hooks/use-boolean/index.qwik.mjs"
     },
+    "./use-clipboard": {
+      "types": "./lib/hooks/use-clipboard/index.d.ts",
+      "import": "./lib/hooks/use-clipboard/index.qwik.mjs"
+    },
     "./use-controllable": {
       "types": "./lib/hooks/use-controllable/index.d.ts",
       "import": "./lib/hooks/use-controllable/index.qwik.mjs"
