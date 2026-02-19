@@ -198,6 +198,9 @@ A collapsible panel with the accordion item contents. Renders a `<div>` element.
 
 An optional visual indicator that reflects the item's open or closed state. It typically displays an icon or other visual cue to show the current status. Renders a `<span>` element.
 
+> [!NOTE]
+> This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the trigger's interactivity or accessibility.
+
 | Prop | Type                  | Default  | Description                                                                                                                                                                                    |
 | :--- | :-------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as` | `string \| Component` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
