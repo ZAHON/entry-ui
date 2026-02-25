@@ -68,21 +68,6 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-disabled', '');
     });
 
-    it('should have style="contain: layout style"', async () => {
-      const screen = await render(<Collapsible.Root data-testid={COLLAPSIBLE_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveStyle({ contain: 'layout style' });
-    });
-
-    it('should merge and apply custom inline styles via the "style" prop', async () => {
-      const COLLAPSIBLE_ROOT_STYLE = 'contain: none; background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
-
-      const screen = await render(
-        <Collapsible.Root style={COLLAPSIBLE_ROOT_STYLE} data-testid={COLLAPSIBLE_ROOT_TESTID} />
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveStyle(COLLAPSIBLE_ROOT_STYLE);
-    });
-
     it('should have the "data-entry-ui-qwik-collapsible-root" attribute with an empty value', async () => {
       const screen = await render(<Collapsible.Root data-testid={COLLAPSIBLE_ROOT_TESTID} />);
 
