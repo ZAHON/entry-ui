@@ -7,17 +7,13 @@ import type { ClampParams } from './clamp.types';
  * If the input value is smaller than the minimum boundary, the minimum value is
  * returned. If it exceeds the maximum boundary, the maximum value is returned.
  *
- * This function will throw an error if:
- * - Any of the input parameters are not finite numbers.
- * - The `min` value is greater than the `max` value.
- *
  * @example
  * ```ts
  * clamp({ value: 150, min: 0, max: 100 });
  * // Returns: 100
  *
  * clamp({ value: -20, min: 0, max: 100 });
- * Returns: 0
+ * // Returns: 0
  *
  * clamp({ value: 50, min: 0, max: 100 });
  * // Returns: 50
