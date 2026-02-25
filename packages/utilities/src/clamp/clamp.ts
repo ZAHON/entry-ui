@@ -1,6 +1,4 @@
 import type { ClampParams } from './clamp.types';
-import { isValidNumber } from '../is-valid-number';
-import { fail } from '../fail';
 
 /**
  * Clamps a number between a minimum and maximum value.
@@ -27,37 +25,6 @@ import { fail } from '../fail';
  */
 export const clamp = (params: ClampParams) => {
   const { value, min, max } = params;
-
-  if (!isValidNumber(value)) {
-    fail({
-      prefix: '[Entry UI Utilities]',
-      messages: [`Invalid 'value' parameter in 'clamp' utility.`, `Expected a finite number, but received: ${value}`],
-    });
-  }
-
-  if (!isValidNumber(min)) {
-    fail({
-      prefix: '[Entry UI Utilities]',
-      messages: [`Invalid 'min' parameter in 'clamp' utility.`, `Expected a finite number, but received: ${min}`],
-    });
-  }
-
-  if (!isValidNumber(max)) {
-    fail({
-      prefix: '[Entry UI Utilities]',
-      messages: [`Invalid 'max' parameter in 'clamp' utility.`, `Expected a finite number, but received: ${max}`],
-    });
-  }
-
-  if (min > max) {
-    fail({
-      prefix: '[Entry UI Utilities]',
-      messages: [
-        `Invalid range for 'clamp' utility.`,
-        `The 'min' parameter (${min}) must be less than or equal to the 'max' parameter (${max}).`,
-      ],
-    });
-  }
 
   return Math.min(max, Math.max(min, value));
 };
