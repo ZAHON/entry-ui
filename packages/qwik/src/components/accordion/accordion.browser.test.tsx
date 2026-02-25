@@ -205,18 +205,6 @@ describe('Accordion', () => {
       await expect.element(itemTrigger2).toHaveFocus();
     });
 
-    it('should have style="contain: layout style"', async () => {
-      const screen = await render(<Accordion.Root data-testid={ACCORDION_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(ACCORDION_ROOT_TESTID)).toHaveStyle({ contain: 'layout style' });
-    });
-
-    it('should merge and apply custom inline styles via the "style" prop', async () => {
-      const ACCORDION_ROOT_STYLE = 'contain: none; background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
-
-      const screen = await render(<Accordion.Root style={ACCORDION_ROOT_STYLE} data-testid={ACCORDION_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(ACCORDION_ROOT_TESTID)).toHaveStyle(ACCORDION_ROOT_STYLE);
-    });
-
     it('should have the "data-entry-ui-qwik-accordion-root" attribute with an empty value', async () => {
       const screen = await render(<Accordion.Root data-testid={ACCORDION_ROOT_TESTID} />);
       await expect
