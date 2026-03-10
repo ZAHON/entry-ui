@@ -2,6 +2,7 @@ import type { AccordionRootProps } from './accordion-root.types';
 import type { EntryUIQwikEventState } from '@/types';
 import { component$, useComputed$, $, sync$, useContextProvider, Slot } from '@qwik.dev/core';
 import { isDev } from '@qwik.dev/core/build';
+import { focusElement } from '@entry-ui/utilities/focus-element';
 import { useControllable } from '@/hooks/use-controllable';
 import { warn } from '@/_internal/utilities/warn';
 import { Primitive } from '@/_internal/components/primitive';
@@ -113,7 +114,14 @@ export const AccordionRoot = component$<AccordionRootProps>((props) => {
       }
 
       if (nextIndex > -1) {
-        enabledTriggers[nextIndex]?.focus();
+        // We use `focusVisible: true` to ensure the focus ring is displayed immediately
+        // following keyboard navigation (Arrow keys, Home, or End). This ensures
+        // consistency with the `:focus-visible` pseudo-class, allowing the user to
+        // clearly track the focused accordion trigger.
+        focusElement({
+          element: enabledTriggers[nextIndex],
+          focusVisible: true,
+        });
       }
     }
   });
