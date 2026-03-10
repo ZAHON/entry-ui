@@ -2,6 +2,33 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.8.0 (2026-03-11)
+
+### Breaking changes
+
+- **Refactor `clamp` utility to remove internal validation and dependencies.**
+  The `clamp` utility has been streamlined by removing manual runtime checks and its dependencies on `isValidNumber` and `fail`. This change optimizes execution performance and reduces the package's internal dependency graph. As a result, the function no longer throws errors for non-finite numbers or invalid ranges (where `min > max`); it now operates as a high-performance, pure mathematical wrapper. Consumers are now responsible for ensuring input validity at the call site or through higher-level schema validation.
+
+### Features
+
+- **Introduce `getDocument` utility for context-aware DOM operations.**
+  A reliable helper that retrieves the correct `ownerDocument` for a given DOM node. This utility is critical for applications using `iframes` or multiple windows, as it ensures that document-level APIs (like `createElement` or `getElementById`) are accessed from the node's actual execution context rather than the global document. It includes a safe fallback that defaults to the standard `document` object if the provided node is `null` or invalid.
+
+- **Introduce `getActiveElement` utility for deep shadow DOM focus tracking.**
+  A specialized helper designed to pinpoint the actual focused element across Shadow DOM boundaries. Unlike the native `activeElement` API, which stops at the shadow host, this utility recursively traverses through nested shadow roots to return the true focus target. This is essential for building accessible focus management systems and handling keyboard interactions in modern, component-based architectures.
+
+- **Introduce `isSelectableInput` utility for safe text selection guarding.**
+  A specialized TypeScript type guard that identifies whether an HTML element is an input that supports the native `.select()` method. It ensures type safety by narrowing the element type to `HTMLInputElement`, preventing runtime errors when programmatically highlighting text in search bars, forms, or editable fields.
+
+- **Introduce `wrapArray` utility for circular array rearrangement.**
+  A specialized helper that reorders an array based on a new starting index. It performs a "circular shift," moving elements before the index to the end of the collection while maintaining their relative order. This is a pure, immutable function ideal for implementing infinite carousels, cyclic navigation, or any UI component requiring wrap-around behavior.
+
+- **Introduce `focusElement` utility for enhanced focus management.**
+  A robust wrapper for the native focus API that provides granular control over focus behavior. It supports advanced configuration options including `preventScroll`, `focusVisible` for consistent focus ring styling, and an integrated `select` flag for automatic text selection in compatible inputs. This utility simplifies focus orchestration in accessible UI components and complex interaction flows.
+
+- **Introduce `focusFirstElement` utility for sequential focus attempts.**
+  A specialized helper for managing focus in dynamic UIs where the intended target might be missing or disabled. It iterates through an ordered list of candidate elements and applies focus (with optional selection and scroll prevention) to the first available one. This ensures reliable focus management for accessible components like modals, drawers, and multi-step forms.
+
 ## 0.7.0 (2026-02-19)
 
 ### Features
