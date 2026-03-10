@@ -19,3 +19,4 @@ export * from './visually-hidden-input-style';
 export * from './visually-hidden-style';
 export * from './wait';
 export * from './warn';
+export * from './wrap-array';
