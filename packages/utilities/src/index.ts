@@ -3,6 +3,7 @@ export * from './clamp';
 export * from './copy-to-clipboard';
 export * from './error';
 export * from './fail';
+export * from './focus-element';
 export * from './get-active-element';
 export * from './get-computed-style';
 export * from './get-css-dimensions';
