@@ -11,6 +11,7 @@ export * from './get-hidden-element-height';
 export * from './get-window';
 export * from './has-window';
 export * from './is-html-element';
+export * from './is-selectable-input';
 export * from './is-valid-number';
 export * from './merge-styles';
 export * from './scroll-into-view-if-needed';
