@@ -4,4 +4,5 @@ export * from './collapsible';
 export * from './copy-button';
 export * from './roving-focus-group';
 export * from './separator';
+export * from './tabs';
 export * from './toggle';
