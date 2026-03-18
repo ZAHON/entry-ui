@@ -36,3 +36,11 @@ Interactive elements that allow users to provide input or trigger actions within
 | Component | Description |
 | :-------- | :---------- |
 |           |             |
+
+## Utilities
+
+Low-level components and utilities that provide foundational logic, state management, or behavioral enhancements. These tools are designed to be composed with other components to solve complex interactive challenges while remaining unstyled and flexible.
+
+| Component                                                                                                           | Description                                                                  |
+| :------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------- |
+| [`Roving Focus Group`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/roving-focus-group) | A utility that manages focus between items using the roving tabindex method. |
