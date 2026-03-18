@@ -16,10 +16,10 @@ Components used to organize, structure, and present data or content in a clear a
 
 Interactive elements that trigger actions or toggle states. These components are optimized for keyboard accessibility and provide clear feedback for user interactions.
 
-| Component                                                                                            | Description                                           |
-| :--------------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
-| [`CopyButton`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/copy-button) | A button that transfers text to the system clipboard. |
-| [`Toggle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/toggle)          | A two-state button that can be either on or off.      |
+| Component                                                                                             | Description                                           |
+| :---------------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
+| [`Copy Button`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/copy-button) | A button that transfers text to the system clipboard. |
+| [`Toggle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/toggle)           | A two-state button that can be either on or off.      |
 
 ## Feedback
 
