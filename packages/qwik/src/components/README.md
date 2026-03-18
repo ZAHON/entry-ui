@@ -37,6 +37,14 @@ Interactive elements that allow users to provide input or trigger actions within
 | :-------- | :---------- |
 |           |             |
 
+## Navigation
+
+Components that provide a structured way for users to navigate through different sections of your application. They ensure a seamless and intuitive experience by organizing content into manageable views.
+
+| Component                                                                               | Description                                                                                |
+| :-------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- |
+| [`Tabs`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/tabs) | A set of layered sections of content known as tab panels that are displayed one at a time. |
+
 ## Utilities
 
 Low-level components and utilities that provide foundational logic, state management, or behavioral enhancements. These tools are designed to be composed with other components to solve complex interactive challenges while remaining unstyled and flexible.
