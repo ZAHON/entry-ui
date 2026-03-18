@@ -49,6 +49,6 @@ Components that provide a structured way for users to navigate through different
 
 Low-level components and utilities that provide foundational logic, state management, or behavioral enhancements. These tools are designed to be composed with other components to solve complex interactive challenges while remaining unstyled and flexible.
 
-| Component                                                                                                           | Description                                                                  |
-| :------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------- |
-| [`Roving Focus Group`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/roving-focus-group) | A utility that manages focus between items using the roving tabindex method. |
+| Component                                                                                                           | Description                                                                                   |
+| :------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------- |
+| [`Roving Focus Group`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/roving-focus-group) | A utility component that implements the roving tabindex method to manage focus between items. |
