@@ -79,7 +79,7 @@ Each of `Tabs` subcomponents renders a default HTML element that makes sense for
 | `Tabs.Tab`   | `<button>`               |
 | `Tabs.Panel` | `<div>`                  |
 
-> [!NOTE]
+> [!IMPORTANT]
 > While it's possible to change the element rendered by `Tabs.Tab`, for accessibility and correct component functionality, it should always render a `<button>` element.
 
 ## API Reference
