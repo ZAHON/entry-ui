@@ -14,6 +14,7 @@ export * from './get-platform';
 export * from './get-window';
 export * from './has-window';
 export * from './is-html-element';
+export * from './is-ios';
 export * from './is-selectable-input';
 export * from './is-valid-number';
 export * from './merge-styles';
