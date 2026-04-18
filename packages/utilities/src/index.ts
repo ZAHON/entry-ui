@@ -12,6 +12,7 @@ export * from './get-document';
 export * from './get-hidden-element-height';
 export * from './get-platform';
 export * from './get-window';
+export * from './has-stable-scrollbar-gutter';
 export * from './has-window';
 export * from './is-html-element';
 export * from './is-ios';
