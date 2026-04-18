@@ -2,6 +2,31 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.9.0 (2026-04-19)
+
+### Features
+
+- **Introduce `getPlatform` utility for reliable OS detection.**
+  A robust environment detection helper that identifies the user's operating system with a focus on modern standards. It prioritizes the User-Agent Client Hints API (`navigator.userAgentData`) to ensure future-proof compatibility and privacy compliance, while providing a seamless fallback to legacy properties for older browsers. This utility is essential for implementing platform-specific logic, such as dynamic keyboard shortcut hints or OS-aware UI adjustments, through a unified and safe interface.
+
+- **Introduce `isIos` utility for specialized Apple device detection.**
+  A specialized detection helper that accurately identifies iPhone and iPad devices. It features advanced logic to handle modern iPadOS versions that default to desktop-class reporting, using hardware capability verification (`maxTouchPoints`) to distinguish touch-enabled iPads from standard macOS environments. This utility is essential for applying device-specific UI fixes, optimizing touch interactions, and ensuring consistent behavior across the Apple mobile ecosystem.
+
+- **Introduce `hasStableScrollbarGutter` utility for layout shift prevention.**
+  A specialized helper that detects if an element has a stable scrollbar gutter configured via CSS. It inspects computed styles to identify the `scrollbar-gutter: stable` property, including multi-value variants like `stable both-edges`. This utility is crucial for maintaining visual alignment in complex layouts, allowing components to adapt to reserved scrollbar spaces and preventing jarring "layout jumps" when content height changes dynamically.
+
+- **Introduce `isShallowSubset` utility for optimized partial comparisons.**
+  A performance-oriented helper that determines if a target object contains all key-value pairs from a source object. Unlike standard equality checks, it focuses exclusively on the subset of properties defined in the source, ignoring any extra data in the target. This utility is particularly useful for state change detection, configuration validation, and implementing granular updates in complex data structures without the performance cost of deep recursive comparisons.
+
+- **Introduce `setStyle` utility for managed inline styling.**
+  A robust helper for applying temporary inline styles with a built-in state restoration mechanism. It returns a cleanup function that reverts the element to its original style state, ensuring predictable DOM behavior during animations, modal interactions, or drag-and-drop operations. The utility optimizes performance by preventing redundant mutations and maintains a clean DOM by automatically stripping empty `style` attributes upon restoration.
+
+- **Introduce `setStyleProperty` utility for granular style control.**
+  A lightweight helper designed to safely apply individual CSS properties or custom variables with built-in restoration support. It returns a cleanup function that reverts the specific property to its previous state, preventing unwanted side effects on other inline styles. The utility optimizes performance by avoiding unnecessary DOM updates and maintains HTML cleanliness by automatically stripping empty `style` attributes upon cleanup, making it ideal for managing dynamic theme variables or transient visual states.
+
+- **Introduce `preventBodyScroll` utility for advanced scroll management.**
+  A high-level utility designed to lock background scrolling while preventing layout instability. Unlike standard approaches, it calculates scrollbar dimensions to eliminate "layout jumps" and includes a specialized `position: fixed` strategy for iOS Safari to ensure consistent behavior across mobile devices. It features intelligent state tracking via `data-scroll-lock`, supports `scrollbar-gutter: stable` awareness, and provides a global `--scrollbar-width` CSS variable for fine-tuning fixed UI components during the locked state.
+
 ## 0.8.0 (2026-03-11)
 
 ### Breaking changes
