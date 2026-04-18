@@ -22,6 +22,7 @@ export * from './is-valid-number';
 export * from './merge-styles';
 export * from './scroll-into-view-if-needed';
 export * from './set-style';
+export * from './set-style-property';
 export * from './visually-hidden-input-style';
 export * from './visually-hidden-style';
 export * from './wait';
