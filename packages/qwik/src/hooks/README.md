@@ -13,6 +13,14 @@ These hooks provide effective solutions for managing your component's internal d
 | [`useCounter`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-counter)           | A hook that manages a numeric state with built-in clamping and validation logic. |
 | [`useCycle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-cycle)               | A hook that manages navigation through a predefined sequence of options.         |
 
+## UI and DOM
+
+These hooks provide solutions for interacting with DOM elements, managing window behaviors, and controlling user interface states.
+
+| Hook                                                                                                   | Description                                                                       |
+| :----------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
+| [`useScrollLock`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-scroll-lock) | A hook that provides a reactive interface for managing background scroll locking. |
+
 ## Utilities
 
 These hooks provide convenient interfaces for interacting with browser APIs and common web patterns, simplifying complex tasks into easy-to-use functions.
