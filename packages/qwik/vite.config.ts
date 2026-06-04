@@ -40,6 +40,7 @@ export default defineConfig(() => {
           'hooks/use-counter/index': 'src/hooks/use-counter/index.ts',
           'hooks/use-cycle/index': 'src/hooks/use-cycle/index.ts',
           'hooks/use-lifecycle/index': 'src/hooks/use-lifecycle/index.ts',
+          'hooks/use-scroll-lock/index': 'src/hooks/use-scroll-lock/index.ts',
 
           // utilities
           'utilities/make-event-preventable/index': 'src/utilities/make-event-preventable/index.ts',
