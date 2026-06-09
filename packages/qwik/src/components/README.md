@@ -29,6 +29,14 @@ Components that provide important information or status updates to the user. The
 | :---------------------------------------------------------------------------------------- | :------------------------------------------------------------- |
 | [`Alert`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/alert) | A brief, important message for providing feedback to the user. |
 
+## Overlays
+
+Components that render on top of the main page content to capture user attention, display contextual information, or require explicit confirmation.
+
+| Component                                                                                   | Description                                   |
+| :------------------------------------------------------------------------------------------ | :-------------------------------------------- |
+| [`Dialog`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/dialog) | A popup that opens on top of the entire page. |
+
 ## Form
 
 Interactive elements that allow users to provide input or trigger actions within your application. These tools are essential for capturing user data while maintaining a smooth and intuitive flow.
