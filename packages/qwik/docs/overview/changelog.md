@@ -2,6 +2,20 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.10.0 (2026-06-09)
+
+### Features
+
+- **Introduce `Dialog` component for accessible, modular modal overlays.**
+  A robust popup component that opens on top of the entire page, strictly adhering to the WAI-ARIA Dialog (Modal) design pattern to ensure full accessibility for keyboard and screen reader users. Built with a flexible compound component architecture (`Root`, `Trigger`, `Popup`, `Title`, `Description`, `Close`), it utilizes the native HTML `<dialog>` element and the browser's native Dialog API under the hood for reliable layout synchronization and focus management. The component supports both uncontrolled internal state and controlled operation via an `open` signal paired with an `onOpenChange$` callback. It features automatic focus trapping, body scroll locking with layout shift compensation via the `preventScroll` prop, and conditional dismissal handling through `closeOnEscapeKeyDown` and `closeOnClickOutside` options. Additionally, it exposes a reactive `data-state` attribute (`"open"` or `"closed"`) to enable fluid, interruptible CSS transitions or keyframe animations, offers an `onOpenChangeComplete$` callback for lifecycle settling, and provides deep state access through custom context hooks (`useDialogRootContext`, `useDialogTriggerContext`, and `useDialogCloseContext`).
+
+- **Introduce `useScrollLock` hook for managing background scroll locking.**
+  A robust hook that provides a reactive interface for managing document scrolling within Qwik components, essential for maintaining focus and preventing background movement when overlays, modals, or drawers are active. It automatically compensates for scrollbar width to prevent horizontal layout shifts by setting a `--scrollbar-width` CSS variable on the `<html>` element and marks the `<body>` element with a `data-scroll-lock` attribute for layout synchronization. The hook implements specialized fixed positioning strategies for mobile environments (like iOS Safari) where standard overflow rules may be ignored, meticulously restoring the scroll position upon release. Built with SSR-safety in mind, it includes environment checks to ensure DOM-dependent operations are only triggered in the browser, and supports an optional `resolveDocument$` QRL parameter to target specific document contexts such as iframes or popups.
+
+### Dependencies
+
+- **Update `@entry-ui/utilities` to version `0.9.0`.**
+
 ## 0.9.0 (2026-03-18)
 
 ### Features
