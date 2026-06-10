@@ -37,9 +37,6 @@ export const focusElement = (params: FocusElementParams) => {
     const doc = getDocument(element);
     const previouslyFocusedElement = getActiveElement(doc);
 
-    // @ts-expect-error - `focusVisible` is an experimental option not yet in TS types
-    // Browsers that do not support the `focusVisible` option will simply
-    // ignore it and perform a standard focus without throwing an error.
     element.focus({ focusVisible, preventScroll });
 
     // If the element is an input field and selection is explicitly requested,
