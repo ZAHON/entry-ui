@@ -48,7 +48,7 @@
     "@entry-ui/eslint": "workspace:*",
     "@entry-ui/prettier": "workspace:*",
     "csstype": "^3.2.3",
-    "eslint": "^9.39.2",
+    "eslint": "^10.4.1",
     "jsdom": "^27.4.0",
     "prettier": "^3.7.4",
     "tsup": "^8.5.1",
