@@ -14,7 +14,7 @@
     "directory": "configs/eslint"
   },
   "dependencies": {
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^10.0.1",
     "@typescript-eslint/parser": "^8.53.0",
     "astro-eslint-parser": "^1.2.2",
     "eslint-plugin-astro": "^1.5.0",
