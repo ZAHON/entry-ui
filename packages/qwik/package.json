@@ -137,7 +137,7 @@
   "devDependencies": {
     "@entry-ui/eslint": "workspace:*",
     "@entry-ui/prettier": "workspace:*",
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.60.0",
     "@qwik.dev/core": "2.0.0-beta.17",
     "@qwik.dev/router": "2.0.0-beta.17",
     "@types/node": "^25.0.8",
