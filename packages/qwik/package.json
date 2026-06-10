@@ -139,7 +139,7 @@
     "@entry-ui/prettier": "workspace:*",
     "@playwright/test": "^1.60.0",
     "@qwik.dev/core": "2.0.0-beta.37",
-    "@qwik.dev/router": "2.0.0-beta.17",
+    "@qwik.dev/router": "2.0.0-beta.37",
     "@types/node": "^25.0.8",
     "@vitest/browser-playwright": "^4.0.17",
     "eslint": "^9.39.2",
