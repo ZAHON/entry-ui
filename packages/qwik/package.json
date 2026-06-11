@@ -154,6 +154,6 @@
     "vitest-browser-qwik": "^0.3.8"
   },
   "peerDependencies": {
-    "@qwik.dev/core": ">=2.0.0-beta.17"
+    "@qwik.dev/core": ">=2.0.0-beta.37"
   }
 }
