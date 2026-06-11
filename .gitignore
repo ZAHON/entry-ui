@@ -9,6 +9,7 @@ node_modules
 .env
 *.local
 .astro
+dummy-non-existing-folder/
 
 # Cache
 .cache
