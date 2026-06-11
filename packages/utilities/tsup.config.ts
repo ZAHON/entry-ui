@@ -1,8 +1,8 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ["src/index.ts", "src/**/index.ts"],
-  format: "esm",
+  entry: ['src/index.ts', 'src/**/index.ts'],
+  format: 'esm',
   dts: true,
   clean: true,
   minify: true,
@@ -10,6 +10,5 @@ export default defineConfig({
   splitting: true,
   sourcemap: true,
   shims: true,
-  outDir: "dist",
-  external: ["style-to-object"],
+  outDir: 'dist',
 });
