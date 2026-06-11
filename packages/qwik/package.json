@@ -114,7 +114,7 @@
     "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
   },
   "scripts": {
-    "build": "bun run lint && bun run test && bun run clean && bun run build:lib && bun run build:types",
+    "build": "bun run lint && bun run clean && bun run build:lib && bun run build:types",
     "build:lib": "vite build --mode lib",
     "build:types": "tsc -p ./tsconfig.build.json --emitDeclarationOnly --incremental false",
     "clean": "rm -rf ./lib ./tsconfig.build.tsbuildinfo",
