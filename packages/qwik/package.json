@@ -151,7 +151,7 @@
     "vite": "^8.0.16",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.0.17",
-    "vitest-browser-qwik": "^0.1.0"
+    "vitest-browser-qwik": "^0.3.8"
   },
   "peerDependencies": {
     "@qwik.dev/core": ">=2.0.0-beta.17"
