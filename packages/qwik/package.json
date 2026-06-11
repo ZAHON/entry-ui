@@ -148,7 +148,7 @@
     "typescript": "^6.0.3",
     "typescript-plugin-css-modules": "^5.2.0",
     "undici": "^8.4.1",
-    "vite": "^7.3.1",
+    "vite": "^8.0.16",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.0.17",
     "vitest-browser-qwik": "^0.1.0"
