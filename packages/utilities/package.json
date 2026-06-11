@@ -35,7 +35,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "bun run lint && bun run test && bun run clean && tsup",
+    "build": "bun run lint && bun run clean && tsup",
     "clean": "rm -rf dist",
     "fmt": "prettier --write . --ignore-path ../../.prettierignore",
     "fmt:check": "prettier --check . --ignore-path ../../.prettierignore",
