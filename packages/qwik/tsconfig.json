@@ -20,10 +20,10 @@
     "declarationDir": "lib",
     "incremental": true,
 
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
+
     "types": ["vite/client"],
 
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
