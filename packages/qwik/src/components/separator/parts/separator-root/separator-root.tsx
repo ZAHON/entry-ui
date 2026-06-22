@@ -20,6 +20,11 @@ export const SeparatorRoot = component$<SeparatorRootProps>((props) => {
        * that assistive technologies will ignore the element and its potential children.
        */
       role={decorative ? undefined : 'separator'}
+      /*
+       * Explicitly hiding the element from the accessibility tree `decorative` is `true`.
+       * This guarantees that screen readers completely ignore the visual line,
+       * which is preferred over `role="none"` for more robust support across browsers.
+       */
       aria-hidden={decorative ? 'true' : undefined}
       /*
        * According to WAI-ARIA, the `"separator"` role has an implicit `aria-orientation` of `"horizontal"`.
