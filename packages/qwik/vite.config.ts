@@ -83,10 +83,10 @@ export default defineConfig(() => {
             },
             include: ['src/**/*.browser.test.{ts,tsx}'],
           },
-          plugins: [qwikVite(), tsconfigPaths({ root: '.' })],
+          plugins: [qwikVite({ devTools: { hmr: false } }), tsconfigPaths({ root: '.' })],
         },
       ],
     },
-    plugins: [qwikVite(), qwikRouter(), tsconfigPaths({ root: '.' })],
+    plugins: [qwikVite({ devTools: { hmr: false } }), qwikRouter(), tsconfigPaths({ root: '.' })],
   };
 });
