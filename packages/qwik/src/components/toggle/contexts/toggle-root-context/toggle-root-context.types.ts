@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `Toggle.Root` context.
@@ -10,7 +10,7 @@ export interface ToggleRootContextValue {
    * A readonly signal whose value indicates the toggle's current pressed state.
    * It is `true` when the toggle is on, and `false` when off.
    */
-  pressed: ReadonlySignal<boolean>;
+  pressed: Readonly<Signal<boolean>>;
 
   /**
    * A `QRL` function used to programmatically set the pressed state of the toggle.
@@ -22,5 +22,5 @@ export interface ToggleRootContextValue {
    * A readonly signal that indicates whether the toggle is disabled.
    * Its value is `true` if the toggle is disabled, preventing user interaction.
    */
-  disabled: ReadonlySignal<boolean>;
+  disabled: Readonly<Signal<boolean>>;
 }
