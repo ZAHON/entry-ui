@@ -1,2 +1,2 @@
 export type { ToggleRootContextValue } from './toggle-root-context.types';
-export { ToggleRootContext } from './toggle-root-context';
+export { ToggleRootContext, useToggleRootContext } from './toggle-root-context';
