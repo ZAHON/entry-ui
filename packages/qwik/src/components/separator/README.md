@@ -25,7 +25,11 @@ const Anatomy = component$(() => {
 
 ## Usage
 
-The `Separator` component is most commonly used to create a horizontal line that divides blocks of content, such as separating a heading and description from a list of navigation links. By using `Separator.Root`, you ensure that the division is both visually clear and semantically recognized by assistive technologies.
+To implement a separator, use the `Separator.Root` component to create a visual and semantic divider between distinct blocks of content. This layout ensures proper accessibility tree establishment, allowing screen readers to recognize the division while maintaining clear visual structure for sighted users.
+
+By default, the component functions as a horizontal divider, but its behavior can be customized using props like `orientation` to fit vertical layouts, or `decorative` to completely bypass assistive technologies when used purely for aesthetic purposes.
+
+Below is a basic example of how to implement a simple separator:
 
 ```tsx
 // index.tsx
@@ -34,22 +38,7 @@ import { Separator } from '@entry-ui/qwik/separator';
 import styles from './index.module.css';
 
 const Usage = component$(() => {
-  return (
-    <div>
-      <h3>Entry UI Qwik</h3>
-      <p>
-        A collection of accessible, unstyled components, hooks, and utilities for Qwik, designed for building
-        high-quality web applications and design systems.
-      </p>
-
-      <Separator.Root class={styles['separator-root']} />
-
-      <a href="#">Home</a>
-      <a href="#">Components</a>
-      <a href="#">Hooks</a>
-      <a href="#">Utilities</a>
-    </div>
-  );
+  return <Separator.Root class={styles['separator-root']} />;
 });
 ```
 
@@ -57,7 +46,7 @@ const Usage = component$(() => {
 /* index.module.css */
 .separator-root {
   height: 1px;
-  background-color: oklch(0% 0 0 / 0.149);
+  background-color: oklch(0% 0 0deg);
 }
 ```
 
@@ -69,7 +58,7 @@ const Usage = component$(() => {
 
 ## Rendered elements
 
-Each of `Separator` subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
+Each of `Separator` subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop.
 
 | Component        | Default rendered element |
 | :--------------- | :----------------------- |
@@ -77,7 +66,7 @@ Each of `Separator` subcomponents renders a default HTML element that makes sens
 
 ## API Reference
 
-The `Separator` component consists of a primary subcomponent. This section outlines the props available for the `Separator.Root` subcomponent, enabling you to customize the component's behavior and visual representation.
+The `Separator` component is built using a modular, compound component pattern, providing full control over the layout and semantic structure of layout divisions. This section provides a detailed breakdown of the properties and data attributes available for the separator system, allowing for deep customization and seamless integration.
 
 ### Separator.Root
 
@@ -95,194 +84,56 @@ A horizontal or vertical line that visually and semantically separates content. 
 
 ## Examples
 
-Explore the following examples to see how to implement the `Separator` component in various scenarios. These examples demonstrate how to configure different orientations, manage accessibility with decorative separators, and render the component as different HTML elements. You will also find how to apply custom styles using CSS and the provided data attributes.
+Explore various ways to implement and customize the `Separator` component. From standard horizontal layouts and multi-axis orientation adjustments to purely decorative screen-reader exclusions, these examples demonstrate the component's flexibility and how it can be tailored to fit your specific application layouts and design system requirements.
 
 ### Vertical orientation
 
-By default, the `Separator` component is horizontally oriented. To change this, you must set the `orientation` prop to `"vertical"` on the `Separator.Root` component. This adjustment affects the semantic orientation and accessibility of the element. To assist with styling, you can use the `data-orientation` attribute in your CSS, which can take either `"horizontal"` or `"vertical"` as its value. Note that you are responsible for applying the appropriate layout and dimensions (such as height or width) in your CSS to ensure the separator renders correctly in your design.
+By default, the `Separator` component is horizontally oriented. To change this, you must set the `orientation` prop to `"vertical"` on the `Separator.Root` component. This adjustment affects the semantic orientation and accessibility of the element.
+
+To assist with styling, you can use the `data-orientation` attribute in your CSS, which can take either `"horizontal"` or `"vertical"` as its value. Note that you are responsible for applying the appropriate layout and dimensions (such as height or width) in your CSS to ensure the separator renders correctly in your design.
 
 ```tsx
 // index.tsx
-import { component$, useStyles$ } from '@qwik.dev/core';
+import { component$ } from '@qwik.dev/core';
 import { Separator } from '@entry-ui/qwik/separator';
-import styles from './index.css?inline';
+import styles from './index.module.css';
 
 const Example = component$(() => {
-  useStyles$(styles);
-
-  return (
-    <div class="container">
-      <a href="#" class="link">
-        Home
-      </a>
-      <a href="#" class="link">
-        Pricing
-      </a>
-      <a href="#" class="link">
-        Blog
-      </a>
-      <a href="#" class="link">
-        Support
-      </a>
-
-      <Separator.Root orientation="vertical" class="separator-root" />
-
-      <a href="#" class="link">
-        Log in
-      </a>
-      <a href="#" class="link">
-        Sign up
-      </a>
-    </div>
-  );
+  return <Separator.Root orientation="vertical" class={styles['separator-root']} />;
 });
 ```
 
 ```css
-/* index.css */
-.container {
-  display: flex;
-  align-content: center;
-  column-gap: 0.75rem;
-  text-wrap: nowrap;
-}
-
-.link {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  letter-spacing: 0em;
-  color: oklch(0% 0 0 / 0.608);
-  text-decoration-line: none;
-  text-decoration-style: solid;
-  text-decoration-thickness: min(0.125rem, max(1px, 0.05em));
-  text-underline-offset: calc(0.025em + 0.125rem);
-  text-decoration-color: oklch(0% 0 0 / 0.122);
-}
-
-.link:hover {
-  text-decoration-line: underline;
-}
-
-.link:focus-visible {
-  border-radius: 0.07em;
-  outline-color: oklch(73.086% 0.11243 270.438);
-  outline-width: 0.125rem;
-  outline-style: solid;
-  outline-offset: 0.125rem;
-}
-
-.link::selection,
-.link *::selection {
-  background-color: oklch(50.669% 0.27678 263.688 / 0.176);
-}
-
+/* index.module.css */
 .separator-root[data-orientation='vertical'] {
   width: 1px;
-  background-color: oklch(0% 0 0 / 0.149);
+  height: 100px;
+  background-color: oklch(0% 0 0deg);
 }
 ```
 
 ### Purely decorative
 
-By default, the `Separator` component has a semantic `separator` role. However, if the separator is used only for visual styling and does not serve as a meaningful divider between content, you should set the `decorative` prop to `true` on the `Separator.Root` component. This adjustment updates the accessibility-related attributes to ensure the element is completely removed from the accessibility tree, preventing screen readers from announcing it and improving the overall experience for users of assistive technologies.
+By default, the `Separator` component has a semantic `separator` role. However, if the separator is used only for visual styling and does not serve as a meaningful divider between content, you should set the `decorative` prop to `true` on the `Separator.Root` component.
+
+This adjustment updates the accessibility-related attributes to ensure the element is completely removed from the accessibility tree, preventing screen readers from announcing it and improving the overall experience for users of assistive technologies.
 
 ```tsx
 // index.tsx
-import { component$, useStyles$ } from '@qwik.dev/core';
+import { component$ } from '@qwik.dev/core';
 import { Separator } from '@entry-ui/qwik/separator';
-import styles from './index.css?inline';
+import styles from './index.module.css';
 
 const Example = component$(() => {
-  useStyles$(styles);
-
-  return (
-    <dl class="description-list">
-      <div class="description-group">
-        <dt class="term">Status</dt>
-        <dd class="details">Active</dd>
-      </div>
-
-      <Separator.Root decorative={true} class="separator-root" />
-
-      <div class="description-group">
-        <dt class="term">Last updated</dt>
-        <dd class="details">2 mins ago</dd>
-      </div>
-    </dl>
-  );
+  return <Separator.Root decorative={true} class={styles['separator-root']} />;
 });
 ```
 
 ```css
-/* index.css */
-.description-list {
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.75rem;
-  padding: 1rem;
-}
-
-.description-list::selection,
-.description-list *::selection {
-  background-color: oklch(50.669% 0.27678 263.688 / 0.176);
-}
-
-.description-group {
-  display: flex;
-  justify-content: space-between;
-}
-
-.term {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  letter-spacing: 0em;
-  color: oklch(0% 0 0 / 0.608);
-}
-
-.details {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  letter-spacing: 0em;
-  font-weight: 500;
-  color: oklch(24.354% 0 0);
-}
-
+/* index.module.css */
 .separator-root {
   height: 1px;
-  background-color: oklch(0% 0 0 / 0.149);
-}
-```
-
-### Rendering different elements
-
-By default, the `Separator.Root` component renders a `<div>` element. For a complete overview of the default elements, refer to the [Rendered elements](#rendered-elements) section.
-
-You can customize the underlying HTML element rendered by this component, or even compose it with your own custom Qwik components, by using the `as` prop. This provides immense flexibility, allowing you to:
-
-- Replace the default HTML tag with any other valid HTML element that fits your design and semantic needs.
-
-- Integrate your own Qwik components, wrapping them with custom styles or behaviors while ensuring the component's core logic and accessibility features remain intact.
-
-```tsx
-// index.tsx
-import { component$, useStyles$ } from '@qwik.dev/core';
-import { Separator } from '@entry-ui/qwik/separator';
-import styles from './index.css?inline';
-
-const Example = component$(() => {
-  useStyles$(styles);
-
-  return <Separator.Root as="hr" class="separator-root" />;
-});
-```
-
-```css
-/* index.css */
-.separator-root {
-  border: none;
-  height: 1px;
-  background-color: oklch(0% 0 0 / 0.149);
+  background-color: oklch(0% 0 0deg);
 }
 ```
 
