@@ -2,6 +2,18 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.10.0 (2026-07-04)
+
+### Breaking changes
+
+- **Remove `isValidNumber` utility in favor of native solutions.**
+  The `isValidNumber` utility has been completely removed from the package. If your project relies on this function to filter out `NaN` or `Infinity` values, you should migrate to using the native JavaScript `Number.isFinite()` method directly at the call site.
+
+### Features
+
+- **Introduce `isNumber` utility for reliable number type guarding.**
+  A robust TypeScript type guard designed to verify if a value is a valid primitive number. Unlike the native `typeof` operator, which erroneously classifies `NaN` as a number, this utility explicitly filters out `NaN` values to ensure numeric integrity. It provides a clean, safe interface for narrowing types, making it ideal for preventing unexpected runtime errors during mathematical calculations or data parsing operations.
+
 ## 0.9.0 (2026-04-19)
 
 ### Features
