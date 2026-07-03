@@ -16,22 +16,22 @@ const CollapsiblePanelTest = component$<Partial<CollapsiblePanelProps>>((props) 
 });
 
 describe('CollapsiblePanel', () => {
-  it('should render a div element by default', async () => {
+  it('should render a <div> element by default', async () => {
     const screen = await render(<CollapsiblePanelTest data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLDivElement);
   });
 
-  it('should render as a span when the "as" prop is set to "span"', async () => {
+  it('should render as a <span> element when the "as" prop is set to "span"', async () => {
     const screen = await render(<CollapsiblePanelTest as="span" data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLSpanElement);
   });
 
-  it('should render as a span when the "as" prop is a Primitive.span component', async () => {
+  it('should render as a <span> element when the "as" prop is set to the <Primitive.span> component', async () => {
     const screen = await render(<CollapsiblePanelTest as={Primitive.span} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLSpanElement);
   });
 
-  it('should render child content correctly within the Slot', async () => {
+  it('should render child content correctly within the <Slot>', async () => {
     const COLLAPSIBLE_PANEL_TEXT = 'COLLAPSIBLE_PANEL_TEXT';
 
     const screen = await render(
@@ -43,17 +43,17 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByText(COLLAPSIBLE_PANEL_TEXT)).toBeInstanceOf(HTMLSpanElement);
   });
 
-  it('should not have "hidden" attribute when the "open" prop is true', async () => {
+  it('should not have the "hidden" attribute when the "open" prop is true', async () => {
     const screen = await render(<CollapsiblePanelTest open={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('hidden');
   });
 
-  it('should have hidden="hidden" by default when the "open" prop is false', async () => {
+  it('should have the hidden="hidden" attribute by default when the "open" prop is false', async () => {
     const screen = await render(<CollapsiblePanelTest open={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
   });
 
-  it('should have hidden="hidden" when the "open" prop is false and "hiddenUntilFound" prop is false', async () => {
+  it('should have the hidden="hidden" attribute when the "open" prop is false and "hiddenUntilFound" prop is false', async () => {
     const screen = await render(
       <CollapsiblePanelTest open={false} hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
     );
@@ -61,7 +61,7 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
   });
 
-  it('should have hidden="until-found" when the "open" prop is false and "hiddenUntilFound" prop is true', async () => {
+  it('should have the hidden="until-found" attribute when the "open" prop is false and "hiddenUntilFound" prop is true', async () => {
     const screen = await render(
       <CollapsiblePanelTest open={false} hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
     );
@@ -69,7 +69,7 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'until-found');
   });
 
-  it('should have hidden="hidden" when the "open" prop is false, "hiddenUntilFound" prop is true and "disabled" prop is true', async () => {
+  it('should have the hidden="hidden" attribute when the "open" prop is false, "hiddenUntilFound" prop is true and "disabled" prop is true', async () => {
     const screen = await render(
       <CollapsiblePanelTest
         open={false}
@@ -82,7 +82,7 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
   });
 
-  it('should have hidden="hidden" when the the "open" prop is false, "hiddenUntilFound" prop is false and "disabled" prop is true', async () => {
+  it('should have the hidden="hidden" attribute when the the "open" prop is false, "hiddenUntilFound" prop is false and "disabled" prop is true', async () => {
     const screen = await render(
       <CollapsiblePanelTest
         open={false}
@@ -95,7 +95,7 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
   });
 
-  it('should have hidden="until-found" when the "open" prop is false, "hiddenUntilFound" prop is true and "disabled" prop is false', async () => {
+  it('should have the hidden="until-found" attribute when the "open" prop is false, "hiddenUntilFound" prop is true and "disabled" prop is false', async () => {
     const screen = await render(
       <CollapsiblePanelTest
         open={false}
@@ -108,42 +108,42 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'until-found');
   });
 
-  it('should have data-state="closed" by default', async () => {
+  it('should have the data-state="closed" attribute by default', async () => {
     const screen = await render(<CollapsiblePanelTest data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'closed');
   });
 
-  it('should have data-state="closed" when the "open" prop is false', async () => {
+  it('should have the data-state="closed" attribute when the "open" prop is false', async () => {
     const screen = await render(<CollapsiblePanelTest open={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'closed');
   });
 
-  it('should have data-state="open" when the "open" prop is true', async () => {
+  it('should have the data-state="open" attribute when the "open" prop is true', async () => {
     const screen = await render(<CollapsiblePanelTest open={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'open');
   });
 
-  it('should not have "data-disabled" attribute by default', async () => {
+  it('should not have the "data-disabled" attribute by default', async () => {
     const screen = await render(<CollapsiblePanelTest data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('data-disabled');
   });
 
-  it('should not have "data-disabled" when the "disabled" prop is false', async () => {
+  it('should not have the "data-disabled" attribute when the "disabled" prop is false', async () => {
     const screen = await render(<CollapsiblePanelTest disabled={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('data-disabled');
   });
 
-  it('should have "data-disabled" attribute with an empty value when the "disabled" prop is true', async () => {
+  it('should have the "data-disabled" attribute with an empty value when the "disabled" prop is true', async () => {
     const screen = await render(<CollapsiblePanelTest disabled={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-disabled', '');
   });
 
-  it('should not have any inline "display" style when the "open" prop is false', async () => {
+  it('should not have the "display" inline style when the "open" prop is false', async () => {
     const screen = await render(<CollapsiblePanelTest open={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('display');
   });
 
-  it('should not have any inline "display" style when the "open" prop is false and "hiddenUntilFound" prop is true', async () => {
+  it('should not have the "display" inline style when the "open" prop is false and "hiddenUntilFound" prop is true', async () => {
     const screen = await render(
       <CollapsiblePanelTest open={false} hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
     );
@@ -151,7 +151,7 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('display');
   });
 
-  it('should have style="display: none !important" when the "open" prop is false and "hiddenUntilFound" prop is false', async () => {
+  it('should have the "display: none !important" inline style when the "open" prop is false and "hiddenUntilFound" prop is false', async () => {
     const screen = await render(
       <CollapsiblePanelTest open={false} hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
     );
@@ -159,17 +159,17 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveStyle('display: none !important');
   });
 
-  it('should have style="transition-duration: 0s" by default', async () => {
+  it('should have the "transition-duration: 0s" inline style by default', async () => {
     const screen = await render(<CollapsiblePanelTest data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveStyle('transition-duration: 0s');
   });
 
-  it('should have style="animation-duration: 0s" by default', async () => {
+  it('should have the "animation-duration: 0s" inline style by default', async () => {
     const screen = await render(<CollapsiblePanelTest data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveStyle('animation-duration: 0s');
   });
 
-  it('should have CSS variable set to "0px" by default when the "open" prop is false', async () => {
+  it('should have the CSS variable set to "0px" by default when the "open" prop is false', async () => {
     const COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME = '--collapsible-panel-height';
 
     const screen = await render(
@@ -185,7 +185,7 @@ describe('CollapsiblePanel', () => {
       .toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: 0px`);
   });
 
-  it('should have CSS variable set to "auto" by default when the "open" prop is true', async () => {
+  it('should have the CSS variable set to "auto" by default when the "open" prop is true', async () => {
     const COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME = '--collapsible-panel-height';
 
     const screen = await render(
@@ -201,7 +201,7 @@ describe('CollapsiblePanel', () => {
       .toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
   });
 
-  it('should have CSS variable set to "0px" when the "open" prop is false and "hiddenUntilFound" prop is false', async () => {
+  it('should have the CSS variable set to "0px" when the "open" prop is false and "hiddenUntilFound" prop is false', async () => {
     const COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME = '--collapsible-panel-height';
 
     const screen = await render(
@@ -218,7 +218,7 @@ describe('CollapsiblePanel', () => {
       .toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: 0px`);
   });
 
-  it('should have CSS variable set to "auto" when the "open" prop is true and "hiddenUntilFound" prop is false', async () => {
+  it('should have the CSS variable set to "auto" when the "open" prop is true and "hiddenUntilFound" prop is false', async () => {
     const COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME = '--collapsible-panel-height';
 
     const screen = await render(
@@ -235,7 +235,7 @@ describe('CollapsiblePanel', () => {
       .toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
   });
 
-  it('should have CSS variable set to "none" when the "open" prop is false and "hiddenUntilFound" prop is true', async () => {
+  it('should have the CSS variable set to "none" when the "open" prop is false and "hiddenUntilFound" prop is true', async () => {
     const COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME = '--collapsible-panel-height';
 
     const screen = await render(
@@ -252,7 +252,7 @@ describe('CollapsiblePanel', () => {
       .toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
   });
 
-  it('should have CSS variable set to "auto" when the "open" prop is true and "hiddenUntilFound" prop is true', async () => {
+  it('should have the CSS variable set to "auto" when the "open" prop is true and "hiddenUntilFound" prop is true', async () => {
     const COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME = '--collapsible-panel-height';
 
     const screen = await render(
