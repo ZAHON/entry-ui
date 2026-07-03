@@ -19,7 +19,6 @@ export * from './is-ios';
 export * from './is-number';
 export * from './is-selectable-input';
 export * from './is-shallow-subset';
-export * from './is-valid-number';
 export * from './merge-styles';
 export * from './prevent-body-scroll';
 export * from './scroll-into-view-if-needed';
