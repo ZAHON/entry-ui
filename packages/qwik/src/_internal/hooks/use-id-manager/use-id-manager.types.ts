@@ -1,4 +1,4 @@
-import { ReadonlySignal, QRL } from '@qwik.dev/core';
+import { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Configuration parameters for the internal `useIdManager` hook.
@@ -43,7 +43,7 @@ export interface UseIdManagerReturnValue {
    * specific `QRL` functions like `set$` or `delete$`, ensuring consistent
    * and predictable state updates across the component tree.
    */
-  id: ReadonlySignal<string | undefined>;
+  id: Readonly<Signal<string | undefined>>;
 
   /**
    * A `QRL` function that directly sets the identifier to a specific string value.
