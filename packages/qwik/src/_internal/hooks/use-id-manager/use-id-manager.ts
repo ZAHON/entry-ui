@@ -2,12 +2,14 @@ import type { UseIdManagerParams, UseIdManagerReturnValue } from './use-id-manag
 import { useId as useQwikId, useConstant, useSignal, $ } from '@qwik.dev/core';
 
 /**
- * A hook that manages unique identifiers with support for prefixes and manual state control.
+ * Internal hook used to manage unique identifiers with support for prefixes and manual state control.
  *
- * This hook provides a flexible way to handle DOM identifiers, ensuring
- * accessibility and consistency across components. It encapsulates the
- * complexity of generating unique IDs while offering granular control
- * through dedicated `QRL` functions.
+ * This hook provides a flexible way to handle DOM identifiers, ensuring accessibility
+ * and consistency across components. It encapsulates the complexity of generating unique IDs
+ * while offering granular control through dedicated `QRL` functions.
+ *
+ * This hook is designed for internal library use to streamline dynamic ID orchestration,
+ * manage compound components' sub-element tracking, and abstract state lifecycle updates.
  *
  * The generated identifier follows a specific structure:
  * `[prefix][baseId]`
