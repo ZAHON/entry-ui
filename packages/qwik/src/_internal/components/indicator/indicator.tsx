@@ -5,6 +5,7 @@ import { Primitive } from '@/_internal/components/primitive';
 
 /**
  * Internal component used as a base for various state indicators.
+ *
  * It provides common accessibility attributes, styling resets, and composition support.
  *
  * This component is intended for internal library use to ensure consistent
