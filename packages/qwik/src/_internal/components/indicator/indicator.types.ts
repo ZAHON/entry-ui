@@ -2,6 +2,7 @@ import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
  * Props for the internal `Indicator` component.
+ *
  * Extends the standard HTML attributes for a `<span>` element.
  */
 export interface IndicatorProps extends PropsOf<'span'> {
