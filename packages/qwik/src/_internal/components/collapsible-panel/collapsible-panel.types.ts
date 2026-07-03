@@ -2,6 +2,7 @@ import { PropsOf, Component, QRL } from '@qwik.dev/core';
 
 /**
  * Props for the internal `CollapsiblePanel` component.
+ *
  * Extends the standard HTML attributes for a `<div>` element.
  */
 export interface CollapsiblePanelProps extends PropsOf<'div'> {
