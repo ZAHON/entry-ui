@@ -34,7 +34,7 @@ export interface UseIdManagerParams {
 }
 
 /**
- * Represents the object returned by the `useIdManager` hook.
+ * Represents the object returned by the internal `useIdManager` hook.
  */
 export interface UseIdManagerReturnValue {
   /**
