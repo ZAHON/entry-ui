@@ -6,22 +6,22 @@ import { Indicator } from '.';
 const INDICATOR_TESTID = 'INDICATOR_TESTID';
 
 describe('Indicator', () => {
-  it('should render a span element by default', async () => {
+  it('should render a <span> element by default', async () => {
     const screen = await render(<Indicator data-testid={INDICATOR_TESTID} />);
     await expect.element(screen.getByTestId(INDICATOR_TESTID)).toBeInstanceOf(HTMLSpanElement);
   });
 
-  it('should render as a div when the "as" prop is set to "div"', async () => {
+  it('should render as a <div> element when the "as" prop is set to "div"', async () => {
     const screen = await render(<Indicator as="div" data-testid={INDICATOR_TESTID} />);
     await expect.element(screen.getByTestId(INDICATOR_TESTID)).toBeInstanceOf(HTMLDivElement);
   });
 
-  it('should render as a div when the "as" prop is a Primitive.div component', async () => {
+  it('should render as a <div> element when the "as" prop is set to the <Primitive.div> component', async () => {
     const screen = await render(<Indicator as={Primitive.div} data-testid={INDICATOR_TESTID} />);
     await expect.element(screen.getByTestId(INDICATOR_TESTID)).toBeInstanceOf(HTMLDivElement);
   });
 
-  it('should render child content correctly within the Slot', async () => {
+  it('should render child content correctly within the <Slot>', async () => {
     const INDICATOT_TEXT = 'INDICATOT_TEXT';
 
     const screen = await render(
@@ -33,22 +33,22 @@ describe('Indicator', () => {
     await expect.element(screen.getByText(INDICATOT_TEXT)).toBeInstanceOf(HTMLDivElement);
   });
 
-  it('should have aria-hidden="true" by default', async () => {
+  it('should have the aria-hidden="true" attribute by default', async () => {
     const screen = await render(<Indicator data-testid={INDICATOR_TESTID} />);
     await expect.element(screen.getByTestId(INDICATOR_TESTID)).toHaveAttribute('aria-hidden', 'true');
   });
 
-  it('should have style="pointer-events: none"', async () => {
+  it('should have the "pointer-events: none" inline style by default', async () => {
     const screen = await render(<Indicator data-testid={INDICATOR_TESTID} />);
     await expect.element(screen.getByTestId(INDICATOR_TESTID)).toHaveStyle('pointer-events: none');
   });
 
-  it('should have style="user-select: none"', async () => {
+  it('should have the "user-select: none" inline style by default', async () => {
     const screen = await render(<Indicator data-testid={INDICATOR_TESTID} />);
     await expect.element(screen.getByTestId(INDICATOR_TESTID)).toHaveStyle('user-select: none');
   });
 
-  it('should have style="-webkit-user-select: none"', async () => {
+  it('should have the "-webkit-user-select: none" inline style by default', async () => {
     const screen = await render(<Indicator data-testid={INDICATOR_TESTID} />);
     await expect.element(screen.getByTestId(INDICATOR_TESTID)).toHaveStyle('-webkit-user-select: none');
   });
