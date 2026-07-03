@@ -13,6 +13,7 @@ import { Primitive } from '@/_internal/components/primitive';
 
 /**
  * Internal component used as a base for expandable panels, such as `Collapsible` or `Accordion`.
+ *
  * It provides advanced height synchronization, CSS transition support, and seamless
  * integration with the browser's native search-and-reveal (`hidden="until-found"`) functionality.
  *
