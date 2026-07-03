@@ -1,4 +1,4 @@
-import type { Signal, ReadonlySignal } from '@qwik.dev/core';
+import type { Signal } from '@qwik.dev/core';
 
 /**
  * Represents a signal that can be either mutable or readonly.
@@ -10,4 +10,4 @@ import type { Signal, ReadonlySignal } from '@qwik.dev/core';
  * - `Signal<T>`: A standard, mutable Qwik signal.
  * - `ReadonlySignal<T>`: A readonly signal, such as those returned by `useComputed$`.
  */
-export type SignalOrReadonlySignal<T> = Signal<T> | ReadonlySignal<T>;
+export type SignalOrReadonlySignal<T> = Signal<T> | Readonly<Signal<T>>;
