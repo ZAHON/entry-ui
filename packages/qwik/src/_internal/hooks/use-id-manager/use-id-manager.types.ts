@@ -1,7 +1,7 @@
 import { ReadonlySignal, QRL } from '@qwik.dev/core';
 
 /**
- * Configuration parameters for the `useIdManager` hook.
+ * Configuration parameters for the internal `useIdManager` hook.
  */
 export interface UseIdManagerParams {
   /**
