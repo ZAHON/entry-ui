@@ -1,11 +1,13 @@
 import { error as _error } from '@entry-ui/utilities/error';
 
 /**
- * Logs an error message to the console with a standardized `"[Entry UI Qwik]"` prefix.
+ * Internal utility used for logging standardized error messages to the console.
  *
- * This utility function simplifies error reporting by automatically
- * prepending a consistent prefix to all messages originating
- * from the Entry UI Qwik library.
+ * It automatically prepends the `"[Entry UI Qwik]"` prefix to all provided messages,
+ * ensuring a consistent and recognizable logging format across the package.
+ *
+ * This utility is designed for internal library use to simplify error reporting,
+ * maintain uniform diagnostic output, and streamline debugging within the library.
  */
 export const error = (messages: string[]) => {
   _error({ prefix: '[Entry UI Qwik]', messages });
