@@ -1,5 +1,5 @@
 /**
- * Configuration parameters for the `useId` hook.
+ * Configuration parameters for the internal `useId` hook.
  */
 export interface UseIdParams {
   /**
