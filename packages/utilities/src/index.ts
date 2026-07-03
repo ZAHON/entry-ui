@@ -16,6 +16,7 @@ export * from './has-stable-scrollbar-gutter';
 export * from './has-window';
 export * from './is-html-element';
 export * from './is-ios';
+export * from './is-number';
 export * from './is-selectable-input';
 export * from './is-shallow-subset';
 export * from './is-valid-number';
