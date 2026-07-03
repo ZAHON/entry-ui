@@ -1,5 +1,4 @@
 import type { CollapsiblePanelProps } from './collapsible-panel.types';
-import type { EntryUIQwikEventState } from '@/types';
 import { component$, useSignal, useComputed$, useTask$, $, sync$, Slot } from '@qwik.dev/core';
 import { isBrowser, isDev } from '@qwik.dev/core';
 import { getComputedStyle } from '@entry-ui/utilities/get-computed-style';
@@ -285,23 +284,19 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
     }
   });
 
-  const handleBeforeMatch$ = $((event: Event) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
+  const handleBeforeMatch$ = $(() => {
+    // When the browser's "Find in page" feature discovers content within a
+    // "hidden=until-found" panel, it fires the "beforematch" event.
+    // We set `isBeforeMatch` and `preventInitialAnimation` to true to
+    // bypass height transitions. This ensures the panel snaps open
+    // instantly, allowing the browser to accurately scroll to and
+    // highlight the matching text without being interrupted by
+    // layout shifts from an ongoing animation.
+    isBeforeMatch.value = true;
+    preventInitialAnimation.value = true;
 
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented) {
-      // When the browser's "Find in page" feature discovers content within a
-      // "hidden=until-found" panel, it fires the "beforematch" event.
-      // We set `isBeforeMatch` and `preventInitialAnimation` to true to
-      // bypass height transitions. This ensures the panel snaps open
-      // instantly, allowing the browser to accurately scroll to and
-      // highlight the matching text without being interrupted by
-      // layout shifts from an ongoing animation.
-      isBeforeMatch.value = true;
-      preventInitialAnimation.value = true;
-
-      if (setOpen$) {
-        setOpen$(true);
-      }
+    if (setOpen$) {
+      setOpen$(true);
     }
   });
 
