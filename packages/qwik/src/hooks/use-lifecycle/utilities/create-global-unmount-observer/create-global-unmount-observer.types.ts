@@ -2,6 +2,11 @@ import type { QRL } from '@qwik.dev/core';
 
 /**
  * Represents the object returned by the `createGlobalUnmountObserver` utility.
+ *
+ * This interface defines the registration methods required to monitor element detachment.
+ * It provides a centralized mechanism to track individual DOM elements and execute their
+ * corresponding cleanup closures, utilizing a single, shared observer instance to minimize
+ * resource consumption and prevent memory leaks.
  */
 export interface CreateGlobalUnmountObserverReturnValue {
   /**
