@@ -39,6 +39,10 @@ export interface UseIdManagerParams {
 
 /**
  * Represents the object returned by the internal `useIdManager` hook.
+ *
+ * This interface defines the state and mutation methods required to manage identifier lifecycles.
+ * It provides a reactive, read-only view of the current string token alongside serialized transition
+ * handles to explicitly assign, restore, or purge the identifier value across the DOM layout.
  */
 export interface UseIdManagerReturnValue {
   /**
