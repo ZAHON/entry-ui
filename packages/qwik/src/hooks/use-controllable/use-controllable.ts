@@ -18,9 +18,10 @@ import { fail } from '@/_internal/utilities/fail';
 export const useControllable = <T>(params: UseControllableParams<T> = {}): UseControllableReturnValue<T> => {
   const { defaultValue, controlledSignal, onChange$ } = params;
 
-  // In controlled mode, the state authority resides with the parent component.
-  // We return the external signal directly and delegate all update requests
-  // to the 'onChange$' callback without managing internal state.
+  // When `controlledSignal` is explicitly provided, the state authority resides with the parent context.
+  // The hook directly exposes the external reference as a readonly view, bypassing any internal tracking mechanisms.
+  // Mutational updates are intercepted and delegated upstream via the serialized `onChange$` callback,
+  // leaving the ultimate execution track and value resolution entirely to the parent's architectural boundary.
   if (controlledSignal !== undefined) {
     const handleExternalStateChange$ = $((value: T) => {
       onChange$?.(value);
@@ -33,8 +34,9 @@ export const useControllable = <T>(params: UseControllableParams<T> = {}): UseCo
     };
   }
 
-  // Ensure 'defaultValue' is provided for internal state initialization.
-  // This validation is performed only in development mode.
+  // Enforce the presence of `defaultValue` to guarantee deterministic internal state initialization.
+  // This invariant verification is executed exclusively within development mode to prevent runtime ambiguity
+  // without introducing any performance overhead or dead-code artifacts in production bundles.
   if (isDev && defaultValue === undefined) {
     fail([
       `The 'defaultValue' parameter in 'useControllable' hook is required when 'controlledSignal' is not provided.`,
