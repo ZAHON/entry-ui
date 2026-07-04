@@ -31,10 +31,12 @@ export interface UseControllableParams<T> {
 }
 
 /**
- * The stable interface returned by the `useControllable` hook.
- * It provides a unified way to access the current state and perform updates,
- * abstracting away the complexity of switching between controlled and
- * uncontrolled internal logic.
+ * Represents the object returned by the `useControllable` hook.
+ *
+ * This interface exposes a unified API to consume and manipulate the underlying state,
+ * abstracting the synchronization mechanics between controlled and uncontrolled execution tracks.
+ * It provides the consuming component with seamless access to the current value context,
+ * safe update dispatchers, and explicit metadata regarding the active management mode.
  */
 export interface UseControllableReturnValue<T> {
   /**
