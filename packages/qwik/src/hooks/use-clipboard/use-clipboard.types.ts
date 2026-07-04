@@ -30,6 +30,10 @@ export interface UseClipboardParams {
 
 /**
  * Represents the object returned by the `useClipboard` hook.
+ *
+ * This interface exposes a comprehensive API to interact with the system clipboard and monitor its operation.
+ * It provides the consuming component with immutable, reactive states representing the transaction outcomes
+ * alongside serialized asynchronous command dispatchers to execute write actions and explicitly reset the hook's lifecycle.
  */
 export interface UseClipboardReturnValue {
   /**
