@@ -39,12 +39,12 @@ describe('Separator', () => {
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('role', 'separator');
     });
 
-    it('should have the role="separator" attribute when "decorative" prop is false', async () => {
+    it('should have the role="separator" attribute when the "decorative" prop is false', async () => {
       const screen = await render(<Separator.Root decorative={false} data-testid={SEPARATOR_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('role', 'separator');
     });
 
-    it('should not have the "role" attribute when "decorative" prop is true', async () => {
+    it('should not have the "role" attribute when the "decorative" prop is true', async () => {
       const screen = await render(<Separator.Root decorative={true} data-testid={SEPARATOR_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).not.toHaveAttribute('role');
     });
@@ -54,12 +54,12 @@ describe('Separator', () => {
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).not.toHaveAttribute('aria-hidden');
     });
 
-    it('should not have the "aria-hidden" attribute when "decorative" prop is false', async () => {
+    it('should not have the "aria-hidden" attribute when the "decorative" prop is false', async () => {
       const screen = await render(<Separator.Root decorative={false} data-testid={SEPARATOR_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).not.toHaveAttribute('aria-hidden');
     });
 
-    it('should have the aria-hidden="true" attribute when "decorative" prop is true', async () => {
+    it('should have the aria-hidden="true" attribute when the "decorative" prop is true', async () => {
       const screen = await render(<Separator.Root decorative={true} data-testid={SEPARATOR_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('aria-hidden', 'true');
     });
@@ -69,28 +69,28 @@ describe('Separator', () => {
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('aria-orientation', 'horizontal');
     });
 
-    it('should have the aria-orientation="horizontal" attribute when "orientation" prop is "horizontal" and "decorative" is false', async () => {
+    it('should have the aria-orientation="horizontal" attribute when the "orientation" prop is "horizontal" and "decorative" is false', async () => {
       const screen = await render(
         <Separator.Root orientation="horizontal" decorative={false} data-testid={SEPARATOR_ROOT_TESTID} />
       );
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('aria-orientation', 'horizontal');
     });
 
-    it('should have the aria-orientation="vertical" attribute when "orientation" prop is "vertical" and "decorative" is false', async () => {
+    it('should have the aria-orientation="vertical" attribute when the "orientation" prop is "vertical" and "decorative" is false', async () => {
       const screen = await render(
         <Separator.Root orientation="vertical" decorative={false} data-testid={SEPARATOR_ROOT_TESTID} />
       );
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('aria-orientation', 'vertical');
     });
 
-    it('should not have the "aria-orientation" attribute when "orientation" prop is "horizontal" and "decorative" is true', async () => {
+    it('should not have the "aria-orientation" attribute when the "orientation" prop is "horizontal" and "decorative" is true', async () => {
       const screen = await render(
         <Separator.Root orientation="horizontal" decorative={true} data-testid={SEPARATOR_ROOT_TESTID} />
       );
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).not.toHaveAttribute('aria-orientation');
     });
 
-    it('should not have the "aria-orientation" attribute when "vertical" prop is "horizontal" and "decorative" is true', async () => {
+    it('should not have the "aria-orientation" attribute when the "vertical" prop is "horizontal" and "decorative" is true', async () => {
       const screen = await render(
         <Separator.Root orientation="vertical" decorative={true} data-testid={SEPARATOR_ROOT_TESTID} />
       );
@@ -102,12 +102,12 @@ describe('Separator', () => {
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('data-orientation', 'horizontal');
     });
 
-    it('should have the data-orientation="horizontal" attribute when "orientation" prop is "horizontal"', async () => {
+    it('should have the data-orientation="horizontal" attribute when the "orientation" prop is "horizontal"', async () => {
       const screen = await render(<Separator.Root orientation="horizontal" data-testid={SEPARATOR_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('data-orientation', 'horizontal');
     });
 
-    it('should have the data-orientation="vertical" attribute when "orientation" prop is "vertical"', async () => {
+    it('should have the data-orientation="vertical" attribute when the "orientation" prop is "vertical"', async () => {
       const screen = await render(<Separator.Root orientation="vertical" data-testid={SEPARATOR_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(SEPARATOR_ROOT_TESTID)).toHaveAttribute('data-orientation', 'vertical');
     });
