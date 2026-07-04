@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Configuration parameters for the `useCycle` hook.
@@ -39,7 +39,7 @@ export interface UseCycleReturnValue<T> {
    * This signal is read-only, which means its value can only be changed by calling navigation `QRL` functions
    * like `next$`, `previous$`, or `set$`, ensuring predictable state transitions.
    */
-  option: ReadonlySignal<T>;
+  option: Readonly<Signal<T>>;
 
   /**
    * A `QRL` function that advances the value to the next option in the sequence.
