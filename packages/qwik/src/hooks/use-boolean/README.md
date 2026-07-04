@@ -56,9 +56,9 @@ The `useBoolean` hook accepts a single, optional parameter to initialize the sta
 
 The `useBoolean` hook returns an object containing a readonly signal whose value indicates the current boolean state, along with `QRL` functions to manage it:
 
-| Property    | Type                      | Description                                                        |
-| :---------- | :------------------------ | :----------------------------------------------------------------- |
-| `state`     | `ReadonlySignal<boolean>` | A readonly signal whose value indicates the current boolean state. |
-| `setFalse$` | `QRL<() => void>`         | A `QRL` function to set the boolean state to `false`.              |
-| `setTrue$`  | `QRL<() => void>`         | A `QRL` function to set the boolean state to `true`.               |
-| `toggle$`   | `QRL<() => void>`         | A `QRL` function to toggle the boolean state.                      |
+| Property    | Type                        | Description                                                        |
+| :---------- | :-------------------------- | :----------------------------------------------------------------- |
+| `state`     | `Readonly<Signal<boolean>>` | A readonly signal whose value indicates the current boolean state. |
+| `setFalse$` | `QRL<() => void>`           | A `QRL` function to set the boolean state to `false`.              |
+| `setTrue$`  | `QRL<() => void>`           | A `QRL` function to set the boolean state to `true`.               |
+| `toggle$`   | `QRL<() => void>`           | A `QRL` function to toggle the boolean state.                      |
