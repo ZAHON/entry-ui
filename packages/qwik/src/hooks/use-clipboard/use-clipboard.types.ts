@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Configuration parameters for the `useClipboard` hook.
@@ -34,7 +34,7 @@ export interface UseClipboardReturnValue {
    * and automatically reverts to `false` after the specified `timeoutMs` duration
    * has elapsed or if the state is manually reset.
    */
-  copied: ReadonlySignal<boolean>;
+  copied: Readonly<Signal<boolean>>;
 
   /**
    * A readonly signal representing the current error state of the clipboard operation.
@@ -42,7 +42,7 @@ export interface UseClipboardReturnValue {
    * `"COPY_FAILED"` if the operation was rejected (e.g., due to lack of permissions),
    * or `null` if the last operation was successful or has been reset.
    */
-  error: ReadonlySignal<'NOT_SUPPORTED' | 'COPY_FAILED' | null>;
+  error: Readonly<Signal<'NOT_SUPPORTED' | 'COPY_FAILED' | null>>;
 
   /**
    * A `QRL` function that asynchronously transfers a provided string to the system clipboard.
