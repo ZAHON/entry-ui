@@ -1,4 +1,4 @@
-import type { Signal, QRL, ReadonlySignal } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Configuration parameters for the `useControllable` hook.
@@ -44,7 +44,7 @@ export interface UseControllableReturnValue<T> {
    * Provides the value from the `controlledSignal` in controlled mode,
    * or the internal signal in uncontrolled mode.
    */
-  state: ReadonlySignal<T>;
+  state: Readonly<Signal<T>>;
 
   /**
    * A `QRL` function to update the state.
