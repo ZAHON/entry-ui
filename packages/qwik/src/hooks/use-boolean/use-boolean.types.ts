@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Represents the object returned by the `useBoolean` hook.
@@ -7,7 +7,7 @@ export interface UseBooleanReturnValue {
   /**
    * A readonly signal whose value indicates the current boolean state.
    */
-  state: ReadonlySignal<boolean>;
+  state: Readonly<Signal<boolean>>;
 
   /**
    * A `QRL` function to set the boolean state to `false`.
