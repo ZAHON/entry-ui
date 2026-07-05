@@ -617,23 +617,27 @@ describe('Dialog', () => {
     });
 
     it('should call the "onOpenChangeComplete$" callback with the correct state upon opening and closing the popup', async () => {
-      const handleOpenChangeComplete$ = vi.fn();
+      // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+      // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+      // complex internal states that throw a serialization error (Code Q3).
+      const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
 
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
-          {/* eslint-disable-next-line qwik/valid-lexical-scope */}
-          <Dialog.Popup onOpenChangeComplete$={handleOpenChangeComplete$} data-testid={DIALOG_POPUP_TESTID}>
+          <Dialog.Popup onOpenChangeComplete$={(open) => console.log(open)} data-testid={DIALOG_POPUP_TESTID}>
             <Dialog.Close data-testid={DIALOG_CLOSE_TESTID} />
           </Dialog.Popup>
         </Dialog.Root>
       );
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
-      expect(handleOpenChangeComplete$).toHaveBeenCalledWith(true);
+      await wait(1000);
+      expect(mockConsolLog).toHaveBeenCalledWith(true);
 
       await userEvent.click(screen.getByTestId(DIALOG_CLOSE_TESTID));
-      expect(handleOpenChangeComplete$).toHaveBeenCalledWith(false);
+      await wait(1000);
+      expect(mockConsolLog).toHaveBeenCalledWith(false);
     });
 
     it('should have the inline style "display: none !important" when the dialog is closed and no inline "display" style when the dialog is open', async () => {
