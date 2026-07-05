@@ -277,11 +277,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
   });
 
   const handleBeforeMatchSync$ = sync$((event: Event) => {
-    const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
-
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented) {
-      event.preventDefault();
-    }
+    event.preventDefault();
   });
 
   const handleBeforeMatch$ = $(() => {
