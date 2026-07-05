@@ -9,7 +9,7 @@ import { createContextId, useContext } from '@qwik.dev/core';
 export const DialogPopupContext = createContextId<DialogPopupContextValue>('entry-ui-qwik-dialog-popup-context');
 
 /**
- * A hook that provides access to the `Dialog.Popup` component's internal state.
+ * An internal hook that provides access to the `Dialog.Popup` component's internal state.
  *
  * It exposes signals and `QRL` functions to manage title and description identifiers,
  * ensuring correct `aria-labelledby` and `aria-describedby` associations.
