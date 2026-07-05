@@ -8,7 +8,7 @@ import { createContextId, useContext } from '@qwik.dev/core';
 export const DialogRootContext = createContextId<DialogRootContextValue>('entry-ui-qwik-dialog-root-context');
 
 /**
- * A hook that provides access to the `Dialog.Root` component's internal state.
+ * An internal hook that provides access to the `Dialog.Root` component's internal state.
  *
  * It exposes readonly signals and `QRL` function to interact with the component's state,
  */
