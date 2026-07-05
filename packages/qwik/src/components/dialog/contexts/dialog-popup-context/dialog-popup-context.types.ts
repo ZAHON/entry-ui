@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `DialogPopupContext` context.
@@ -15,7 +15,7 @@ export interface DialogPopupContextValue {
     /**
      * A readonly signal representing the unique identifier of the dialog title.
      */
-    id: ReadonlySignal<string | undefined>;
+    id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the title's identifier.
@@ -36,7 +36,7 @@ export interface DialogPopupContextValue {
     /**
      * A readonly signal representing the unique identifier of the dialog description.
      */
-    id: ReadonlySignal<string | undefined>;
+    id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the description's identifier.
