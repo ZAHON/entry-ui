@@ -1,4 +1,4 @@
-import type { ReadonlySignal } from '@qwik.dev/core';
+import type { Signal } from '@qwik.dev/core';
 
 /**
  * The value provided by the `DialogTriggerContext` context.
@@ -10,5 +10,5 @@ export interface DialogTriggerContextValue {
    * A readonly signal that indicates whether the trigger is disabled.
    * Its value is `true` if the trigger is disabled, preventing user interaction.
    */
-  disabled: ReadonlySignal<boolean>;
+  disabled: Readonly<Signal<boolean>>;
 }
