@@ -164,7 +164,7 @@ A hook that provides access to the `Dialog.Root` component's internal state. It 
 
 | Property   | Type                           | Description                                                                                                                                              |
 | :--------- | :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `open`     | `ReadonlySignal<boolean>`      | A readonly signal whose value indicates the dialog's current open state. It is `true` when the dialog is open, and `false` when closed.                  |
+| `open`     | `Readonly<Signal<boolean>>`      | A readonly signal whose value indicates the dialog's current open state. It is `true` when the dialog is open, and `false` when closed.                  |
 | `setOpen$` | `QRL<(open: boolean) => void>` | A `QRL` function used to programmatically set the open state of the dialog. When invoked with `true`, the dialog will open; with `false`, it will close. |
 
 ### useDialogTriggerContext
@@ -173,7 +173,7 @@ A hook that provides access to the `Dialog.Trigger` component's internal state. 
 
 | Property   | Type                      | Description                                                                                                                                    |
 | :--------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `ReadonlySignal<boolean>` | A readonly signal that indicates whether the trigger is disabled. Its value is `true` if the trigger is disabled, preventing user interaction. |
+| `disabled` | `Readonly<Signal<boolean>>` | A readonly signal that indicates whether the trigger is disabled. Its value is `true` if the trigger is disabled, preventing user interaction. |
 
 ### useDialogCloseContext
 
@@ -181,7 +181,7 @@ A hook that provides access to the `Dialog.Close` component's internal state. It
 
 | Property   | Type                      | Description                                                                                                                                        |
 | :--------- | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `ReadonlySignal<boolean>` | A readonly signal that indicates whether the close button is disabled. Its value is `true` if the button is disabled, preventing user interaction. |
+| `disabled` | `Readonly<Signal<boolean>>` | A readonly signal that indicates whether the close button is disabled. Its value is `true` if the button is disabled, preventing user interaction. |
 
 ## Examples
 
