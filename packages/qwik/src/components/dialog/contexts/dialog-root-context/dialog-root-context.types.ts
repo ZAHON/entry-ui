@@ -1,4 +1,4 @@
-import type { ReadonlySignal, Signal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `DialogRootContext` context.
@@ -10,7 +10,7 @@ export interface DialogRootContextValue {
    * A readonly signal whose value indicates the dialog's current open state.
    * It is `true` when the dialog is open, and `false` when closed.
    */
-  open: ReadonlySignal<boolean>;
+  open: Readonly<Signal<boolean>>;
 
   /**
    * A `QRL` function used to programmatically set the open state of the dialog.
@@ -32,7 +32,7 @@ export interface DialogRootContextValue {
     /**
      * A readonly signal representing the unique identifier of the trigger.
      */
-    id: ReadonlySignal<string | undefined>;
+    id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the trigger's identifier.
@@ -53,7 +53,7 @@ export interface DialogRootContextValue {
     /**
      * A readonly signal representing the unique identifier of the dialog popup.
      */
-    id: ReadonlySignal<string | undefined>;
+    id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the popup's identifier.
