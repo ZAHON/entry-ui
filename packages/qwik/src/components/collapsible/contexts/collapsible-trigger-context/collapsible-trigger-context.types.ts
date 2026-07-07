@@ -1,4 +1,4 @@
-import type { ReadonlySignal } from '@qwik.dev/core';
+import type { Signal } from '@qwik.dev/core';
 
 /**
  * The value provided by the `CollapsibleTriggerContext` context.
@@ -11,5 +11,5 @@ export interface CollapsibleTriggerContextValue {
    * This value is computed by prioritizing the trigger's own `disabled` prop,
    * falling back to the `Collapsible.Root` disabled state if not explicitly set.
    */
-  disabled: ReadonlySignal<boolean>;
+  disabled: Readonly<Signal<boolean>>;
 }
