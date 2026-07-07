@@ -2,6 +2,7 @@ import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
  * Props for the `Collapsible.Indicator` component.
+ *
  * Extends the standard HTML attributes for a `<span>` element.
  */
 export interface CollapsibleIndicatorProps extends PropsOf<'span'> {
