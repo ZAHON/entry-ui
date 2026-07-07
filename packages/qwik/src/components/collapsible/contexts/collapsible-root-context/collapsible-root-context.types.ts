@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `CollapsibleRootContext` context.
@@ -10,7 +10,7 @@ export interface CollapsibleRootContextValue {
    * A readonly signal whose value indicates the collapsible's current open state.
    * It is `true` when the collapsible is open, and `false` when closed.
    */
-  open: ReadonlySignal<boolean>;
+  open: Readonly<Signal<boolean>>;
 
   /**
    * A `QRL` function used to programmatically set the open state of the collapsible.
@@ -22,7 +22,7 @@ export interface CollapsibleRootContextValue {
    * A readonly signal whose value indicates the collapsible's current disabled state.
    * It is `true` when the collapsible is prevented from user interaction.
    */
-  disabled: ReadonlySignal<boolean>;
+  disabled: Readonly<Signal<boolean>>;
 
   /**
    * An object containing the identifier state and management `QRL` functions for the trigger element.
@@ -32,7 +32,7 @@ export interface CollapsibleRootContextValue {
     /**
      * A readonly signal representing the unique identifier of the trigger.
      */
-    id: ReadonlySignal<string | undefined>;
+    id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the trigger's identifier.
@@ -53,7 +53,7 @@ export interface CollapsibleRootContextValue {
     /**
      * A readonly signal representing the unique identifier of the collapsible panel.
      */
-    id: ReadonlySignal<string | undefined>;
+    id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the panel's identifier.
