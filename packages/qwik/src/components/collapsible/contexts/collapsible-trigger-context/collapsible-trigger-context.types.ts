@@ -2,6 +2,7 @@ import type { ReadonlySignal } from '@qwik.dev/core';
 
 /**
  * The value provided by the `CollapsibleTriggerContext` context.
+ *
  * Contains the readonly signal shared with descendant components.
  */
 export interface CollapsibleTriggerContextValue {
