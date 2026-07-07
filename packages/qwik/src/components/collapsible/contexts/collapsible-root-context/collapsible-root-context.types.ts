@@ -2,6 +2,7 @@ import type { ReadonlySignal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `CollapsibleRootContext` context.
+ *
  * Contains the readonly signals and `QRL` functions shared with descendant components.
  */
 export interface CollapsibleRootContextValue {
