@@ -2,6 +2,7 @@ import { PropsOf, Component, Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Props for the `Collapsible.Root` component.
+ *
  * Extends the standard HTML attributes for a `<div>` element.
  */
 export interface CollapsibleRootProps extends PropsOf<'div'> {
