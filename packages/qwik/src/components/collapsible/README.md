@@ -32,7 +32,11 @@ const Anatomy = component$(() => {
 
 ## Usage
 
-To create a basic collapsible, use the `Collapsible.Root` as a wrapper and place a `Collapsible.Trigger` alongside a `Collapsible.Panel`. The component handles all accessibility requirements (like `aria-expanded` and keyboard interactions) out of the box.
+To implement a collapsible, use the `Collapsible.Root` to group the interactive `Collapsible.Trigger` and the main container, `Collapsible.Panel`. Inside the trigger, you can optionally include the `Collapsible.Indicator` to deliver a dedicated visual cue, such as an arrow, that dynamically synchronizes with the component's internal flags. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity.
+
+By default, the component operates in an uncontrolled fashion, managing its open and closed states internally via the `defaultOpen` prop. However, it can also be used as a controlled component by providing an `open` signal and an `onOpenChange$` callback to the root component, allowing you to easily integrate it into external workflows or state-driven architectures.
+
+Below is a basic example of how to implement a simple collapsible:
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -58,7 +62,7 @@ const Usage = component$(() => {
 
 ## Rendered elements
 
-Each of `Collapsible` subcomponents renders a default HTML element that is sensible for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
+Each of `Collapsible` subcomponents renders a default HTML element that is sensible for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop.
 
 | Component               | Default rendered element |
 | :---------------------- | :----------------------- |
@@ -146,25 +150,27 @@ A hook that provides access to the `Collapsible.Root` component's internal state
 
 | Property   | Type                           | Description                                                                                                                                                        |
 | :--------- | :----------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `open`     | `ReadonlySignal<boolean>`      | A readonly signal whose value indicates the collapsible's current open state. It is `true` when the collapsible is open, and `false` when closed.                  |
+| `open`     | `Readonly<Signal<boolean>>`    | A readonly signal whose value indicates the collapsible's current open state. It is `true` when the collapsible is open, and `false` when closed.                  |
 | `setOpen$` | `QRL<(open: boolean) => void>` | A `QRL` function used to programmatically set the open state of the collapsible. When invoked with `true`, the collapsible will open; with `false`, it will close. |
-| `disabled` | `ReadonlySignal<boolean>`      | A readonly signal whose value indicates the collapsible's current disabled state. It is `true` when the collapsible is prevented from user interaction.            |
+| `disabled` | `Readonly<Signal<boolean>>`    | A readonly signal whose value indicates the collapsible's current disabled state. It is `true` when the collapsible is prevented from user interaction.            |
 
 ### useCollapsibleTriggerContext
 
 A hook that provides access to the `Collapsible.Trigger` component's internal state. It exposes readonly signal to interact with the trigger's state, allowing descendant components to react to its disabled/enabled state. This hook returns an object containing the following properties:
 
-| Property   | Type                      | Description                                                                                                                                                                                                                        |
-| :--------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `ReadonlySignal<boolean>` | A readonly signal representing the effective disabled state of the trigger. This value is computed by prioritizing the trigger's own `disabled` prop, falling back to the `Collapsible.Root` disabled state if not explicitly set. |
+| Property   | Type                        | Description                                                                                                                                                                                                                        |
+| :--------- | :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `Readonly<Signal<boolean>>` | A readonly signal representing the effective disabled state of the trigger. This value is computed by prioritizing the trigger's own `disabled` prop, falling back to the `Collapsible.Root` disabled state if not explicitly set. |
 
 ## Examples
 
 Explore various ways to implement and customize the `Collapsible` component. From simple uncontrolled states to complex nested structures and smooth height animations, these examples demonstrate the component's flexibility and how it can be tailored to fit your specific design and functional requirements.
 
-### Internal state management (Uncontrolled)
+### Internal state management
 
-In uncontrolled mode, the `Collapsible` component manages its open state internally. You define the initial state by providing a boolean to the `defaultOpen` prop on `Collapsible.Root`. The component then takes full control over subsequent state changes based on user interactions, such as clicking the trigger. This approach is ideal for simpler use cases where the collapsible's state does not need to be managed or synchronized by a parent component.
+When using the uncontrolled mode, the `Collapsible` component manages its open and closed states internally. You define the initial state by providing a boolean to the `defaultOpen` prop on `Collapsible.Root`, which determines whether the panel is initially expanded or collapsed. The component then takes full control over subsequent state changes based on user interactions with the `Collapsible.Trigger`, updating necessary data attributes automatically.
+
+This approach is ideal for simpler use cases where the open state does not need to be managed or synchronized by a parent component, allowing for a cleaner and more self-contained implementation.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -183,9 +189,11 @@ const Example = component$(() => {
 });
 ```
 
-### External state control (Controlled)
+### External state control
 
-When using the controlled mode, the parent component is responsible for managing the open state of the collapsible. You achieve this by passing a signal to the `open` prop on the `Collapsible.Root` component and listening for changes with the `onOpenChange$` event handler. This approach is ideal for more complex use cases, such as synchronizing the collapsible state with a database, integrating with external state management, or enabling a parent component to dynamically trigger state changes based on other application logic.
+When using the controlled mode, the parent component is responsible for managing the open state of the collapsible. You achieve this by passing a signal to the `open` prop on the `Collapsible.Root` component and listening for changes with the `onOpenChange$` event handler. The component then relies entirely on this external value to dictate whether the panel is expanded or collapsed, synchronizing all internal state and data attributes accordingly.
+
+This approach is ideal for more complex use cases, such as synchronizing the collapsible state with a database, integrating with external state management, or enabling a parent component to dynamically trigger state changes based on other application logic.
 
 ```tsx
 import { component$, useSignal } from '@qwik.dev/core';
@@ -330,7 +338,9 @@ const Example = component$(() => {
 
 ### Nesting for multi-level disclosures
 
-The `Collapsible` component can be nested within another `Collapsible.Panel` to create multi-level disclosures or hierarchical menus. Since each `Collapsible.Root` creates its own independent context, internal states remain isolated, allowing you to build complex interfaces like nested FAQs, documentation trees, or multi-layered navigation without additional state management.
+The `Collapsible` component can be nested within another `Collapsible.Panel` to create multi-level disclosures or complex hierarchical menus. Because each `Collapsible.Root` establishes its own independent context, internal open and closed states remain entirely isolated from one another.
+
+This architectural isolation is ideal for building advanced user interfaces, such as deeply nested FAQs, tree views, documentation outlines, or multi-layered navigation structures, without requiring any additional external state tracking or synchronization logic.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -362,7 +372,9 @@ const Example = component$(() => {
 
 ### State-aware visual indicators
 
-The `Collapsible.Indicator` subcomponent provides a simple way to add visual cues, such as arrows or icons, that react to the collapsible's state. By using the `data-state` attribute, you can easily apply CSS transitions or transforms (e.g., rotating an arrow) to indicate whether the panel is currently expanded or collapsed, enhancing the overall user experience and affordance.
+The `Collapsible.Indicator` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the collapsible's current layout status. By hook-riding on the context of `Collapsible.Root`, it synchronizes effortlessly and updates its underlying data attributes automatically.
+
+This layout relies on the `data-state` attribute, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the panel is expanded or collapsed. This approach ensures a highly interactive and polished user experience while keeping the visual indicator decoupled from core toggle mechanics.
 
 ```tsx
 // index.tsx
@@ -417,7 +429,9 @@ const Example = component$(() => {
 
 ### Disabled interaction
 
-Setting the `disabled` prop to `true` on the `Collapsible.Root` prevents all user interactions with the component, effectively disabling the entire group. However, you can also manage the disabled state of the `Collapsible.Trigger` independently by using its own `disabled` prop. When a state is set on the root, it is automatically propagated to the trigger, but an explicit prop on the trigger will take precedence. These states are reflected via the `data-disabled` attribute on subcomponents for easy styling.
+Setting the `disabled` prop to `true` on the `Collapsible.Root` prevents all user interactions with the component, effectively disabling the entire group. When this state is applied at the root level, it automatically propagates to all descendant subcomponents, applying the `data-disabled` attribute to enable unified, disabled-state styling across the entire layout.
+
+Alternatively, you can manage the disabled state of the `Collapsible.Trigger` independently by using its own `disabled` prop. An explicit value provided directly to the trigger component will always take precedence over the inherited value from the root, allowing for fine-grained interaction control within more complex implementation scenarios.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -427,45 +441,6 @@ const Example = component$(() => {
   return (
     <Collapsible.Root disabled={true}>
       <Collapsible.Trigger>What is Entry UI Qwik?</Collapsible.Trigger>
-      <Collapsible.Panel>
-        A collection of accessible, unstyled components, hooks, and utilities for Qwik, designed for building
-        high-quality web applications and design systems.
-      </Collapsible.Panel>
-    </Collapsible.Root>
-  );
-});
-```
-
-### Rendering different elements
-
-By default, the `Collapsible` subcomponents render elements that are sensible for their roles, such as a `<div>` for `Collapsible.Root` or a `<button>` for `Collapsible.Trigger`. For a complete overview of the default elements, refer to the [Rendered elements](#rendered-elements) section.
-
-You can customize the underlying HTML element rendered by these components, or even compose them with your own custom Qwik components, by using the `as` prop. This provides immense flexibility, allowing you to:
-
-- Replace the default HTML tag with any other valid HTML element that fits your design and semantic needs (e.g., rendering the `Collapsible.Root` as an `<article>` for better list semantics).
-
-- Integrate your own Qwik components, wrapping them with custom styles or behaviors while ensuring the component's core logic and accessibility features remain intact.
-
-> [!IMPORTANT]
-> While it's possible to change the element rendered by `Collapsible.Trigger`, for accessibility and correct component functionality, it should always render a `<button>` element.
-
-```tsx
-import type { PropsOf } from '@qwik.dev/core';
-import { component$, Slot } from '@qwik.dev/core';
-import { Collapsible } from '@entry-ui/qwik/collapsible';
-
-const MyCustomButton = component$<PropsOf<'button'>>((props) => {
-  return (
-    <button style={{ color: 'white', backgroundColor: 'purple' }} {...props}>
-      <Slot />
-    </button>
-  );
-});
-
-const Example = component$(() => {
-  return (
-    <Collapsible.Root as="article">
-      <Collapsible.Trigger as={MyCustomButton}>What is Entry UI Qwik?</Collapsible.Trigger>
       <Collapsible.Panel>
         A collection of accessible, unstyled components, hooks, and utilities for Qwik, designed for building
         high-quality web applications and design systems.
