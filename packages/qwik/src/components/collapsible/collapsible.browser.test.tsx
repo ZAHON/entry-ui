@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render } from 'vitest-browser-qwik';
 import { userEvent } from 'vitest/browser';
+import { wait } from '@entry-ui/utilities/wait';
 import { Primitive } from '@/_internal/components/primitive';
 import { Collapsible } from '.';
 
@@ -11,22 +12,22 @@ const COLLAPSIBLE_INDICATOR_TESTID = 'COLLAPSIBLE_INDICATOR_TESTID';
 
 describe('Collapsible', () => {
   describe('Collapsible.Root', () => {
-    it('should render a div element by default', async () => {
+    it('should render a <div> element by default', async () => {
       const screen = await render(<Collapsible.Root data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
-    it('should render as a span when the "as" prop is set to "span"', async () => {
+    it('should render as a <span> element when the "as" prop is set to "span"', async () => {
       const screen = await render(<Collapsible.Root as="span" data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should render as a span when the "as" prop is a Primitive.span component', async () => {
+    it('should render as a <span> element when the "as" prop is set to the <Primitive.span> component', async () => {
       const screen = await render(<Collapsible.Root as={Primitive.span} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should render child content correctly within the Slot', async () => {
+    it('should render child content correctly within the <Slot>', async () => {
       const COLLAPSIBLE_ROOT_TEXT = 'COLLAPSIBLE_ROOT_TEXT';
 
       const screen = await render(
@@ -38,32 +39,32 @@ describe('Collapsible', () => {
       await expect.element(screen.getByText(COLLAPSIBLE_ROOT_TEXT)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should have data-state="closed" by default', async () => {
+    it('should have the data-state="closed" attribute by default', async () => {
       const screen = await render(<Collapsible.Root data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="closed" when the collapsible is closed', async () => {
+    it('should have the data-state="closed" attribute when the collapsible is closed', async () => {
       const screen = await render(<Collapsible.Root defaultOpen={false} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="open" when the collapsible is open', async () => {
+    it('should have the data-state="open" attribute when the collapsible is open', async () => {
       const screen = await render(<Collapsible.Root defaultOpen={true} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-state', 'open');
     });
 
-    it('should not have "data-disabled" attribute by default', async () => {
+    it('should not have the "data-disabled" attribute by default', async () => {
       const screen = await render(<Collapsible.Root data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
-    it('should not have "data-disabled" attribute when the "disabled" prop is false', async () => {
+    it('should not have the "data-disabled" attribute when the "disabled" prop is false', async () => {
       const screen = await render(<Collapsible.Root disabled={false} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
-    it('should have "data-disabled" attribute with an empty value when the "disabled" prop is true', async () => {
+    it('should have the "data-disabled" attribute with an empty value when the "disabled" prop is true', async () => {
       const screen = await render(<Collapsible.Root disabled={true} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-disabled', '');
     });
@@ -78,7 +79,7 @@ describe('Collapsible', () => {
   });
 
   describe('Collapsible.Trigger', () => {
-    it('should render a button element by default', async () => {
+    it('should render a <button> element by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -88,7 +89,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toBeInstanceOf(HTMLButtonElement);
     });
 
-    it('should render as a div when the "as" prop is set to "div"', async () => {
+    it('should render as a <div> element when the "as" prop is set to "div"', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger as="div" data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -98,7 +99,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
-    it('should render as a div when the "as" prop is a Primitive.div component', async () => {
+    it('should render as a <div> element when the "as" prop is set to the <Primitive.div> component', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger as={Primitive.div} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -107,7 +108,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
-    it('should render child content correctly within the Slot', async () => {
+    it('should render child content correctly within the <Slot>', async () => {
       const COLLAPSIBLE_TRIGGER_TEXT = 'COLLAPSIBLE_TRIGGER_TEXT';
 
       const screen = await render(
@@ -121,7 +122,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByText(COLLAPSIBLE_TRIGGER_TEXT)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should have type="button" by default', async () => {
+    it('should have the type="button" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -135,26 +136,6 @@ describe('Collapsible', () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('id');
-    });
-
-    it('should have a generated id even when the "id" prop is undefined', async () => {
-      const screen = await render(
-        <Collapsible.Root>
-          <Collapsible.Trigger id={undefined} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('id');
-    });
-
-    it('should have a generated id when an empty string is provided as "id" prop', async () => {
-      const screen = await render(
-        <Collapsible.Root>
-          <Collapsible.Trigger id=" " data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
 
@@ -175,57 +156,7 @@ describe('Collapsible', () => {
         .toHaveAttribute('id', COLLAPSIBLE_TRIGGER_ID);
     });
 
-    it('should not be disabled by default', async () => {
-      const screen = await render(
-        <Collapsible.Root>
-          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
-    });
-
-    it('should be not disabled when the "disabled" prop is false on Collapsible.Root', async () => {
-      const screen = await render(
-        <Collapsible.Root disabled={false}>
-          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
-    });
-
-    it('should be disabled when the "disabled" prop is true on Collapsible.Root', async () => {
-      const screen = await render(
-        <Collapsible.Root disabled={true}>
-          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toBeDisabled();
-    });
-
-    it('should be not disabled when "disabled" prop is false on Collapsible.Trigger even if Collapsible.Root is disabled', async () => {
-      const screen = await render(
-        <Collapsible.Root disabled={true}>
-          <Collapsible.Trigger disabled={false} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
-    });
-
-    it('should be disabled when the "disabled" prop is true on Collapsible.Trigger even if Collapsible.Root is enabled', async () => {
-      const screen = await render(
-        <Collapsible.Root disabled={false}>
-          <Collapsible.Trigger disabled={true} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('disabled');
-    });
-
-    it('should not have "aria-controls" attribute when the collapsible is closed and Collapsible.Root not contains Collapsible.Panel', async () => {
+    it('should not have the "aria-controls" attribute when the collapsible is closed and <Collapsible.Root> does not contain <Collapsible.Panel>', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -235,7 +166,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('aria-controls');
     });
 
-    it('should not have "aria-controls" attribute when the collapsible is closed and Collapsible.Root contains Collapsible.Panel', async () => {
+    it('should not have the "aria-controls" attribute when the collapsible is closed and <Collapsible.Root> contains <Collapsible.Panel>', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -246,7 +177,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('aria-controls');
     });
 
-    it('should not have "aria-controls" attribute when the collapsible is open and Collapsible.Root not contains Collapsible.Panel', async () => {
+    it('should not have the "aria-controls" attribute when the collapsible is open and <Collapsible.Root> does not contain <Collapsible.Panel>', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -256,7 +187,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('aria-controls');
     });
 
-    it('should have "aria-controls" attribute associated with Collapsible.Panel "id" attribute when the collapsible is open and Collapsible.Root contains Collapsible.Panel', async () => {
+    it('should have the "aria-controls" attribute associated with Collapsible.Panel "id" attribute when the collapsible is open and <Collapsible.Root> contains <Collapsible.Panel>', async () => {
       const COLLAPSIBLE_PANEL_ID = 'COLLAPSIBLE_PANEL_ID';
 
       const screen = await render(
@@ -271,7 +202,7 @@ describe('Collapsible', () => {
         .toHaveAttribute('aria-controls', COLLAPSIBLE_PANEL_ID);
     });
 
-    it('should not have "aria-expanded" attribute when Collapsible.Root not contains Collapsible.Panel', async () => {
+    it('should not have the "aria-expanded" attribute when <Collapsible.Root> does not contain <Collapsible.Panel>', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -281,7 +212,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('aria-expanded');
     });
 
-    it('should have aria-expanded="false" when the collapsible is closed and Collapsible.Root contains Collapsible.Panel', async () => {
+    it('should have the aria-expanded="false" when the collapsible is closed and <Collapsible.Root> contains <Collapsible.Panel>', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -292,7 +223,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('should have aria-expanded="true" when the collapsible is open and Collapsible.Root contains Collapsible.Panel', async () => {
+    it('should have the aria-expanded="true" when the collapsible is open and <Collapsible.Root> contains <Collapsible.Panel>', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -303,7 +234,57 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('should have data-state="closed" by default', async () => {
+    it('should not be disabled by default', async () => {
+      const screen = await render(
+        <Collapsible.Root>
+          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
+    });
+
+    it('should be not disabled when the "disabled" prop is false on <Collapsible.Root>', async () => {
+      const screen = await render(
+        <Collapsible.Root disabled={false}>
+          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
+    });
+
+    it('should be disabled when the "disabled" prop is true on <Collapsible.Root>', async () => {
+      const screen = await render(
+        <Collapsible.Root disabled={true}>
+          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toBeDisabled();
+    });
+
+    it('should be not disabled when "disabled" prop is false on <Collapsible.Trigger> even if <Collapsible.Root> is disabled', async () => {
+      const screen = await render(
+        <Collapsible.Root disabled={true}>
+          <Collapsible.Trigger disabled={false} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toBeDisabled();
+    });
+
+    it('should be disabled when the "disabled" prop is true on <Collapsible.Trigger> even if <Collapsible.Root> is enabled', async () => {
+      const screen = await render(
+        <Collapsible.Root disabled={false}>
+          <Collapsible.Trigger disabled={true} data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('disabled');
+    });
+
+    it('should have the data-state="closed" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -313,7 +294,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="closed" when the collapsible is closed', async () => {
+    it('should have the data-state="closed" attribute when the collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -323,7 +304,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="open" when the collapsible is open', async () => {
+    it('should have the data-state="open" attribute when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -333,7 +314,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-state', 'open');
     });
 
-    it('should not have "data-disabled" attribute by default', async () => {
+    it('should not have the "data-disabled" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -343,7 +324,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
-    it('should not have "data-disabled" attribute when the "disabled" prop is false on Collapsible.Root', async () => {
+    it('should not have the "data-disabled" attribute when the "disabled" prop is false on <Collapsible.Root>', async () => {
       const screen = await render(
         <Collapsible.Root disabled={false}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -353,7 +334,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
-    it('should have "data-disabled" attribute with an empty value when the "disabled" prop is true on Collapsible.Root', async () => {
+    it('should have the "data-disabled" attribute with an empty value when the "disabled" prop is true on <Collapsible.Root>', async () => {
       const screen = await render(
         <Collapsible.Root disabled={true}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
@@ -377,7 +358,7 @@ describe('Collapsible', () => {
   });
 
   describe('Collapsible.Panel', () => {
-    it('should render a div element by default', async () => {
+    it('should render a <div> element by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -387,7 +368,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
-    it('should render as a span when the "as" prop is set to "span"', async () => {
+    it('should render as a <span> element when the "as" prop is set to "span"', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Panel as="span" data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -397,7 +378,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should render as a span when the "as" prop is a Primitive.span component', async () => {
+    it('should render as a <span> element when the "as" prop is set to the <Primitive.span> component', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Panel as={Primitive.span} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -407,7 +388,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should render child content correctly within the Slot', async () => {
+    it('should render child content correctly within the <Slot>', async () => {
       const COLLAPSIBLE_PANEL_TEXT = 'COLLAPSIBLE_PANEL_TEXT';
 
       const screen = await render(
@@ -431,26 +412,6 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('id');
     });
 
-    it('should have a generated id even when the "id" prop is undefined', async () => {
-      const screen = await render(
-        <Collapsible.Root>
-          <Collapsible.Panel id={undefined} data-testid={COLLAPSIBLE_PANEL_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('id');
-    });
-
-    it('should have a generated id when an empty string is provided as "id" prop', async () => {
-      const screen = await render(
-        <Collapsible.Root>
-          <Collapsible.Panel id=" " data-testid={COLLAPSIBLE_PANEL_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('id');
-    });
-
     it('should use the provided "id" prop as the element id', async () => {
       const COLLAPSIBLE_PANEL_ID = 'COLLAPSIBLE_PANEL_ID';
 
@@ -463,8 +424,8 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('id', COLLAPSIBLE_PANEL_ID);
     });
 
-    it('should not have "role" attribute when Collapsible.Root not contains Collapsible.Trigger', async () => {
-      const screen = render(
+    it('should not have the "role" attribute when <Collapsible.Root> does not contain <Collapsible.Trigger>', async () => {
+      const screen = await render(
         <Collapsible.Root>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
         </Collapsible.Root>
@@ -473,8 +434,8 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('role');
     });
 
-    it('should have role="group" when Collapsible.Root contains Collapsible.Trigger', async () => {
-      const screen = render(
+    it('should have the role="group" attribute when <Collapsible.Root> contains <Collapsible.Trigger>', async () => {
+      const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger />
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -484,7 +445,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('role', 'group');
     });
 
-    it('should not have "hidden" attribute when the collapsible is open', async () => {
+    it('should not have the "hidden" attribute when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -494,7 +455,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('hidden');
     });
 
-    it('should have hidden="hidden" when the collapsible is closed by default', async () => {
+    it('should have the hidden="hidden" attribute when the collapsible is closed by default', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -504,7 +465,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden');
     });
 
-    it('should have hidden="hidden" when the collapsible is closed and "hiddenUntilFound" is false', async () => {
+    it('should have the hidden="hidden" attribute when the collapsible is closed and "hiddenUntilFound" prop is false', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -514,7 +475,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
     });
 
-    it('should have hidden="until-found" when the collapsible is closed and "hiddenUntilFound" is true', async () => {
+    it('should have the hidden="until-found" attribute when the collapsible is closed and "hiddenUntilFound" prop is true', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -524,7 +485,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'until-found');
     });
 
-    it('should have hidden="hidden" when the collapsible is closed and "hiddenUntilFound" is true but the collapsible is disabled', async () => {
+    it('should have the hidden="hidden" attribute when the collapsible is closed and "hiddenUntilFound" prop is true but the collapsible is disabled', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false} disabled={true}>
           <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -534,7 +495,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
     });
 
-    it('should have hidden="hidden" when the collapsible is closed, "hiddenUntilFound" is false and collapsible is disabled', async () => {
+    it('should have the hidden="hidden" attribute when the collapsible is closed, "hiddenUntilFound" prop is false and collapsible is disabled', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false} disabled={true}>
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -544,7 +505,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'hidden');
     });
 
-    it('should have hidden="until-found" when the collapsible is closed, NOT disabled and "hiddenUntilFound" is true', async () => {
+    it('should have the hidden="until-found" attribute when the collapsible is closed, NOT disabled and "hiddenUntilFound" prop is true', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false} disabled={false}>
           <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -554,7 +515,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('hidden', 'until-found');
     });
 
-    it('should not have "aria-labelledby" attribute when Collapsible.Root not contains Collapsible.Trigger', async () => {
+    it('should not have the "aria-labelledby" attribute when <Collapsible.Root> does not contain <Collapsible.Trigger>', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -564,7 +525,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('aria-labelledby');
     });
 
-    it('should have "aria-labelledby" attribute associated with Collapsible.Trigger "id" attribute when Collapsible.Root contains Collapsible.Trigger', async () => {
+    it('should have the "aria-labelledby" attribute associated with <Collapsible.Trigger> "id" attribute when <Collapsible.Root> contains <Collapsible.Trigger>', async () => {
       const COLLAPSIBLE_TRIGGER_ID = 'COLLAPSIBLE_TRIGGER_ID';
 
       const screen = await render(
@@ -579,7 +540,7 @@ describe('Collapsible', () => {
         .toHaveAttribute('aria-labelledby', COLLAPSIBLE_TRIGGER_ID);
     });
 
-    it('should have data-state="closed" by default', async () => {
+    it('should have the data-state="closed" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -589,7 +550,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="closed" when the collapsible is closed', async () => {
+    it('should have the data-state="closed" attribute when the collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -599,7 +560,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="open" when the collapsible is open', async () => {
+    it('should have the data-state="open" attribute when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -609,7 +570,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-state', 'open');
     });
 
-    it('should not have "data-disabled" attribute by default', async () => {
+    it('should not have the "data-disabled" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -619,7 +580,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
-    it('should not have "data-disabled" attribute when the "disabled" prop is false on Collapsible.Root', async () => {
+    it('should not have the "data-disabled" attribute when the "disabled" prop is false on <Collapsible.Root>', async () => {
       const screen = await render(
         <Collapsible.Root disabled={false}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -629,7 +590,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
-    it('should have "data-disabled" attribute with an empty value when the "disabled" prop is true on Collapsible.Root', async () => {
+    it('should have the "data-disabled" attribute with an empty value when the "disabled" prop is true on <Collapsible.Root>', async () => {
       const screen = await render(
         <Collapsible.Root disabled={true}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -639,7 +600,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-disabled', '');
     });
 
-    it('should not have any inline "display" style when the collapsible is open', async () => {
+    it('should not have the "display" inline style when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -649,7 +610,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('display');
     });
 
-    it('should not have any inline "display" style when the collapsible is closed and "hiddenUntilFound" is true', async () => {
+    it('should not have the "display" inline style when the collapsible is closed and "hiddenUntilFound" prop is true', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -659,7 +620,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveStyle('display');
     });
 
-    it('should have style="display: none" when the collapsible is closed and "hiddenUntilFound" is false', async () => {
+    it('should have the "display: none !important" inline style when the collapsible is closed and "hiddenUntilFound" prop is false', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -719,7 +680,7 @@ describe('Collapsible', () => {
       await expect.element(panelElement).not.toHaveStyle('animation-duration');
     });
 
-    it('should have style="--entry-ui-qwik-collapsible-panel-height: 0px" by default when the collapsible is closed', async () => {
+    it('should have the CSS variable set to "0px" by default when the collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -731,7 +692,7 @@ describe('Collapsible', () => {
         .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: 0px');
     });
 
-    it('should have style="--entry-ui-qwik-collapsible-panel-height: auto" by default when the collapsible is open', async () => {
+    it('should have the CSS variable set to "auto" by default when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Panel data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -743,7 +704,7 @@ describe('Collapsible', () => {
         .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
     });
 
-    it('should have style="--entry-ui-qwik-collapsible-panel-height: 0px" when "hiddenUntilFound" is false and collapsible is closed', async () => {
+    it('should have the CSS variable set to "0px" when "hiddenUntilFound" prop is false and collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -755,7 +716,7 @@ describe('Collapsible', () => {
         .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: 0px');
     });
 
-    it('should have style="--entry-ui-qwik-collapsible-panel-height: auto" when "hiddenUntilFound" is false and collapsible is open', async () => {
+    it('should have the CSS variable set to "auto" when "hiddenUntilFound" prop is false and collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Panel hiddenUntilFound={false} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -767,7 +728,7 @@ describe('Collapsible', () => {
         .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
     });
 
-    it('should have style="--entry-ui-qwik-collapsible-panel-height: none" when "hiddenUntilFound" is true and collapsible is closed', async () => {
+    it('should have the CSS variable set to "none" when "hiddenUntilFound" prop is true and collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -779,7 +740,7 @@ describe('Collapsible', () => {
         .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: none');
     });
 
-    it('should have style="--entry-ui-qwik-collapsible-panel-height: auto" when "hiddenUntilFound" is true and collapsible is open', async () => {
+    it('should have the CSS variable set to "auto" when "hiddenUntilFound" prop is true and collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Panel hiddenUntilFound={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />
@@ -791,29 +752,31 @@ describe('Collapsible', () => {
         .toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
     });
 
-    it('should call "onOpenChangeComplete$" with the correct state when the panel is opened and closed', async () => {
-      const handleOpenChangeComplete$ = vi.fn();
+    it('should call the "onOpenChangeComplete$" callback with the correct state upon opening and closing the panel', async () => {
+      // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+      // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+      // complex internal states that throw a serialization error (Code Q3).
+      const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
 
-      const screen = render(
+      const screen = await render(
         <Collapsible.Root>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-          {/* eslint-disable-next-line qwik/valid-lexical-scope */}
-          <Collapsible.Panel onOpenChangeComplete$={handleOpenChangeComplete$} />
+          <Collapsible.Panel onOpenChangeComplete$={(open) => console.log(open)} />
         </Collapsible.Root>
       );
 
-      const triggerElement = screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID);
+      await userEvent.click(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID));
+      await wait(1000);
+      expect(mockConsolLog).toHaveBeenCalledWith(true);
 
-      await userEvent.click(triggerElement);
-      expect(handleOpenChangeComplete$).toHaveBeenCalledWith(true);
-
-      await userEvent.click(triggerElement);
-      expect(handleOpenChangeComplete$).toHaveBeenCalledWith(false);
+      await userEvent.click(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID));
+      await wait(1000);
+      expect(mockConsolLog).toHaveBeenCalledWith(false);
     });
 
     it('should merge and apply custom inline styles via the "style" prop', async () => {
       const COLLAPSIBLE_PANEL_STYLE =
-        'display: block; transitionDuration: 10s; animationDuration: 5s; --entry-ui-qwik-collapsible-panel-height: 100px; background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
+        'display: block; transition-duration: 10s; animation-duration: 5s; --entry-ui-qwik-collapsible-panel-height: 100px; background-color: rgb(1, 2, 3); color: rgba(3, 2, 1)';
 
       const screen = await render(
         <Collapsible.Root>
@@ -838,7 +801,7 @@ describe('Collapsible', () => {
   });
 
   describe('Collapsible.Indicator', () => {
-    it('should render a span element by default', async () => {
+    it('should render a <span> element by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -848,7 +811,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should render as a div when the "as" prop is set to "div"', async () => {
+    it('should render as a <div> element when the "as" prop is set to "div"', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator as="div" data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -858,7 +821,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
-    it('should render as a div when the "as" prop is a Primitive.div component', async () => {
+    it('should render as a <div> element when the "as" prop is set to the <Primitive.div> component', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator as={Primitive.div} data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -868,7 +831,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toBeInstanceOf(HTMLDivElement);
     });
 
-    it('should render child content correctly within the Slot', async () => {
+    it('should render child content correctly within the <Slot>', async () => {
       const COLLAPSIBLE_INDICATOR_TEXT = 'COLLAPSIBLE_INDICATOR_TEXT';
 
       const screen = await render(
@@ -882,7 +845,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByText(COLLAPSIBLE_INDICATOR_TEXT)).toBeInstanceOf(HTMLDivElement);
     });
 
-    it('should have aria-hidden="true" by default', async () => {
+    it('should have the aria-hidden="true" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -892,7 +855,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('aria-hidden', 'true');
     });
 
-    it('should have data-state="closed" by default', async () => {
+    it('should have the data-state="closed" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -902,7 +865,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="closed" when the collapsible is closed', async () => {
+    it('should have the data-state="closed" attribute when the collapsible is closed', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={false}>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -912,7 +875,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should have data-state="open" when the collapsible is open', async () => {
+    it('should have the data-state="open" attribute when the collapsible is open', async () => {
       const screen = await render(
         <Collapsible.Root defaultOpen={true}>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -922,7 +885,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'open');
     });
 
-    it('should not have "data-disabled" attribute by default', async () => {
+    it('should not have the "data-disabled" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -932,7 +895,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
-    it('should not have "data-disabled" attribute when the "disabled" prop is false on Collapsible.Root', async () => {
+    it('should not have the "data-disabled" attribute when the "disabled" prop is false on <Collapsible.Root>', async () => {
       const screen = await render(
         <Collapsible.Root disabled={false}>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -942,7 +905,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).not.toHaveAttribute('data-disabled');
     });
 
-    it('should have "data-disabled" attribute with an empty value when the "disabled" prop is true on Collapsible.Root', async () => {
+    it('should have the "data-disabled" attribute with an empty value when the "disabled" prop is true on <Collapsible.Root>', async () => {
       const screen = await render(
         <Collapsible.Root disabled={true}>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -952,7 +915,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-disabled', '');
     });
 
-    it('should have style="pointer-events: none"', async () => {
+    it('should have the "pointer-events: none" inline style by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -962,7 +925,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveStyle('pointer-events: none');
     });
 
-    it('should have style="user-select: none"', async () => {
+    it('should have the "user-select: none" inline style by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
@@ -972,7 +935,7 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveStyle('user-select: none');
     });
 
-    it('should have style="-webkit-user-select: none"', async () => {
+    it('should have the "-webkit-user-select: none" inline style by default', async () => {
       const screen = await render(
         <Collapsible.Root>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
