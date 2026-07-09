@@ -1,5 +1,4 @@
 import type { AccordionItemTriggerProps } from './accordion-item-trigger.types';
-import type { EntryUIQwikEventState } from '@/types';
 import { component$, useSignal, useComputed$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { useLifecycle } from '@/hooks/use-lifecycle';
 import { mergeRefs } from '@/utilities/merge-refs';
@@ -29,10 +28,8 @@ export const AccordionItemTrigger = component$<AccordionItemTriggerProps>((props
     onUnmount$: $(() => triggerId.delete$()),
   });
 
-  const handleClick$ = $((event: PointerEvent) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && !disabled.value) {
+  const handleClick$ = $(() => {
+    if (!disabled.value) {
       setOpen$(!open.value);
     }
   });
