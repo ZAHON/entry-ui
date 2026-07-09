@@ -2,6 +2,7 @@ import type { ReadonlySignal } from '@qwik.dev/core';
 
 /**
  * The value returned by the `useAccordionItemTriggerContext` hook.
+ *
  * Provides access to the accordion item trigger's readonly signal for descendant components.
  */
 export interface UseAccordionItemTriggerContextReturnValue {
