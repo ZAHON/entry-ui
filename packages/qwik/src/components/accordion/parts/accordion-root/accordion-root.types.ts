@@ -49,16 +49,6 @@ export interface AccordionRootProps extends PropsOf<'div'> {
   multiple?: boolean;
 
   /**
-   * Whether the keyboard focus should wrap back to the first or last item trigger
-   * when navigating through the accordion.
-   * When `true`, pressing `ArrowDown` on the last enabled trigger moves focus to the
-   * first one, and `ArrowUp` on the first enabled trigger moves focus to the last one.
-   *
-   * @default true
-   */
-  loopFocus?: boolean;
-
-  /**
    * When `true`, all collapsed accordion panels will use the `hidden="until-found"`
    * attribute. This allows the browser's "Find in page" feature to
    * search through collapsed content and automatically expand the item when

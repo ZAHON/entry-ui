@@ -1,8 +1,6 @@
 import type { AccordionRootProps } from './accordion-root.types';
-import type { EntryUIQwikEventState } from '@/types';
-import { component$, useComputed$, $, sync$, useContextProvider, Slot } from '@qwik.dev/core';
+import { component$, useComputed$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { isDev } from '@qwik.dev/core/build';
-import { focusElement } from '@entry-ui/utilities/focus-element';
 import { useControllable } from '@/hooks/use-controllable';
 import { warn } from '@/_internal/utilities/warn';
 import { Primitive } from '@/_internal/components/primitive';
@@ -20,10 +18,8 @@ export const AccordionRoot = component$<AccordionRootProps>((props) => {
     value: _value,
     onValueChange$,
     multiple = false,
-    loopFocus = true,
     hiddenUntilFound: _hiddenUntilFound = false,
     disabled: _disabled = false,
-    onKeyDown$,
     ...others
   } = props;
 
@@ -64,68 +60,6 @@ export const AccordionRoot = component$<AccordionRootProps>((props) => {
     }
   });
 
-  const handleKeyDownSync$ = sync$((event: KeyboardEvent) => {
-    const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
-
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
-      // Prevents the default browser behavior of scrolling the page when navigating
-      // through accordion triggers using arrow keys or Home/End.
-      event.preventDefault();
-    }
-  });
-
-  const handleKeyDown$ = $((event: KeyboardEvent, currentTarget: HTMLElement) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
-      const target = event.target as HTMLElement;
-
-      const ENABLED_TRIGGERS_SELECTOR = '[data-entry-ui-qwik-accordion-item-trigger]:not([disabled])';
-      const enabledTriggers = Array.from(currentTarget.querySelectorAll<HTMLElement>(ENABLED_TRIGGERS_SELECTOR));
-
-      const thisIndex = enabledTriggers.indexOf(target);
-      const lastIndex = enabledTriggers.length - 1;
-
-      let nextIndex = -1;
-
-      switch (event.key) {
-        case 'ArrowDown':
-          if (loopFocus) {
-            nextIndex = thisIndex + 1 > lastIndex ? 0 : thisIndex + 1;
-          } else {
-            nextIndex = Math.min(thisIndex + 1, lastIndex);
-          }
-          break;
-        case 'ArrowUp':
-          if (loopFocus) {
-            nextIndex = thisIndex === 0 ? lastIndex : thisIndex - 1;
-          } else {
-            nextIndex = thisIndex - 1;
-          }
-          break;
-        case 'Home':
-          nextIndex = 0;
-          break;
-        case 'End':
-          nextIndex = lastIndex;
-          break;
-        default:
-          break;
-      }
-
-      if (nextIndex > -1) {
-        // We use `focusVisible: true` to ensure the focus ring is displayed immediately
-        // following keyboard navigation (Arrow keys, Home, or End). This ensures
-        // consistency with the `:focus-visible` pseudo-class, allowing the user to
-        // clearly track the focused accordion trigger.
-        focusElement({
-          element: enabledTriggers[nextIndex],
-          focusVisible: true,
-        });
-      }
-    }
-  });
-
   useContextProvider(AccordionRootContext, {
     value,
     setValue$,
@@ -140,7 +74,6 @@ export const AccordionRoot = component$<AccordionRootProps>((props) => {
       as={as}
       data-entry-ui-qwik-accordion-root=""
       data-disabled={disabled.value ? '' : undefined}
-      onKeyDown$={[onKeyDown$, handleKeyDownSync$, handleKeyDown$]}
       {...others}
     >
       <Slot />
