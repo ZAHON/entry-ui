@@ -41,7 +41,9 @@ const Anatomy = component$(() => {
 
 ## Usage
 
-To use the `Accordion` component, wrap your collapsible sections within the `Accordion.Root`. Each section is defined by an `Accordion.Item`, which contains a header (providing semantic structure) and a panel for the content. The `Accordion.ItemTrigger` serves as the interactive element that toggles the visibility of its corresponding `Accordion.ItemPanel`.
+To implement a set of collapsible sections, use the `Accordion.Root` to group each `Accordion.Item`. Every item structures the layout by wrapping the interactive `Accordion.ItemTrigger` inside an `Accordion.ItemHeader` and managing the main container, `Accordion.ItemPanel`. Inside the trigger, you can optionally include the `Accordion.ItemIndicator` to deliver a dedicated visual cue, such as an arrow, that dynamically synchronizes with the component's internal flags. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity.
+
+By default, the component operates in an uncontrolled fashion, managing its open and closed states internally via the `defaultOpen` prop. However, it can also be used as a controlled component by providing a `value` signal and an `onValueChange$` callback to the root component, allowing you to easily integrate it into external workflows or state-driven architectures.
 
 Below is a basic example of how to implement a simple accordion:
 
@@ -96,7 +98,7 @@ const Usage = component$(() => {
 
 ## Rendered elements
 
-Each of `Accordion` subcomponents renders a default HTML element that is sensible for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop, as shown in the [Rendering different elements](#rendering-different-elements) example.
+Each of `Accordion` subcomponents renders a default HTML element that is sensible for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop.
 
 | Component                 | Default rendered element |
 | :------------------------ | :----------------------- |
@@ -216,9 +218,9 @@ A hook that provides access to the `Accordion.Root` component's internal state. 
 
 | Property    | Type                             | Description                                                                                                                                                                                               |
 | :---------- | :------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`     | `ReadonlySignal<string[]>`       | A readonly signal whose value is an array of strings representing the currently expanded accordion item or items values. This signal reflects the internal state of which accordion items are open.       |
+| `value`     | `Readonly<Signal<string[]>>`     | A readonly signal whose value is an array of strings representing the currently expanded accordion item or items values. This signal reflects the internal state of which accordion items are open.       |
 | `setValue$` | `QRL<(value: string[]) => void>` | A `QRL` function used to programmatically set the open state of the accordion items. This function takes an array of strings, where each string represents the value of the accordion items to be opened. |
-| `disabled`  | `ReadonlySignal<boolean>`        | A readonly signal whose value indicates whether the entire accordion is disabled. When `true`, all interaction with the accordion and its items is prevented.                                             |
+| `disabled`  | `Readonly<Signal<boolean>>`      | A readonly signal whose value indicates whether the entire accordion is disabled. When `true`, all interaction with the accordion and its items is prevented.                                             |
 
 ### useAccordionItemContext
 
@@ -226,28 +228,28 @@ A hook that provides access to the `Accordion.Item` component's internal state. 
 
 | Property   | Type                           | Description                                                                                                                                                                                                      |
 | :--------- | :----------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`    | `ReadonlySignal<string>`       | A readonly signal whose value is the unique identifier for the specific accordion item. This is used to identify the item and control its open/closed state within the accordion component.                      |
-| `open`     | `ReadonlySignal<boolean>`      | A readonly signal whose value indicates whether the accordion item is currently in an open (expanded) state. A value of `true` means the item's panel is visible, while `false` means it's hidden.               |
+| `value`    | `Readonly<Signal<string>>`     | A readonly signal whose value is the unique identifier for the specific accordion item. This is used to identify the item and control its open/closed state within the accordion component.                      |
+| `open`     | `Readonly<Signal<boolean>>`    | A readonly signal whose value indicates whether the accordion item is currently in an open (expanded) state. A value of `true` means the item's panel is visible, while `false` means it's hidden.               |
 | `setOpen$` | `QRL<(open: boolean) => void>` | A `QRL` function used to programmatically set the open state of the accordion item. This function toggles the item's visibility based on the provided boolean value.                                             |
-| `disabled` | `ReadonlySignal<boolean>`      | A readonly signal whose value specifies if the accordion item is disabled. When `true`, the item cannot be interacted with by the user, and its trigger might be visually styled to reflect this inactive state. |
+| `disabled` | `Readonly<Signal<boolean>>`    | A readonly signal whose value specifies if the accordion item is disabled. When `true`, the item cannot be interacted with by the user, and its trigger might be visually styled to reflect this inactive state. |
 
 ### useAccordionItemTriggerContext
 
 A hook that provides access to the `Accordion.ItemTrigger` component's internal state. It exposes a readonly signal to synchronize with the trigger's availability, reflecting its effective disabled or enabled status. This hook returns an object containing the following properties:
 
-| Property   | Type                      | Description                                                                                                                                                                                                                      |
-| :--------- | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `ReadonlySignal<boolean>` | A readonly signal representing the effective disabled state of the trigger. This value is computed by prioritizing the trigger's own `disabled` prop, falling back to the `Accordion.Item` disabled state if not explicitly set. |
+| Property   | Type                        | Description                                                                                                                                                                                                                      |
+| :--------- | :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `Readonly<Signal<boolean>>` | A readonly signal representing the effective disabled state of the trigger. This value is computed by prioritizing the trigger's own `disabled` prop, falling back to the `Accordion.Item` disabled state if not explicitly set. |
 
 ## Examples
 
 Explore various ways to implement and customize the `Accordion` component. From simple uncontrolled setups and external state management to accessible searchable content and smooth height animations, these examples demonstrate the component's flexibility and how it can be tailored to fit your specific design and functional requirements.
 
-### Internal state management (Uncontrolled)
+### Internal state management
 
-In uncontrolled mode, the `Accordion` component manages its expansion state internally. You can define the initial state by providing an array of item values to the `defaultOpen` prop on `Accordion.Root`. To ensure specific items can be targeted, each `Accordion.Item` should have a unique `value` that identifies it. If no value is provided, a unique ID will be generated automatically. These values are essential when you want to set an initial open state or control the accordion programmatically.
+When using the uncontrolled mode, the `Accordion` component handles the expansion state of its panels internally. You define the initial state by providing an array of strings to the `defaultOpen` prop on `Accordion.Root`. These strings must correspond to the unique `value` props of the `Accordion.Item` components that should be initially expanded. If no value is provided, a unique ID will be generated automatically. These values are essential when you want to set an initial open state or control the accordion programmatically. The component then takes full control over subsequent state changes based on user interactions, such as clicking an `Accordion.ItemTrigger` or using keyboard navigation, updating the necessary data attributes automatically.
 
-This approach is ideal for simpler use cases where the accordion's state doesn't need to be synchronized with or manipulated by an external parent component.
+This approach is ideal for simpler use cases where the expanded item state does not need to be managed or synchronized by a parent component, allowing for a cleaner and more self-contained implementation.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -290,9 +292,11 @@ const Example = component$(() => {
 });
 ```
 
-### External state control (Controlled)
+### External state control
 
-In controlled mode, the parent component is responsible for managing the expansion state of the accordion. You achieve this by passing a signal to the `value` prop on the `Accordion.Root` component and synchronizing changes using the `onValueChange$` event handler. For this to work correctly, each `Accordion.Item` should be assigned a unique `value` that identifies it. This approach is ideal for complex use cases, such as synchronizing the accordion state with a database, integrating with global state management, or enabling dynamic state changes triggered by other parts of your application logic.
+When using the controlled mode, the parent component is responsible for managing the expansion state of the accordion. You achieve this by passing a signal to the `value` prop on the `Accordion.Root` component and listening for changes with the `onValueChange$` event handler. For this workflow to function correctly, each `Accordion.Item` must be assigned a unique `value` prop that identifies it. The component then relies entirely on this external value to dictate which panels are expanded or collapsed, synchronizing all internal state and data attributes accordingly.
+
+This approach is ideal for more complex use cases, such as synchronizing the accordion state with a database, integrating with external state management, or enabling a parent component to dynamically trigger state changes based on other application logic.
 
 ```tsx
 import { component$, useSignal } from '@qwik.dev/core';
@@ -339,7 +343,9 @@ const Example = component$(() => {
 
 ### Multiple items open at the same time
 
-By default, the `Accordion` only allows one item to be expanded at a time. To enable expanding multiple items simultaneously, set the `multiple` prop to `true` on the `Accordion.Root` component. In this mode, interacting with one item trigger will no longer automatically collapse the others, providing users with more flexibility to compare or view content across different sections at once.
+By default, the `Accordion` component operates in a single-expansion mode, allowing only one panel to be expanded at any given time. To enable expanding multiple items simultaneously, you must set the `multiple` prop to `true` on the `Accordion.Root` component. In this mode, interacting with a new item trigger will no longer automatically collapse the currently active sections, allowing the component to manage an array of concurrently open item values.
+
+This approach is ideal for interfaces that require comprehensive content comparison, or scenarios where users benefit from viewing data across different sections at once without losing their current reading context. It provides greater flexibility and control over the layout, making it highly suitable for dense dashboards, documentation structures, or complex form workflows.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -569,7 +575,9 @@ const Example = component$(() => {
 
 ### State-aware visual indicators
 
-The `Accordion.ItemIndicator` subcomponent provides a simple way to add visual cues, such as arrows or icons, that react to the item's state. By leveraging the `data-state` attribute, you can easily apply CSS transitions or transforms (e.g., rotating a chevron) to indicate whether the panel is currently expanded or collapsed, enhancing the overall user experience and visual affordance.
+The `Accordion.ItemIndicator` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the accordion item's current layout status. By hook-riding on the context of `Accordion.Item`, it synchronizes effortlessly and updates its underlying data attributes automatically.
+
+This layout relies on the `data-state` attribute, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the panel is expanded or collapsed. This approach ensures a highly interactive and polished user experience while keeping the visual indicator decoupled from core toggle mechanics.
 
 ```tsx
 // index.tsx
@@ -664,7 +672,9 @@ const Example = component$(() => {
 
 ### Disabled interaction
 
-Setting the `disabled` prop to `true` on the `Accordion.Root` prevents all user interactions with the entire component, effectively disabling the whole group. For more granular control, you can also manage the disabled state independently on each `Accordion.Item` or `Accordion.ItemTrigger` using their respective `disabled` props.
+Setting the `disabled` prop to `true` on the `Accordion.Root` prevents all user interactions with the component, effectively disabling the entire group. When this state is applied at the root level, it automatically propagates to all descendant subcomponents, applying the `data-disabled` attribute to enable unified, disabled-state styling across the entire layout.
+
+Alternatively, you can manage the disabled state of each individual `Accordion.Item` or `Accordion.ItemTrigger` independently by using their respective `disabled` props. An explicit value provided directly to a specific trigger component will always take precedence over the inherited value from the root, allowing for fine-grained interaction control within more complex implementation scenarios.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -707,69 +717,6 @@ const Example = component$(() => {
 });
 ```
 
-### Rendering different elements
-
-By default, the `Accordion` subcomponents render elements that are sensible for their roles, such as a `<button>` for `Accordion.ItemTrigger`, or an `<h3>` for `Accordion.ItemHeader`. For a complete overview of the default elements, refer to the [Rendered elements](#rendered-elements) section.
-
-You can customize the underlying HTML element rendered by these components, or even compose them with your own custom Qwik components, by using the `as` prop. This provides immense flexibility, allowing you to:
-
-- Replace the default HTML tag with any other valid HTML element that fits your design and semantic needs (e.g., rendering the `Accordion.ItemHeader` as an `<h4>` or `<h5>` to fit your document's heading hierarchy).
-
-- Integrate your own Qwik components, wrapping them with custom styles or behaviors while ensuring the component's core logic and accessibility features remain intact.
-
-> [!IMPORTANT]
-> While it's possible to change the element rendered by `Accordion.ItemTrigger`, for accessibility and correct component functionality, it should always render a `<button>` element.
-
-```tsx
-import type { PropsOf } from '@qwik.dev/core';
-import { component$, Slot } from '@qwik.dev/core';
-import { Accordion } from '@entry-ui/qwik/accordion';
-
-const MyCustomButton = component$<PropsOf<'button'>>((props) => {
-  return (
-    <button style={{ color: 'white', backgroundColor: 'purple' }} {...props}>
-      <Slot />
-    </button>
-  );
-});
-
-const Example = component$(() => {
-  return (
-    <Accordion.Root>
-      <Accordion.Item>
-        <Accordion.ItemHeader as="h4">
-          <Accordion.ItemTrigger as={MyCustomButton}>What is Entry UI Qwik?</Accordion.ItemTrigger>
-        </Accordion.ItemHeader>
-        <Accordion.ItemPanel>
-          A collection of accessible, unstyled components, hooks, and utilities for Qwik, designed for building
-          high-quality web applications and design systems.
-        </Accordion.ItemPanel>
-      </Accordion.Item>
-
-      <Accordion.Item>
-        <Accordion.ItemHeader as="h4">
-          <Accordion.ItemTrigger as={MyCustomButton}>How do I get started?</Accordion.ItemTrigger>
-        </Accordion.ItemHeader>
-        <Accordion.ItemPanel>
-          Check out our installation guide to add the library to your project. Our intuitive API makes it easy to build
-          complex components in minutes.
-        </Accordion.ItemPanel>
-      </Accordion.Item>
-
-      <Accordion.Item>
-        <Accordion.ItemHeader as="h4">
-          <Accordion.ItemTrigger as={MyCustomButton}>Can I use it for my project?</Accordion.ItemTrigger>
-        </Accordion.ItemHeader>
-        <Accordion.ItemPanel>
-          Of course! Entry UI Qwik is an open-source project licensed under MIT. You are free to use it in both personal
-          and commercial projects without any restrictions.
-        </Accordion.ItemPanel>
-      </Accordion.Item>
-    </Accordion.Root>
-  );
-});
-```
-
 ## Accessibility
 
 The `Accordion` component is built with accessibility in mind, strictly adhering to the [Accordion WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/). This ensures the component is usable and understandable for everyone, including users relying on assistive technologies like screen readers. By following this pattern, it automatically handles crucial ARIA attributes and keyboard interactions, providing a robust and inclusive user experience.
@@ -778,13 +725,9 @@ The `Accordion` component is built with accessibility in mind, strictly adhering
 
 Users can interact with the `Accordion` component efficiently using only a keyboard. The following overview outlines the primary keyboard shortcuts and their actions:
 
-| Key                    | Description                                                                                                                                                                                              |
-| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Space</kbd>       | When focus is on an `Accordion.ItemTrigger`, toggles the expanded state of the associated `Accordion.ItemPanel`.                                                                                         |
-| <kbd>Enter</kbd>       | When focus is on an `Accordion.ItemTrigger`, toggles the expanded state of the associated `Accordion.ItemPanel`.                                                                                         |
-| <kbd>Tab</kbd>         | Moves focus to the next focusable element.                                                                                                                                                               |
-| <kbd>Shift + Tab</kbd> | Moves focus to the previous focusable element.                                                                                                                                                           |
-| <kbd>↓</kbd>           | When focus is on an `Accordion.ItemTrigger`, moves focus to the next enabled `Accordion.ItemTrigger`. If `loopFocus` is set to `true` and focus is on the last trigger, it moves focus to the first one. |
-| <kbd>↑</kbd>           | When focus is on an `Accordion.ItemTrigger`, moves focus to the previous enabled `Accordion.ItemTrigger`. If `loopFocus` is enabled and focus is on the first trigger, it moves focus to the last one.   |
-| <kbd>Home</kbd>        | When focus is on an `Accordion.ItemTrigger`, moves focus to the first enabled `Accordion.ItemTrigger`.                                                                                                   |
-| <kbd>End</kbd>         | When focus is on an `Accordion.ItemTrigger`, moves focus to the last enabled `Accordion.ItemTrigger`.                                                                                                    |
+| Key                    | Description                                                                                                                                            |
+| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Space</kbd>       | When focus is on the `Accordion.ItemTrigger`, opens or closes the associated `Accordion.ItemPanel`, unless it is disabled.                             |
+| <kbd>Enter</kbd>       | When focus is on the `Accordion.ItemTrigger`, opens or closes the associated `Accordion.ItemPanel`, unless it is disabled.                             |
+| <kbd>Tab</kbd>         | Moves focus to the next focusable element, sequentially navigating through each enabled `Accordion.ItemTrigger` and the rest of the page.              |
+| <kbd>Shift + Tab</kbd> | Moves focus to the previous focusable element, sequentially navigating backward through each enabled `Accordion.ItemTrigger` and the rest of the page. |
