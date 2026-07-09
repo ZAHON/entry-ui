@@ -2,6 +2,7 @@ import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
  * Props for the `Accordion.ItemIndicator` component.
+ *
  * Extends the standard HTML attributes for a `<span>` element.
  */
 export interface AccordionItemIndicatorProps extends PropsOf<'span'> {
