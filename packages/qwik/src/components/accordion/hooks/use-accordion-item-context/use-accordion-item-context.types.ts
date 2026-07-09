@@ -2,6 +2,7 @@ import type { ReadonlySignal, QRL } from '@qwik.dev/core';
 
 /**
  * The value returned by the `useAccordionItemContext` hook.
+ *
  * Provides access to the accordion item's readonly signals and `QRL` function for descendant components.
  */
 export interface UseAccordionItemContextReturnValue {
