@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `AccordionRootContext` context.
@@ -10,7 +10,7 @@ export interface AccordionRootContextValue {
    * A readonly signal whose value is an array of strings representing the currently expanded accordion item or items values.
    * This signal reflects the internal state of which accordion items are open.
    */
-  value: ReadonlySignal<string[]>;
+  value: Readonly<Signal<string[]>> ;
 
   /**
    * A `QRL` function used to programmatically set the open state of the accordion items.
@@ -21,13 +21,13 @@ export interface AccordionRootContextValue {
   /**
    * A readonly signal indicating whether the `"hidden-until-found"` behavior is enabled for all panels within the accordion.
    */
-  hiddenUntilFound: ReadonlySignal<boolean>;
+  hiddenUntilFound: Readonly<Signal<boolean>>;
 
   /**
    * A readonly signal whose value indicates whether the entire accordion is disabled.
    * When `true`, all interaction with the accordion and its items is prevented.
    */
-  disabled: ReadonlySignal<boolean>;
+  disabled: Readonly<Signal<boolean>>;
 
   /**
    * A `QRL` callback function invoked when an accordion item should be opened.
