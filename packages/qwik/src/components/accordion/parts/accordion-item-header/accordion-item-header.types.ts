@@ -2,6 +2,7 @@ import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
  * Props for the `Accordion.ItemHeader` component.
+ *
  * Extends the standard HTML attributes for an `<h3>` element.
  */
 export interface AccordionItemHeaderProps extends PropsOf<'h3'> {
