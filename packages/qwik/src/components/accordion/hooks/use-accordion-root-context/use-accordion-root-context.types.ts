@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value returned by the `useAccordionRootContext` hook.
@@ -10,7 +10,7 @@ export interface UseAccordionRootContextReturnValue {
    * A readonly signal whose value is an array of strings representing the currently expanded accordion item or items values.
    * This signal reflects the internal state of which accordion items are open.
    */
-  value: ReadonlySignal<string[]>;
+  value: Readonly<Signal<string[]>>;
 
   /**
    * A `QRL` function used to programmatically set the open state of the accordion items.
@@ -22,5 +22,5 @@ export interface UseAccordionRootContextReturnValue {
    * A readonly signal whose value indicates whether the entire accordion is disabled.
    * When `true`, all interaction with the accordion and its items is prevented.
    */
-  disabled: ReadonlySignal<boolean>;
+  disabled: Readonly<Signal<boolean>>;
 }
