@@ -1,4 +1,4 @@
-import { ReadonlySignal, QRL } from '@qwik.dev/core';
+import { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `AccordionItemContext` context.
@@ -10,13 +10,13 @@ export interface AccordionItemContextValue {
    * A readonly signal whose value is the unique identifier for the specific accordion item.
    * This is used to identify the item and control its open/closed state within the accordion component.
    */
-  value: ReadonlySignal<string>;
+  value: Readonly<Signal<string>>;
 
   /**
    * A readonly signal whose value indicates whether the accordion item is currently in an open (expanded) state.
    * A value of `true` means the item's panel is visible, while `false` means it's hidden.
    */
-  open: ReadonlySignal<boolean>;
+  open: Readonly<Signal<boolean>>;
 
   /**
    * A `QRL` function used to programmatically set the open state of the accordion item.
@@ -29,7 +29,7 @@ export interface AccordionItemContextValue {
    * When `true`, the item cannot be interacted with by the user, and its trigger might be visually
    * styled to reflect this inactive state.
    */
-  disabled: ReadonlySignal<boolean>;
+  disabled: Readonly<Signal<boolean>>;
 
   /**
    * An object containing the identifier state and management `QRL` functions for the trigger element.
@@ -39,7 +39,7 @@ export interface AccordionItemContextValue {
     /**
      * A readonly signal representing the unique identifier of the trigger.
      */
-    id: ReadonlySignal<string | undefined>;
+    id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the trigger's identifier.
@@ -60,7 +60,7 @@ export interface AccordionItemContextValue {
     /**
      * A readonly signal representing the unique identifier of the panel.
      */
-    id: ReadonlySignal<string | undefined>;
+     id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the panel's identifier.
