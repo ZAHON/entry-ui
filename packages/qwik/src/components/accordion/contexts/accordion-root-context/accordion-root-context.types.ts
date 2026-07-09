@@ -2,6 +2,7 @@ import type { ReadonlySignal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `AccordionRootContext` context.
+ *
  * Contains the readonly signals and `QRL` functions shared with descendant components.
  */
 export interface AccordionRootContextValue {
