@@ -2,6 +2,7 @@ import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
  * Props for the `Accordion.Item` component.
+ *
  * Extends the standard HTML attributes for a `<div>` element.
  */
 export interface AccordionItemProps extends PropsOf<'div'> {
