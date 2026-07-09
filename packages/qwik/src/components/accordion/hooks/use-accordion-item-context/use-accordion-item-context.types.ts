@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value returned by the `useAccordionItemContext` hook.
@@ -10,13 +10,13 @@ export interface UseAccordionItemContextReturnValue {
    * A readonly signal whose value is the unique identifier for the specific accordion item.
    * This is used to identify the item and control its open/closed state within the accordion component.
    */
-  value: ReadonlySignal<string>;
+  value: Readonly<Signal<string>>;
 
   /**
    * A readonly signal whose value indicates whether the accordion item is currently in an open (expanded) state.
    * A value of `true` means the item's panel is visible, while `false` means it's hidden.
    */
-  open: ReadonlySignal<boolean>;
+  open: Readonly<Signal<boolean>>;
 
   /**
    * A `QRL` function used to programmatically set the open state of the accordion item.
@@ -29,5 +29,5 @@ export interface UseAccordionItemContextReturnValue {
    * When `true`, the item cannot be interacted with by the user, and its trigger might be visually
    * styled to reflect this inactive state.
    */
-  disabled: ReadonlySignal<boolean>;
+  disabled: Readonly<Signal<boolean>>;
 }
