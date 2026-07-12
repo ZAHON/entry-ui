@@ -1,7 +1,7 @@
 import { warn as _warn } from '@entry-ui/utilities/warn';
 
 /**
- * Internal utility used for logging standardized warning messages to the console.
+ * An internal utility used for logging standardized warning messages to the console.
  *
  * It automatically prepends the `"[Entry UI Qwik]"` prefix to all provided messages,
  * ensuring a consistent and recognizable warning format across the package.
