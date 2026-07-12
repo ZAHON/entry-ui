@@ -1,7 +1,7 @@
 import { fail as _fail } from '@entry-ui/utilities/fail';
 
 /**
- * Internal utility used for throwing standardized error messages.
+ * An internal utility used for throwing standardized error messages.
  *
  * It automatically prepends the `"[Entry UI Qwik]"` prefix to all provided messages,
  * ensuring immediate execution termination and a consistent error format across the package.
