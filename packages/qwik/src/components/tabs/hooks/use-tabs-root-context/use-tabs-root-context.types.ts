@@ -2,6 +2,7 @@ import type { ReadonlySignal, QRL } from '@qwik.dev/core';
 
 /**
  * The value returned by the `useTabsRootContext` hook.
+ *
  * Provides access to the tabs readonly signals and `QRL` function for descendant components.
  */
 export interface UseTabsRootContextReturnValue {
