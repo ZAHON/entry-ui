@@ -1,4 +1,4 @@
-import type { ReadonlySignal } from '@qwik.dev/core';
+import type { Signal } from '@qwik.dev/core';
 
 /**
  * The value provided by the `TabsListContext` context.
@@ -10,5 +10,5 @@ export interface TabsListContextValue {
    * A readonly signal whose value determines whether tabs are activated
    * automatically on focus or manually on click/selection.
    */
-  activationMode: ReadonlySignal<'automatic' | 'manual'>;
+  activationMode: Readonly<Signal<'automatic' | 'manual'>>;
 }
