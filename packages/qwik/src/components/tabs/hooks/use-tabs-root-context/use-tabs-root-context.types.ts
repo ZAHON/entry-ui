@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value returned by the `useTabsRootContext` hook.
@@ -10,7 +10,7 @@ export interface UseTabsRootContextReturnValue {
    * A readonly signal whose value represents the unique identifier of the currently active tab.
    * This signal reflects the internal state and determines which tab panel is currently visible.
    */
-  value: ReadonlySignal<string>;
+  value: Readonly<Signal<string>>;
 
   /**
    * A `QRL` function used to programmatically set the active value of the tabs.
@@ -22,5 +22,5 @@ export interface UseTabsRootContextReturnValue {
    * A readonly signal whose value represents the orientation of the tabs.
    * This value (either `"horizontal"` or `"vertical"`) determines how keyboard navigation and focus management are handled.
    */
-  orientation: ReadonlySignal<'horizontal' | 'vertical'>;
+  orientation: Readonly<Signal<'horizontal' | 'vertical'>>;
 }
