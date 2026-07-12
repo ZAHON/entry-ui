@@ -4,7 +4,7 @@ import { isDev } from '@qwik.dev/core/build';
 import { error } from '@/_internal/utilities/error';
 
 /**
- * A utility that creates a centralized observer to manage element unmounting across the application.
+ * An internal utility that creates a centralized observer to manage element unmounting across the application.
  *
  * This factory function returns an object with methods to track HTMLElements and execute
  * associated cleanup QRLs when those elements are removed from the DOM. It solves
