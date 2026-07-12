@@ -2,7 +2,7 @@ import type { UseIdParams } from './use-id.types';
 import { useId as useQwikId, useConstant } from '@qwik.dev/core';
 
 /**
- * Internal hook used to generate stable, unique identifiers with support for custom prefixes and manual overrides.
+ * An internal hook used to generate stable, unique identifiers with support for custom prefixes and manual overrides.
  *
  * It combines Qwik's `useId` for SSR-safe uniqueness with `useConstant` for client-side stability,
  * ensuring that the identifier remains unchanged throughout the component's entire lifecycle.
