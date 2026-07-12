@@ -2,6 +2,7 @@ import type { TabsPanelProps } from './tabs-panel.types';
 import { component$, useComputed$, useContextProvider, Slot } from '@qwik.dev/core';
 import { mergeStyles } from '@/utilities/merge-styles';
 import { Primitive } from '@/_internal/components/primitive';
+import { getPartId } from '../../utilities/get-part-id';
 import { useTabsRootContext } from '../../contexts/tabs-root-context';
 import { TabsPanelContext } from '../../contexts/tabs-panel-context';
 
@@ -15,8 +16,8 @@ export const TabsPanel = component$<TabsPanelProps>((props) => {
 
   const { value: activeTabValue, orientation, id } = useTabsRootContext();
 
-  const tabId = useComputed$(() => `entry-ui-qwik-tabs-${id}-tab-${value}`);
-  const panelId = useComputed$(() => `entry-ui-qwik-tabs-${id}-panel-${value}`);
+  const tabId = useComputed$(() => getPartId({ id: id, value: value, part: 'tab' }));
+  const panelId = useComputed$(() => getPartId({ id: id, value: value, part: 'panel' }));
   const active = useComputed$(() => activeTabValue.value === value);
   const mergedStyles = useComputed$(() =>
     mergeStyles([{ display: !active.value ? 'none !important' : undefined }, style])
