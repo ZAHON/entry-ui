@@ -8,7 +8,8 @@ import { createContextId, useContext } from '@qwik.dev/core';
 export const TabsListContext = createContextId<TabsListContextValue>('entry-ui-qwik-tabs-list-context');
 
 /**
- * A hook that provides access to the `Tabs.List` component's internal state.
+ * An internal hook that provides access to the `Tabs.List` component's internal state.
+ *
  * It exposes readonly signal to interact with the component's state,
  */
 export const useTabsListContext = () => {
