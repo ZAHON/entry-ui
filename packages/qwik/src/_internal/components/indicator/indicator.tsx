@@ -4,7 +4,7 @@ import { mergeStyles } from '@/utilities/merge-styles';
 import { Primitive } from '@/_internal/components/primitive';
 
 /**
- * Internal component used as a base for various state indicators.
+ * An internal component used as a base for various state indicators.
  *
  * It provides common accessibility attributes, styling resets, and composition support.
  *
