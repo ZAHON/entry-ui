@@ -2,7 +2,8 @@ import type { Component, PropsOf } from '@qwik.dev/core';
 
 /**
  * Props for the `Tabs.Panel` component.
- * Extends the standard HTML attributes for a `div` element.
+ *
+ * Extends the standard HTML attributes for a `<div>` element.
  */
 export interface TabsPanelProps extends PropsOf<'div'> {
   /**
