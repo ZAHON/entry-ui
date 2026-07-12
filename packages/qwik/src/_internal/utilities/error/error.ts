@@ -1,7 +1,7 @@
 import { error as _error } from '@entry-ui/utilities/error';
 
 /**
- * Internal utility used for logging standardized error messages to the console.
+ * An internal utility used for logging standardized error messages to the console.
  *
  * It automatically prepends the `"[Entry UI Qwik]"` prefix to all provided messages,
  * ensuring a consistent and recognizable logging format across the package.
