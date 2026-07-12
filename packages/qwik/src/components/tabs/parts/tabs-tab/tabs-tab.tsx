@@ -2,6 +2,7 @@ import type { TabsTabProps } from './tabs-tab.types';
 import type { EntryUIQwikEventState } from '@/types';
 import { component$, useComputed$, sync$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { RovingFocusGroupItem } from '@/components/roving-focus-group/parts/roving-focus-group-item';
+import { getPartId } from '../../utilities/get-part-id';
 import { useTabsRootContext } from '../../contexts/tabs-root-context';
 import { useTabsListContext } from '../../contexts/tabs-list-context';
 import { TabsTabContext } from '../../contexts/tabs-tab-context';
@@ -25,8 +26,8 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   const { value: activeTabValue, setValue$: setActiveTabValue$, id } = useTabsRootContext();
   const { activationMode } = useTabsListContext();
 
-  const tabId = useComputed$(() => `entry-ui-qwik-tabs-${id}-tab-${_value}`);
-  const panelId = useComputed$(() => `entry-ui-qwik-tabs-${id}-panel-${_value}`);
+  const tabId = useComputed$(() => getPartId({ id: id, value: _value, part: 'tab' }));
+  const panelId = useComputed$(() => getPartId({ id: id, value: _value, part: 'panel' }));
   const value = useComputed$(() => _value);
   const active = useComputed$(() => activeTabValue.value === _value);
   const disabled = useComputed$(() => _disabled);
