@@ -55,13 +55,16 @@ export const createPrimitive = <Node extends (typeof NODES)[number]>(node: Node)
 };
 
 /**
- * A collection of polymorphic primitive components.
+ * An internal collection of polymorphic primitive components.
  *
  * Each property represents a pre-built component for a specific HTML element
  * that supports the `as` prop for component composition.
  *
+ * This collection is designed for internal library use to provide consistent
+ * element rendering, composition layers, and unified node attributes.
+ *
  * @remarks
- * Self-closing tags (`<area>`, `<img>`, `<input>`) are automatically handled without slot content.
+ * Self-closing tags, such as `<input>` or `<img>`, are automatically handled without slot content.
  */
 export const Primitive = NODES.reduce(
   (primitive, node) => {
