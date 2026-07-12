@@ -31,7 +31,14 @@ const SELF_CLOSING_TAGS = [
 ];
 
 /**
- * A factory function that creates a polymorphic Qwik component for a specific HTML tag.
+ * An internal factory function that creates a polymorphic Qwik component for a specific HTML tag.
+ *
+ * It dynamically wraps the specified HTML element, providing out-of-the-box support
+ * for component composition via the `as` prop. The factory automatically detects
+ * HTML void elements to ensure accurate layout structure and compliance with DOM specifications.
+ *
+ * This function is designed for internal library use to streamline the generation of
+ * structural building blocks, maintain unified rendering behaviors, and ensure core primitive consistency.
  */
 export const createPrimitive = <Node extends (typeof NODES)[number]>(node: Node) => {
   return component$((props: PrimitiveProps<Node>) => {
