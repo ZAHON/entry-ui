@@ -2,6 +2,7 @@ import type { ReadonlySignal } from '@qwik.dev/core';
 
 /**
  * The value returned by the `useTabsTabContext` hook.
+ *
  * Provides access to the specific tab's readonly signals for descendant components.
  */
 export interface UseTabsTabContextReturnValue {
