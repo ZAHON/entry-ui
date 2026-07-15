@@ -1,6 +1,8 @@
 import type { TabsPanelProps } from './tabs-panel.types';
 import { component$, useComputed$, useContextProvider, Slot } from '@qwik.dev/core';
+import { isDev } from '@qwik.dev/core/build';
 import { mergeStyles } from '@/utilities/merge-styles';
+import { fail } from '@/_internal/utilities/fail';
 import { Primitive } from '@/_internal/components/primitive';
 import { getPartId } from '../../utilities/get-part-id';
 import { useTabsRootContext } from '../../contexts/tabs-root-context';
@@ -13,6 +15,14 @@ import { TabsPanelContext } from '../../contexts/tabs-panel-context';
  */
 export const TabsPanel = component$<TabsPanelProps>((props) => {
   const { as = 'div', value, containsFocusableContent = false, style, ...others } = props;
+
+  if (isDev && !value) {
+    fail([
+      `The 'Tabs.Panel' component requires a 'value' prop to function correctly.`,
+      `Without a unique value, the panel cannot be mapped and toggled by its corresponding 'Tabs.Tab' component.`,
+      `Please provide a non-empty string as the 'value' prop.`,
+    ]);
+  }
 
   const { value: activeTabValue, orientation, id } = useTabsRootContext();
 
