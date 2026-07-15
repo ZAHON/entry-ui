@@ -9,7 +9,13 @@ A set of layered sections of content known as tab panels that are displayed one 
 ## Import
 
 ```tsx
-import { Tabs, useTabsRootContext, useTabsTabContext, useTabsPanelContext } from '@entry-ui/qwik/tabs';
+import {
+  Tabs,
+  useTabsRootContext,
+  useTabsListContext,
+  useTabsTabContext,
+  useTabsPanelContext,
+} from '@entry-ui/qwik/tabs';
 ```
 
 ## Anatomy
@@ -32,9 +38,11 @@ const Anatomy = component$(() => {
 
 ## Usage
 
-To implement tabs, use the `Tabs.Root` to wrap the `Tabs.List` and its associated `Tabs.Panel` components. The `Tabs.List` serves as the container for `Tabs.Tab` triggers, which the user interacts with to toggle between different views. This coordination ensures that only the panel corresponding to the active tab is visible, providing a clean and organized way to manage layered content.
+To implement tabs, use the `Tabs.Root` to group the `Tabs.List` - which structures and wraps the individual interactive `Tabs.Tab` triggers - and the corresponding content containers, `Tabs.Panel`. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity, establishing a clear relational link between each tab trigger and its associated content panel.
 
-By default, the component operates in an uncontrolled fashion using the `defaultValue` prop, but it can also be used as a controlled component by providing the `value` signal and `onValueChange$` callback. This allows for seamless integration into more complex navigation patterns or state-driven interfaces.
+By default, the component operates in an uncontrolled fashion, managing its active panel state internally via the `defaultValue` prop. However, it can also be used as a controlled component by providing a `value` signal and an `onValueChange$` callback to the root component, allowing you to easily integrate it into external workflows, navigation patterns, or state-driven architectures.
+
+Below is a basic example of how to implement a simple tabs interface:
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -152,29 +160,38 @@ A panel displayed when the corresponding tab is active. Renders a `<div>` elemen
 
 A hook that provides access to the `Tabs.Root` component's internal state. It exposes readonly signals and a `QRL` function to interact with the tabs state, allowing descendant components to synchronize with or programmatically control which tab is currently active, while respecting the defined orientation. This hook returns an object containing the following properties:
 
-| Property      | Type                                         | Description                                                                                                                                                                                   |
-| :------------ | :------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`       | `ReadonlySignal<string>`                     | A readonly signal whose value represents the unique identifier of the currently active tab. This signal reflects the internal state and determines which tab panel is currently visible.      |
-| `setValue$`   | `QRL<(value: string) => void>`               | A `QRL` function used to programmatically set the active value of the tabs. This function takes a string representing the value of the tab to be activated.                                   |
-| `orientation` | `ReadonlySignal<"horizontal" \| "vertical">` | A readonly signal whose value represents the orientation of the tabs. This value (either `"horizontal"` or `"vertical"`) determines how keyboard navigation and focus management are handled. |
+| Property      | Type                                           | Description                                                                                                                                                                                   |
+| :------------ | :--------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`       | `Readonly<Signal<string>>`                     | A readonly signal whose value represents the unique identifier of the currently active tab. This signal reflects the internal state and determines which tab panel is currently visible.      |
+| `setValue$`   | `QRL<(value: string) => void>`                 | A `QRL` function used to programmatically set the active value of the tabs. This function takes a string representing the value of the tab to be activated.                                   |
+| `orientation` | `Readonly<Signal<'horizontal' \| 'vertical'>>` | A readonly signal whose value represents the orientation of the tabs. This value (either `"horizontal"` or `"vertical"`) determines how keyboard navigation and focus management are handled. |
+
+### useTabsListContext
+
+A hook that provides access to the `Tabs.List` component's internal state. It exposes a readonly signal and a `QRL` function to interact with the current tab stop, allowing descendant components to synchronize focus management and support roving tabindex navigation across the tab list. This hook returns an object containing the following properties:
+
+| Property               | Type                           | Description                                                                                                                                                                          |
+| :--------------------- | :----------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `currentTabStopId`     | `Readonly<Signal<string>>`     | A readonly signal whose value is a string representing the value of the tab that currently holds the tab stop. This signal tracks which tab button is focusable within the tab list. |
+| `setCurrentTabStopId$` | `QRL<(value: string) => void>` | A `QRL` function used to programmatically set the active tab stop. This function takes a string representing the value of the tab button that should become focusable.               |
 
 ### useTabsTabContext
 
 A hook that provides access to the `Tabs.Tab` component's internal state. It exposes readonly signals that allow descendant components to react to the tab's unique value, its current activation state, and its disabled status. This hook returns an object containing the following properties:
 
-| Property   | Type                      | Description                                                                                                                            |
-| :--------- | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`    | `ReadonlySignal<string>`  | A readonly signal containing the unique value associated with the tab. This value connects the tab to its corresponding panel.         |
-| `active`   | `ReadonlySignal<boolean>` | A readonly signal whose value indicates whether the tab is currently active, meaning its associated panel is being displayed.          |
-| `disabled` | `ReadonlySignal<boolean>` | A readonly signal that indicates whether the tab is disabled. Its value is `true` if the tab is disabled, preventing user interaction. |
+| Property   | Type                        | Description                                                                                                                            |
+| :--------- | :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`    | `Readonly<Signal<string>>`  | A readonly signal containing the unique value associated with the tab. This value connects the tab to its corresponding panel.         |
+| `active`   | `Readonly<Signal<boolean>>` | A readonly signal whose value indicates whether the tab is currently active, meaning its associated panel is being displayed.          |
+| `disabled` | `Readonly<Signal<boolean>>` | A readonly signal that indicates whether the tab is disabled. Its value is `true` if the tab is disabled, preventing user interaction. |
 
 ### useTabsPanelContext
 
 A hook that provides access to the `Tabs.Panel` component's internal state. It exposes a readonly signal that allows descendant components to react to the panel's activation state, synchronizing their behavior or styles base on whether the panel is currently visible. This hook returns an object containing the following properties:
 
-| Property | Type                      | Description                                                                                                                                                |
-| :------- | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `active` | `ReadonlySignal<boolean>` | A readonly signal whose value indicates whether the panel is currently active and visible to the user, based on the selection state of its associated tab. |
+| Property | Type                        | Description                                                                                                                                                |
+| :------- | :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `active` | `Readonly<Signal<boolean>>` | A readonly signal whose value indicates whether the panel is currently active and visible to the user, based on the selection state of its associated tab. |
 
 ## Examples
 
@@ -298,7 +315,9 @@ const Example = component$(() => {
 
 ### Vertical orientation
 
-By default, the `Tabs` component is horizontally oriented. To change this, you must set the `orientation` prop to `"vertical"` on the `Tabs.Root` component. This adjustment affects both the visual structure and keyboard navigation to ensure they align with the vertical layout. To assist with styling, you can use the `data-orientation` attribute in your CSS, which can take either `"horizontal"` or `"vertical"` as its value. Note that you are responsible for applying the appropriate layout styles to ensure your tabs and panels flow correctly.
+By default, the `Tabs` component is horizontally oriented. To change this, you must set the `orientation` prop to `"vertical"` on the `Tabs.Root` component. This adjustment affects both the visual structure and keyboard navigation to ensure they align with the vertical layout.
+
+To assist with styling, you can use the `data-orientation` attribute in your CSS, which can take either `"horizontal"` or `"vertical"` as its value. Note that you are responsible for applying the appropriate layout styles to ensure your tabs and panels flow correctly.
 
 ```tsx
 // index.tsx
