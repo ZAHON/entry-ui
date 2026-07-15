@@ -3,17 +3,17 @@ import { useConstant, useSignal, $ } from '@qwik.dev/core';
 import { clamp } from '@entry-ui/utilities/clamp';
 
 /**
- * A hook that manages a numeric state with built-in clamping and validation logic.
+ * A hook that manages a numeric state with built-in clamping and boundary logic.
  *
  * This hook provides a secure way to handle counter states by ensuring the value
  * always remains within defined boundaries. It encapsulates a numeric signal and
  * exposes it as a readonly signal, enforcing predictable state transitions through
  * dedicated `QRL` functions.
  *
- * It features strict validation during development to ensure all parameters
- * and operations result in finite numbers, preventing common pitfalls such as
- * `NaN` or `Infinity` from polluting the state. It is ideal for quantity selectors,
- * pagination, volume controls, or any UI element requiring bounded numeric input.
+ * It supports customizable boundaries (defaulting to native `-Infinity` and `Infinity`)
+ * and guarantees a stable, positive step size (preventing inverted behaviors even if
+ * a negative step is provided). It is ideal for quantity selectors, pagination,
+ * volume controls, or any UI element requiring bounded numeric input.
  */
 export const useCounter = (params: UseCounterParams = {}): UseCounterReturnValue => {
   const { initialCount = 0, step: _step = 1, min = -Infinity, max = Infinity } = params;
