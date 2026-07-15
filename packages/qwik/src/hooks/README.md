@@ -6,12 +6,12 @@ Hooks are special functions that let you reuse and share stateful logic across y
 
 These hooks provide effective solutions for managing your component's internal data. They offer robust and easy-to-use tools to keep your application's state consistent and predictable.
 
-| Hook                                                                                                      | Description                                                                      |
-| :-------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
-| [`useBoolean`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-boolean)           | A hook that manages a boolean state with common utility methods.                 |
-| [`useControllable`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-controllable) | A hook that manages state in either controlled or uncontrolled mode.             |
-| [`useCounter`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-counter)           | A hook that manages a numeric state with built-in clamping and validation logic. |
-| [`useCycle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-cycle)               | A hook that manages navigation through a predefined sequence of options.         |
+| Hook                                                                                                      | Description                                                                    |
+| :-------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
+| [`useBoolean`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-boolean)           | A hook that manages a boolean state with common utility methods.               |
+| [`useControllable`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-controllable) | A hook that manages state in either controlled or uncontrolled mode.           |
+| [`useCounter`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-counter)           | A hook that manages a numeric state with built-in clamping and boundary logic. |
+| [`useCycle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-cycle)               | A hook that manages navigation through a predefined sequence of options.       |
 
 ## UI and DOM
 
