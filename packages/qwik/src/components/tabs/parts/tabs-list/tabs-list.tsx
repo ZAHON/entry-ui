@@ -1,5 +1,5 @@
 import type { TabsListProps } from './tabs-list.types';
-import { component$, useSignal, useComputed$, useTask$, $, useContextProvider, Slot } from '@qwik.dev/core';
+import { component$, useSignal, useComputed$, useTask$, useContextProvider, Slot } from '@qwik.dev/core';
 import { Primitive } from '@/_internal/components/primitive';
 import { useControllable } from '@/hooks/use-controllable';
 import { mergeRefs } from '@/utilities/merge-refs';
