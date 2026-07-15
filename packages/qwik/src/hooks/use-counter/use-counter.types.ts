@@ -2,6 +2,11 @@ import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Configuration parameters for the `useCounter` hook.
+ *
+ * This interface encapsulates the parameters required to govern the numerical boundaries
+ * and stepping behavior of a stateful counter. It allows the caller to establish
+ * initial baseline values, define the granular step delta for arithmetic transitions,
+ * and enforce hard upper and lower mathematical constraints.
  */
 export interface UseCounterParams {
   /**
@@ -42,6 +47,11 @@ export interface UseCounterParams {
 
 /**
  * Represents the object returned by the `useCounter` hook.
+ *
+ * This interface exposes a comprehensive arithmetic API designed to mutate and monitor a bounded numerical state.
+ * It provides the consuming component with an immutable, reactive view of the current counter value,
+ * paired with a suite of specialized, serialized QRL dispatchers for directional stepping, direct assignment,
+ * and state restoration with integrated boundary-clamping.
  */
 export interface UseCounterReturnValue {
   /**
