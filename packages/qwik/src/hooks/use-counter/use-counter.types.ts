@@ -26,7 +26,7 @@ export interface UseCounterParams {
    * The counter value will never go below this limit.
    * Must be less than or equal to `max`.
    *
-   * @default -Number.MAX_VALUE
+   * @default -Infinity
    */
   min?: number;
 
@@ -35,7 +35,7 @@ export interface UseCounterParams {
    * The counter value will never exceed this limit.
    * Must be greater than or equal to `min`.
    *
-   * @default Number.MAX_VALUE
+   * @default Infinity
    */
   max?: number;
 }
