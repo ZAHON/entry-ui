@@ -1,8 +1,10 @@
 import type { TabsTabProps } from './tabs-tab.types';
 import { component$, useComputed$, useTask$, sync$, $, useContextProvider, Slot } from '@qwik.dev/core';
+import { isDev } from '@qwik.dev/core/build';
 import { wrapArray } from '@entry-ui/utilities/wrap-array';
 import { getWindow } from '@entry-ui/utilities/get-window';
 import { focusFirstElement } from '@entry-ui/utilities/focus-first-element';
+import { fail } from '@/_internal/utilities/fail';
 import { Primitive } from '@/_internal/components/primitive';
 import { getPartId } from '../../utilities/get-part-id';
 import { useTabsRootContext } from '../../contexts/tabs-root-context';
@@ -24,6 +26,14 @@ export const TabsTab = component$<TabsTabProps>((props) => {
     onKeyDown$,
     ...others
   } = props;
+
+  if (isDev && !_value) {
+    fail([
+      `The 'Tabs.Tab' component requires a 'value' prop to function correctly.`,
+      `Without a unique value, the tab cannot be associated with its corresponding 'Tabs.Panel' component.`,
+      `Please provide a non-empty string as the 'value' prop.`,
+    ]);
+  }
 
   const { value: activeTabValue, setValue$: setActiveTabValue$, id, dir, orientation } = useTabsRootContext();
   const { currentTabStopId, setCurrentTabStopId$, listRef, activationMode, loopFocus } = useTabsListContext();
