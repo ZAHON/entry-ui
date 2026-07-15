@@ -5,7 +5,7 @@ import type { Component, PropsOf } from '@qwik.dev/core';
  *
  * Extends the standard HTML attributes for a `<div>` element.
  */
-export interface TabsListProps extends Omit<PropsOf<'div'>, 'dir'> {
+export interface TabsListProps extends PropsOf<'div'> {
   /**
    * The element or component this component should render as.
    *
