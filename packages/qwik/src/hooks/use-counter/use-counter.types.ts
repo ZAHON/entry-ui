@@ -1,4 +1,4 @@
-import type { ReadonlySignal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Configuration parameters for the `useCounter` hook.
@@ -50,7 +50,7 @@ export interface UseCounterReturnValue {
    * specific `QRL` functions like `increment$`, `decrement$`, `set$`,
    * or `reset$`, ensuring consistent and predictable state updates.
    */
-  count: ReadonlySignal<number>;
+  count: Readonly<Signal<number>>;
 
   /**
    * A `QRL` function that increases the counter value by the defined `step`.
