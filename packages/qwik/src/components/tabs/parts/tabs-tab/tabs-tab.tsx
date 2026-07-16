@@ -56,10 +56,18 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleMouseDownSync$ = sync$((event: MouseEvent, currentTarget: HTMLElement) => {
+    // Cast the event to inspect custom prevention state. This intersection type
+    // is required because `sync$` runs in a isolated, browser-only context where
+    // importing external TypeScript types directly is not fully supported.
     const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
 
+    // Abort early if a developer's custom `onMouseDown$` handler requested to prevent
+    // the default component logic by setting the internal prevention flag.
     if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
 
+    // Retrieve the disabled state directly from the DOM attributes of the tab element.
+    // Inside a synchronous handler (`sync$`), we cannot safely read Qwik's reactive signal values,
+    // so we must inspect the rendered DOM state instead.
     const isDisabled = currentTarget.hasAttribute('disabled') || currentTarget.hasAttribute('data-disabled');
 
     // Prevent focusing disabled tabs or activating them via non-left clicks (and Ctrl+click on macOS).
@@ -72,8 +80,12 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleMouseDown$ = $((event: MouseEvent) => {
+    // Cast the event to the standard Entry UI event state structure. Since this is
+    // a standard `QRL` handler, we can safely use the imported `EntryUIQwikEventState` type.
     const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
 
+    // Abort early if a preceding custom handler in the execution chain requested
+    // to prevent default library behavior.
     if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
 
     // Only activate the tab and update the tab stop on a valid left-click.
@@ -86,8 +98,12 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleFocus$ = $((event: FocusEvent) => {
+    // Cast the event to the standard Entry UI event state structure. Since this is
+    // a standard `QRL` handler, we can safely use the imported `EntryUIQwikEventState` type.
     const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
 
+    // Abort early if a preceding custom handler in the execution chain requested
+    // to prevent default library behavior.
     if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
 
     // Abort focus handling if the tab is disabled to prevent accidental selection or tab stop updates.
@@ -104,11 +120,19 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleKeyDownSync$ = sync$((event: KeyboardEvent, currentTarget: HTMLElement) => {
+    // Cast the event to inspect custom prevention state. This intersection type
+    // is required because `sync$` runs in an isolated, browser-only context where
+    // importing external TypeScript types directly is not fully supported.
     const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
 
+    // Abort early if a developer's custom `onKeyDown$` handler requested to prevent
+    // the default component logic by setting the internal prevention flag.
     if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
 
     // Do nothing if the tab is disabled.
+    // Retrieve the disabled state directly from the DOM attributes of the tab element.
+    // Inside a synchronous handler (`sync$`), we cannot safely read Qwik's reactive signal values,
+    // so we must inspect the rendered DOM state instead.
     if (currentTarget.hasAttribute('disabled') || currentTarget.hasAttribute('data-disabled')) return;
 
     // Only handle keyboard events targeting the tab button directly, ignoring bubbled events from children.
@@ -138,8 +162,12 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleKeyDown$ = $((event: KeyboardEvent, currentTarget: HTMLElement) => {
+    // Cast the event to the standard Entry UI event state structure. Since this is
+    // a standard `QRL` handler, we can safely use the imported `EntryUIQwikEventState` type.
     const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
 
+    // Abort early if a preceding custom handler in the execution chain requested
+    // to prevent default library behavior.
     if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
 
     // Do nothing if the tab is disabled.
