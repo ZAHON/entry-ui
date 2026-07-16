@@ -1,4 +1,5 @@
 import type { ToggleRootProps } from './toggle-root.types';
+import type { EntryUIQwikEventState } from '@/types';
 import { component$, useComputed$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { useControllable } from '@/hooks/use-controllable';
 import { Primitive } from '@/_internal/components/primitive';
@@ -28,8 +29,10 @@ export const ToggleRoot = component$<ToggleRootProps>((props) => {
 
   const disabled = useComputed$(() => _disabled);
 
-  const handleClick$ = $(() => {
-    if (!disabled.value) {
+  const handleClick$ = $((event: PointerEvent) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
+
+    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && !disabled.value) {
       setPressed$(!pressed.value);
     }
   });
