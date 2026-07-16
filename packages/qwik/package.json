@@ -31,10 +31,6 @@
       "types": "./lib/components/dialog/index.d.ts",
       "import": "./lib/components/dialog/index.qwik.mjs"
     },
-    "./roving-focus-group": {
-      "types": "./lib/components/roving-focus-group/index.d.ts",
-      "import": "./lib/components/roving-focus-group/index.qwik.mjs"
-    },
     "./separator": {
       "types": "./lib/components/separator/index.d.ts",
       "import": "./lib/components/separator/index.qwik.mjs"
