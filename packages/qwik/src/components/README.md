@@ -16,10 +16,9 @@ Components used to organize, structure, and present data or content in a clear a
 
 Interactive elements that trigger actions or toggle states. These components are optimized for keyboard accessibility and provide clear feedback for user interactions.
 
-| Component                                                                                             | Description                                           |
-| :---------------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
-| [`Copy Button`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/copy-button) | A button that transfers text to the system clipboard. |
-| [`Toggle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/toggle)           | A two-state button that can be either on or off.      |
+| Component                                                                                   | Description                                      |
+| :------------------------------------------------------------------------------------------ | :----------------------------------------------- |
+| [`Toggle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/toggle) | A two-state button that can be either on or off. |
 
 ## Feedback
 
@@ -57,6 +56,6 @@ Components that provide a structured way for users to navigate through different
 
 Low-level components and utilities that provide foundational logic, state management, or behavioral enhancements. These tools are designed to be composed with other components to solve complex interactive challenges while remaining unstyled and flexible.
 
-| Component                                                                                                           | Description                                                                                   |
-| :------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------- |
-| [`Roving Focus Group`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/roving-focus-group) | A utility component that implements the roving tabindex method to manage focus between items. |
+| Component | Description |
+| :-------- | :---------- |
+|           |             |
