@@ -1,4 +1,5 @@
 import type { TabsTabProps } from './tabs-tab.types';
+import type { EntryUIQwikEventState } from '@/types';
 import { component$, useComputed$, useTask$, sync$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { isDev } from '@qwik.dev/core/build';
 import { wrapArray } from '@entry-ui/utilities/wrap-array';
@@ -55,6 +56,10 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleMouseDownSync$ = sync$((event: MouseEvent, currentTarget: HTMLElement) => {
+    const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
+
+    if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
+
     const isDisabled = currentTarget.hasAttribute('disabled') || currentTarget.hasAttribute('data-disabled');
 
     // Prevent focusing disabled tabs or activating them via non-left clicks (and Ctrl+click on macOS).
@@ -67,6 +72,10 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleMouseDown$ = $((event: MouseEvent) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
+
+    if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
+
     // Only activate the tab and update the tab stop on a valid left-click.
     // We ignore other mouse buttons (since mousedown triggers for all of them)
     // and block Ctrl+click (which behaves as a right-click/context menu on macOS).
@@ -76,7 +85,11 @@ export const TabsTab = component$<TabsTabProps>((props) => {
     }
   });
 
-  const handleFocus$ = $(() => {
+  const handleFocus$ = $((event: FocusEvent) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
+
+    if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
+
     // Abort focus handling if the tab is disabled to prevent accidental selection or tab stop updates.
     if (disabled.value) return;
 
@@ -91,6 +104,10 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleKeyDownSync$ = sync$((event: KeyboardEvent, currentTarget: HTMLElement) => {
+    const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
+
+    if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
+
     // Do nothing if the tab is disabled.
     if (currentTarget.hasAttribute('disabled') || currentTarget.hasAttribute('data-disabled')) return;
 
@@ -121,6 +138,10 @@ export const TabsTab = component$<TabsTabProps>((props) => {
   });
 
   const handleKeyDown$ = $((event: KeyboardEvent, currentTarget: HTMLElement) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
+
+    if (entryUIQwikEvent.entryUIQwikHandlerPrevented) return;
+
     // Do nothing if the tab is disabled.
     if (disabled.value) return;
 
