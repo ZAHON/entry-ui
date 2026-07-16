@@ -2,6 +2,51 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.11.0 (2026-07-16)
+
+### Breaking changes
+
+- **Remove `CopyButton` component and associated context hook.**
+  The `CopyButton` compound components (`CopyButton.Root`, `CopyButton.Indicator`) and the `useCopyButtonRootContext` hook have been completely removed from the `@entry-ui/qwik` package. This cleanup streamlines the library's footprint and refactors its public API. If your application relies on copying text to the clipboard via this component, you will need to implement a custom clipboard solution, use the browser's native Navigator Clipboard API directly, or leverage the existing `useClipboard` hook provided by the library.
+
+- **Remove `RovingFocusGroup` component and associated context hooks.**
+  The `RovingFocusGroup` utility components (`RovingFocusGroup.Root`, `RovingFocusGroup.Item`) along with the `useRovingFocusGroupRootContext` and `useRovingFocusGroupItemContext` hooks have been completely removed from the `@entry-ui/qwik` package. This change simplifies the package API and streamlines its footprint. Applications requiring keyboard-navigable focus groups using the roving tabindex method will now need to provide a custom implementation or use native browser alternatives.
+
+- **Remove keyboard arrow navigation and `loopFocus` prop from `Accordion.Root` component.**
+  Refactored the `Accordion.Root` component to strictly adhere to the official Accordion WAI-ARIA design pattern, which recommend relying exclusively on the standard browser page <kbd>Tab</kbd> sequence instead of custom arrow-key interaction. As a result of this specification alignment, the `loopFocus` prop has been completely removed, and the component no longer intercepts or handles <kbd>↓</kbd>, <kbd>↑</kbd>, <kbd>Home</kbd>, or <kbd>End</kbd> keys. Moving focus between accordion headers now relies entirely on native <kbd>Tab</kbd> and <kbd>Shift + Tab</kbd> navigation.
+
+### Features
+
+- **Introduce `Toggle.Indicator` subcomponent for state-aware visual feedback.**
+  A modular compound subcomponent designed to render conditional visual cues, such as icons or status badges, that automatically synchronize with the parent toggle's state. It reacts dynamically to the root component's active and disabled flags, conditionally applying `data-state` (`"on"` or `"off"`) and `data-disabled` attributes for advanced CSS-driven styling. Built with accessibility tree propagation in mind, the indicator is hidden from screen readers by default and ignores pointer events, ensuring it provides seamless visual feedback without interfering with the semantic interactivity of the underlying `Toggle.Root` element.
+
+- **Add development safety checks for `Tabs` component values.**
+  Introduced validation checks in development environments for both `Tabs.Tab` and `Tabs.Panel` components. The library now automatically flags missing or empty `value` props, preventing disconnected tab-and-panel pairings and making integration errors much easier to debug.
+
+- **Introduce `useTabsListContext` hook for managing `Tabs.List` focus state.**
+  Added the `useTabsListContext` hook along with its `UseTabsListContextReturnValue` type interface. This hook provides descendant components with typed, direct access to the `Tabs.List` component's active tab stop readonly signal (`currentTabStopId`) and setter `QRL` (`setCurrentTabStopId$`), enabling seamless coordination of roving tabindex and focus navigation.
+
+### Refactors
+
+- **Ensure robust event prevention compliance across all interactive components.**
+  Refactored interaction handlers across the entire library to strictly respect custom event prevention. All internal handlers now consistently check the `entryUIQwikHandlerPrevented` flag before executing default component behaviors. This ensures that custom event prevention in developer-defined event properties reliably halts internal library logic without interfering with native DOM event propagation.
+
+- **Refactor `useCounter` hook to simplify internal logic and improve boundary handling.**
+  Streamlined the hook's implementation by removing development-only validation checks to establish a lighter execution path. Notably, the default boundary limits (`min` and `max`) were switched to native `-Infinity` and `Infinity` to clean up clamping operations.
+
+- **Replace deprecated `ReadonlySignal` with `Readonly<Signal<T>>` globally across the package.**
+  The `ReadonlySignal` type has been deprecated in `@qwik.dev/core` in favor of `Readonly<Signal<T>>`. This change refactors all occurrences across the entire codebase, including hook return interfaces, component properties, and internal utility types, to use the recommended type definition, fully resolving compiler deprecation warnings.
+
+- **Enhance JSDoc API documentation globally across the entire codebase.**
+  Significantly improved the package documentation by adding and updating comprehensive, high-level JSDoc comments for all components, hooks, utilities, and type interfaces. This update ensures consistent parameter descriptions, default value annotations, and clear conceptual overviews across the entire API surface, delivering a more predictable and developer-friendly integration experience.
+
+### Dependencies
+
+- **Update `@qwik.dev/core` peer dependency minimum version.**
+  Bumped the minimum required version to `>=2.0.0-beta.37` to align with the current development environment.
+
+- **Update `@entry-ui/utilities` to version `0.10.0`.**
+
 ## 0.10.0 (2026-06-09)
 
 ### Features
