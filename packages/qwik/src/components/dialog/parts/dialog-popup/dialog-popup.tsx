@@ -1,4 +1,5 @@
 import type { DialogPopupProps } from './dialog-popup.types';
+import type { EntryUIQwikEventState } from '@/types';
 import { component$, useSignal, useComputed$, $, sync$, useTask$, useContextProvider, Slot } from '@qwik.dev/core';
 import { isBrowser, isDev } from '@qwik.dev/core';
 import { getDocument } from '@entry-ui/utilities/get-document';
@@ -148,45 +149,63 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
   });
 
   const handleCancelSync$ = sync$((event: Event) => {
-    // Intercepts the native `cancel` event, which Chromium-based browsers trigger
-    // when the mobile back button is pressed while a `<dialog>` element is open.
-    // This prevents the browser from closing the `<dialog>` element independently of our state.
-    event.preventDefault();
+    const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
+
+    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented) {
+      // Intercepts the native `cancel` event, which Chromium-based browsers trigger
+      // when the mobile back button is pressed while a `<dialog>` element is open.
+      // This prevents the browser from closing the `<dialog>` element independently of our state.
+      event.preventDefault();
+    }
   });
 
-  const handleCancel$ = $(() => {
-    // Ensures the internal state is updated when the `<dialog>` element is canceled via
-    // browser-specific actions (like the back button in Chrome/Edge).
-    // Unlike Chromium, browsers like Firefox will navigate to the previous
-    // page instead of triggering this event.
-    setOpen$(false);
+  const handleCancel$ = $((event: Event) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
+
+    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented) {
+      // Ensures the internal state is updated when the `<dialog>` element is canceled via
+      // browser-specific actions (like the back button in Chrome/Edge).
+      // Unlike Chromium, browsers like Firefox will navigate to the previous
+      // page instead of triggering this event.
+      setOpen$(false);
+    }
   });
 
   const handleKeyDownSync$ = sync$((event: KeyboardEvent) => {
+    const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
     const isEscapeKey = event.key === 'Escape';
 
-    if (isEscapeKey) {
+    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && isEscapeKey) {
       event.preventDefault();
       event.stopPropagation();
     }
   });
 
   const handleKeyDown$ = $((event: KeyboardEvent) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
     const isOpen = open.value;
     const isEscapeKey = event.key === 'Escape';
 
-    if (isOpen && isEscapeKey && closeOnEscapeKeyDown) {
+    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && isOpen && isEscapeKey && closeOnEscapeKeyDown) {
       setOpen$(false);
     }
   });
 
   const handlePointerDown$ = $((event: PointerEvent, currentTarget: HTMLElement) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
     const isOpen = open.value;
     const isCurrentTarget = (event.target as HTMLElement) === currentTarget;
     const isMainButton = event.button === 0;
     const isPointerDownOutside = pointerDownOutside.value;
 
-    if (isOpen && isCurrentTarget && isMainButton && closeOnClickOutside && !isPointerDownOutside) {
+    if (
+      !entryUIQwikEvent.entryUIQwikHandlerPrevented &&
+      isOpen &&
+      isCurrentTarget &&
+      isMainButton &&
+      closeOnClickOutside &&
+      !isPointerDownOutside
+    ) {
       const { clientX, clientY } = event;
       const { left, right, top, bottom } = currentTarget.getBoundingClientRect();
 
@@ -197,11 +216,18 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
   });
 
   const handlePointerUp$ = $((event: PointerEvent, currentTarget: HTMLElement) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
     const isOpen = open.value;
     const isCurrentTarget = (event.target as HTMLElement) === currentTarget;
     const isPointerDownOutside = pointerDownOutside.value;
 
-    if (isOpen && isCurrentTarget && isPointerDownOutside && closeOnClickOutside) {
+    if (
+      !entryUIQwikEvent.entryUIQwikHandlerPrevented &&
+      isOpen &&
+      isCurrentTarget &&
+      isPointerDownOutside &&
+      closeOnClickOutside
+    ) {
       const { clientX, clientY } = event;
       const { left, right, top, bottom } = currentTarget.getBoundingClientRect();
 
