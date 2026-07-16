@@ -1,4 +1,5 @@
 import type { CollapsibleTriggerProps } from './collapsible-trigger.types';
+import type { EntryUIQwikEventState } from '@/types';
 import { component$, useSignal, useComputed$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { useLifecycle } from '@/hooks/use-lifecycle';
 import { mergeRefs } from '@/utilities/merge-refs';
@@ -28,8 +29,10 @@ export const CollapsibleTrigger = component$<CollapsibleTriggerProps>((props) =>
     onUnmount$: $(() => triggerId.delete$()),
   });
 
-  const handleClick$ = $(() => {
-    if (!disabled.value) {
+  const handleClick$ = $((event: PointerEvent) => {
+    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
+
+    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && !disabled.value) {
       setOpen$(!open.value);
     }
   });
