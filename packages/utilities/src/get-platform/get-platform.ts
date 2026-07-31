@@ -1,3 +1,5 @@
+import type { NavigatorUserAgentData } from './get-platform.types';
+
 /**
  * Identifies the operating system platform on which the current browser is running.
  *
@@ -14,8 +16,7 @@
  * ```
  */
 export const getPlatform = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const agent = (navigator as any).userAgentData as { platform: string } | undefined;
+  const userAgentData = (navigator as Navigator & { userAgentData?: NavigatorUserAgentData | undefined }).userAgentData;
 
-  return agent?.platform ?? navigator.platform;
+  return userAgentData?.platform ?? navigator.platform;
 };
