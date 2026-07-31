@@ -16,7 +16,11 @@ import type { NavigatorUserAgentData } from './get-platform.types';
  * ```
  */
 export const getPlatform = () => {
+  // Safely extract `userAgentData` from the global `navigator` object using type assertion,
+  // enabling access to the modern User-Agent Client Hints API without breaking strict TypeScript rules.
   const userAgentData = (navigator as Navigator & { userAgentData?: NavigatorUserAgentData | undefined }).userAgentData;
 
+  // Prioritize the structured platform string provided by User-Agent Client Hints,
+  // seamlessly falling back to the legacy `navigator.platform` property if unsupported.
   return userAgentData?.platform ?? navigator.platform;
 };
