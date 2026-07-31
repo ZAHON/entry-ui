@@ -3,16 +3,21 @@ import type { NavigatorUserAgentData } from './get-platform.types';
 /**
  * Identifies the operating system platform on which the current browser is running.
  *
- * This utility provides a robust way to detect the platform by prioritizing the modern
- * **User-Agent Client Hints API** (`userAgentData`) over the deprecated `navigator.platform`
- * property. It ensures better compatibility with modern privacy standards while
- * maintaining a reliable fallback for older browsers.
+ * This utility provides a robust, cross-browser mechanism for platform identification
+ * by prioritizing the modern User-Agent Client Hints API (`navigator.userAgentData`)
+ * over the deprecated `navigator.platform` property.
+ *
+ * It inspects the structured `platform` descriptor when available—aligning with modern
+ * privacy standards—and seamlessly falls back to legacy platform strings in unsupported
+ * or older browser runtimes.
  *
  * @example
  * ```ts
+ * // Identify the current execution platform.
  * getPlatform();
+ *
  * // Returns: "macOS", "Windows", or "Linux" (on modern browsers)
- * // Returns: "Win32" or "MacIntel" (as a legacy fallback)
+ * // Returns: "MacIntel", "Win32", or "Linux x86_64" (as a legacy fallback)
  * ```
  */
 export const getPlatform = () => {
