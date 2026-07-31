@@ -13,21 +13,23 @@ import { getPlatform } from '@entry-ui/utilities/get-platform';
 
 ## Usage
 
-The `getPlatform` utility provides a reliable way to detect the user's operating system. Modern browsers are moving away from `navigator.platform` (which is now deprecated) in favor of the more secure **User-Agent Client Hints API** (`navigator.userAgentData`).
+The getPlatform utility provides a reliable way to detect the user's operating system. Modern browsers are moving away from `navigator.platform` (which is now deprecated) in favor of the more secure [**User-Agent Client Hints API**](https://developer.mozilla.org/en-US/docs/Web/API/User-Agent_Client_Hints_API) (`navigator.userAgentData`).
 
 This utility prioritizes the modern API while providing a seamless fallback to legacy properties. This is particularly useful for applying platform-specific logic, such as adjusting keyboard shortcuts (e.g., <kbd>Cmd</kbd> vs <kbd>Ctrl</kbd>) or fine-tuning UI components for different operating systems.
 
 ```ts
 import { getPlatform } from '@entry-ui/utilities/get-platform';
 
+// Identify the current execution platform.
 getPlatform();
+
 // Returns: "macOS", "Windows", or "Linux" (on modern browsers)
-// Returns: "Win32" or "MacIntel" (as a legacy fallback)
+// Returns: "MacIntel", "Win32", or "Linux x86_64" (as a legacy fallback)
 ```
 
 ## API reference
 
-This section provides a technical overview of the `getPlatform` function and its detection priority.
+This section provides a technical overview of the `getPlatform` function, including its parameters and return values.
 
 ### Parameters
 
