@@ -45,6 +45,30 @@ describe('isIos', () => {
     expect(isIos()).toBe(true);
   });
 
+  it('should return true when platform is iPod', () => {
+    mockPlatform('iPod');
+
+    expect(isIos()).toBe(true);
+  });
+
+  it('should return true when platform is iPod with case-insensitive match', () => {
+    mockPlatform('ipod');
+
+    expect(isIos()).toBe(true);
+  });
+
+  it('should return true when platform is exactly "iOS"', () => {
+    mockPlatform('iOS');
+
+    expect(isIos()).toBe(true);
+  });
+
+  it('should return true when platform is exactly "iOS" with case-insensitive match', () => {
+    mockPlatform('IOS');
+
+    expect(isIos()).toBe(true);
+  });
+
   it('should return true when platform is Mac and maxTouchPoints is greater than 1', () => {
     mockPlatform('MacIntel');
     mockMaxTouchPoints(2);
@@ -69,6 +93,40 @@ describe('isIos', () => {
   it('should return false when platform is Mac and maxTouchPoints is exactly 1', () => {
     mockPlatform('MacIntel');
     mockMaxTouchPoints(1);
+
+    expect(isIos()).toBe(false);
+  });
+
+  it('should return false when platform is MacIntel and maxTouchPoints is undefined', () => {
+    mockPlatform('MacIntel');
+    Object.defineProperty(navigator, 'maxTouchPoints', {
+      value: undefined,
+      configurable: true,
+    });
+
+    expect(isIos()).toBe(false);
+  });
+
+  it('should return false when platform is MacIntel and maxTouchPoints is null', () => {
+    mockPlatform('MacIntel');
+    Object.defineProperty(navigator, 'maxTouchPoints', {
+      value: null,
+      configurable: true,
+    });
+
+    expect(isIos()).toBe(false);
+  });
+
+  it('should return false when platform is a legacy Mac variant (not MacIntel), even with touch support', () => {
+    mockPlatform('MacPPC');
+    mockMaxTouchPoints(5);
+
+    expect(isIos()).toBe(false);
+  });
+
+  it('should return false when platform is "Macintosh", even with touch support', () => {
+    mockPlatform('Macintosh');
+    mockMaxTouchPoints(5);
 
     expect(isIos()).toBe(false);
   });
