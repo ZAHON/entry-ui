@@ -17,14 +17,7 @@ import { getPlatform } from '../get-platform';
  * ```
  */
 export const isIos = () => {
-  const platform = getPlatform();
+  const lowerPlatform = getPlatform().toLowerCase();
 
-  return (
-    // Check if it's an iPhone
-    /^iPhone/i.test(platform) ||
-    // Check if it's an iPad
-    /^iPad/i.test(platform) ||
-    // Check if it's a Mac with a touchscreen (mimicking an iPad)
-    (/^Mac/i.test(platform) && navigator.maxTouchPoints > 1)
-  );
+  return /^i(os$|p)/.test(lowerPlatform) || (lowerPlatform === 'macintel' && navigator.maxTouchPoints > 1);
 };
