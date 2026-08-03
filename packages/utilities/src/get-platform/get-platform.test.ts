@@ -115,6 +115,20 @@ describe('getPlatform', () => {
     expect(getPlatform()).toBe('');
   });
 
+  it('should return an empty string when neither userAgentData nor navigator.platform is available', () => {
+    stubUserAgentData(undefined);
+    stubPlatform(undefined as unknown as string);
+
+    expect(getPlatform()).toBe('');
+  });
+
+  it('should return an empty string when userAgentData.platform is null and navigator.platform is null', () => {
+    stubUserAgentData({ platform: null });
+    stubPlatform(null as unknown as string);
+
+    expect(getPlatform()).toBe('');
+  });
+
   it('should fall back to the environment default navigator.platform when nothing was stubbed', () => {
     // No stubbing at all - relies on jsdom's own defaults, confirming the utility works
     // correctly even without any Client Hints support configured.
