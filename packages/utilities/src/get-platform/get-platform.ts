@@ -27,5 +27,5 @@ export const getPlatform = () => {
 
   // Prioritize the structured platform string provided by User-Agent Client Hints,
   // seamlessly falling back to the legacy `navigator.platform` property if unsupported.
-  return userAgentData?.platform ?? navigator.platform;
+  return userAgentData?.platform ?? navigator.platform ?? '';
 };
