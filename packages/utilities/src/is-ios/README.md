@@ -13,16 +13,18 @@ import { isIos } from '@entry-ui/utilities/is-ios';
 
 ## Usage
 
-The `isIos` utility provides a reliable way to detect iPhone and iPad devices. Beyond simple string matching, it specifically addresses the behavior of modern iPadOS versions (13+), where iPads often identify as a "Macintosh" to request desktop-class websites.
+The `isIos` utility provides a reliable way to detect iPhone, iPad, and iPod devices. Beyond simple platform matching, it specifically addresses the behavior of modern iPadOS versions (13+), where iPads report as a `"MacIntel"` platform to request desktop-class layout rendering.
 
-By combining platform string validation with touch point capability detection (`maxTouchPoints`), this utility ensures accurate identification even when the browser attempts to mimic a desktop environment. This is essential for applying touch-specific optimizations or handling iOS-specific UI quirks.
+By inspecting normalized platform strings alongside touchscreen capability detection (`navigator.maxTouchPoints > 1`), this utility accurately disambiguates iPadOS from traditional macOS environments. This ensures precise identification for touch-specific optimizations and iOS-specific UI behavior adjustments.
 
 ```ts
 import { isIos } from '@entry-ui/utilities/is-ios';
 
-if (isIos()) {
-  console.log('User is on an iOS/iPadOS device');
-}
+// Check if the current execution environment is an iOS/iPadOS device.
+isIos();
+
+// Returns: true (when running on an iPhone, iPad, or iPadOS in desktop mode)
+// Returns: false (when running on Android, macOS, Windows, or Linux)
 ```
 
 ## API reference
@@ -37,6 +39,6 @@ The `isIos` function does not accept any parameters.
 
 The `isIos` function returns a boolean based on the device detection:
 
-| Type      | Description                                                                                                                                                                         |
-| :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `boolean` | Returns `true` if the device is identified as an iPhone, iPad, or a touch-enabled Macintosh (iPadOS). Returns `false` for Android, standard Desktop, or other non-iOS environments. |
+| Type      | Description                                                                                                                                                                                                          |
+| :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `boolean` | Returns `true` if the device is identified as an iPhone, iPad, iPod, or a touch-enabled Macintosh (`"MacIntel"` iPadOS). Returns `false` for Android, standard macOS, Windows, Linux, or other non-iOS environments. |
