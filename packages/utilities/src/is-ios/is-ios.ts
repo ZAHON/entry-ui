@@ -27,5 +27,5 @@ export const isIos = () => {
   // or handle iPadOS 13+ desktop mode where `navigator.platform` reports `MacIntel`.
   // iPadOS 13+ reports `MacIntel` for `navigator.platform`; disambiguated via
   // `maxTouchPoints` so iPad is classified as iOS, not macOS.
-  return /^i(os$|p)/.test(lowerPlatform) || (lowerPlatform === 'macintel' && navigator.maxTouchPoints > 1);
+  return /^i(os$|p)/.test(lowerPlatform) || (lowerPlatform === 'macintel' && (navigator.maxTouchPoints ?? 0) > 1);
 };
