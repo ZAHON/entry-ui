@@ -22,6 +22,7 @@ export * from './is-selectable-input';
 export * from './is-shallow-subset';
 export * from './merge-styles';
 export * from './prevent-body-scroll';
+export * from './reset-animation-frame-scheduler';
 export * from './scroll-into-view-if-needed';
 export * from './set-style';
 export * from './set-style-property';
