@@ -13,6 +13,7 @@ export * from './get-css-dimensions';
 export * from './get-document';
 export * from './get-hidden-element-height';
 export * from './get-platform';
+export * from './get-scroll-locker';
 export * from './get-user-agent';
 export * from './get-viewport-scroller';
 export * from './get-window';
