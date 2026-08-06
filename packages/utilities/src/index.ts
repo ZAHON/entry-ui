@@ -16,6 +16,7 @@ export * from './get-platform';
 export * from './get-user-agent';
 export * from './get-viewport-scroller';
 export * from './get-window';
+export * from './has-inset-scrollbars';
 export * from './has-stable-scrollbar-gutter';
 export * from './has-window';
 export * from './is-html-element';
