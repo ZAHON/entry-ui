@@ -20,6 +20,7 @@ export * from './has-window';
 export * from './is-html-element';
 export * from './is-ios';
 export * from './is-number';
+export * from './is-overflow-element';
 export * from './is-selectable-input';
 export * from './is-shallow-subset';
 export * from './is-test-environment-dom';
