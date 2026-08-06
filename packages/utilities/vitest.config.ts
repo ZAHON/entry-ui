@@ -4,5 +4,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     reporters: ['tree'],
+    setupFiles: ['./vitest.setup.ts'],
   },
 });
