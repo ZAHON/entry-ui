@@ -60,6 +60,7 @@ export default defineConfig(() => {
     },
     test: {
       reporters: ['tree'],
+      setupFiles: ['./vitest.setup.ts'],
       projects: [
         {
           test: {
