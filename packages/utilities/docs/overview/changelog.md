@@ -2,6 +2,52 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.11.0 (2026-08-07)
+
+### Features
+
+- **Introduce `createAnimationFrame` utility for batched frame management.**
+  A robust, stateful animation frame controller that encapsulates native scheduling into a clean API. It automatically cancels any pending frame on the same handle when a new execution is requested, preventing overlapping callbacks and layout thrashing. Under the hood, it routes requests through an internal shared batch scheduler to group multiple callbacks into a single browser tick with constant-time cancellation overhead.
+
+- **Introduce `createTimeout` utility for stateful delayed execution management.**
+  An isolated, stateful timer controller that encapsulates native timeout scheduling into a clean API. It automatically clears any pending execution when a new timer is started, preventing overlapping callbacks and race conditions. The utility provides explicit control methods (`start`, `clear`, and `isStarted`) to simplify managing ephemeral UI behaviors like auto-dismissing notifications or delayed tooltips without manual handle tracking.
+
+- **Introduce `getUserAgent` utility for browser identification via Client Hints API.**
+  A robust environment detection helper that retrieves the normalized user agent string representing the current browser environment. It prioritizes the modern User-Agent Client Hints API (`navigator.userAgentData`) to construct a clean, structured space-separated brand-version string when available, while providing a seamless fallback to the legacy `navigator.userAgent` string for older environments or non-standard runtimes.
+
+- **Introduce `isWebKit` utility for rendering engine detection via CSS supports.**
+  A reliable feature-detection helper that identifies WebKit-based browser environments (such as Safari, all iOS browsers, and GNOME Web) while excluding Blink. It leverages `CSS.supports` to check for the legacy `-webkit-backdrop-filter` property, offering a robust and SSR-safe alternative to brittle user agent sniffing for applying engine-specific UI fixes.
+
+- **Introduce `isTestEnvironmentDOM` utility for simulated DOM detection.**
+  A specialized helper that determines whether the current execution environment is running inside a simulated or headless test DOM implementation (such as JSDOM or Happy DOM). It inspects the normalized user agent string to identify mock browser signatures, enabling developers to gracefully bypass browser-only side effects or unsupported APIs during automated unit testing in frameworks like Jest or Vitest.
+
+- **Introduce `isOverflowElement` utility for scroll and clipping container detection.**
+  A reliable helper that evaluates whether a target DOM element acts as an overflow or scroll boundary for its content. It inspects computed CSS overflow rules (`overflow`, `overflowX`, `overflowY`) while filtering out layout modes like `inline` or `contents` that cannot physically contain or clip overflowing children, providing a solid foundation for advanced DOM and scrolling calculations.
+
+- **Introduce `getViewportScroller` utility for viewport scroll target resolution.**
+  A specialized helper that determines whether the root `<html>` element or the document `<body>` acts as the active scroll container for the document viewport. It respects CSS overflow propagation rules by checking if `<html>` establishes its own scroll container, providing a reliable element reference for safe scroll measurements and programmatic offsets across diverse layouts.
+
+- **Introduce `isViewportScrollLocked` utility for viewport scroll lock state detection.**
+  A specialized helper that determines whether vertical scrolling on the document viewport is actively disabled. It resolves the active viewport scroll container (`<html>` or `<body>`) and inspects its computed `overflowY` style property for `"hidden"` or `"clip"` values, providing a reliable way to check for active scroll locks caused by modals, drawers, or overlay components.
+
+- **Introduce `hasInsetScrollbars` utility for layout-consuming scrollbar detection.**
+  A specialized helper that determines whether the viewport renders classic, space-consuming scrollbars instead of overlay scrollbars. It calculates the difference between the full viewport width and the root document's client width, providing a reliable boolean indicator to help prevent layout shifts and content jumping when scrollbars appear or disappear.
+
+- **Introduce `isStableScrollbarGutterSupported` utility for runtime scrollbar gutter validation.**
+  A specialized helper that verifies whether the browser environment correctly honors stable scrollbar gutters to prevent layout shifts. It combines CSS syntax checks with empirical width measurements on the active viewport scroller under varying overflow states, ensuring that reserved gutter space effectively prevents visual content jumping.
+
+- **Introduce `preventScrollOverlayScrollbars` utility for overlay scrollbar locking.**
+  A specialized helper that locks viewport scrolling in environments with floating or overlay scrollbars (such as macOS, iOS, or mobile browsers) where hiding overflow causes no layout shifts. It resolves the active viewport scroller, applies axis locks, and returns a deterministic cleanup callback to restore original styles and purge empty DOM attributes upon release.
+
+- **Introduce `preventScrollInsetScrollbars` utility for shift-free viewport scroll locking.**
+  A specialized helper that locks document viewport scrolling in classic inset scrollbar environments without triggering unwanted layout jitter or content shifts. It leverages native `scrollbar-gutter: stable` support when available and seamlessly falls back to dynamic dimensional compensation, animation-frame throttled resize handling, and complete state restoration upon release.
+
+- **Introduce `getScrollLocker` utility for reference-counted viewport scroll management.**
+  A centralized singleton helper that coordinates viewport scroll prevention across concurrent UI components, custom hooks, and overlapping overlays. It maintains an internal reference counter, defers execution batches to avoid style thrashing, respects external third-party locks via mutation observation, and ensures scroll restoration runs deterministically when all sessions complete.
+
+- **Introduce `resetAnimationFrameScheduler` utility for test environment isolation.**
+  A specialized helper designed to flush pending frame queues and reset the shared global animation frame scheduler. It is tailored for unit testing environments to prevent test pollution and memory leaks caused by leftover timers or asynchronous callbacks leaking across test boundaries, while preserving safe identifier tracking.
+
 ## 0.10.0 (2026-07-04)
 
 ### Breaking changes
