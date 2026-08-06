@@ -25,6 +25,7 @@ export * from './is-overflow-element';
 export * from './is-selectable-input';
 export * from './is-shallow-subset';
 export * from './is-test-environment-dom';
+export * from './is-viewport-scroll-locked';
 export * from './is-webkit';
 export * from './merge-styles';
 export * from './prevent-body-scroll';
