@@ -25,6 +25,7 @@ export * from './is-number';
 export * from './is-overflow-element';
 export * from './is-selectable-input';
 export * from './is-shallow-subset';
+export * from './is-stable-scrollbar-gutter-supported';
 export * from './is-test-environment-dom';
 export * from './is-viewport-scroll-locked';
 export * from './is-webkit';
