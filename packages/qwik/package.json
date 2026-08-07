@@ -83,6 +83,10 @@
       "types": "./lib/utilities/merge-styles/index.d.ts",
       "import": "./lib/utilities/merge-styles/index.qwik.mjs"
     },
+    "./resolve-qrl": {
+      "types": "./lib/utilities/resolve-qrl/index.d.ts",
+      "import": "./lib/utilities/resolve-qrl/index.qwik.mjs"
+    },
     "./types": {
       "types": "./lib/types/index.d.ts"
     }

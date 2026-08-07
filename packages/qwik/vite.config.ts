@@ -45,6 +45,7 @@ export default defineConfig(() => {
           'utilities/make-event-preventable/index': 'src/utilities/make-event-preventable/index.ts',
           'utilities/merge-refs/index': 'src/utilities/merge-refs/index.ts',
           'utilities/merge-styles/index': 'src/utilities/merge-styles/index.ts',
+          'utilities/resolve-qrl/index': 'src/utilities/resolve-qrl/index.ts',
         },
         formats: ['es'],
         fileName: (_, entryName) => `${entryName}.qwik.mjs`,
