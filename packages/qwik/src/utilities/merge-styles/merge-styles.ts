@@ -1,4 +1,3 @@
-import type { PossibleStyle as _PossibleStyle } from '@entry-ui/utilities/merge-styles';
 import type { CSSProperties } from '@qwik.dev/core';
 import { mergeStyles as _mergeStyles } from '@entry-ui/utilities/merge-styles';
 
@@ -13,5 +12,5 @@ import { mergeStyles as _mergeStyles } from '@entry-ui/utilities/merge-styles';
  * the array will override matching properties from earlier styles.
  */
 export const mergeStyles = (styles: (string | CSSProperties | undefined)[]) => {
-  return _mergeStyles(styles as _PossibleStyle[]) as CSSProperties;
+  return _mergeStyles(styles as (string | Record<string, string | number | undefined> | undefined)[]) as CSSProperties;
 };
