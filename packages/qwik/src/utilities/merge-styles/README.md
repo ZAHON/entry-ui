@@ -51,9 +51,9 @@ The `mergeStyles` utility provides a type-safe way to consolidate various style 
 
 The `mergeStyles` function accepts a single required parameter (marked with an asterisk `*`) containing an array of style sources. Each element in the array is evaluated and merged into the final result, allowing for a mix of different formats:
 
-| Parameter | Type                                                                       | Default | Description                                                                                                                                        |
-| :-------- | :------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `styles*` | `(string \| Record<string, string \| number \| undefined> \| undefined)[]` | `—`     | An array of styles to be merged. Supports `string`, `CSSProperties`, or `undefined` for conditional styling. All keys are normalized to camelCase. |
+| Parameter | Type                                       | Default | Description                                                                                                                                        |
+| :-------- | :----------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `styles*` | `(string \| CSSProperties \| undefined)[]` | `—`     | An array of styles to be merged. Supports `string`, `CSSProperties`, or `undefined` for conditional styling. All keys are normalized to camelCase. |
 
 ### Returns
 
