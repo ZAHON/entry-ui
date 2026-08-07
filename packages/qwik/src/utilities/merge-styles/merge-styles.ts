@@ -4,7 +4,7 @@ import { mergeStyles as _mergeStyles } from '@entry-ui/utilities/merge-styles';
 /**
  * Merges multiple style values into a single, unified style object.
  *
- * This function consolidates a variety of style formats—such as standard inline CSS strings,
+ * This function consolidates a variety of style formats—such as standard inline CSS `string` values,
  * structured `CSSProperties` objects, or `undefined` for conditional styling—into a single
  * normalized `CSSProperties` object.
  *
