@@ -11,7 +11,7 @@ import { isSignal } from '@qwik.dev/core';
  *
  * When the returned callback is executed, it iterates through the array of provided `refs` and:
  * - Updates the `.value` property if the ref is a `Signal`.
- * - Invokes the function if the `ref` is a callback.
+ * - Invokes the function if the ref is a callback.
  * - Gracefully ignores `undefined` values.
  */
 export const mergeRefs = <T extends Element = Element>(
