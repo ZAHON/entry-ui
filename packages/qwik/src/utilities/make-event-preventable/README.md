@@ -28,8 +28,12 @@ import { Toggle } from '@entry-ui/qwik/toggle';
 
 const Usage = component$(() => {
   const handleClick$ = $((event: PointerEvent) => {
+    // Augment the standard pointer event with internal prevention logic.
+    // This allows flagging the event to skip internal component behaviors.
     const entryUIQwikEvent = makeEventPreventable(event);
 
+    // Conditionally prevent the internal library handler from executing.
+    // Leaves native DOM event propagation entirely unaffected.
     entryUIQwikEvent.preventEntryUIQwikHandler();
   });
 
@@ -43,15 +47,15 @@ The `makeEventPreventable` utility provides a type-safe way to add granular cont
 
 ### Parameters
 
-The `makeEventPreventable` function accepts a single required parameter (marked with an asterisk `*`) containing the standard DOM event to be augmented. This event is transformed into an `EntryUIQwikEvent`, allowing you to attach a prevention flag that can be checked by subsequent internal handlers in the Entry UI Qwik event chain.
+The `makeEventPreventable` function accepts a single required parameter (marked with an asterisk `*`) representing the standard DOM event to be augmented:
 
 | Parameter | Type | Default | Description                                                                                                 |
 | :-------- | :--- | :------ | :---------------------------------------------------------------------------------------------------------- |
-| `event*`  | `EV` | `-`     | The original DOM event (e.g., `PointerEvent`, `InputEvent`) to be augmented with internal prevention logic. |
+| `event*`  | `EV` | `—`     | The original DOM event (e.g., `PointerEvent`, `InputEvent`) to be augmented with internal prevention logic. |
 
 ### Returns
 
-The `makeEventPreventable` function returns the same event object, now typed as `EntryUIQwikEvent<EV>`, which includes the prevention API.
+The `makeEventPreventable` function returns the augmented event object:
 
 | Type                   | Description                                                                                                                                                                     |
 | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
