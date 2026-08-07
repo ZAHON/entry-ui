@@ -1,4 +1,3 @@
-import type { PossibleStyle } from './merge-styles.types';
 import type { PossibleStyle as _PossibleStyle } from '@entry-ui/utilities/merge-styles';
 import type { CSSProperties } from '@qwik.dev/core';
 import { mergeStyles as _mergeStyles } from '@entry-ui/utilities/merge-styles';
@@ -13,6 +12,6 @@ import { mergeStyles as _mergeStyles } from '@entry-ui/utilities/merge-styles';
  * The merging process follows the CSS cascade principle: styles appearing later in
  * the array will override matching properties from earlier styles.
  */
-export const mergeStyles = (styles: PossibleStyle[]) => {
+export const mergeStyles = (styles: (string | CSSProperties | undefined)[]) => {
   return _mergeStyles(styles as _PossibleStyle[]) as CSSProperties;
 };
