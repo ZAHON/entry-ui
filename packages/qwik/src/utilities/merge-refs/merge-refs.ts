@@ -1,4 +1,3 @@
-import type { PossibleRef } from './merge-refs.types';
 import type { Signal } from '@qwik.dev/core';
 import { $, isSignal, noSerialize } from '@qwik.dev/core';
 
@@ -15,7 +14,9 @@ import { $, isSignal, noSerialize } from '@qwik.dev/core';
  * - Invokes the function if the `ref` is a callback.
  * - Gracefully ignores `undefined` values.
  */
-export const mergeRefs = <T extends Element>(refs: PossibleRef<T>[]) => {
+export const mergeRefs = <T extends Element = Element>(
+  refs: (Signal<Element | undefined> | Signal<T | undefined> | ((node: T) => void) | undefined)[]
+) => {
   const _refs = noSerialize(refs);
 
   return $((node: T) => {
