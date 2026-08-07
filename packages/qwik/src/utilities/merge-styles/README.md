@@ -13,9 +13,9 @@ import { mergeStyles } from '@entry-ui/qwik/merge-styles';
 
 ## Usage
 
-Use `mergeStyles` when you need to combine different style formats — such as CSS strings, style objects, or props — into a single, normalized object. It follows the CSS cascade principle, where styles defined later in the array override earlier ones.
+Use `mergeStyles` when you need to combine different style formats — such as inline CSS `string` values, structured `CSSProperties` objects, or props — into a single, normalized object. It follows the CSS cascade principle, where styles defined later in the array override earlier ones.
 
-The utility is designed to handle the complexity of CSS styling in JavaScript environments. It allows developers to combine inline strings and structured objects while ensuring that property keys are correctly normalized. To ensure compatibility with Qwik and other JavaScript-based styling engines, the function applies the following transformations:
+The utility is designed to handle the complexity of CSS styling in JavaScript environments. It allows developers to combine inline `string` values and structured `CSSProperties` objects while ensuring that property keys are correctly normalized. To ensure compatibility with Qwik and other JavaScript-based styling engines, the function applies the following transformations:
 
 - **Kebab-case to camelCase:**
   `background-color` becomes `backgroundColor`.
@@ -24,7 +24,7 @@ The utility is designed to handle the complexity of CSS styling in JavaScript en
   Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
 
 - **IE prefix**:
-  The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
+  The `-ms-` prefix is specifically handled to start with a lowercase `m` (e.g., `msTransform`).
 
 - **CSS variables**:
   Properties starting with `--` (e.g., `--custom-color`) are preserved in their original format.
@@ -37,6 +37,8 @@ import { mergeStyles } from '@entry-ui/qwik/merge-styles';
 const Usage = component$<PropsOf<'div'>>((props) => {
   const { style, ...others } = props;
 
+  // Merge multiple style sources into a single unified object.
+  // Apply the normalized styles to the target element prop.
   return (
     <div style={mergeStyles([{ height: '100px', width: '100px' }, 'background-color: purple;', style])} {...others} />
   );
