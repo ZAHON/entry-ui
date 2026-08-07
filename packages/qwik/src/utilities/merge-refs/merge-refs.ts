@@ -1,5 +1,5 @@
 import type { Signal } from '@qwik.dev/core';
-import { $, isSignal, noSerialize } from '@qwik.dev/core';
+import { isSignal } from '@qwik.dev/core';
 
 /**
  * Merges multiple references into a single callback ref.
@@ -17,10 +17,8 @@ import { $, isSignal, noSerialize } from '@qwik.dev/core';
 export const mergeRefs = <T extends Element = Element>(
   refs: (Signal<Element | undefined> | Signal<T | undefined> | ((node: T) => void) | undefined)[]
 ) => {
-  const _refs = noSerialize(refs);
-
-  return $((node: T) => {
-    _refs?.forEach((ref) => {
+  return (node: T) => {
+    refs?.forEach((ref) => {
       if (!ref) return;
 
       if (isSignal(ref)) {
@@ -29,5 +27,5 @@ export const mergeRefs = <T extends Element = Element>(
         ref(node);
       }
     });
-  });
+  };
 };
