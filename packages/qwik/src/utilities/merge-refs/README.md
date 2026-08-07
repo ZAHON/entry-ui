@@ -35,37 +35,16 @@ The `mergeRefs` utility provides a type-safe way to consolidate multiple referen
 
 ### Parameters
 
-The `mergeRefs` function accepts a single required parameter (marked with an asterisk `*`) containing an array of reference sources. Each element in the array is evaluated, allowing for a seamless mix of signals, callback functions, and optional refs to be assigned to the same DOM node.
+The `mergeRefs` function accepts a single required parameter (marked with an asterisk `*`) containing an array of reference sources. Each element in the array is evaluated, allowing for a seamless mix of signals, callback functions, and optional refs to be assigned to the same DOM node:
 
-| Parameter | Type               | Default | Description                                                                                                                                                      |
-| :-------- | :----------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `refs*`   | `PossibleRef<T>[]` | `-`     | An array of refs that can be either signals, callback refs, or undefined. Each ref will be assigned the provided DOM node when the returned function is invoked. |
+| Parameter | Type                                                                                             | Default | Description                                                                                                                                                      |
+| :-------- | :----------------------------------------------------------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `refs*`   | `(Signal<Element \| undefined> \| Signal<T \| undefined> \| ((node: T) => void) \| undefined)[]` | `—`     | An array of refs that can be either signals, callback refs, or undefined. Each ref will be assigned the provided DOM node when the returned function is invoked. |
 
 ### Returns
 
-The `mergeRefs` function returns a single `QRL` callback function that efficiently manages the assignment of a DOM node to all provided refs.
+The `mergeRefs` function returns a callback function that efficiently manages the assignment of a DOM node to all provided refs:
 
-| Type                     | Description                                                                   |
-| :----------------------- | :---------------------------------------------------------------------------- |
-| `QRL<(node: T) => void>` | A `QRL` function that accepts a DOM node and assigns it to each provided ref. |
-
-## Type definitions
-
-This section details the internal types used by `mergeRefs` to ensure full TypeScript support and seamless integration with Qwik's reactivity system.
-
-### PossibleRef\<T>
-
-The `PossibleRef<T>` type is a union that ensures flexibility in how references are handled, supporting various patterns for DOM access:
-
-- **`Signal<T | undefined>` or `Signal<Element | undefined>`**:
-  The standard Qwik approach using `useSignal`. It allows the element to be reactively tracked within the `.value` property.
-
-- **`(node: T) => void`**:
-  A callback ref (ref-callback) that provides direct access to the DOM node upon mounting.
-
-- **`undefined`**:
-  Designed for optional references. This allows you to pass component props directly into the utility without manual null-checks.
-
-```ts
-type PossibleRef<T> = Signal<Element | undefined> | Signal<T | undefined> | ((node: T) => void) | undefined;
-```
+| Type                | Description                                                                      |
+| :------------------ | :------------------------------------------------------------------------------- |
+| `(node: T) => void` | A callback function that accepts a DOM node and assigns it to each provided ref. |
