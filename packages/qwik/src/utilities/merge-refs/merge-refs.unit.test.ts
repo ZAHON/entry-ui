@@ -1,19 +1,14 @@
-import type { PossibleRef } from '.';
 import type { Signal } from '@qwik.dev/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { $, isSignal, noSerialize } from '@qwik.dev/core';
+import { isSignal } from '@qwik.dev/core';
 import { mergeRefs } from '.';
 
-describe('mergeRefs', () => {
-  vi.mock('@qwik.dev/core', () => ({
-    $: vi.fn((fn: unknown) => fn),
-    isSignal: vi.fn(),
-    noSerialize: vi.fn((val: unknown) => val),
-  }));
+vi.mock('@qwik.dev/core', () => ({
+  isSignal: vi.fn(),
+}));
 
-  const mockedDollar = vi.mocked($);
+describe('mergeRefs', () => {
   const mockedIsSignal = vi.mocked(isSignal);
-  const mockedNoSerialize = vi.mocked(noSerialize);
 
   /**
    * Helper that builds an object satisfying `Signal<T>` for testing purposes.
@@ -29,12 +24,8 @@ describe('mergeRefs', () => {
       __isMockSignal: true,
     }) as unknown as Signal<T>;
 
-  /**
-   * Because `$` is mocked as an identity function, `mergeRefs` returns the raw
-   * callback rather than a real QRL. This helper casts and invokes it directly.
-   */
-  const invokeMergedRef = <T extends Element>(merged: unknown, node: T): void => {
-    (merged as (node: T) => void)(node);
+  const invokeMergedRef = <T extends Element>(merged: (node: T) => void, node: T): void => {
+    merged(node);
   };
 
   type FakeElement = Element;
@@ -47,20 +38,10 @@ describe('mergeRefs', () => {
     );
   });
 
-  it('should return a callable function wrapped via $', () => {
+  it('should return a callable function', () => {
     const merged = mergeRefs<FakeElement>([]);
 
-    expect(mockedDollar).toHaveBeenCalledTimes(1);
     expect(typeof merged).toBe('function');
-  });
-
-  it('should call noSerialize with the provided refs array', () => {
-    const refs: PossibleRef<FakeElement>[] = [undefined];
-
-    mergeRefs<FakeElement>(refs);
-
-    expect(mockedNoSerialize).toHaveBeenCalledTimes(1);
-    expect(mockedNoSerialize).toHaveBeenCalledWith(refs);
   });
 
   it('should update the .value property of a single signal ref when invoked', () => {
