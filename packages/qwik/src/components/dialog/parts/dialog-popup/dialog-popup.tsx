@@ -2,6 +2,7 @@ import type { DialogPopupProps } from './dialog-popup.types';
 import type { EntryUIQwikEventState } from '@/types';
 import { component$, useSignal, useComputed$, $, sync$, useTask$, useContextProvider, Slot } from '@qwik.dev/core';
 import { isBrowser, isDev } from '@qwik.dev/core';
+import { getWindow } from '@entry-ui/utilities/get-window';
 import { getDocument } from '@entry-ui/utilities/get-document';
 import { getComputedStyle } from '@entry-ui/utilities/get-computed-style';
 import { addEventListenerOnce } from '@entry-ui/utilities/add-event-listener-once';
@@ -54,11 +55,14 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
 
   const scrollLock = useScrollLock(
     $(() => {
-      if (ref.value) {
-        return getDocument(ref.value);
-      } else {
-        return document;
-      }
+      const popupRef = ref.value as HTMLElement;
+
+      const win = getWindow(popupRef);
+      const doc = getDocument(popupRef);
+      const html = doc.documentElement;
+      const body = doc.body;
+
+      return { win, doc, html, body };
     })
   );
 
