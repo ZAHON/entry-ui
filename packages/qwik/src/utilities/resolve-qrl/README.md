@@ -13,7 +13,7 @@ import { resolveQrl } from '@entry-ui/qwik/resolve-qrl';
 
 ## Usage
 
-Use `resolveQrl` when you need to asynchronously resolve a QRL reference into its underlying value or symbol. This handles specialized lazy-loaded code references embedded within HTML attributes, leveraging framework mechanisms to fetch the target JavaScript chunk and retrieve the exported symbol.
+Use `resolveQrl` when you need to asynchronously resolve a `QRL` reference into its underlying value or symbol. This handles specialized lazy-loaded code references embedded within HTML attributes, leveraging framework mechanisms to fetch the target JavaScript chunk and retrieve the exported symbol.
 
 Additionally, `resolveQrl` optimizes performance by checking whether the reference has already been resolved and stored in memory. Returning the cached property directly avoids redundant asynchronous loading steps, making repeated calls fast and efficient.
 
