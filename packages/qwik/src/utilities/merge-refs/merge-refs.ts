@@ -5,13 +5,13 @@ import { isSignal } from '@qwik.dev/core';
  * Merges multiple references into a single callback ref.
  *
  * This utility function accepts an array of reference handlers and allows you to assign
- * a single DOM element to multiple handlers simultaneously (both Qwik Signals and callback functions).
+ * a single DOM element to multiple handlers simultaneously (both `Signal` objects and callback `function` items).
  * It is particularly useful when a component needs to maintain its own internal reference to an element
  * while also forwarding a reference to a consumer via props.
  *
  * When the returned callback is executed, it iterates through the array of provided `refs` and:
  * - Updates the `.value` property if the ref is a `Signal`.
- * - Invokes the function if the ref is a callback.
+ * - Invokes the function if the ref is a callback `function`.
  * - Gracefully ignores `undefined` values.
  */
 export const mergeRefs = <T extends Element = Element>(
