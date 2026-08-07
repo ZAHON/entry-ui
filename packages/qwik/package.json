@@ -87,6 +87,10 @@
       "types": "./lib/utilities/resolve-qrl/index.d.ts",
       "import": "./lib/utilities/resolve-qrl/index.qwik.mjs"
     },
+    "./unwrap-signal": {
+      "types": "./lib/utilities/unwrap-signal/index.d.ts",
+      "import": "./lib/utilities/unwrap-signal/index.qwik.mjs"
+    },
     "./types": {
       "types": "./lib/types/index.d.ts"
     }

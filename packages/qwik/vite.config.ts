@@ -46,6 +46,7 @@ export default defineConfig(() => {
           'utilities/merge-refs/index': 'src/utilities/merge-refs/index.ts',
           'utilities/merge-styles/index': 'src/utilities/merge-styles/index.ts',
           'utilities/resolve-qrl/index': 'src/utilities/resolve-qrl/index.ts',
+          'utilities/unwrap-signal/index': 'src/utilities/unwrap-signal/index.ts',
         },
         formats: ['es'],
         fileName: (_, entryName) => `${entryName}.qwik.mjs`,
