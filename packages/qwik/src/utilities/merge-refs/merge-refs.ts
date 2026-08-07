@@ -17,15 +17,21 @@ import { isSignal } from '@qwik.dev/core';
 export const mergeRefs = <T extends Element = Element>(
   refs: (Signal<Element | undefined> | Signal<T | undefined> | ((node: T) => void) | undefined)[]
 ) => {
+  const refsLength = refs.length;
+
   return (node: T) => {
-    refs?.forEach((ref) => {
-      if (!ref) return;
+    for (let i = 0; i < refsLength; i++) {
+      const ref = refs[i];
+
+      if (!ref) {
+        continue;
+      }
 
       if (isSignal(ref)) {
         (ref as Signal<T>).value = node;
       } else if (typeof ref === 'function') {
         ref(node);
       }
-    });
+    }
   };
 };
