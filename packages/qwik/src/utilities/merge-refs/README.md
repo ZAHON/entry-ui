@@ -15,6 +15,8 @@ import { mergeRefs } from '@entry-ui/qwik/merge-refs';
 
 Use `mergeRefs` when you need to assign a single DOM node to multiple references - for example, when combining a `ref` passed from a parent component with a local signal. This is essential for building flexible components that need to manage internal logic while still exposing the underlying element to consumers.
 
+Additionally, `mergeRefs` handles different types of references seamlessly under the hood, ensuring that `Signal` objects, callback `function` items, and optional or `undefined` values are all invoked or updated correctly without requiring manual conditional checks in your components.
+
 ```tsx
 import type { PropsOf } from '@qwik.dev/core';
 import { component$, useSignal } from '@qwik.dev/core';
@@ -25,6 +27,8 @@ const Usage = component$<PropsOf<'div'>>((props) => {
 
   const localRef = useSignal<HTMLElement | undefined>(undefined);
 
+  // Merge the parent's ref and the local signal.
+  // Assign the resulting callback ref to the element.
   return <div ref={mergeRefs([ref, localRef])} {...others} />;
 });
 ```
@@ -37,9 +41,9 @@ The `mergeRefs` utility provides a type-safe way to consolidate multiple referen
 
 The `mergeRefs` function accepts a single required parameter (marked with an asterisk `*`) containing an array of reference sources. Each element in the array is evaluated, allowing for a seamless mix of signals, callback functions, and optional refs to be assigned to the same DOM node:
 
-| Parameter | Type                                                                                             | Default | Description                                                                                                                                                      |
-| :-------- | :----------------------------------------------------------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `refs*`   | `(Signal<Element \| undefined> \| Signal<T \| undefined> \| ((node: T) => void) \| undefined)[]` | `—`     | An array of refs that can be either signals, callback refs, or undefined. Each ref will be assigned the provided DOM node when the returned function is invoked. |
+| Parameter | Type                                                                                             | Default | Description                                                                                                                                                                             |
+| :-------- | :----------------------------------------------------------------------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `refs*`   | `(Signal<Element \| undefined> \| Signal<T \| undefined> \| ((node: T) => void) \| undefined)[]` | `—`     | An array of refs that can be either `Signal` objects, callback `function` items, or `undefined`. Each ref will be assigned the provided DOM node when the returned function is invoked. |
 
 ### Returns
 
