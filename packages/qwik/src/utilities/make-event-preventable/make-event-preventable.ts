@@ -19,11 +19,19 @@ import type { EntryUIQwikEvent } from '@/types';
  * - Subsequent handlers in the event array can verify this flag to skip their logic.
  */
 export const makeEventPreventable = <EV extends Event>(event: EV) => {
+  // Cast the incoming standard DOM event to an augmented `EntryUIQwikEvent` type.
+  // This enables adding custom prevention methods and flags without altering native event behavior.
   const entryUIQwikEvent = event as EntryUIQwikEvent<typeof event>;
 
+  // Attach the custom prevention method to the event object.
+  // When invoked by a consumer, it flags the event to skip subsequent internal component handlers.
   entryUIQwikEvent.preventEntryUIQwikHandler = () => {
+    // Forcefully update the internal prevention flag to true.
+    // This allows internal library handlers down the execution chain to detect the override.
     (entryUIQwikEvent.entryUIQwikHandlerPrevented as boolean) = true;
   };
 
+  // Return the fully augmented event object back to the caller.
+  // Grants consumers complete control over internal component event propagation.
   return entryUIQwikEvent;
 };
