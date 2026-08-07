@@ -51,35 +51,14 @@ The `mergeStyles` utility provides a type-safe way to consolidate various style 
 
 The `mergeStyles` function accepts a single required parameter (marked with an asterisk `*`) containing an array of style sources. Each element in the array is evaluated and merged into the final result, allowing for a mix of different formats:
 
-| Parameter | Type              | Default | Description                                                                                                                                        |
-| :-------- | :---------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `styles*` | `PossibleStyle[]` | `-`     | An array of styles to be merged. Supports `string`, `CSSProperties`, or `undefined` for conditional styling. All keys are normalized to camelCase. |
+| Parameter | Type                                                                       | Default | Description                                                                                                                                        |
+| :-------- | :------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `styles*` | `(string \| Record<string, string \| number \| undefined> \| undefined)[]` | `—`     | An array of styles to be merged. Supports `string`, `CSSProperties`, or `undefined` for conditional styling. All keys are normalized to camelCase. |
 
 ### Returns
 
-The `mergeStyles` function returns a unified CSS properties object compatible with Qwik's `style` attribute.
+The `mergeStyles` function returns a unified CSS properties object compatible with Qwik's `style` attribute:
 
 | Type            | Description                                                                                              |
 | :-------------- | :------------------------------------------------------------------------------------------------------- |
 | `CSSProperties` | A normalized object containing all merged style declarations, with later values overriding earlier ones. |
-
-## Type definitions
-
-This section details the internal types used by `mergeStyles` to ensure full TypeScript support and seamless integration with CSS-in-JS patterns.
-
-### PossibleStyle
-
-The `PossibleStyle` type is a union that ensures flexibility in how styles are defined, supporting various formats out of the box:
-
-- **`string`**:
-  Standard inline CSS strings (e.g., `"color: red; padding: 10px"`).
-
-- **`CSSProperties`**:
-  A structured object of CSS declarations from `@qwik.dev/core` (e.g., `{ color: "red" }`).
-
-- **`undefined`**:
-  Useful for conditional styling where a style might not be present. Since `boolean` is not accepted, use ternary operators or logical OR to ensure a valid type (e.g., `isActive ? "color: red" : undefined`).
-
-```ts
-type PossibleStyle = string | CSSProperties | undefined;
-```
