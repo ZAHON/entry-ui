@@ -11,6 +11,15 @@ Utilities designed to simplify interaction with the DOM and manage UI-related pr
 | [`mergeRefs`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/utilities/merge-refs)     | Merges multiple references into a single callback ref.            |
 | [`mergeStyles`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/utilities/merge-styles) | Merges multiple style values into a single, unified style object. |
 
+## Reactivity and execution
+
+Utilities designed to handle asynchronous lazy-loading references and abstract away reactive data checks.
+
+| Utility                                                                                                 | Description                                                                                          |
+| :------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------- |
+| [`resolveQrl`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/utilities/resolve-qrl)     | Asynchronously resolves a QRL reference into its underlying value or symbol.                         |
+| [`unwrapSignal`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/utilities/unwrap-signal) | Unwraps a potential signal, returning its current value or the original value if it is not a signal. |
+
 ## Events
 
 Utilities for managing and augmenting standard DOM events within the component lifecycle. These tools offer granular control over event handling and internal state updates.
