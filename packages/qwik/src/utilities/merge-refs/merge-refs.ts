@@ -1,5 +1,5 @@
 import type { Signal } from '@qwik.dev/core';
-import { isSignal } from '@qwik.dev/core';
+import { noSerialize, $, isSignal } from '@qwik.dev/core';
 
 /**
  * Merges multiple references into a single callback ref.
@@ -17,19 +17,19 @@ import { isSignal } from '@qwik.dev/core';
 export const mergeRefs = <T extends Element = Element>(
   refs: (Signal<Element | undefined> | Signal<T | undefined> | ((node: T) => void) | undefined)[]
 ) => {
-  // Cache the total number of references up front to avoid recalculating the `length` property
-  // during each execution of the returned callback, optimizing performance in hot render paths.
-  const refsLength = refs.length;
+  const _refs = noSerialize(refs);
 
-  // Return a higher-order callback `function` that accepts the target DOM node
-  // and distributes it across all configured reference handlers.
-  return (node: T) => {
+  return $((node: T) => {
+    if (!_refs) {
+      return;
+    }
+
     // Iterate through the array of reference handlers using a high-performance traditional loop.
     // This approach minimizes overhead compared to array iteration methods like `forEach`.
-    for (let i = 0; i < refsLength; i++) {
+    for (let i = 0; i < _refs.length; i++) {
       // Retrieve the current reference handler from the array based on the active index.
       // This value can be either a `Signal`, a callback `function`, or `undefined`.
-      const ref = refs[i];
+      const ref = _refs[i];
 
       // Skip current iteration immediately if the reference handler is `undefined`.
       // This prevents runtime errors when handling optional or unassigned props.
@@ -45,5 +45,5 @@ export const mergeRefs = <T extends Element = Element>(
         ref(node);
       }
     }
-  };
+  });
 };
