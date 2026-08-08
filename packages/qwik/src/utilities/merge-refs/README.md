@@ -47,8 +47,8 @@ The `mergeRefs` function accepts a single required parameter (marked with an ast
 
 ### Returns
 
-The `mergeRefs` function returns a callback function that efficiently manages the assignment of a DOM node to all provided refs:
+The `mergeRefs` function returns a `QRL` callback function that efficiently manages the assignment of a DOM node to all provided refs:
 
-| Type                | Description                                                                      |
-| :------------------ | :------------------------------------------------------------------------------- |
-| `(node: T) => void` | A callback function that accepts a DOM node and assigns it to each provided ref. |
+| Type                     | Description                                                                            |
+| :----------------------- | :------------------------------------------------------------------------------------- |
+| `QRL<(node: T) => void>` | A `QRL` callback function that accepts a DOM node and assigns it to each provided ref. |
