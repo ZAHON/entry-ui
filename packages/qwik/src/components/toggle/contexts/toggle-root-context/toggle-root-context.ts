@@ -8,7 +8,7 @@ import { createContextId, useContext } from '@qwik.dev/core';
 export const ToggleRootContext = createContextId<ToggleRootContextValue>('entry-ui-qwik-toggle-root-context');
 
 /**
- * An internal hook that provides access to the `Toggle.Root` component's internal state.
+ * An internal hook that provides access to the `<Toggle.Root>` component's internal state.
  *
  * It exposes readonly signals and `QRL` functions to interact with the toggle's state,
  * allowing descendant components to control or react to its pressed/unpressed state.
