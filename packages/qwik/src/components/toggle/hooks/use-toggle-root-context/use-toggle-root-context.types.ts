@@ -3,7 +3,7 @@ import type { Signal, QRL } from '@qwik.dev/core';
 /**
  * The value returned by the `useToggleRootContext` hook.
  *
- * Provides access to the toggle's readonly signals and `QRL` functions for descendant components.
+ * Provides access to the toggle's readonly signals and `QRL` function for descendant components.
  */
 export interface UseToggleRootContextReturnValue {
   /**
