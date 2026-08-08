@@ -1,7 +1,7 @@
 import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
- * Props for the `Toggle.Indicator` component.
+ * Props for the `<Toggle.Indicator>` component.
  *
  * Extends the standard HTML attributes for a `<span>` element.
  */
