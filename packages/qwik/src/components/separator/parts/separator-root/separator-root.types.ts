@@ -13,14 +13,14 @@ export interface SeparatorRootProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * The orientation of the separator.
    *
    * @default "horizontal"
    */
-  orientation?: 'horizontal' | 'vertical';
+  orientation?: 'horizontal' | 'vertical' | undefined;
 
   /**
    * Whether or not the component is purely decorative. When `true`, accessibility-related
@@ -28,5 +28,5 @@ export interface SeparatorRootProps extends PropsOf<'div'> {
    *
    * @default false
    */
-  decorative?: boolean;
+  decorative?: boolean | undefined;
 }
