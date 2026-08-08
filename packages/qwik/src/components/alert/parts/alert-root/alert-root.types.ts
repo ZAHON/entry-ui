@@ -1,7 +1,7 @@
 import type { Component, PropsOf } from '@qwik.dev/core';
 
 /**
- * Props for the `Alert.Root` component.
+ * Props for the `<Alert.Root>` component.
  *
  * Extends the standard HTML attributes for a `<div>` element.
  */
