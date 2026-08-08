@@ -1,7 +1,7 @@
 import type { Component, PropsOf } from '@qwik.dev/core';
 
 /**
- * Props for the `Separator.Root` component.
+ * Props for the `<Separator.Root>` component.
  *
  * Extends the standard HTML attributes for a `<div>` element.
  */
