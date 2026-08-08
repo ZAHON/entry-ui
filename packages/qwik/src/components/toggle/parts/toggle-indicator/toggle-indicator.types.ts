@@ -13,5 +13,5 @@ export interface ToggleIndicatorProps extends PropsOf<'span'> {
    *
    * @default "span"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 }
