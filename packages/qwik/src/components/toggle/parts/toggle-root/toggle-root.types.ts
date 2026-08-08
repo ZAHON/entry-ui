@@ -13,7 +13,7 @@ export interface ToggleRootProps extends PropsOf<'button'> {
    *
    * @default "button"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * The pressed state of the toggle when it is initially rendered.
@@ -21,7 +21,7 @@ export interface ToggleRootProps extends PropsOf<'button'> {
    *
    * @default undefined
    */
-  defaultPressed?: boolean;
+  defaultPressed?: boolean | undefined;
 
   /**
    * The controlled pressed state of the toggle.
@@ -29,19 +29,19 @@ export interface ToggleRootProps extends PropsOf<'button'> {
    *
    * @default undefined
    */
-  pressed?: Signal<boolean>;
+  pressed?: Signal<boolean> | undefined;
 
   /**
    * A `QRL` callback function that is called when the pressed state of the toggle changes.
    *
    * @default undefined
    */
-  onPressedChange$?: QRL<(pressed: boolean) => void>;
+  onPressedChange$?: QRL<(pressed: boolean) => void> | undefined;
 
   /**
    * When `true`, prevents the user from interacting with the toggle.
    *
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
