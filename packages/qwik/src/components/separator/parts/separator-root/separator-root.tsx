@@ -21,7 +21,7 @@ export const SeparatorRoot = component$<SeparatorRootProps>((props) => {
        */
       role={decorative ? undefined : 'separator'}
       /*
-       * Explicitly hiding the element from the accessibility tree `decorative` is `true`.
+       * Explicitly hiding the element from the accessibility tree when `decorative` is `true`.
        * This guarantees that screen readers completely ignore the visual line,
        * which is preferred over `role="none"` for more robust support across browsers.
        */
