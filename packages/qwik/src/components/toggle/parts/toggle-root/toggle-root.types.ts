@@ -1,7 +1,7 @@
 import type { PropsOf, Component, Signal, QRL } from '@qwik.dev/core';
 
 /**
- * Props for the `Toggle.Root` component.
+ * Props for the `<Toggle.Root>` component.
  *
  * Extends the standard HTML attributes for a `<button>` element.
  */
