@@ -17,9 +17,15 @@ import { noSerialize, $, isSignal } from '@qwik.dev/core';
 export const mergeRefs = <T extends Element = Element>(
   refs: (Signal<Element | undefined> | Signal<T | undefined> | ((node: T) => void) | undefined)[]
 ) => {
+  // Wrap the array of references with `noSerialize` to prevent Qwik from attempting
+  // to serialize raw callback functions and avoid `Q34` serialization errors.
   const _refs = noSerialize(refs);
 
+  // Wrap the returned callback in `$` to make it a Qwik-serializable closure (`QRL`),
+  // allowing it to be safely passed down as a DOM event handler or component prop.
   return $((node: T) => {
+    // Ensure the non-serializable references array exists before attempting to iterate,
+    // protecting against runtime issues if it failed to initialize.
     if (!_refs) {
       return;
     }
