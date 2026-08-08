@@ -13,5 +13,5 @@ export interface AlertRootProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 }
