@@ -2,7 +2,7 @@ import type { AccordionRootContextValue } from './accordion-root-context.types';
 import { createContextId, useContext } from '@qwik.dev/core';
 
 /**
- * Provides the context for the `Accordion.Root` component, allowing descendant
+ * Provides the context for the `<Accordion.Root>` component, allowing descendant
  * components to access readonly signals and `QRL` functions without prop drilling.
  */
 export const AccordionRootContext = createContextId<AccordionRootContextValue>('entry-ui-qwik-accordion-root-context');
