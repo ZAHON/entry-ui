@@ -14,12 +14,12 @@ export interface DialogRootProps {
    *
    * @default undefined
    */
-  open?: Signal<boolean>;
+  open?: Signal<boolean> | undefined;
 
   /**
    * A `QRL` callback function that is called when the open state of the dialog changes.
    *
    * @default undefined
    */
-  onOpenChange$?: QRL<(open: boolean) => void>;
+  onOpenChange$?: QRL<(open: boolean) => void> | undefined;
 }
