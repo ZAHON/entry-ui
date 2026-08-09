@@ -10,7 +10,7 @@ export interface AccordionRootContextValue {
    * A readonly signal whose value is an array of strings representing the currently expanded accordion item or items values.
    * This signal reflects the internal state of which accordion items are open.
    */
-  value: Readonly<Signal<string[]>> ;
+  value: Readonly<Signal<string[]>>;
 
   /**
    * A `QRL` function used to programmatically set the open state of the accordion items.
