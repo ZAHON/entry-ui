@@ -1,7 +1,7 @@
 import { PropsOf, Component, QRL } from '@qwik.dev/core';
 
 /**
- * Props for the `Dialog.Popup` component.
+ * Props for the `<Dialog.Popup>` component.
  *
  * Extends the standard HTML attributes for a `<dialog>` element.
  */
