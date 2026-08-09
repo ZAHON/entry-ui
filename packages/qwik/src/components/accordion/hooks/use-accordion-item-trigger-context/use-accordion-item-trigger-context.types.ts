@@ -11,5 +11,5 @@ export interface UseAccordionItemTriggerContextReturnValue {
    * This value is computed by prioritizing the trigger's own `disabled` prop,
    * falling back to the `Accordion.Item` disabled state if not explicitly set.
    */
-  disabled: Readonly<Signal<boolean>>
+  disabled: Readonly<Signal<boolean>>;
 }
