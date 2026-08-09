@@ -13,7 +13,7 @@ export interface CollapsibleRootProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * The open state of the collapsible when it is initially rendered.
@@ -21,7 +21,7 @@ export interface CollapsibleRootProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  defaultOpen?: boolean;
+  defaultOpen?: boolean | undefined;
 
   /**
    * The controlled open state of the collapsible.
@@ -29,19 +29,19 @@ export interface CollapsibleRootProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  open?: Signal<boolean>;
+  open?: Signal<boolean> | undefined;
 
   /**
    * A `QRL` callback function that is called when the open state of the collapsible changes.
    *
    * @default undefined
    */
-  onOpenChange$?: QRL<(open: boolean) => void>;
+  onOpenChange$?: QRL<(open: boolean) => void> | undefined;
 
   /**
    * When `true`, prevents the user from interacting with the collapsible.
    *
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
