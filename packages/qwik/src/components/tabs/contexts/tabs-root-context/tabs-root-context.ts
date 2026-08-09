@@ -10,7 +10,7 @@ export const TabsRootContext = createContextId<TabsRootContextValue>('entry-ui-q
 /**
  * An internal hook that provides access to the `<Tabs.Root>` component's internal state.
  *
- * It exposes readonly signals and `QRL` function to interact with the component's state,
+ * It exposes readonly signals and `QRL` function to interact with the component's state.
  */
 export const useTabsRootContext = () => {
   const context = useContext(TabsRootContext);
