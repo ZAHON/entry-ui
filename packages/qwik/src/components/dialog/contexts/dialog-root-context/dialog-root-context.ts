@@ -2,7 +2,7 @@ import type { DialogRootContextValue } from './dialog-root-context.types';
 import { createContextId, useContext } from '@qwik.dev/core';
 
 /**
- * Provides the context for the `Dialog.Root` component, allowing descendant
+ * Provides the context for the `<Dialog.Root>` component, allowing descendant
  * components to access readonly signals and `QRL` function without prop drilling.
  */
 export const DialogRootContext = createContextId<DialogRootContextValue>('entry-ui-qwik-dialog-root-context');
