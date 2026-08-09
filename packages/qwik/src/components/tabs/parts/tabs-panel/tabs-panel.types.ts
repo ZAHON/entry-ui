@@ -13,7 +13,7 @@ export interface TabsPanelProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * A unique value that associates the panel with a tab.
@@ -27,5 +27,5 @@ export interface TabsPanelProps extends PropsOf<'div'> {
    *
    * @default false
    */
-  containsFocusableContent?: boolean;
+  containsFocusableContent?: boolean | undefined;
 }
