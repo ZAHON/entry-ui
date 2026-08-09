@@ -2,7 +2,7 @@ import type { TabsRootContextValue } from './tabs-root-context.types';
 import { createContextId, useContext } from '@qwik.dev/core';
 
 /**
- * Provides the context for the `Tabs.Root` component, allowing descendant
+ * Provides the context for the `<Tabs.Root>` component, allowing descendant
  * components to access readonly signals and `QRL` function without prop drilling.
  */
 export const TabsRootContext = createContextId<TabsRootContextValue>('entry-ui-qwik-tabs-root-context');
