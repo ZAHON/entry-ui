@@ -13,7 +13,7 @@ export interface TabsTabProps extends PropsOf<'button'> {
    *
    * @default "button"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * A unique value that associates the tab with a panel.
@@ -25,5 +25,5 @@ export interface TabsTabProps extends PropsOf<'button'> {
    *
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
