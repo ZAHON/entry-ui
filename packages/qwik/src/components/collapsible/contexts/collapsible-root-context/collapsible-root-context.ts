@@ -10,7 +10,7 @@ export const CollapsibleRootContext = createContextId<CollapsibleRootContextValu
 );
 
 /**
- * An internal hook that provides access to the `Collapsible.Root` component's internal state.
+ * An internal hook that provides access to the `<Collapsible.Root>` component's internal state.
  *
  * It exposes readonly signals and `QRL` functions to interact with the component's state.
  */
