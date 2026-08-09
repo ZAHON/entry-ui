@@ -30,8 +30,8 @@ export const TabsTab = component$<TabsTabProps>((props) => {
 
   if (isDev && !_value) {
     fail([
-      `The 'Tabs.Tab' component requires a 'value' prop to function correctly.`,
-      `Without a unique value, the tab cannot be associated with its corresponding 'Tabs.Panel' component.`,
+      `The '<Tabs.Tab>' component requires a 'value' prop to function correctly.`,
+      `Without a unique value, the tab cannot be associated with its corresponding '<Tabs.Panel>' component.`,
       `Please provide a non-empty string as the 'value' prop.`,
     ]);
   }
