@@ -1,7 +1,7 @@
 import type { Component, PropsOf, Signal, QRL } from '@qwik.dev/core';
 
 /**
- * Props for the `Tabs.Root` component.
+ * Props for the `<Tabs.Root>` component.
  *
  * Extends the standard HTML attributes for a `<div>` element.
  */
