@@ -2,7 +2,7 @@ import type { CollapsibleRootContextValue } from './collapsible-root-context.typ
 import { createContextId, useContext } from '@qwik.dev/core';
 
 /**
- * Provides the context for the `Collapsible.Root` component, allowing descendant
+ * Provides the context for the `<Collapsible.Root>` component, allowing descendant
  * components to access readonly signals and `QRL` functions without prop drilling.
  */
 export const CollapsibleRootContext = createContextId<CollapsibleRootContextValue>(
