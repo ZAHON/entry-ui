@@ -13,5 +13,5 @@ export interface AccordionItemHeaderProps extends PropsOf<'h3'> {
    *
    * @default "h3"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 }
