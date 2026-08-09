@@ -13,7 +13,7 @@ export interface DialogPopupProps extends PropsOf<'dialog'> {
    *
    * @default "dialog"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * If `true`, prevents scrolling on the `<body>` element while the dialog is open.
@@ -22,14 +22,14 @@ export interface DialogPopupProps extends PropsOf<'dialog'> {
    *
    * @default true
    */
-  preventScroll?: boolean;
+  preventScroll?: boolean | undefined;
 
   /**
    * If `true`, the dialog will close when the user presses the `Esc` key.
    *
    * @default true
    */
-  closeOnEscapeKeyDown?: boolean;
+  closeOnEscapeKeyDown?: boolean | undefined;
 
   /**
    * If `true`, the dialog will close when the user clicks outside the dialog's
@@ -37,7 +37,7 @@ export interface DialogPopupProps extends PropsOf<'dialog'> {
    *
    * @default true
    */
-  closeOnClickOutside?: boolean;
+  closeOnClickOutside?: boolean | undefined;
 
   /**
    * A `QRL` callback invoked once the popup's opening or closing transition has fully settled.
@@ -46,5 +46,5 @@ export interface DialogPopupProps extends PropsOf<'dialog'> {
    *
    * @default undefined
    */
-  onOpenChangeComplete$?: QRL<(open: boolean) => void>;
+  onOpenChangeComplete$?: QRL<(open: boolean) => void> | undefined;
 }
