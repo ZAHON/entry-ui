@@ -1,7 +1,7 @@
 import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
- * Props for the `Dialog.Root` component.
+ * Props for the `<Dialog.Root>` component.
  */
 export interface DialogRootProps {
   /**
