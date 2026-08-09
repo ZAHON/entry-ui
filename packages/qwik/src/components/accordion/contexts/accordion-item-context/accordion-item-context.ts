@@ -2,7 +2,7 @@ import type { AccordionItemContextValue } from './accordion-item-context.types';
 import { createContextId, useContext } from '@qwik.dev/core';
 
 /**
- * Provides the context for the `Accordion.Item` component, allowing descendant
+ * Provides the context for the `<Accordion.Item>` component, allowing descendant
  * components to access readonly signals and `QRL` functions without prop drilling.
  */
 export const AccordionItemContext = createContextId<AccordionItemContextValue>('entry-ui-qwik-accordion-item-context');
