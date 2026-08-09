@@ -78,7 +78,7 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
     const popupRef = ref.value;
 
     if (isDev && isBrowser && popupRef && !(popupRef instanceof HTMLDialogElement)) {
-      fail([`The 'Dialog.Popup' component must render a native HTML <dialog> element.`]);
+      fail([`The '<Dialog.Popup>' component must render a native HTML <dialog> element.`]);
     }
 
     if (isBrowser && popupRef && popupRef instanceof HTMLDialogElement) {
@@ -120,7 +120,7 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
 
       if (isDev && transitionDuration !== '0s' && animationDuration !== '0s') {
         warn([
-          `Both CSS transitions and CSS animations are detected on 'Dialog.Popup' component.`,
+          `Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component.`,
           `Using both at the same time may cause unpredictable behavior.`,
           `Please use only one animation method.`,
         ]);
