@@ -1,7 +1,7 @@
 import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
- * Props for the `Dialog.Description` component.
+ * Props for the `<Dialog.Description>` component.
  *
  * Extends the standard HTML attributes for a `<p>` element.
  */
