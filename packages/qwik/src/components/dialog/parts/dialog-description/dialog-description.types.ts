@@ -13,5 +13,5 @@ export interface DialogDescriptionProps extends PropsOf<'p'> {
    *
    * @default "p"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 }
