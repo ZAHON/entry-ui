@@ -10,7 +10,7 @@ export const DialogRootContext = createContextId<DialogRootContextValue>('entry-
 /**
  * An internal hook that provides access to the `<Dialog.Root>` component's internal state.
  *
- * It exposes readonly signals and `QRL` function to interact with the component's state,
+ * It exposes readonly signals and `QRL` function to interact with the component's state.
  */
 export const useDialogRootContext = () => {
   const context = useContext(DialogRootContext);
