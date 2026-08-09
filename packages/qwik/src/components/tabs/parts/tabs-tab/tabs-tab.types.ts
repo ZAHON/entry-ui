@@ -1,7 +1,7 @@
 import type { PropsOf, Component } from '@qwik.dev/core';
 
 /**
- * Props for the `Tabs.Tab` component.
+ * Props for the `<Tabs.Tab>` component.
  *
  * Extends the standard HTML attributes for a `<button>` element.
  */
