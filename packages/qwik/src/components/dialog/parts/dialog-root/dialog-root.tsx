@@ -28,8 +28,8 @@ export const DialogRoot = component$((props: DialogRootProps) => {
     if (isDev && open.value) {
       fail([
         `The 'Dialog' component cannot be initialized in an open state.`,
-        `Because it relies on the native HTML <dialog> element, it must be opened via client-side logic to properly trigger its internal methods.`,
-        `Please ensure the 'open' signal is initialized as 'false' and only changed to 'true' after the component has mounted.`,
+        `Because it relies on the native HTML '<dialog>' element, it must be opened via client-side logic to properly trigger its internal methods.`,
+        `Please ensure the '<Dialog.Root>' prop 'open' is initialized as 'false' and only changed to 'true' after the component has mounted.`,
       ]);
     }
   });
