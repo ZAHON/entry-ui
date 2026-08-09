@@ -13,7 +13,7 @@ export interface CollapsibleTriggerProps extends PropsOf<'button'> {
    *
    * @default "button"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * When `true`, prevents the user from interacting with the trigger.
@@ -22,5 +22,5 @@ export interface CollapsibleTriggerProps extends PropsOf<'button'> {
    *
    * @default undefined
    */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
