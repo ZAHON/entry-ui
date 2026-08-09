@@ -1,7 +1,7 @@
 import { PropsOf, Component, Signal, QRL } from '@qwik.dev/core';
 
 /**
- * Props for the `Accordion.Root` component.
+ * Props for the `<Accordion.Root>` component.
  *
  * Extends the standard HTML attributes for a `<div>` element.
  */
