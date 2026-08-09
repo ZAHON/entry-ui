@@ -60,7 +60,7 @@ export interface AccordionItemContextValue {
     /**
      * A readonly signal representing the unique identifier of the panel.
      */
-     id: Readonly<Signal<string | undefined>>;
+    id: Readonly<Signal<string | undefined>>;
 
     /**
      * A `QRL` function to manually set or update the panel's identifier.
