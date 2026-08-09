@@ -18,7 +18,7 @@ export interface CollapsibleTriggerProps extends PropsOf<'button'> {
   /**
    * When `true`, prevents the user from interacting with the trigger.
    * If left `undefined`, this state will be inherited from the `disabled`
-   * prop of the `Collapsible.Root` component.
+   * prop of the `<Collapsible.Root>` component.
    *
    * @default undefined
    */
