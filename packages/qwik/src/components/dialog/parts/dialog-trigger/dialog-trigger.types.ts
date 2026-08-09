@@ -1,7 +1,7 @@
 import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
- * Props for the `Dialog.Trigger` component.
+ * Props for the `<Dialog.Trigger>` component.
  *
  * Extends the standard HTML attributes for a `<button>` element.
  */
