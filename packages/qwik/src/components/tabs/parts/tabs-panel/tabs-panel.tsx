@@ -18,8 +18,8 @@ export const TabsPanel = component$<TabsPanelProps>((props) => {
 
   if (isDev && !value) {
     fail([
-      `The 'Tabs.Panel' component requires a 'value' prop to function correctly.`,
-      `Without a unique value, the panel cannot be mapped and toggled by its corresponding 'Tabs.Tab' component.`,
+      `The '<Tabs.Panel>' component requires a 'value' prop to function correctly.`,
+      `Without a unique value, the panel cannot be mapped and toggled by its corresponding '<Tabs.Tab>' component.`,
       `Please provide a non-empty string as the 'value' prop.`,
     ]);
   }
