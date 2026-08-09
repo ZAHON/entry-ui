@@ -2,6 +2,7 @@ import type { Signal } from '@qwik.dev/core';
 
 /**
  * The value provided by the `TabsTabContext` context.
+ *
  * Contains the readonly signals shared with descendant components.
  */
 export interface TabsTabContextValue {
