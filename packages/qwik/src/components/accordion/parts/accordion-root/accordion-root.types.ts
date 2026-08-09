@@ -13,7 +13,7 @@ export interface AccordionRootProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * The value of the accordion item or items to expand when initially rendered.
@@ -22,7 +22,7 @@ export interface AccordionRootProps extends PropsOf<'div'> {
    *
    * @default []
    */
-  defaultValue?: string[];
+  defaultValue?: string[] | undefined;
 
   /**
    * The controlled value of the accordion item or items to expand.
@@ -31,14 +31,14 @@ export interface AccordionRootProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  value?: Signal<string[]>;
+  value?: Signal<string[]> | undefined;
 
   /**
    * A `QRL` callback function that is called when the expanded state of an accordion item or items changes.
    *
    * @default undefined
    */
-  onValueChange$?: QRL<(value: string[]) => void>;
+  onValueChange$?: QRL<(value: string[]) => void> | undefined;
 
   /**
    * Whether or not multiple accordion items can be expanded at the same time.
@@ -46,7 +46,7 @@ export interface AccordionRootProps extends PropsOf<'div'> {
    *
    * @default false
    */
-  multiple?: boolean;
+  multiple?: boolean | undefined;
 
   /**
    * When `true`, all collapsed accordion panels will use the `hidden="until-found"`
@@ -56,12 +56,12 @@ export interface AccordionRootProps extends PropsOf<'div'> {
    *
    * @default false
    */
-  hiddenUntilFound?: boolean;
+  hiddenUntilFound?: boolean | undefined;
 
   /**
    * When `true`, prevents the user from interacting with the accordion and all its items.
    *
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
