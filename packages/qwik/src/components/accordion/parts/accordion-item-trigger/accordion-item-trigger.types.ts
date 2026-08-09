@@ -1,7 +1,7 @@
 import { PropsOf, Component } from '@qwik.dev/core';
 
 /**
- * Props for the `Accordion.ItemTrigger` component.
+ * Props for the `<Accordion.ItemTrigger>` component.
  *
  * Extends the standard HTML attributes for a `<button>` element.
  */
