@@ -13,7 +13,7 @@ export interface TabsListProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * Whether the tabs should be activated automatically on focus or manually on click.
@@ -23,12 +23,12 @@ export interface TabsListProps extends PropsOf<'div'> {
    *
    * @default "automatic"
    */
-  activationMode?: 'automatic' | 'manual';
+  activationMode?: 'automatic' | 'manual' | undefined;
 
   /**
    * When `true`, keyboard navigation will loop from last tab to first, and vice versa.
    *
    * @default true
    */
-  loopFocus?: boolean;
+  loopFocus?: boolean | undefined;
 }
