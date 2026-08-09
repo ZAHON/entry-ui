@@ -13,7 +13,7 @@ export interface AccordionItemProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * A unique value that identifies this accordion item.
@@ -22,12 +22,12 @@ export interface AccordionItemProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  value?: string;
+  value?: string | undefined;
 
   /**
    * When `true`, prevents the user from interacting with the accordion item.
    *
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
