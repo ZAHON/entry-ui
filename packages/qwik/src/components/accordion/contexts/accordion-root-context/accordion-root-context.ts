@@ -8,7 +8,7 @@ import { createContextId, useContext } from '@qwik.dev/core';
 export const AccordionRootContext = createContextId<AccordionRootContextValue>('entry-ui-qwik-accordion-root-context');
 
 /**
- * An internal hook that provides access to the `Accordion.Root` component's internal state.
+ * An internal hook that provides access to the `<Accordion.Root>` component's internal state.
  *
  * It exposes readonly signals and `QRL` functions to interact with the component's state.
  */
