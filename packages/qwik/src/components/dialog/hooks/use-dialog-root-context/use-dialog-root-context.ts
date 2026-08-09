@@ -3,7 +3,7 @@ import { useContext } from '@qwik.dev/core';
 import { DialogRootContext } from '../../contexts/dialog-root-context';
 
 /**
- * A hook that provides access to the `Dialog.Root` component's internal state.
+ * A hook that provides access to the `<Dialog.Root>` component's internal state.
  *
  * It exposes readonly signal and a `QRL` function to interact with the dialog's state,
  * allowing descendant components to control or react to whether the dialog is shown.
