@@ -13,12 +13,12 @@ export interface DialogTriggerProps extends PropsOf<'button'> {
    *
    * @default "button"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * When `true`, prevents the user from interacting with the trigger.
    *
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 }
