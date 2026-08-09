@@ -10,7 +10,7 @@ export const TabsListContext = createContextId<TabsListContextValue>('entry-ui-q
 /**
  * An internal hook that provides access to the `<Tabs.List>` component's internal state.
  *
- * It exposes readonly signals and `QRL` functions to interact with the component's state.
+ * It exposes readonly signals and `QRL` function to interact with the component's state.
  */
 export const useTabsListContext = () => {
   const context = useContext(TabsListContext);
