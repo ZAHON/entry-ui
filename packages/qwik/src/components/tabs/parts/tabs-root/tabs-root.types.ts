@@ -13,7 +13,7 @@ export interface TabsRootProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * The value of the tab that should be active when initially rendered.
@@ -21,7 +21,7 @@ export interface TabsRootProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  defaultValue?: string;
+  defaultValue?: string | undefined;
 
   /**
    * The controlled value of the tab to activate.
@@ -29,14 +29,14 @@ export interface TabsRootProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  value?: Signal<string>;
+  value?: Signal<string> | undefined;
 
   /**
    * A `QRL` callback function that is called when the value changes.
    *
    * @default undefined
    */
-  onValueChange$?: QRL<(value: string) => void>;
+  onValueChange$?: QRL<(value: string) => void> | undefined;
 
   /**
    * The reading direction of the tabs.
@@ -44,7 +44,7 @@ export interface TabsRootProps extends PropsOf<'div'> {
    *
    * @default "ltr"
    */
-  dir?: 'ltr' | 'rtl';
+  dir?: 'ltr' | 'rtl' | undefined;
 
   /**
    * The orientation of the tabs.
@@ -53,5 +53,5 @@ export interface TabsRootProps extends PropsOf<'div'> {
    *
    * @default "horizontal"
    */
-  orientation?: 'horizontal' | 'vertical';
+  orientation?: 'horizontal' | 'vertical' | undefined;
 }
