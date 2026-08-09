@@ -9,12 +9,7 @@ A set of collapsible panels with headings.
 ## Import
 
 ```tsx
-import {
-  Accordion,
-  useAccordionRootContext,
-  useAccordionItemContext,
-  useAccordionItemTriggerContext,
-} from '@entry-ui/qwik/accordion';
+import { Accordion } from '@entry-ui/qwik/accordion';
 ```
 
 ## Anatomy
@@ -41,7 +36,7 @@ const Anatomy = component$(() => {
 
 ## Usage
 
-To implement a set of collapsible sections, use the `Accordion.Root` to group each `Accordion.Item`. Every item structures the layout by wrapping the interactive `Accordion.ItemTrigger` inside an `Accordion.ItemHeader` and managing the main container, `Accordion.ItemPanel`. Inside the trigger, you can optionally include the `Accordion.ItemIndicator` to deliver a dedicated visual cue, such as an arrow, that dynamically synchronizes with the component's internal flags. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity.
+To implement a set of collapsible sections, use the `<Accordion.Root>` to group each `<Accordion.Item>`. Every item structures the layout by wrapping the interactive `<Accordion.ItemTrigger>` inside an `<Accordion.ItemHeader>` and managing the main container, `<Accordion.ItemPanel>`. Inside the trigger, you can optionally include the `<Accordion.ItemIndicator>` to deliver a dedicated visual cue, such as an arrow, that dynamically synchronizes with the component's internal flags. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity.
 
 By default, the component operates in an uncontrolled fashion, managing its open and closed states internally via the `defaultOpen` prop. However, it can also be used as a controlled component by providing a `value` signal and an `onValueChange$` callback to the root component, allowing you to easily integrate it into external workflows or state-driven architectures.
 
@@ -88,133 +83,124 @@ const Usage = component$(() => {
 });
 ```
 
-## Features
-
-- Full keyboard navigation.
-
-- Can expand one or multiple items.
-
-- Can be uncontrolled or controlled.
-
 ## Rendered elements
 
 Each of `Accordion` subcomponents renders a default HTML element that is sensible for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop.
 
-| Component                 | Default rendered element |
-| :------------------------ | :----------------------- |
-| `Accordion.Root`          | `<div>`                  |
-| `Accordion.Item`          | `<div>`                  |
-| `Accordion.ItemHeader`    | `<h3>`                   |
-| `Accordion.ItemTrigger`   | `<button>`               |
-| `Accordion.ItemPanel`     | `<div>`                  |
-| `Accordion.ItemIndicator` | `<span>`                 |
+| Component       | Default rendered element |
+| :-------------- | :----------------------- |
+| `Root`          | `<div>`                  |
+| `Item`          | `<div>`                  |
+| `ItemHeader`    | `<h3>`                   |
+| `ItemTrigger`   | `<button>`               |
+| `ItemPanel`     | `<div>`                  |
+| `ItemIndicator` | `<span>`                 |
 
 > [!IMPORTANT]
-> While it's possible to change the element rendered by `Accordion.ItemTrigger`, for accessibility and correct component functionality, it should always render a `<button>` element.
+> While it's possible to change the element rendered by `<Accordion.ItemTrigger>`, for accessibility and correct component functionality, it should always render a `<button>` element.
 
 ## API Reference
 
 The `Accordion` component is built using a modular, compound component pattern, providing full control over the layout and behavior of collapsible sections. This section provides a detailed breakdown of the properties, data attributes, and CSS variables available for each part of the accordion, as well as the custom hooks provided for advanced state management and integration.
 
-### Accordion.Root
+### Root
 
 Groups all parts of the accordion. Renders a `<div>` element.
 
-| Prop               | Type                             | Default | Description                                                                                                                                                                                                                                                                                  |
-| :----------------- | :------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`               | `string \| Component`            | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                                                                               |
-| `defaultOpen`      | `string[]`                       | `-`     | The value of the accordion item or items to expand when initially rendered. When `multiple` is `false`, this array should contain at most one element. Use when you do not need to control the state of the accordion items.                                                                 |
-| `value`            | `Signal<string[]>`               | `-`     | The controlled value of the accordion item or items to expand. When `multiple` is `false`, this array should contain at most one element. Must be used in conjunction with `onValueChange$`.                                                                                                 |
-| `onValueChange$`   | `QRL<(value: string[]) => void>` | `-`     | A `QRL` callback function that is called when the expanded state of an accordion item or items changes.                                                                                                                                                                                      |
-| `multiple`         | `boolean`                        | `false` | Whether or not multiple accordion items can be expanded at the same time. When `false`, expanding one item will automatically collapse the others.                                                                                                                                           |
-| `loopFocus`        | `boolean`                        | `true`  | Whether the keyboard focus should wrap back to the first or last item trigger when navigating through the accordion. When `true`, pressing <kbd>↓</kbd> on the last enabled trigger moves focus to the first one, and <kbd>↑</kbd> on the first enabled trigger moves focus to the last one. |
-| `hiddenUntilFound` | `boolean`                        | `false` | When `true`, all collapsed accordion panels will use the `hidden="until-found"` attribute. This allows the browser's "Find in page" feature to search through collapsed content and automatically expand the item when a match is found.                                                     |
-| `disabled`         | `boolean`                        | `false` | When `true`, prevents the user from interacting with the accordion and all its items.                                                                                                                                                                                                        |
+| Prop               | Type                                          | Default | Description                                                                                                                                                                                                                              |
+| :----------------- | :-------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`               | `string \| Component \| undefined`            | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                           |
+| `defaultOpen`      | `string[] \| undefined`                       | `—`     | The value of the accordion item or items to expand when initially rendered. When `multiple` is `false`, this array should contain at most one element. Use when you do not need to control the state of the accordion items.             |
+| `value`            | `Signal<string[]> \| undefined`               | `—`     | The controlled value of the accordion item or items to expand. When `multiple` is `false`, this array should contain at most one element. Must be used in conjunction with `onValueChange$`.                                             |
+| `onValueChange$`   | `QRL<(value: string[]) => void> \| undefined` | `—`     | A `QRL` callback function that is called when the expanded state of an accordion item or items changes.                                                                                                                                  |
+| `multiple`         | `boolean \| undefined`                        | `false` | Whether or not multiple accordion items can be expanded at the same time. When `false`, expanding one item will automatically collapse the others.                                                                                       |
+| `hiddenUntilFound` | `boolean \| undefined`                        | `false` | When `true`, all collapsed accordion panels will use the `hidden="until-found"` attribute. This allows the browser's "Find in page" feature to search through collapsed content and automatically expand the item when a match is found. |
+| `disabled`         | `boolean \| undefined`                        | `false` | When `true`, prevents the user from interacting with the accordion and all its items.                                                                                                                                                    |
 
 | Data attribute  | Values | Description                             |
 | :-------------- | :----- | :-------------------------------------- |
-| `data-disabled` | `-`    | Present when the accordion is disabled. |
+| `data-disabled` | `—`    | Present when the accordion is disabled. |
 
-### Accordion.Item
+### Item
 
 Groups all the parts of a collapsible section. Renders a `<div>` element.
 
-| Prop       | Type                  | Default | Description                                                                                                                                                                                                     |
-| :--------- | :-------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string \| Component` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                  |
-| `value`    | `string`              | `-`     | A unique value that identifies this accordion item. If no value is provided, a unique ID will be generated automatically. Use when controlling the accordion programmatically, or to set an initial open state. |
-| `disabled` | `boolean`             | `false` | When `true`, prevents the user from interacting with the accordion item.                                                                                                                                        |
+| Prop       | Type                               | Default | Description                                                                                                                                                                                                     |
+| :--------- | :--------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `string \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                  |
+| `value`    | `string \| undefined`              | `—`     | A unique value that identifies this accordion item. If no value is provided, a unique ID will be generated automatically. Use when controlling the accordion programmatically, or to set an initial open state. |
+| `disabled` | `boolean \| undefined`             | `false` | When `true`, prevents the user from interacting with the accordion item.                                                                                                                                        |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
 | `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `-`                  | Present when the accordion item is disabled.       |
+| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
 
-### Accordion.ItemHeader
+### ItemHeader
 
 A heading that labels the corresponding panel. It provides a semantic structure to the collapsible section, ensuring it follows accessibility best practices by wrapping the interactive trigger in a heading element. Renders an `<h3>` element.
 
-| Prop | Type                  | Default | Description                                                                                                                                                                                    |
-| :--- | :-------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component` | `"h3"`  | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                               | Default | Description                                                                                                                                                                                    |
+| :--- | :--------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `string \| Component \| undefined` | `"h3"`  | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
 | `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `-`                  | Present when the accordion item is disabled.       |
+| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
 
-### Accordion.ItemTrigger
+### ItemTrigger
 
 A button that opens and closes the corresponding panel. Renders a `<button>` element.
 
-| Prop       | Type                  | Default    | Description                                                                                                                                                                                    |
-| :--------- | :-------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string \| Component` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `disabled` | `boolean`             | `-`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `Accordion.Item` component.                |
+| Prop       | Type                               | Default    | Description                                                                                                                                                                                    |
+| :--------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `string \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `disabled` | `boolean`                          | `—`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Accordion.Item>` component.              |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
 | `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `-`                  | Present when the accordion item is disabled.       |
+| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
 
-### Accordion.ItemPanel
+### ItemPanel
 
 A collapsible panel with the accordion item contents. Renders a `<div>` element.
 
-| Prop                    | Type                           | Default | Description                                                                                                                                                                                                               |
-| :---------------------- | :----------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `as`                    | `string \| Component`          | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                            |
-| `hiddenUntilFound`      | `boolean`                      | `false` | When `true`, the panel uses the `hidden="until-found"` attribute when closed. This allows the browser to search and reveal content within the panel even before it is manually opened.                                    |
-| `onOpenChangeComplete$` | `QRL<(open: boolean) => void>` | `-`     | A `QRL` callback invoked once the panel's expansion or collapse has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
+| Prop                    | Type                                        | Default | Description                                                                                                                                                                                                               |
+| :---------------------- | :------------------------------------------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `as`                    | `string \| Component \| undefined`          | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                            |
+| `hiddenUntilFound`      | `boolean \| undefined`                      | `false` | When `true`, the panel uses the `hidden="until-found"` attribute when closed. This allows the browser to search and reveal content within the panel even before it is manually opened.                                    |
+| `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined` | `—`     | A `QRL` callback invoked once the panel's expansion or collapse has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
 | `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `-`                  | Present when the accordion item is disabled.       |
+| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
 
 | CSS variable                                  | Description                        |
 | :-------------------------------------------- | :--------------------------------- |
 | `--entry-ui-qwik-accordion-item-panel-height` | The accordion item panel's height. |
 
-### Accordion.ItemIndicator
+### ItemIndicator
 
 An optional visual indicator that reflects the item's open or closed state. It typically displays an icon or other visual cue to show the current status. Renders a `<span>` element.
 
 > [!NOTE]
 > This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the trigger's interactivity or accessibility.
 
-| Prop | Type                  | Default  | Description                                                                                                                                                                                    |
-| :--- | :-------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                               | Default  | Description                                                                                                                                                                                    |
+| :--- | :--------------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `string \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
 | `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `-`                  | Present when the accordion item is disabled.       |
+| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
 
 ### useAccordionRootContext
 
-A hook that provides access to the `Accordion.Root` component's internal state. It exposes readonly signals and a `QRL` function to interact with the accordion's state, allowing descendant components to synchronize with or programmatically control which items are currently expanded. This hook returns an object containing the following properties:
+A hook that provides access to the `<Accordion.Root>` component's internal state. It exposes readonly signals and a `QRL` function to interact with the accordion's state, allowing descendant components to synchronize with or programmatically control which items are currently expanded. This hook returns an object containing the following properties:
 
 | Property    | Type                             | Description                                                                                                                                                                                               |
 | :---------- | :------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -224,7 +210,7 @@ A hook that provides access to the `Accordion.Root` component's internal state. 
 
 ### useAccordionItemContext
 
-A hook that provides access to the `Accordion.Item` component's internal state. It exposes readonly signals and a `QRL` function to synchronize with a specific item's state, managing its expanded status and disabled availability. This hook returns an object containing the following properties:
+A hook that provides access to the `<Accordion.Item>` component's internal state. It exposes readonly signals and a `QRL` function to synchronize with a specific item's state, managing its expanded status and disabled availability. This hook returns an object containing the following properties:
 
 | Property   | Type                           | Description                                                                                                                                                                                                      |
 | :--------- | :----------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -235,11 +221,11 @@ A hook that provides access to the `Accordion.Item` component's internal state. 
 
 ### useAccordionItemTriggerContext
 
-A hook that provides access to the `Accordion.ItemTrigger` component's internal state. It exposes a readonly signal to synchronize with the trigger's availability, reflecting its effective disabled or enabled status. This hook returns an object containing the following properties:
+A hook that provides access to the `<Accordion.ItemTrigger>` component's internal state. It exposes a readonly signal to synchronize with the trigger's availability, reflecting its effective disabled or enabled status. This hook returns an object containing the following properties:
 
-| Property   | Type                        | Description                                                                                                                                                                                                                      |
-| :--------- | :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `Readonly<Signal<boolean>>` | A readonly signal representing the effective disabled state of the trigger. This value is computed by prioritizing the trigger's own `disabled` prop, falling back to the `Accordion.Item` disabled state if not explicitly set. |
+| Property   | Type                        | Description                                                                                                                                                                                                                        |
+| :--------- | :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `Readonly<Signal<boolean>>` | A readonly signal representing the effective disabled state of the trigger. This value is computed by prioritizing the trigger's own `disabled` prop, falling back to the `<Accordion.Item>` disabled state if not explicitly set. |
 
 ## Examples
 
@@ -247,7 +233,7 @@ Explore various ways to implement and customize the `Accordion` component. From 
 
 ### Internal state management
 
-When using the uncontrolled mode, the `Accordion` component handles the expansion state of its panels internally. You define the initial state by providing an array of strings to the `defaultOpen` prop on `Accordion.Root`. These strings must correspond to the unique `value` props of the `Accordion.Item` components that should be initially expanded. If no value is provided, a unique ID will be generated automatically. These values are essential when you want to set an initial open state or control the accordion programmatically. The component then takes full control over subsequent state changes based on user interactions, such as clicking an `Accordion.ItemTrigger` or using keyboard navigation, updating the necessary data attributes automatically.
+When using the uncontrolled mode, the `Accordion` component handles the expansion state of its panels internally. You define the initial state by providing an array of strings to the `defaultOpen` prop on `<Accordion.Root>`. These strings must correspond to the unique `value` props of the `<Accordion.Item>` components that should be initially expanded. If no value is provided, a unique ID will be generated automatically. These values are essential when you want to set an initial open state or control the accordion programmatically. The component then takes full control over subsequent state changes based on user interactions, such as clicking an `<Accordion.ItemTrigger>` or using keyboard navigation, updating the necessary data attributes automatically.
 
 This approach is ideal for simpler use cases where the expanded item state does not need to be managed or synchronized by a parent component, allowing for a cleaner and more self-contained implementation.
 
@@ -294,7 +280,7 @@ const Example = component$(() => {
 
 ### External state control
 
-When using the controlled mode, the parent component is responsible for managing the expansion state of the accordion. You achieve this by passing a signal to the `value` prop on the `Accordion.Root` component and listening for changes with the `onValueChange$` event handler. For this workflow to function correctly, each `Accordion.Item` must be assigned a unique `value` prop that identifies it. The component then relies entirely on this external value to dictate which panels are expanded or collapsed, synchronizing all internal state and data attributes accordingly.
+When using the controlled mode, the parent component is responsible for managing the expansion state of the accordion. You achieve this by passing a signal to the `value` prop on the `<Accordion.Root>` component and listening for changes with the `onValueChange$` event handler. For this workflow to function correctly, each `<Accordion.Item>` must be assigned a unique `value` prop that identifies it. The component then relies entirely on this external value to dictate which panels are expanded or collapsed, synchronizing all internal state and data attributes accordingly.
 
 This approach is ideal for more complex use cases, such as synchronizing the accordion state with a database, integrating with external state management, or enabling a parent component to dynamically trigger state changes based on other application logic.
 
@@ -343,7 +329,7 @@ const Example = component$(() => {
 
 ### Multiple items open at the same time
 
-By default, the `Accordion` component operates in a single-expansion mode, allowing only one panel to be expanded at any given time. To enable expanding multiple items simultaneously, you must set the `multiple` prop to `true` on the `Accordion.Root` component. In this mode, interacting with a new item trigger will no longer automatically collapse the currently active sections, allowing the component to manage an array of concurrently open item values.
+By default, the `Accordion` component operates in a single-expansion mode, allowing only one panel to be expanded at any given time. To enable expanding multiple items simultaneously, you must set the `multiple` prop to `true` on the `<Accordion.Root>` component. In this mode, interacting with a new item trigger will no longer automatically collapse the currently active sections, allowing the component to manage an array of concurrently open item values.
 
 This approach is ideal for interfaces that require comprehensive content comparison, or scenarios where users benefit from viewing data across different sections at once without losing their current reading context. It provides greater flexibility and control over the layout, making it highly suitable for dense dashboards, documentation structures, or complex form workflows.
 
@@ -390,10 +376,10 @@ const Example = component$(() => {
 
 ### Animating panel height with CSS transitions
 
-The `Accordion.ItemPanel` automatically calculates its content's height and exposes it via the `--entry-ui-qwik-accordion-item-panel-height` CSS variable. This allows you to create smooth expansion and collapse effects using standard CSS transitions. To implement this, ensure your panel has `overflow: hidden` and a transition applied to the `height` property.
+The `<Accordion.ItemPanel>` automatically calculates its content's height and exposes it via the `--entry-ui-qwik-accordion-item-panel-height` CSS variable. This allows you to create smooth expansion and collapse effects using standard CSS transitions. To implement this, ensure your panel has `overflow: hidden` and a transition applied to the `height` property.
 
 > [!TIP]
-> Transitions are the recommended method for animating the `Accordion.ItemPanel` height because they handle interrupted animations gracefully. For example, if a user quickly opens and then closes a panel before it fully expands, a transition will smoothly reverse the movement without any abrupt visual jumps.
+> Transitions are the recommended method for animating the `<Accordion.ItemPanel>` height because they handle interrupted animations gracefully. For example, if a user quickly opens and then closes a panel before it fully expands, a transition will smoothly reverse the movement without any abrupt visual jumps.
 
 ```tsx
 // index.tsx
@@ -449,10 +435,10 @@ const Example = component$(() => {
 
 ### Animating panel height with CSS animations
 
-You can also use CSS keyframes to animate the height of the `Accordion.ItemPanel`. By leveraging the `data-state` attribute, you can trigger specific keyframe animations for both opening and closing states. This method is particularly useful when you want to choreograph the height change alongside other properties like opacity or scale, as it allows you to define the exact flow of the height animation from `0` to the value stored in the `--entry-ui-qwik-accordion-item-panel-height` CSS variable.
+You can also use CSS keyframes to animate the height of the `<Accordion.ItemPanel>`. By leveraging the `[data-state]` attribute, you can trigger specific keyframe animations for both opening and closing states. This method is particularly useful when you want to choreograph the height change alongside other properties like opacity or scale, as it allows you to define the exact flow of the height animation from `0` to the value stored in the `--entry-ui-qwik-accordion-item-panel-height` CSS variable.
 
 > [!NOTE]
-> While CSS animations offer great control over choreography, they are generally less flexible than transitions for toggling the `Accordion.ItemPanel` height. Because keyframe animations always run from a fixed start to a fixed end point, they cannot be smoothly cancelled mid-way. If a user interrupts the animation, the panel may "jump" to the start of the next animation state rather than reversing fluidly from its current position.
+> While CSS animations offer great control over choreography, they are generally less flexible than transitions for toggling the `<Accordion.ItemPanel>` height. Because keyframe animations always run from a fixed start to a fixed end point, they cannot be smoothly cancelled mid-way. If a user interrupts the animation, the panel may "jump" to the start of the next animation state rather than reversing fluidly from its current position.
 
 ```tsx
 // index.tsx
@@ -532,12 +518,12 @@ const Example = component$(() => {
 
 ### Searchable hidden content
 
-By default, collapsed accordion panels are hidden from the browser's "Find in page" feature. You can enable searching through collapsed content by setting the `hiddenUntilFound` prop to `true`. This can be applied globally on the `Accordion.Root` to affect all items, or specifically on an individual `Accordion.ItemPanel` if you only want certain sections to be searchable.
+By default, collapsed accordion panels are hidden from the browser's "Find in page" feature. You can enable searching through collapsed content by setting the `hiddenUntilFound` prop to `true`. This can be applied globally on the `<Accordion.Root>` to affect all items, or specifically on an individual `<Accordion.ItemPanel>` if you only want certain sections to be searchable.
 
 When enabled, the component uses the `hidden="until-found"` attribute, allowing the browser to find text within closed panels and automatically expand them when a match is found.
 
 > [!IMPORTANT]
-> If the `Accordion.Root` or a specific `Accordion.Item` is `disabled`, the `hiddenUntilFound` functionality is automatically overridden. In this case, the `Accordion.ItemPanel` uses the standard `hidden="hidden"` attribute. This ensures that content within disabled or non-interactive items is not indexed or automatically revealed by the browser's search discovery feature, maintaining a consistent and predictable state.
+> If the `<Accordion.Root>` or a specific `<Accordion.Item>` is `disabled`, the `hiddenUntilFound` functionality is automatically overridden. In this case, the `<Accordion.ItemPanel>` uses the standard `hidden="hidden"` attribute. This ensures that content within disabled or non-interactive items is not indexed or automatically revealed by the browser's search discovery feature, maintaining a consistent and predictable state.
 
 > [!NOTE]
 > When a panel is automatically expanded via the "Find in page" feature, height animations are temporarily disabled. This ensures the browser can instantly scroll to and highlight the matching text, providing a better user experience by avoiding "scrolling to a moving target" during the animation.
@@ -575,9 +561,9 @@ const Example = component$(() => {
 
 ### State-aware visual indicators
 
-The `Accordion.ItemIndicator` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the accordion item's current layout status. By hook-riding on the context of `Accordion.Item`, it synchronizes effortlessly and updates its underlying data attributes automatically.
+The `<Accordion.ItemIndicator>` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the accordion item's current layout status. By hook-riding on the context of `<Accordion.Item>`, it synchronizes effortlessly and updates its underlying data attributes automatically.
 
-This layout relies on the `data-state` attribute, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the panel is expanded or collapsed. This approach ensures a highly interactive and polished user experience while keeping the visual indicator decoupled from core toggle mechanics.
+This layout relies on the `[data-state]` attribute, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the panel is expanded or collapsed. This approach ensures a highly interactive and polished user experience while keeping the visual indicator decoupled from core toggle mechanics.
 
 ```tsx
 // index.tsx
@@ -672,9 +658,9 @@ const Example = component$(() => {
 
 ### Disabled interaction
 
-Setting the `disabled` prop to `true` on the `Accordion.Root` prevents all user interactions with the component, effectively disabling the entire group. When this state is applied at the root level, it automatically propagates to all descendant subcomponents, applying the `data-disabled` attribute to enable unified, disabled-state styling across the entire layout.
+Setting the `disabled` prop to `true` on the `<Accordion.Root>` prevents all user interactions with the component, effectively disabling the entire group. When this state is applied at the root level, it automatically propagates to all descendant subcomponents, applying the `[data-disabled]` attribute to enable unified, disabled-state styling across the entire layout.
 
-Alternatively, you can manage the disabled state of each individual `Accordion.Item` or `Accordion.ItemTrigger` independently by using their respective `disabled` props. An explicit value provided directly to a specific trigger component will always take precedence over the inherited value from the root, allowing for fine-grained interaction control within more complex implementation scenarios.
+Alternatively, you can manage the disabled state of each individual `<Accordion.Item>` or `<Accordion.ItemTrigger>` independently by using their respective `disabled` props. An explicit value provided directly to a specific trigger component will always take precedence over the inherited value from the root, allowing for fine-grained interaction control within more complex implementation scenarios.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -725,9 +711,9 @@ The `Accordion` component is built with accessibility in mind, strictly adhering
 
 Users can interact with the `Accordion` component efficiently using only a keyboard. The following overview outlines the primary keyboard shortcuts and their actions:
 
-| Key                    | Description                                                                                                                                            |
-| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Space</kbd>       | When focus is on the `Accordion.ItemTrigger`, opens or closes the associated `Accordion.ItemPanel`, unless it is disabled.                             |
-| <kbd>Enter</kbd>       | When focus is on the `Accordion.ItemTrigger`, opens or closes the associated `Accordion.ItemPanel`, unless it is disabled.                             |
-| <kbd>Tab</kbd>         | Moves focus to the next focusable element, sequentially navigating through each enabled `Accordion.ItemTrigger` and the rest of the page.              |
-| <kbd>Shift + Tab</kbd> | Moves focus to the previous focusable element, sequentially navigating backward through each enabled `Accordion.ItemTrigger` and the rest of the page. |
+| Key                    | Description                                                                                                                                              |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Space</kbd>       | When focus is on the `<Accordion.ItemTrigger>`, opens or closes the associated `<Accordion.ItemPanel>`, unless it is disabled.                           |
+| <kbd>Enter</kbd>       | When focus is on the `<Accordion.ItemTrigger>`, opens or closes the associated `<Accordion.ItemPanel>`, unless it is disabled.                           |
+| <kbd>Tab</kbd>         | Moves focus to the next focusable element, sequentially navigating through each enabled `<Accordion.ItemTrigger>` and the rest of the page.              |
+| <kbd>Shift + Tab</kbd> | Moves focus to the previous focusable element, sequentially navigating backward through each enabled `<Accordion.ItemTrigger>` and the rest of the page. |
