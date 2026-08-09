@@ -3,7 +3,7 @@ import { useContext } from '@qwik.dev/core';
 import { TabsRootContext } from '../../contexts/tabs-root-context';
 
 /**
- * A hook that provides access to the `Tabs.Root` component's internal state.
+ * A hook that provides access to the `<Tabs.Root>` component's internal state.
  *
  * It exposes readonly signals and a `QRL` function to interact with the tabs state,
  * allowing descendant components to synchronize with or programmatically control
