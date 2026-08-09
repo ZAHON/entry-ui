@@ -78,7 +78,7 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
     const popupRef = ref.value;
 
     if (isDev && isBrowser && popupRef && !(popupRef instanceof HTMLDialogElement)) {
-      fail([`The '<Dialog.Popup>' component must render a native HTML <dialog> element.`]);
+      fail([`The '<Dialog.Popup>' component must render a native HTML '<dialog>' element.`]);
     }
 
     if (isBrowser && popupRef && popupRef instanceof HTMLDialogElement) {
