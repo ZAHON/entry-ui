@@ -34,8 +34,9 @@ export const AccordionRoot = component$<AccordionRootProps>((props) => {
 
   if (isDev && !multiple && value.value.length > 1) {
     warn([
-      `The 'Accordion.Root' component is in single-selection mode,`,
-      `but received ${value.value.length} open items in 'value' or 'defaultValue'.`,
+      `The 'Accordion' component is in single-selection mode,`,
+      `but received ${value.value.length} open items in '<Accordion.Root>' props 'value' or 'defaultValue'.`,
+      `The passed array should contain at most one element.`,
       `This may lead to unpredictable behavior.`,
     ]);
   }
