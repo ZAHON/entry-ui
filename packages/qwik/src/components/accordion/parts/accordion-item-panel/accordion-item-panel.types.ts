@@ -13,7 +13,7 @@ export interface AccordionItemPanelProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * When `true`, the panel uses the `hidden="until-found"` attribute when closed.
@@ -22,7 +22,7 @@ export interface AccordionItemPanelProps extends PropsOf<'div'> {
    *
    * @default false
    */
-  hiddenUntilFound?: boolean;
+  hiddenUntilFound?: boolean | undefined;
 
   /**
    * A `QRL` callback invoked once the panel's expansion or collapse has fully settled.
@@ -31,5 +31,5 @@ export interface AccordionItemPanelProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  onOpenChangeComplete$?: QRL<(open: boolean) => void>;
+  onOpenChangeComplete$?: QRL<(open: boolean) => void> | undefined;
 }
