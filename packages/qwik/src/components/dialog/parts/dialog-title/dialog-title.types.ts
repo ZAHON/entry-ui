@@ -13,5 +13,5 @@ export interface DialogTitleProps extends PropsOf<'h2'> {
    *
    * @default "h2"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 }
