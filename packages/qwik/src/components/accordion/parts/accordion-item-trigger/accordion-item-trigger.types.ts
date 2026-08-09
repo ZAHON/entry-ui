@@ -18,7 +18,7 @@ export interface AccordionItemTriggerProps extends PropsOf<'button'> {
   /**
    * When `true`, prevents the user from interacting with the trigger.
    * If left `undefined`, this state will be inherited from the `disabled`
-   * prop of the `Accordion.Item` component.
+   * prop of the `<Accordion.Item>` component.
    *
    * @default undefined
    */
