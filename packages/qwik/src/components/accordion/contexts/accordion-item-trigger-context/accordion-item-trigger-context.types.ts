@@ -9,7 +9,7 @@ export interface AccordionItemTriggerContextValue {
   /**
    * A readonly signal representing the effective disabled state of the trigger.
    * This value is computed by prioritizing the trigger's own `disabled` prop,
-   * falling back to the `Accordion.Item` disabled state if not explicitly set.
+   * falling back to the `<Accordion.Item>` disabled state if not explicitly set.
    */
   disabled: Readonly<Signal<boolean>>;
 }
