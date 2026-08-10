@@ -14,7 +14,7 @@ export interface UseIdParams {
    *
    * @default "entry-ui-qwik-"
    */
-  prefix?: string;
+  prefix?: string | undefined;
 
   /**
    * An optional value to override the internal identifier.
@@ -24,5 +24,5 @@ export interface UseIdParams {
    *
    * @default undefined
    */
-  generatedId?: string;
+  generatedId?: string | undefined;
 }
