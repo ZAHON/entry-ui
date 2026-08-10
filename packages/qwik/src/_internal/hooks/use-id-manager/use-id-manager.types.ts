@@ -15,7 +15,7 @@ export interface UseIdManagerParams {
    *
    * @default "entry-ui-qwik-"
    */
-  prefix?: string;
+  prefix?: string | undefined;
 
   /**
    * An optional value to override the internal identifier.
@@ -25,7 +25,7 @@ export interface UseIdManagerParams {
    *
    * @default undefined
    */
-  generatedId?: string;
+  generatedId?: string | undefined;
 
   /**
    * Determines whether the identifier should be initialized immediately upon hook creation.
@@ -34,7 +34,7 @@ export interface UseIdManagerParams {
    *
    * @default false
    */
-  shouldInitialize?: boolean;
+  shouldInitialize?: boolean | undefined;
 }
 
 /**
