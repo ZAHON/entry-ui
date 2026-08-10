@@ -10,7 +10,9 @@ export type PrimitiveProps<Node> = {
   /**
    * The element or component this component should render as.
    *
-   * @see {@link https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md Composition} guide for more details.
+   * Allows overriding the default HTML tag (defined by the target primitive node)
+   * with another native HTML tag name or custom Qwik component, while preserving
+   * compatibility with the underlying node's props.
    */
   as?: string | Component | undefined;
 } & PropsOf<Node>;
