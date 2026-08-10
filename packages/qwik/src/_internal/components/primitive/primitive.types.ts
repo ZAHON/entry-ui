@@ -12,5 +12,5 @@ export type PrimitiveProps<Node> = {
    *
    * @see {@link https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md Composition} guide for more details.
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 } & PropsOf<Node>;
