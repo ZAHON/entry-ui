@@ -31,7 +31,7 @@ const SELF_CLOSING_TAGS = [
   'source',
   'track',
   'wbr',
-];
+] as const;
 
 /**
  * An internal factory function that creates a polymorphic Qwik component for a specific HTML tag.
@@ -52,7 +52,7 @@ export const createPrimitive = <Node extends (typeof NODES)[number]>(node: Node)
 
     // HTML void elements cannot have children. When rendering as a self-closing tag,
     // return the component without a `<Slot />` to prevent invalid HTML structure.
-    if (typeof element === 'string' && SELF_CLOSING_TAGS.includes(element)) {
+    if (typeof element === 'string' && (SELF_CLOSING_TAGS as readonly string[]).includes(element)) {
       return <Comp {...others} />;
     }
 
