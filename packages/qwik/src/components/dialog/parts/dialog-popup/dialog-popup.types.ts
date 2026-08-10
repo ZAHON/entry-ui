@@ -16,9 +16,9 @@ export interface DialogPopupProps extends PropsOf<'dialog'> {
   as?: string | Component | undefined;
 
   /**
-   * If `true`, prevents scrolling on the `<body>` element while the dialog is open.
-   * This ensures that the user remains focused on the dialog content and
-   * prevents layout shifting or background scrolling.
+   * If `true`, locks background scrolling while the dialog is open.
+   * This ensures the user remains focused on the dialog content, prevents background movement,
+   * and mitigates layout shifts.
    *
    * @default true
    */
