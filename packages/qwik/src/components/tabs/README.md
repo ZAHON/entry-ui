@@ -9,13 +9,7 @@ A set of layered sections of content known as tab panels that are displayed one 
 ## Import
 
 ```tsx
-import {
-  Tabs,
-  useTabsRootContext,
-  useTabsListContext,
-  useTabsTabContext,
-  useTabsPanelContext,
-} from '@entry-ui/qwik/tabs';
+import { Tabs } from '@entry-ui/qwik/tabs';
 ```
 
 ## Anatomy
@@ -38,7 +32,7 @@ const Anatomy = component$(() => {
 
 ## Usage
 
-To implement tabs, use the `Tabs.Root` to group the `Tabs.List` - which structures and wraps the individual interactive `Tabs.Tab` triggers - and the corresponding content containers, `Tabs.Panel`. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity, establishing a clear relational link between each tab trigger and its associated content panel.
+To implement tabs, use the `<Tabs.Root>` to group the `<Tabs.List>` - which structures and wraps the individual interactive `<Tabs.Tab>` triggers - and the corresponding content containers, `<Tabs.Panel>`. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity, establishing a clear relational link between each tab trigger and its associated content panel.
 
 By default, the component operates in an uncontrolled fashion, managing its active panel state internally via the `defaultValue` prop. However, it can also be used as a controlled component by providing a `value` signal and an `onValueChange$` callback to the root component, allowing you to easily integrate it into external workflows, navigation patterns, or state-driven architectures.
 
@@ -66,90 +60,80 @@ const Usage = component$(() => {
 });
 ```
 
-## Features
-
-- Full keyboard navigation.
-
-- Supports both horizontal and vertical orientations.
-
-- Supports automatic or manual activation.
-
-- Can be uncontrolled or controlled.
-
 ## Rendered elements
 
 Each of `Tabs` subcomponents renders a default HTML element that makes sense for its role. This overview outlines the default element rendered by each part of the component. You can customize this element using the `as` prop.
 
-| Component    | Default rendered element |
-| :----------- | :----------------------- |
-| `Tabs.Root`  | `<div>`                  |
-| `Tabs.List`  | `<div>`                  |
-| `Tabs.Tab`   | `<button>`               |
-| `Tabs.Panel` | `<div>`                  |
+| Component | Default rendered element |
+| :-------- | :----------------------- |
+| `Root`    | `<div>`                  |
+| `List`    | `<div>`                  |
+| `Tab`     | `<button>`               |
+| `Panel`   | `<div>`                  |
 
 > [!IMPORTANT]
-> While it's possible to change the element rendered by `Tabs.Tab`, for accessibility and correct component functionality, it should always render a `<button>` element.
+> While it's possible to change the element rendered by `<Tabs.Tab>`, for accessibility and correct component functionality, it should always render a `<button>` element.
 
 ## API Reference
 
 The `Tabs` component is built using a modular, compound component pattern. This section provides a detailed breakdown of the properties and data attributes available for each part of the tabs system, as well as the custom hooks provided for accessing and managing its internal state, allowing for deep customization and seamless integration.
 
-### Tabs.Root
+### Root
 
 Groups the tabs and the corresponding panels. Renders a `<div>` element.
 
-| Prop             | Type                           | Default        | Description                                                                                                                                                                                    |
-| :--------------- | :----------------------------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`             | `string \| Component`          | `"div"`        | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `defaultValue`   | `string`                       | `-`            | The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs.                                                                 |
-| `value`          | `Signal<string>`               | `-`            | The controlled value of the tab to activate. Should be used in conjunction with `onValueChange$`.                                                                                              |
-| `onValueChange$` | `QRL<(value: string) => void>` | `-`            | A `QRL` callback function that is called when the value changes.                                                                                                                               |
-| `dir`            | `"ltr" \| "rtl"`               | `"ltr"`        | The reading direction of the tabs. When set to `"rtl"`, keyboard navigation is reversed and visual alignment is adjusted for right-to-left languages.                                          |
-| `orientation`    | `"horizontal" \| "vertical"`   | `"horizontal"` | The orientation of the tabs. This value determines whether the tabs are laid out horizontally or vertically, and adjusts keyboard navigation (arrow keys) to match the visual orientation.     |
+| Prop             | Type                                        | Default        | Description                                                                                                                                                                                    |
+| :--------------- | :------------------------------------------ | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`             | `string \| Component \| undefined`          | `"div"`        | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `defaultValue`   | `string \| undefined`                       | `—`            | The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs.                                                                 |
+| `value`          | `Signal<string> \| undefined`               | `—`            | The controlled value of the tab to activate. Should be used in conjunction with `onValueChange$`.                                                                                              |
+| `onValueChange$` | `QRL<(value: string) => void> \| undefined` | `—`            | A `QRL` callback function that is called when the value changes.                                                                                                                               |
+| `dir`            | `"ltr" \| "rtl" \| undefined`               | `"ltr"`        | The reading direction of the tabs. When set to `"rtl"`, keyboard navigation is reversed and visual alignment is adjusted for right-to-left languages.                                          |
+| `orientation`    | `"horizontal" \| "vertical" \| undefined`   | `"horizontal"` | The orientation of the tabs. This value determines whether the tabs are laid out horizontally or vertically, and adjusts keyboard navigation (arrow keys) to match the visual orientation.     |
 
 | Data attribute     | Values                       | Description                            |
 | :----------------- | :--------------------------- | :------------------------------------- |
 | `data-orientation` | `"horizontal" \| "vertical"` | Indicates the orientation of the tabs. |
 
-### Tabs.List
+### List
 
 Groups the individual tab buttons. Renders a `<div>` element.
 
-| Prop             | Type                      | Default       | Description                                                                                                                                                                                                                                                                            |
-| :--------------- | :------------------------ | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`             | `string \| Component`     | `"div"`       | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                                                                         |
-| `activationMode` | `"automatic" \| "manual"` | `"automatic"` | Whether the tabs should be activated automatically on focus or manually on click. </br> - When `"automatic"`, tabs are activated when receiving focus. </br> - When `"manual"`, tabs are activated only when clicked or via keyboard selection (<kbd>Enter</kbd> or <kbd>Space</kbd>). |
-| `loopFocus`      | `boolean`                 | `true`        | When `true`, keyboard navigation will loop from last tab to first, and vice versa.                                                                                                                                                                                                     |
+| Prop             | Type                                   | Default       | Description                                                                                                                                                                                                                                                                            |
+| :--------------- | :------------------------------------- | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`             | `string \| Component \| undefined`     | `"div"`       | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                                                                         |
+| `activationMode` | `"automatic" \| "manual" \| undefined` | `"automatic"` | Whether the tabs should be activated automatically on focus or manually on click. </br> - When `"automatic"`, tabs are activated when receiving focus. </br> - When `"manual"`, tabs are activated only when clicked or via keyboard selection (<kbd>Enter</kbd> or <kbd>Space</kbd>). |
+| `loopFocus`      | `boolean \| undefined`                 | `true`        | When `true`, keyboard navigation will loop from last tab to first, and vice versa.                                                                                                                                                                                                     |
 
 | Data attribute     | Values                       | Description                            |
 | :----------------- | :--------------------------- | :------------------------------------- |
 | `data-orientation` | `"horizontal" \| "vertical"` | Indicates the orientation of the tabs. |
 
-### Tabs.Tab
+### Tab
 
 An individual interactive tab button that toggles the corresponding panel. Renders a `<button>` element.
 
-| Prop       | Type                  | Default    | Description                                                                                                                                                                                    |
-| :--------- | :-------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string \| Component` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `value*`   | `string`              | `-`        | A unique value that associates the tab with a panel.                                                                                                                                           |
-| `disabled` | `boolean`             | `false`    | When `true`, prevents the user from interacting with the tab.                                                                                                                                  |
+| Prop       | Type                               | Default    | Description                                                                                                                                                                                    |
+| :--------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `string \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `value*`   | `string`                           | `—`        | A unique value that associates the tab with a panel.                                                                                                                                           |
+| `disabled` | `boolean \| undefined`             | `false`    | When `true`, prevents the user from interacting with the tab.                                                                                                                                  |
 
 | Data attribute     | Values                       | Description                                                     |
 | :----------------- | :--------------------------- | :-------------------------------------------------------------- |
 | `data-state`       | `"active" \| "inactive"`     | Indicates whether the tab is currently active or inactive.      |
-| `data-disabled`    | `-`                          | Present when the tab is disabled and cannot be interacted with. |
+| `data-disabled`    | `—`                          | Present when the tab is disabled and cannot be interacted with. |
 | `data-orientation` | `"horizontal" \| "vertical"` | Indicates the orientation of the tabs.                          |
 
-### Tabs.Panel
+### Panel
 
 A panel displayed when the corresponding tab is active. Renders a `<div>` element.
 
-| Prop                       | Type                  | Default | Description                                                                                                                                                                                                                          |
-| :------------------------- | :-------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`                       | `string \| Component` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                       |
-| `value*`                   | `string`              | `-`     | A unique value that associates the panel with a tab.                                                                                                                                                                                 |
-| `containsFocusableContent` | `boolean`             | `false` | When `true`, indicates the panel contains focusable elements (like inputs or links). This removes the panel from the tab order (`tabIndex`) to avoid redundant focus stops, allowing focus to move directly to the internal content. |
+| Prop                       | Type                               | Default | Description                                                                                                                                                                                                                          |
+| :------------------------- | :--------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`                       | `string \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                       |
+| `value*`                   | `string`                           | `—`     | A unique value that associates the panel with a tab.                                                                                                                                                                                 |
+| `containsFocusableContent` | `boolean \| undefined`             | `false` | When `true`, indicates the panel contains focusable elements (like inputs or links). This removes the panel from the tab order (`tabIndex`) to avoid redundant focus stops, allowing focus to move directly to the internal content. |
 
 | Data attribute     | Values                       | Description                                                  |
 | :----------------- | :--------------------------- | :----------------------------------------------------------- |
@@ -158,17 +142,17 @@ A panel displayed when the corresponding tab is active. Renders a `<div>` elemen
 
 ### useTabsRootContext
 
-A hook that provides access to the `Tabs.Root` component's internal state. It exposes readonly signals and a `QRL` function to interact with the tabs state, allowing descendant components to synchronize with or programmatically control which tab is currently active, while respecting the defined orientation. This hook returns an object containing the following properties:
+A hook that provides access to the `<Tabs.Root>` component's internal state. It exposes readonly signals and a `QRL` function to interact with the tabs state, allowing descendant components to synchronize with or programmatically control which tab is currently active, while respecting the defined orientation. This hook returns an object containing the following properties:
 
 | Property      | Type                                           | Description                                                                                                                                                                                   |
 | :------------ | :--------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `value`       | `Readonly<Signal<string>>`                     | A readonly signal whose value represents the unique identifier of the currently active tab. This signal reflects the internal state and determines which tab panel is currently visible.      |
 | `setValue$`   | `QRL<(value: string) => void>`                 | A `QRL` function used to programmatically set the active value of the tabs. This function takes a string representing the value of the tab to be activated.                                   |
-| `orientation` | `Readonly<Signal<'horizontal' \| 'vertical'>>` | A readonly signal whose value represents the orientation of the tabs. This value (either `"horizontal"` or `"vertical"`) determines how keyboard navigation and focus management are handled. |
+| `orientation` | `Readonly<Signal<"horizontal" \| "vertical">>` | A readonly signal whose value represents the orientation of the tabs. This value (either `"horizontal"` or `"vertical"`) determines how keyboard navigation and focus management are handled. |
 
 ### useTabsListContext
 
-A hook that provides access to the `Tabs.List` component's internal state. It exposes a readonly signal and a `QRL` function to interact with the current tab stop, allowing descendant components to synchronize focus management and support roving tabindex navigation across the tab list. This hook returns an object containing the following properties:
+A hook that provides access to the `<Tabs.List>` component's internal state. It exposes a readonly signal and a `QRL` function to interact with the current tab stop, allowing descendant components to synchronize focus management and support roving tabindex navigation across the tab list. This hook returns an object containing the following properties:
 
 | Property               | Type                           | Description                                                                                                                                                                          |
 | :--------------------- | :----------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -177,7 +161,7 @@ A hook that provides access to the `Tabs.List` component's internal state. It ex
 
 ### useTabsTabContext
 
-A hook that provides access to the `Tabs.Tab` component's internal state. It exposes readonly signals that allow descendant components to react to the tab's unique value, its current activation state, and its disabled status. This hook returns an object containing the following properties:
+A hook that provides access to the `<Tabs.Tab>` component's internal state. It exposes readonly signals that allow descendant components to react to the tab's unique value, its current activation state, and its disabled status. This hook returns an object containing the following properties:
 
 | Property   | Type                        | Description                                                                                                                            |
 | :--------- | :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
@@ -187,7 +171,7 @@ A hook that provides access to the `Tabs.Tab` component's internal state. It exp
 
 ### useTabsPanelContext
 
-A hook that provides access to the `Tabs.Panel` component's internal state. It exposes a readonly signal that allows descendant components to react to the panel's activation state, synchronizing their behavior or styles base on whether the panel is currently visible. This hook returns an object containing the following properties:
+A hook that provides access to the `<Tabs.Panel>` component's internal state. It exposes a readonly signal that allows descendant components to react to the panel's activation state, synchronizing their behavior or styles base on whether the panel is currently visible. This hook returns an object containing the following properties:
 
 | Property | Type                        | Description                                                                                                                                                |
 | :------- | :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -199,7 +183,7 @@ Explore various ways to implement and customize the `Tabs` component. From simpl
 
 ### Internal state management
 
-When using the uncontrolled mode, the `Tabs` component handles the active state of its panels internally. You define the initial state by providing a string to the `defaultValue` prop on `Tabs.Root`. This string must correspond to the unique `value` prop of a `Tabs.Tab` and its associated `Tabs.Panel`, which will be initially active. The component then takes full control over subsequent state changes based on user interactions, such as clicking a tab or using keyboard navigation.
+When using the uncontrolled mode, the `Tabs` component handles the active state of its panels internally. You define the initial state by providing a string to the `defaultValue` prop on `<Tabs.Root>`. This string must correspond to the unique `value` prop of a `<Tabs.Tab>` and its associated `<Tabs.Panel>`, which will be initially active. The component then takes full control over subsequent state changes based on user interactions, such as clicking a tab or using keyboard navigation.
 
 This approach is ideal for simpler use cases where the active tab state does not need to be managed or synchronized by a parent component.
 
@@ -227,7 +211,7 @@ const Example = component$(() => {
 
 ### External state control
 
-When using the controlled mode, the parent component is responsible for managing the active state of the tabs. You achieve this by passing a signal to the `value` prop on the `Tabs.Root` component and listening for changes with the `onValueChange$` event handler. This string must correspond to the unique `value` prop of a `Tabs.Tab` and its associated `Tabs.Panel` that you want to be active.
+When using the controlled mode, the parent component is responsible for managing the active state of the tabs. You achieve this by passing a signal to the `value` prop on the `<Tabs.Root>` component and listening for changes with the `onValueChange$` event handler. This string must correspond to the unique `value` prop of a `<Tabs.Tab>` and its associated `<Tabs.Panel>` that you want to be active.
 
 This approach is ideal for more complex use cases, such as synchronizing the active tab with a URL query parameter, integrating with external state management, or enabling a parent component to dynamically trigger tab switches.
 
@@ -257,9 +241,9 @@ const Example = component$(() => {
 
 ### Focusable content
 
-By default, when a `Tabs.Panel` is active, it is focusable (`tabIndex="0"`) to ensure that users navigating with a keyboard can reach the content area, especially when it contains only static text.
+By default, when a `<Tabs.Panel>` is active, it is focusable (`tabIndex="0"`) to ensure that users navigating with a keyboard can reach the content area, especially when it contains only static text.
 
-However, if your panel contains interactive elements like inputs, buttons, or links, having the panel itself in the tab order becomes redundant. In such cases, you can set the `containsFocusableContent` prop to `true` on the `Tabs.Panel` component. This removes the active panel from the tab order, allowing focus to move directly from the tab to the first interactive element within the panel, providing a smoother navigation experience.
+However, if your panel contains interactive elements like inputs, buttons, or links, having the panel itself in the tab order becomes redundant. In such cases, you can set the `containsFocusableContent` prop to `true` on the `<Tabs.Panel>` component. This removes the active panel from the tab order, allowing focus to move directly from the tab to the first interactive element within the panel, providing a smoother navigation experience.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -289,7 +273,7 @@ const Example = component$(() => {
 
 By default, the `Tabs` component uses automatic activation, meaning that navigating between tabs using the arrow keys immediately selects the tab and displays its corresponding panel.
 
-If you want to change this behavior, you can set the `activationMode` prop to `"manual"` on the `Tabs.List` component. In this mode, moving focus with the arrow keys will not automatically switch the active tab; instead, the user must press <kbd>Enter</kbd> or <kbd>Space</kbd> to confirm the selection. This is particularly useful for accessibility or when switching tabs triggers expensive operations (like heavy API calls) that you want to avoid running unnecessarily during navigation.
+If you want to change this behavior, you can set the `activationMode` prop to `"manual"` on the `<Tabs.List>` component. In this mode, moving focus with the arrow keys will not automatically switch the active tab; instead, the user must press <kbd>Enter</kbd> or <kbd>Space</kbd> to confirm the selection. This is particularly useful for accessibility or when switching tabs triggers expensive operations (like heavy API calls) that you want to avoid running unnecessarily during navigation.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -315,9 +299,9 @@ const Example = component$(() => {
 
 ### Vertical orientation
 
-By default, the `Tabs` component is horizontally oriented. To change this, you must set the `orientation` prop to `"vertical"` on the `Tabs.Root` component. This adjustment affects both the visual structure and keyboard navigation to ensure they align with the vertical layout.
+By default, the `Tabs` component is horizontally oriented. To change this, you must set the `orientation` prop to `"vertical"` on the `<Tabs.Root>` component. This adjustment affects both the visual structure and keyboard navigation to ensure they align with the vertical layout.
 
-To assist with styling, you can use the `data-orientation` attribute in your CSS, which can take either `"horizontal"` or `"vertical"` as its value. Note that you are responsible for applying the appropriate layout styles to ensure your tabs and panels flow correctly.
+To assist with styling, you can use the `[data-orientation]` attribute in your CSS, which can take either `"horizontal"` or `"vertical"` as its value. Note that you are responsible for applying the appropriate layout styles to ensure your tabs and panels flow correctly.
 
 ```tsx
 // index.tsx
@@ -357,9 +341,9 @@ const Example = component$(() => {
 
 ### Disabled interaction
 
-To prevent user interaction with a specific tab, you can set the `disabled` prop to `true` on the `Tabs.Tab` component. When a tab is disabled, it is skipped during keyboard navigation and cannot be activated via mouse click or keyboard selection (<kbd>Enter</kbd> or <kbd>Space</kbd>).
+To prevent user interaction with a specific tab, you can set the `disabled` prop to `true` on the `<Tabs.Tab>` component. When a tab is disabled, it is skipped during keyboard navigation and cannot be activated via mouse click or keyboard selection (<kbd>Enter</kbd> or <kbd>Space</kbd>).
 
-This is particularly useful for indicating that certain content is currently unavailable or restricted based on the application's state or user permissions. The `data-disabled` attribute is automatically added to the disabled tab, allowing you to easily apply custom styles to reflect its inactive state.
+This is particularly useful for indicating that certain content is currently unavailable or restricted based on the application's state or user permissions. The `[data-disabled]` attribute is automatically added to the disabled tab, allowing you to easily apply custom styles to reflect its inactive state.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -393,15 +377,15 @@ The `Tabs` component is built with accessibility in mind, strictly adhering to t
 
 Users can interact with the `Tabs` component efficiently using only a keyboard. The following overview outlines the primary keyboard shortcuts and their actions:
 
-| Key                    | Description                                                                                                                                                                                                                                                                          |
-| :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Space</kbd>       | When a `Tabs.Tab` has focus, it activates the tab and displays its associated `Tabs.Panel` when `activationMode` is `"manual"`.                                                                                                                                                      |
-| <kbd>Enter</kbd>       | When a `Tabs.Tab` has focus, it activates the tab and displays its associated `Tabs.Panel` when `activationMode` is `"manual"`.                                                                                                                                                      |
-| <kbd>Tab</kbd>         | When focus enters the `Tabs.List`, it moves to the active `Tabs.Tab`. If no tab is active, focus moves to the first focusable `Tabs.Tab`. If the active `Tabs.Tab` already has focus, it moves focus to the active `Tabs.Panel` (unless `containsFocusableContent` is `true`).       |
-| <kbd>Shift + Tab</kbd> | Moves focus out of the `Tabs.List` to the previous focusable element in the page flow.                                                                                                                                                                                               |
-| <kbd>→</kbd>           | Moves focus to the next `Tabs.Tab` when `orientation` is `"horizontal"`. Since `activationMode` is `"automatic"`, it also activates the tab. If `loopFocus` is enabled and focus is on the last tab, it moves to the first one. In `"rtl"` mode, it moves focus to the previous tab. |
-| <kbd>←</kbd>           | Moves focus to the previous `Tabs.Tab` when `orientation` is `"horizontal"`. Since `activationMode` is `"automatic"`, it also activates the tab. If `loopFocus` is enabled and focus is on the first tab, it moves to the last one. In `"rtl"` mode, it moves focus to the next tab. |
-| <kbd>↓</kbd>           | Moves focus to the next `Tabs.Tab` when `orientation` is `"vertical"`. Since `activationMode` is `"automatic"`, it also activates the tab. If `loopFocus` is enabled and focus is on the last tab, it moves to the first one.                                                        |
-| <kbd>↑</kbd>           | Moves focus to the previous `Tabs.Tab` when `orientation` is `"vertical"`. Since `activationMode` is `"automatic"`, it also activates the tab. If `loopFocus` is enabled and focus is on the first tab, it moves to the last one.                                                    |
-| <kbd>Home</kbd>        | Moves focus to the first focusable `Tabs.Tab` within the group. Since `activationMode` is `"automatic"`, it also activates the tab.                                                                                                                                                  |
-| <kbd>End</kbd>         | Moves focus to the last focusable `Tabs.Tab` within the group. Since `activationMode` is `"automatic"`, it also activates the tab.                                                                                                                                                   |
+| Key                    | Description                                                                                                                                                                                                                                                                                                                            |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Space</kbd>       | When a `<Tabs.Tab>` has focus, it activates the tab and displays its associated `<Tabs.Panel>` when `activationMode` is `"manual"`.                                                                                                                                                                                                    |
+| <kbd>Enter</kbd>       | When a `<Tabs.Tab>` has focus, it activates the tab and displays its associated `<Tabs.Panel>` when `activationMode` is `"manual"`.                                                                                                                                                                                                    |
+| <kbd>Tab</kbd>         | When focus enters the `<Tabs.List>`, it moves to the active `<Tabs.Tab>`. If no tab is active, focus moves to the first focusable `<Tabs.Tab>`. If the active `<Tabs.Tab>` already has focus, it moves focus to the active `<Tabs.Panel>` (unless `containsFocusableContent` is `true`).                                               |
+| <kbd>Shift + Tab</kbd> | When focus is on a `<Tabs.Tab>`, moves focus out of the `<Tabs.List>` to the previous focusable element in the DOM order. When focus is on an active `<Tabs.Panel>` or an element inside it, moves focus back to the active `<Tabs.Tab>` (or the previous focusable element inside the panel if `containsFocusableContent` is `true`). |
+| <kbd>→</kbd>           | Moves focus to the next `<Tabs.Tab>` when `orientation` is `"horizontal"`. Since `activationMode` is `"automatic"`, it also activates the tab. If `loopFocus` is enabled and focus is on the last tab, it moves to the first one. In `"rtl"` mode, it moves focus to the previous tab.                                                 |
+| <kbd>←</kbd>           | Moves focus to the previous `<Tabs.Tab>` when `orientation` is `"horizontal"`. Since `activationMode` is `"automatic"`, it also activates the tab. If `loopFocus` is enabled and focus is on the first tab, it moves to the last one. In `"rtl"` mode, it moves focus to the next tab.                                                 |
+| <kbd>↓</kbd>           | Moves focus to the next `<Tabs.Tab>` when `orientation` is `"vertical"`. Since `activationMode` is `"automatic"`, it also activates the tab. If `loopFocus` is enabled and focus is on the last tab, it moves to the first one.                                                                                                        |
+| <kbd>↑</kbd>           | Moves focus to the previous `<Tabs.Tab>` when `orientation` is `"vertical"`. Since `activationMode` is `"automatic"`, it also activates the tab. If `loopFocus` is enabled and focus is on the first tab, it moves to the last one.                                                                                                    |
+| <kbd>Home</kbd>        | Moves focus to the first focusable `<Tabs.Tab>` within the group. Since `activationMode` is `"automatic"`, it also activates the tab.                                                                                                                                                                                                  |
+| <kbd>End</kbd>         | Moves focus to the last focusable `<Tabs.Tab>` within the group. Since `activationMode` is `"automatic"`, it also activates the tab.                                                                                                                                                                                                   |
