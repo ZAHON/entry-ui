@@ -3,8 +3,11 @@ import type { Component } from '@qwik.dev/core';
 import { component$, Slot } from '@qwik.dev/core';
 
 /**
- * List of HTML elements that can be created as primitive components.
- * Each node in this array will have a corresponding component in the `Primitive` object.
+ * Supported HTML element tags used to generate polymorphic primitive components.
+ *
+ * Each tag in this array serves as the default target node for `createPrimitive`
+ * and is mapped as a pre-built component property on the `Primitive` object
+ * (e.g., `<Primitive.button>`, `<Primitive.div>`).
  */
 const NODES = ['button', 'dialog', 'div', 'h2', 'h3', 'p', 'span'] as const;
 
