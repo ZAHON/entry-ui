@@ -13,5 +13,5 @@ export interface IndicatorProps extends PropsOf<'span'> {
    *
    * @default "span"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 }
