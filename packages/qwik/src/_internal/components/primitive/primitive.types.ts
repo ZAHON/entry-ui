@@ -1,7 +1,8 @@
 import type { Component, PropsOf } from '@qwik.dev/core';
 
 /**
- * Props for polymorphic primitive components.
+ * Props for the internal polymorphic primitive components.
+ *
  * Combines the standard attributes of the specified HTML element (`Node`)
  * with the `as` prop to allow component composition and semantic overrides.
  */
