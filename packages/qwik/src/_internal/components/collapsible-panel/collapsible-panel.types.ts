@@ -13,7 +13,7 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component;
+  as?: string | Component | undefined;
 
   /**
    * The name of the parent component using this panel (e.g., "Accordion.ItemPanel").
@@ -32,7 +32,7 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
    *
    * @default false
    */
-  open?: boolean;
+  open?: boolean | undefined;
 
   /**
    * A `QRL` callback that updates the `open` state.
@@ -40,7 +40,7 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  setOpen$?: QRL<(open: boolean) => void>;
+  setOpen$?: QRL<(open: boolean) => void> | undefined;
 
   /**
    * When `true`, the panel utilizes the browser's native `hidden="until-found"` attribute.
@@ -49,7 +49,7 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
    *
    * @default false
    */
-  hiddenUntilFound?: boolean;
+  hiddenUntilFound?: boolean | undefined;
 
   /**
    * If `true`, the panel is considered inactive.
@@ -58,7 +58,7 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
    *
    * @default false
    */
-  disabled?: boolean;
+  disabled?: boolean | undefined;
 
   /**
    * A `QRL` callback invoked once the expansion or collapse transition has fully completed.
@@ -67,5 +67,5 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
    *
    * @default undefined
    */
-  onOpenChangeComplete$?: QRL<(open: boolean) => void>;
+  onOpenChangeComplete$?: QRL<(open: boolean) => void> | undefined;
 }
