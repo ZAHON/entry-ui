@@ -12,10 +12,15 @@ import { component$, Slot } from '@qwik.dev/core';
 const NODES = ['button', 'dialog', 'div', 'h2', 'h3', 'p', 'span'] as const;
 
 /**
- * HTML void elements that cannot have children.
- * These elements are self-closing and will be rendered without a `<Slot />`.
+ * A definitive list of HTML void elements that cannot contain text or child nodes.
  *
- * @see {@link https://developer.mozilla.org/en-US/docs/Glossary/Void_element MDN} for more details.
+ * In the context of polymorphic components, this array is used by `createPrimitive`
+ * to dynamically determine whether an element should be rendered as self-closing.
+ * Attempting to render child content (via `<Slot />`) inside these elements
+ * (e.g., `<input>`, `<img>`) would result in invalid HTML markup and potential
+ * errors in the browser.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Glossary/Void_element MDN} for more details on void elements.
  */
 const SELF_CLOSING_TAGS = [
   'area',
