@@ -50,6 +50,8 @@ const CustomInput = component$<CustomInputProps>((props) => {
   const { defaultValue, value, onValueChange$ } = props;
 
   const { state, setState$ } = useControllable({
+    // Provide an empty string fallback to guarantee a valid initial state in uncontrolled mode.
+    // This prevents runtime invariant errors when both `defaultValue` and `value` are omitted.
     defaultValue: defaultValue ?? '',
     controlledSignal: value,
     onChange$: onValueChange$,
@@ -76,17 +78,17 @@ This section provides a detailed technical overview of the `useControllable` hoo
 
 ### Parameters
 
-The `useControllable` hook accepts a single configuration object as its parameter, which defines the state-handling behavior through the following properties:
+The `useControllable` hook accepts a single configuration object as its parameter. Although all individual properties in this object are marked as optional, at least `defaultValue` or `controlledSignal` must be provided to determine the state management mode:
 
-| Property           | Type                      | Default | Description                                                                                                                                                                                                                        |
-| :----------------- | :------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `defaultValue`     | `T`                       | `-`     | The initial value used when the component is in uncontrolled mode. This value is only used to initialize the internal state if `controlledSignal` is not provided.                                                                 |
-| `controlledSignal` | `Signal<T>`               | `-`     | An optional external signal for controlled state management. If provided, the hook operates in controlled mode, delegating state authority to the parent. If omitted, the hook operates in uncontrolled mode using internal state. |
-| `onChange$`        | `QRL<(value: T) => void>` | `-`     | An optional `QRL` callback invoked whenever the state value changes. In controlled mode, it notifies the parent to update the external signal. In uncontrolled mode, it acts as a listener for internal state changes.             |
+| Property           | Type                                   | Default | Description                                                                                                                                                                                                                        |
+| :----------------- | :------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `defaultValue`     | `T \| undefined`                       | `—`     | The initial value used when the component is in uncontrolled mode. This value is only used to initialize the internal state if `controlledSignal` is not provided.                                                                 |
+| `controlledSignal` | `Signal<T> \| undefined`               | `—`     | An optional external signal for controlled state management. If provided, the hook operates in controlled mode, delegating state authority to the parent. If omitted, the hook operates in uncontrolled mode using internal state. |
+| `onChange$`        | `QRL<(value: T) => void> \| undefined` | `—`     | An optional `QRL` callback invoked whenever the state value changes. In controlled mode, it notifies the parent to update the external signal. In uncontrolled mode, it acts as a listener for internal state changes.             |
 
 ### Returns
 
-The `useControllable` hook returns a stable interface object that provides access to the current state and its associated mutation logic:
+The `useControllable` hook returns an object with a stable interface, providing access to the current state and its mutation logic wrapped in a `QRL` function:
 
 | Property     | Type                      | Description                                                                                                                                                                                               |
 | :----------- | :------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
