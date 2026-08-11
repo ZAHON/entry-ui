@@ -4,7 +4,7 @@ import { useSignal, $ } from '@qwik.dev/core';
 /**
  * A hook that manages a boolean state with common utility methods.
  *
- * The hook accepts a single `initialState` parameter, which defaults to `false`.
+ * The hook accepts a single optional `initialState` parameter, which defaults to `false`.
  * It simplifies the management of boolean flags (toggles, modals, drawers) by
  * encapsulating a boolean signal and exposing it as a readonly signal.
  *
