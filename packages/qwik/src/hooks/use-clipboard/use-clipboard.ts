@@ -38,23 +38,21 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
       ]);
     }
 
-    const win = document.defaultView || window;
-
     await copyToClipboard({
       value,
       onSuccess: () => {
         if (copyTimeout.value !== -1) {
-          win.clearTimeout(copyTimeout.value);
+          clearTimeout(copyTimeout.value);
         }
 
-        copyTimeout.value = win.setTimeout(() => {
+        copyTimeout.value = setTimeout(() => {
           copied.value = false;
           error.value = null;
 
           copyTimeout.value = -1;
 
           onStatusChange$?.({ copied: false, error: null });
-        }, timeoutMs);
+        }, timeoutMs) as unknown as number; // Reconcile Node.js `Timeout` type with DOM browser handle type.
 
         copied.value = true;
         error.value = null;
@@ -94,10 +92,8 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
     copied.value = false;
     error.value = null;
 
-    const win = document.defaultView || window;
-
     if (copyTimeout.value !== -1) {
-      win.clearTimeout(copyTimeout.value);
+      clearTimeout(copyTimeout.value);
       copyTimeout.value = -1;
     }
 
