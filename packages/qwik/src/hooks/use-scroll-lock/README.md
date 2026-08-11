@@ -46,7 +46,7 @@ This section provides a detailed technical overview of the `useScrollLock` hook,
 
 ### Parameters
 
-The `useScrollLock` hook accepts an optional `QRL` function:
+The `useScrollLock` hook accepts an optional QRL function parameter to target specific document and viewport contexts:
 
 | Parameter                     | Type                                                                                                  | Default | Description                                                                                                                                                                                                                                            |
 | :---------------------------- | :---------------------------------------------------------------------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
