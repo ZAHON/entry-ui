@@ -22,7 +22,7 @@ export interface UseCycleParams<T> {
    *
    * @default options[0]
    */
-  defaultOption?: T;
+  defaultOption?: T | undefined;
 
   /**
    * Determines the behavior when navigating past the boundaries of the `options` array.
@@ -31,7 +31,7 @@ export interface UseCycleParams<T> {
    *
    * @default true
    */
-  loop?: boolean;
+  loop?: boolean | undefined;
 }
 
 /**
