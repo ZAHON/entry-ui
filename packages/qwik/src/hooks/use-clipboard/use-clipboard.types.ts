@@ -14,7 +14,7 @@ export interface UseClipboardParams {
    *
    * @default 3000
    */
-  timeoutMs?: number;
+  timeoutMs?: number | undefined;
 
   /**
    * An optional `QRL` callback invoked whenever the clipboard operation status changes.
@@ -25,7 +25,9 @@ export interface UseClipboardParams {
    *
    * @default undefined
    */
-  onStatusChange$?: QRL<(details: { copied: boolean; error: 'NOT_SUPPORTED' | 'COPY_FAILED' | null }) => void>;
+  onStatusChange$?:
+    | QRL<(details: { copied: boolean; error: 'NOT_SUPPORTED' | 'COPY_FAILED' | null }) => void>
+    | undefined;
 }
 
 /**
