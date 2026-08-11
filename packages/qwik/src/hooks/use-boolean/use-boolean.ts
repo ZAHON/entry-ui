@@ -11,7 +11,7 @@ import { useSignal, $ } from '@qwik.dev/core';
  * State mutations are performed exclusively through the provided `QRL`
  * functions (`setFalse$` ,`setTrue$`, `toggle$`), promoting a predictable data flow.
  */
-export const useBoolean = (initialState: boolean = false): UseBooleanReturnValue => {
+export const useBoolean = (initialState: boolean | undefined = false): UseBooleanReturnValue => {
   const state = useSignal(initialState);
 
   const setFalse$ = $(() => {
