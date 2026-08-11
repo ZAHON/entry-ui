@@ -51,18 +51,18 @@ This section provides a detailed technical overview of the `useCounter` hook, in
 
 ### Parameters
 
-The `useCounter` hook accepts a single configuration object as its parameter. All properties are optional:
+The `useCounter` hook accepts a single configuration object as its parameter to customize the hook's behavior and boundaries, with all properties being optional:
 
-| Property       | Type     | Default     | Description                                                                                                                          |
-| :------------- | :------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------- |
-| `initialCount` | `number` | `0`         | The starting value of the counter. It will be automatically clamped if it falls outside the specified `min` and `max` range.         |
-| `step`         | `number` | `1`         | The amount by which the counter increases or decreases during increment and decrement operations.                                    |
-| `min`          | `number` | `-Infinity` | The lower numerical boundary of the counter. The counter value will never go below this limit. Must be less than or equal to `max`.  |
-| `max`          | `number` | `Infinity`  | The upper numerical boundary of the counter. The counter value will never exceed this limit. Must be greater than or equal to `min`. |
+| Property       | Type                  | Default     | Description                                                                                                                          |
+| :------------- | :-------------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| `initialCount` | `number \| undefined` | `0`         | The starting value of the counter. It will be automatically clamped if it falls outside the specified `min` and `max` range.         |
+| `step`         | `number \| undefined` | `1`         | The amount by which the counter increases or decreases during increment and decrement operations.                                    |
+| `min`          | `number \| undefined` | `-Infinity` | The lower numerical boundary of the counter. The counter value will never go below this limit. Must be less than or equal to `max`.  |
+| `max`          | `number \| undefined` | `Infinity`  | The upper numerical boundary of the counter. The counter value will never exceed this limit. Must be greater than or equal to `min`. |
 
 ### Returns
 
-The `useCounter` hook returns an object containing the following properties:
+The `useCounter` hook returns an object containing a readonly signal and `QRL` functions for counter manipulation:
 
 | Property     | Type                           | Description                                                                                                                                                                                                                                                                            |
 | :----------- | :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
