@@ -13,21 +13,21 @@ export interface UseControllableParams<T> {
    * The initial value used when the component is in uncontrolled mode.
    * This value is only used to initialize the internal state if `controlledSignal` is not provided.
    */
-  defaultValue?: T;
+  defaultValue?: T | undefined;
 
   /**
    * An optional external signal for controlled state management.
    * If provided, the hook operates in controlled mode, delegating state authority to the parent.
    * If omitted, the hook operates in uncontrolled mode using internal state.
    */
-  controlledSignal?: Signal<T>;
+  controlledSignal?: Signal<T> | undefined;
 
   /**
    * An optional `QRL` callback invoked whenever the state value changes.
    * In controlled mode, it notifies the parent to update the external signal.
    * In uncontrolled mode, it acts as a listener for internal state changes.
    */
-  onChange$?: QRL<(value: T) => void>;
+  onChange$?: QRL<(value: T) => void> | undefined;
 }
 
 /**
