@@ -18,7 +18,10 @@ import { clamp } from '@entry-ui/utilities/clamp';
 export const useCounter = (params: UseCounterParams = {}): UseCounterReturnValue => {
   const { initialCount = 0, step: _step = 1, min = -Infinity, max = Infinity } = params;
 
+  // Ensures the `step` value remains positive and immutable throughout the component's lifecycle,
+  // preventing inverted counter behaviors even if a negative delta is initially provided.
   const step = useConstant(Math.abs(_step));
+
   const count = useSignal(clamp({ value: initialCount, min, max }));
 
   const increment$ = $(() => {
