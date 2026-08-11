@@ -16,7 +16,7 @@ export interface UseCounterParams {
    *
    * @default 0
    */
-  initialCount?: number;
+  initialCount?: number | undefined;
 
   /**
    * The amount by which the counter increases or decreases during
@@ -24,7 +24,7 @@ export interface UseCounterParams {
    *
    * @default 1
    */
-  step?: number;
+  step?: number | undefined;
 
   /**
    * The lower numerical boundary of the counter.
@@ -33,7 +33,7 @@ export interface UseCounterParams {
    *
    * @default -Infinity
    */
-  min?: number;
+  min?: number | undefined;
 
   /**
    * The upper numerical boundary of the counter.
@@ -42,7 +42,7 @@ export interface UseCounterParams {
    *
    * @default Infinity
    */
-  max?: number;
+  max?: number | undefined;
 }
 
 /**
