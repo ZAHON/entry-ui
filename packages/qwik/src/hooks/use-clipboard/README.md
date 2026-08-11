@@ -47,7 +47,7 @@ This section provides a detailed technical overview of the `useClipboard` hook, 
 
 ### Parameters
 
-The `useClipboard` hook accepts a single configuration object as its parameter. All properties are optional:
+The `useClipboard` hook accepts a single configuration object as its parameter to customize the hook's behavior and callbacks, with all properties being optional:
 
 | Property          | Type                                                                                                        | Default | Description                                                                                                                                                                                                                                                                                                                                                |
 | :---------------- | :---------------------------------------------------------------------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
