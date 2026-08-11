@@ -25,11 +25,21 @@ import { isDev, isServer, isBrowser } from '@qwik.dev/core/build';
 export const useClipboard = (params: UseClipboardParams = {}): UseClipboardReturnValue => {
   const { timeoutMs = 3000, onStatusChange$ } = params;
 
+  // Holds the error state of the last copy operation.
+  // Set to `null` when no error is present or after reset.
   const error = useSignal<'NOT_SUPPORTED' | 'COPY_FAILED' | null>(null);
+
+  // Tracks whether the text has been successfully copied.
+  // Reverts to `false` automatically after the timeout elapses.
   const copied = useSignal(false);
+
+  // Stores the active timer handle for auto-resetting the state.
+  // Initialized to `-1` when no active timer is running.
   const copyTimeout = useSignal(-1);
 
   const copy$ = $(async (value: string) => {
+    // Check if function is executed on the server during development.
+    // Throws a helpful error message when SSR invocation is detected.
     if (isDev && isServer) {
       fail([
         `The 'copy$' QRL function from the 'useClipboard' hook cannot be called during server-side rendering (SSR).`,
@@ -38,36 +48,54 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
       ]);
     }
 
+    // Ensure the clipboard API is accessed only in client environments.
+    // Prevents execution errors during server-side rendering phases.
     if (isBrowser) {
       await copyToClipboard({
         value,
         onSuccess: () => {
+          // Clear any active timeout handle from previous execution.
+          // Prevents conflicting state resets when triggered repeatedly.
           if (copyTimeout.value !== -1) {
             clearTimeout(copyTimeout.value);
           }
 
+          // Schedule auto-reset of reactive states after configured delay.
+          // Reverts signals back to initial state automatically.
           copyTimeout.value = setTimeout(() => {
             copied.value = false;
             error.value = null;
 
             copyTimeout.value = -1;
 
+            // Notify external listeners about automated state reset.
+            // Dispatches status event when timer elapses.
             onStatusChange$?.({ copied: false, error: null });
           }, timeoutMs) as unknown as number; // Reconcile Node.js `Timeout` type with DOM browser handle type.
 
+          // Update state signals to reflect a successful copy action.
+          // Clears prior errors and sets copied flag to true.
           copied.value = true;
           error.value = null;
 
+          // Dispatch status change event to external subscriber.
+          // Informs parent components about operation success.
           onStatusChange$?.({ copied: true, error: null });
         },
         onError: (err) => {
           const { type, message } = err;
 
+          // Update state signals to reflect execution failure.
+          // Sets copied to false and records the error code.
           copied.value = false;
           error.value = type;
 
+          // Notify external subscriber about execution failure.
+          // Passes error detail context to handler function.
           onStatusChange$?.({ copied: false, error: type });
 
+          // Log detailed troubleshooting messages in development mode.
+          // Helps developers diagnose missing browser APIs or permissions.
           if (isDev) {
             if (type === 'NOT_SUPPORTED') {
               logError([
@@ -91,14 +119,20 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
   });
 
   const reset$ = $(() => {
+    // Revert state signals back to default values.
+    // Clears copied status and erases current error.
     copied.value = false;
     error.value = null;
 
+    // Clear any pending timeout instance actively running.
+    // Prevents scheduled state resets from firing.
     if (copyTimeout.value !== -1) {
       clearTimeout(copyTimeout.value);
       copyTimeout.value = -1;
     }
 
+    // Notify external listeners about manual state reset.
+    // Signals subscribers that state was cleared.
     onStatusChange$?.({ copied: false, error: null });
   });
 
