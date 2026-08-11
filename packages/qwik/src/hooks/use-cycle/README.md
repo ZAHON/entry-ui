@@ -60,17 +60,17 @@ This section provides a detailed technical overview of the `useCycle` hook, its 
 
 ### Parameters
 
-The `useCycle` hook accepts a single configuration object as its parameter. This object contains the following properties, where those marked with an asterisk (`*`) are required for the hook to function correctly:
+The `useCycle` hook accepts a single configuration object as its parameter to define the options sequence and navigation behavior, where properties marked with an asterisk (`*`) are required:
 
-| Property        | Type           | Default      | Description                                                                                                                                                                                                                                       |
-| :-------------- | :------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `options*`      | `readonly T[]` | `-`          | A readonly array of values to cycle through. This defines the sequence and the scope of all possible states the hook can manage.                                                                                                                  |
-| `defaultOption` | `T`            | `options[0]` | The initial value to be set when the hook is first initialized. If provided, it must be present in the `options` array. If the provided value is not found within the `options` array, the hook will fall back to the first element of the array. |
-| `loop`          | `boolean`      | `true`       | Determines the behavior when navigating past the boundaries of the `options` array. If set to `true`, the sequence will wrap around (e.g., from last to first). If `false`, navigation will stop at the first or last element.                    |
+| Property        | Type                   | Default      | Description                                                                                                                                                                                                                                       |
+| :-------------- | :--------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `options*`      | `readonly T[]`         | `—`          | A readonly array of values to cycle through. This defines the sequence and the scope of all possible states the hook can manage.                                                                                                                  |
+| `defaultOption` | `T \| undefined`       | `options[0]` | The initial value to be set when the hook is first initialized. If provided, it must be present in the `options` array. If the provided value is not found within the `options` array, the hook will fall back to the first element of the array. |
+| `loop`          | `boolean \| undefined` | `true`       | Determines the behavior when navigating past the boundaries of the `options` array. If set to `true`, the sequence will wrap around (e.g., from last to first). If `false`, navigation will stop at the first or last element.                    |
 
 ### Returns
 
-The `useCycle` hook returns an object containing the following properties:
+The `useCycle` hook returns an object containing a readonly signal and `QRL` functions for cycle navigation and state manipulation:
 
 | Property    | Type                      | Description                                                                                                                                                                                                                                                                           |
 | :---------- | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -88,10 +88,10 @@ The `useCycle` hook is built with full TypeScript support, leveraging generics t
 By default, TypeScript might infer a broad type (like `string`) if the `options` array is passed as a standard mutable array. To achieve maximum type safety and enable autocompletion for specific literal values, you can use the `as const` assertion or explicitly define the generic type. This ensures that the state can only ever hold one of the predefined values from your sequence:
 
 ```tsx
-// TypeScript infers `ReadonlySignal<string>` for `option`, which is less specific.
+// TypeScript infers `Readonly<Signal<string>>` for `option`, which is less specific.
 const { option } = useCycle({ options: ['option 1', 'option 2', 'option 3'] });
 
-// Using `as const` asserts a literal type, so `option` is inferred as `ReadonlySignal<"option 1" | "option 2" | "option 3">`.
+// Using `as const` asserts a literal type, so `option` is inferred as `Readonly<Signal<"option 1" | "option 2" | "option 3">>`.
 const { option } = useCycle({ options: ['option 1', 'option 2', 'option 3'] as const });
 
 // Explicitly defining the generic type achieves the same precise inference.
