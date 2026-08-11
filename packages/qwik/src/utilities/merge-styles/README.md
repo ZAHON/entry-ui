@@ -31,17 +31,21 @@ The utility is designed to handle the complexity of CSS styling in JavaScript en
 
 ```tsx
 import type { PropsOf } from '@qwik.dev/core';
-import { component$ } from '@qwik.dev/core';
+import { component$, useComputed$ } from '@qwik.dev/core';
 import { mergeStyles } from '@entry-ui/qwik/merge-styles';
 
 const Usage = component$<PropsOf<'div'>>((props) => {
   const { style, ...others } = props;
 
-  // Merge multiple style sources into a single unified object.
-  // Apply the normalized styles to the target element prop.
-  return (
-    <div style={mergeStyles([{ height: '100px', width: '100px' }, 'background-color: purple;', style])} {...others} />
+  // Compute and memoize the merged style object reactively across lifecycle updates.
+  // Wraps `mergeStyles` in `useComputed$` to track incoming `style` prop changes safely.
+  const mergedStyles = useComputed$(() =>
+    mergeStyles([{ height: '100px', width: '100px' }, 'background-color: purple;', style])
   );
+
+  // Apply the reactively computed merged style object to the target element.
+  // Ensures optimal DOM updates whenever the component's `style` prop changes.
+  return <div style={mergedStyles.value} {...others} />;
 });
 ```
 
