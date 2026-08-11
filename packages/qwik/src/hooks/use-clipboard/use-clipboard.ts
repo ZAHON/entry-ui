@@ -3,7 +3,7 @@ import { useSignal, $ } from '@qwik.dev/core';
 import { copyToClipboard } from '@entry-ui/utilities/copy-to-clipboard';
 import { fail } from '@/_internal/utilities/fail';
 import { error as logError } from '@/_internal/utilities/error';
-import { isDev, isServer } from '@qwik.dev/core/build';
+import { isDev, isServer, isBrowser } from '@qwik.dev/core/build';
 
 /**
  * A hook that provides an interface for interacting with the system clipboard.
@@ -38,54 +38,56 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
       ]);
     }
 
-    await copyToClipboard({
-      value,
-      onSuccess: () => {
-        if (copyTimeout.value !== -1) {
-          clearTimeout(copyTimeout.value);
-        }
+    if (isBrowser) {
+      await copyToClipboard({
+        value,
+        onSuccess: () => {
+          if (copyTimeout.value !== -1) {
+            clearTimeout(copyTimeout.value);
+          }
 
-        copyTimeout.value = setTimeout(() => {
-          copied.value = false;
+          copyTimeout.value = setTimeout(() => {
+            copied.value = false;
+            error.value = null;
+
+            copyTimeout.value = -1;
+
+            onStatusChange$?.({ copied: false, error: null });
+          }, timeoutMs) as unknown as number; // Reconcile Node.js `Timeout` type with DOM browser handle type.
+
+          copied.value = true;
           error.value = null;
 
-          copyTimeout.value = -1;
+          onStatusChange$?.({ copied: true, error: null });
+        },
+        onError: (err) => {
+          const { type, message } = err;
 
-          onStatusChange$?.({ copied: false, error: null });
-        }, timeoutMs) as unknown as number; // Reconcile Node.js `Timeout` type with DOM browser handle type.
+          copied.value = false;
+          error.value = type;
 
-        copied.value = true;
-        error.value = null;
+          onStatusChange$?.({ copied: false, error: type });
 
-        onStatusChange$?.({ copied: true, error: null });
-      },
-      onError: (err) => {
-        const { type, message } = err;
+          if (isDev) {
+            if (type === 'NOT_SUPPORTED') {
+              logError([
+                `An error occurred during the 'copy$' QRL function execution in 'useClipboard' hook.`,
+                `Clipboard API is not supported in this browser.`,
+                `Consider using a modern browser with Clipboard API support.`,
+              ]);
+            }
 
-        copied.value = false;
-        error.value = type;
-
-        onStatusChange$?.({ copied: false, error: type });
-
-        if (isDev) {
-          if (type === 'NOT_SUPPORTED') {
-            logError([
-              `An error occurred during the 'copy$' QRL function execution in 'useClipboard' hook.`,
-              `Clipboard API is not supported in this browser.`,
-              `Consider using a modern browser with Clipboard API support.`,
-            ]);
+            if (type === 'COPY_FAILED') {
+              logError([
+                `An error occurred during the 'copy$' QRL function execution in 'useClipboard' hook.`,
+                `The copy operation failed.`,
+                ...(message ? [`Check clipboard permissions: ${message}`] : []),
+              ]);
+            }
           }
-
-          if (type === 'COPY_FAILED') {
-            logError([
-              `An error occurred during the 'copy$' QRL function execution in 'useClipboard' hook.`,
-              `The copy operation failed.`,
-              ...(message ? [`Check clipboard permissions: ${message}`] : []),
-            ]);
-          }
-        }
-      },
-    });
+        },
+      });
+    }
   });
 
   const reset$ = $(() => {
