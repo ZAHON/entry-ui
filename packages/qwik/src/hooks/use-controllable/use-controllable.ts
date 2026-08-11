@@ -23,12 +23,20 @@ import { fail } from '@/_internal/utilities/fail';
 export const useControllable = <T>(params: UseControllableParams<T> = {}): UseControllableReturnValue<T> => {
   const { defaultValue, controlledSignal, onChange$ } = params;
 
+  // =========================================================================
+  // CONTROLLED MODE EXECUTION PATH
+  // =========================================================================
+
   // When `controlledSignal` is explicitly provided, the state authority resides with the parent context.
   // The hook directly exposes the external reference as a readonly view, bypassing any internal tracking mechanisms.
   // Mutational updates are intercepted and delegated upstream via the serialized `onChange$` callback,
   // leaving the ultimate execution track and value resolution entirely to the parent's architectural boundary.
   if (controlledSignal !== undefined) {
+    // Encapsulate external change delegation into a `QRL` handler for optimal lazy-loading behavior.
+    // This function intercepts local mutation calls and safely dispatches them to the parent context.
     const handleExternalStateChange$ = $((value: T) => {
+      // Safely invoke the optional upstream handler to notify the parent of state mutation requests.
+      // Operates as an asynchronous trigger without modifying local signal references directly.
       onChange$?.(value);
     });
 
@@ -38,6 +46,10 @@ export const useControllable = <T>(params: UseControllableParams<T> = {}): UseCo
       controlled: true,
     };
   }
+
+  // =========================================================================
+  // INVARIANT VERIFICATION (DEVELOPMENT ONLY)
+  // =========================================================================
 
   // Enforce the presence of `defaultValue` to guarantee deterministic internal state initialization.
   // This invariant verification is executed exclusively within development mode to prevent runtime ambiguity
@@ -49,10 +61,23 @@ export const useControllable = <T>(params: UseControllableParams<T> = {}): UseCo
     ]);
   }
 
+  // =========================================================================
+  // UNCONTROLLED MODE EXECUTION PATH
+  // =========================================================================
+
+  // Allocate an internal reactive signal initialized with the validated default state value.
+  // Type-casted safely to `T` after passing the development-mode invariant check above.
   const internalState = useSignal(defaultValue as T);
 
+  // Define the internal state update dispatcher and serialize it into a `QRL` function reference.
+  // Handles local signal mutation synchronously while allowing downstream listeners to react.
   const handleInternalStateChange$ = $((value: T) => {
+    // Synchronously mutate the internal reactive signal value to trigger UI updates.
+    // Keeps internal state aligned with user interactions in uncontrolled mode.
     internalState.value = value;
+
+    // Post-process state change by notifying consumer callbacks if registered in parameters.
+    // Enables external side effects while maintaining internal state ownership.
     onChange$?.(value);
   });
 
