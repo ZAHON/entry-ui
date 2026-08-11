@@ -14,6 +14,11 @@ import { fail } from '@/_internal/utilities/fail';
  * State synchronization is handled automatically:
  * - **Controlled**: Uses the provided `controlledSignal` and requests changes via `onChange$`.
  * - **Uncontrolled**: Manages an internal signal initialized by `defaultValue`.
+ *
+ * @remarks
+ * Although `defaultValue` and `controlledSignal` are marked as optional in the type definition,
+ * at least one must be provided. If both are `undefined`, the hook throws an error in development
+ * mode because it cannot determine the initial state or operating mode.
  */
 export const useControllable = <T>(params: UseControllableParams<T> = {}): UseControllableReturnValue<T> => {
   const { defaultValue, controlledSignal, onChange$ } = params;
