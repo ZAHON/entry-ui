@@ -13,3 +13,12 @@ export const useCollapsibleRootContext = (): UseCollapsibleRootContextReturnValu
 
   return { open, setOpen$, disabled };
 };
+
+export namespace useCollapsibleRootContext {
+  /**
+   * The value returned by the `useCollapsibleRootContext` hook.
+   *
+   * Provides access to the collapsible's readonly signals and `QRL` function for descendant components.
+   */
+  export type ReturnValue = UseCollapsibleRootContextReturnValue;
+}

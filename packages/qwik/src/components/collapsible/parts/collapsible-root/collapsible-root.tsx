@@ -38,3 +38,12 @@ export const CollapsibleRoot = component$<CollapsibleRootProps>((props) => {
     </Primitive.div>
   );
 });
+
+export namespace CollapsibleRoot {
+  /**
+   * Props for the `<Collapsible.Root>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = CollapsibleRootProps;
+}

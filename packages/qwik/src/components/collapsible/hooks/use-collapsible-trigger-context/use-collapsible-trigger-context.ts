@@ -13,3 +13,12 @@ export const useCollapsibleTriggerContext = (): UseCollapsibleTriggerContextRetu
 
   return { disabled };
 };
+
+export namespace useCollapsibleTriggerContext {
+  /**
+   * The value returned by the `useCollapsibleTriggerContext` hook.
+   *
+   * Provides access to the trigger's readonly signal for descendant components.
+   */
+  export type ReturnValue = UseCollapsibleTriggerContextReturnValue;
+}

@@ -26,3 +26,12 @@ export const CollapsibleIndicator = component$<CollapsibleIndicatorProps>((props
     </Indicator>
   );
 });
+
+export namespace CollapsibleIndicator {
+  /**
+   * Props for the `<Collapsible.Indicator>` component.
+   *
+   * Extends the standard HTML attributes for a `<span>` element.
+   */
+  export type Props = CollapsibleIndicatorProps;
+}

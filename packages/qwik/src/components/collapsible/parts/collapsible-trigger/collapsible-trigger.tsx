@@ -59,3 +59,12 @@ export const CollapsibleTrigger = component$<CollapsibleTriggerProps>((props) =>
     </Primitive.button>
   );
 });
+
+export namespace CollapsibleTrigger {
+  /**
+   * Props for the `<Collapsible.Trigger>` component.
+   *
+   * Extends the standard HTML attributes for a `<button>` element.
+   */
+  export type Props = CollapsibleTriggerProps;
+}

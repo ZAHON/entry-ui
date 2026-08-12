@@ -43,3 +43,12 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
     </InternalCollapsiblePanel>
   );
 });
+
+export namespace CollapsiblePanel {
+  /**
+   * Props for the `<Collapsible.Panel>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = CollapsiblePanelProps;
+}
