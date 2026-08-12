@@ -1,5 +1,5 @@
 import type { TabsRootProps } from './tabs-root.types';
-import { component$, useId ,useComputed$, useContextProvider, Slot } from '@qwik.dev/core';
+import { component$, useId, useComputed$, useContextProvider, Slot } from '@qwik.dev/core';
 import { useControllable } from '@/hooks/use-controllable';
 import { Primitive } from '@/_internal/components/primitive';
 import { TabsRootContext } from '../../contexts/tabs-root-context';
@@ -26,11 +26,11 @@ export const TabsRoot = component$<TabsRootProps>((props) => {
     onChange$: onValueChange$,
   });
 
-	const id = useId();
+  const id = useId();
   const dir = useComputed$(() => _dir);
   const orientation = useComputed$(() => _orientation);
 
-  useContextProvider(TabsRootContext, { value, setValue$, id ,dir, orientation });
+  useContextProvider(TabsRootContext, { value, setValue$, id, dir, orientation });
 
   return (
     <Primitive.div
@@ -44,3 +44,12 @@ export const TabsRoot = component$<TabsRootProps>((props) => {
     </Primitive.div>
   );
 });
+
+export namespace TabsRoot {
+  /**
+   * Props for the `<Tabs.Root>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = TabsRootProps;
+}

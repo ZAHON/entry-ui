@@ -284,3 +284,12 @@ export const TabsTab = component$<TabsTabProps>((props) => {
     </Primitive.button>
   );
 });
+
+export namespace TabsTab {
+  /**
+   * Props for the `<Tabs.Tab>` component.
+   *
+   * Extends the standard HTML attributes for a `<button>` element.
+   */
+  export type Props = TabsTabProps;
+}

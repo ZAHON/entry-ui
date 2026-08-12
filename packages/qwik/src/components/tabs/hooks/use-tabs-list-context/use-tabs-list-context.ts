@@ -14,3 +14,12 @@ export const useTabsListContext = (): UseTabsListContextReturnValue => {
 
   return { currentTabStopId, setCurrentTabStopId$ };
 };
+
+export namespace useTabsListContext {
+  /**
+   * The value returned by the `useTabsListContext` hook.
+   *
+   * Provides access to the tab list's readonly signal and `QRL` function for descendant components.
+   */
+  export type ReturnValue = UseTabsListContextReturnValue;
+}

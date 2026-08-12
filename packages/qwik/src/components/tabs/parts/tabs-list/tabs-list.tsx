@@ -58,3 +58,12 @@ export const TabsList = component$<TabsListProps>((props) => {
     </Primitive.div>
   );
 });
+
+export namespace TabsList {
+  /**
+   * Props for the `<Tabs.List>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = TabsListProps;
+}

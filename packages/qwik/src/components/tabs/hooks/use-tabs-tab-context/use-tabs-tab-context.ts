@@ -13,3 +13,12 @@ export const useTabsTabContext = (): UseTabsTabContextReturnValue => {
 
   return { value, active, disabled };
 };
+
+export namespace useTabsTabContext {
+  /**
+   * The value returned by the `useTabsTabContext` hook.
+   *
+   * Provides access to the specific tab's readonly signals for descendant components.
+   */
+  export type ReturnValue = UseTabsTabContextReturnValue;
+}

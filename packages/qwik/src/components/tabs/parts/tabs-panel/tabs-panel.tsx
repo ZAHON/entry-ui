@@ -53,3 +53,12 @@ export const TabsPanel = component$<TabsPanelProps>((props) => {
     </Primitive.div>
   );
 });
+
+export namespace TabsPanel {
+  /**
+   * Props for the `<Tabs.Panel>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = TabsPanelProps;
+}

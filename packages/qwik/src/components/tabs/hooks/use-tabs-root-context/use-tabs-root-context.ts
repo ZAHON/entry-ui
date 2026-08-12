@@ -14,3 +14,12 @@ export const useTabsRootContext = (): UseTabsRootContextReturnValue => {
 
   return { value, setValue$, orientation };
 };
+
+export namespace useTabsRootContext {
+  /**
+   * The value returned by the `useTabsRootContext` hook.
+   *
+   * Provides access to the tabs readonly signals and `QRL` function for descendant components.
+   */
+  export type ReturnValue = UseTabsRootContextReturnValue;
+}
