@@ -1,1 +1,3 @@
-export * as Separator from './parts';
+export * as Separator from './separator.namespace';
+
+export * from './parts';

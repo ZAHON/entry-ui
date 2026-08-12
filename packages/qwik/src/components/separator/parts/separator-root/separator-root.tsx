@@ -40,3 +40,12 @@ export const SeparatorRoot = component$<SeparatorRootProps>((props) => {
     </Primitive.div>
   );
 });
+
+export namespace SeparatorRoot {
+  /**
+   * Props for the `<Separator.Root>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = SeparatorRootProps;
+}
