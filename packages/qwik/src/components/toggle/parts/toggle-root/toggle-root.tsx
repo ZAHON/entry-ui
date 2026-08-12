@@ -55,3 +55,12 @@ export const ToggleRoot = component$<ToggleRootProps>((props) => {
     </Primitive.button>
   );
 });
+
+export namespace ToggleRoot {
+  /**
+   * Props for the `<Toggle.Root>` component.
+   *
+   * Extends the standard HTML attributes for a `<button>` element.
+   */
+  export type Props = ToggleRootProps;
+}

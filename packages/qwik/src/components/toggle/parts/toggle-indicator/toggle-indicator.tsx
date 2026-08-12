@@ -26,3 +26,12 @@ export const ToggleIndicator = component$<ToggleIndicatorProps>((props) => {
     </Indicator>
   );
 });
+
+export namespace ToggleIndicator {
+  /**
+   * Props for the `<Toggle.Indicator>` component.
+   *
+   * Extends the standard HTML attributes for a `<span>` element.
+   */
+  export type Props = ToggleIndicatorProps;
+}
