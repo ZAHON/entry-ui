@@ -106,3 +106,15 @@ export const useScrollLock = (
   // These `QRL` functions provide the primary public interface for consumers of the hook.
   return { lock$, unlock$ };
 };
+
+export namespace useScrollLock {
+  /**
+   * Represents the object returned by the `useScrollLock` hook.
+   *
+   * This interface defines the toggle methods required to manage document scrolling.
+   * It provides the execution handles necessary to disable or enable layout interaction,
+   * adjusting document styling, injecting layout-shift variables, and resolving platform-specific
+   * scroll boundaries to preserve layout continuity during overlay presentation.
+   */
+  export type ReturnValue = UseScrollLockReturnValue;
+}
