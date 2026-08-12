@@ -28,3 +28,14 @@ export const useBoolean = (initialState: boolean | undefined = false): UseBoolea
 
   return { state, setFalse$, setTrue$, toggle$ };
 };
+
+export namespace useBoolean {
+  /**
+   * Represents the object returned by the `useBoolean` hook.
+   *
+   * This interface exposes a highly specialized API designed to manage binary state flags efficiently.
+   * It provides the consuming component with an immutable, reactive view of the underlying boolean value
+   * alongside a set of standalone, serialized mutation dispatchers optimized for common toggle and reset operations.
+   */
+  export type ReturnValue = UseBooleanReturnValue;
+}
