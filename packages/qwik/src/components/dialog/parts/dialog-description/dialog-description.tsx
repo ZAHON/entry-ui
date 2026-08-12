@@ -35,3 +35,12 @@ export const DialogDescription = component$((props: DialogDescriptionProps) => {
     </Primitive.p>
   );
 });
+
+export namespace DialogDescription {
+  /**
+   * Props for the `<Dialog.Description>` component.
+   *
+   * Extends the standard HTML attributes for a `<p>` element.
+   */
+  export type Props = DialogDescriptionProps;
+}

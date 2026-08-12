@@ -55,3 +55,12 @@ export const DialogTrigger = component$((props: DialogTriggerProps) => {
     </Primitive.button>
   );
 });
+
+export namespace DialogTrigger {
+  /**
+   * Props for the `<Dialog.Trigger>` component.
+   *
+   * Extends the standard HTML attributes for a `<button>` element.
+   */
+  export type Props = DialogTriggerProps;
+}

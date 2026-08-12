@@ -13,3 +13,12 @@ export const useDialogTriggerContext = (): UseDialogTriggerContextReturnValue =>
 
   return { disabled };
 };
+
+export namespace useDialogTriggerContext {
+  /**
+   * The value returned by the `useDialogTriggerContext` hook.
+   *
+   * Provides access to the trigger's readonly signal for descendant components.
+   */
+  export type ReturnValue = UseDialogTriggerContextReturnValue;
+}

@@ -13,3 +13,12 @@ export const useDialogCloseContext = (): UseDialogCloseContextReturnValue => {
 
   return { disabled };
 };
+
+export namespace useDialogCloseContext {
+  /**
+   * The value returned by the `useDialogCloseContext` hook.
+   *
+   * Provides access to the close button's readonly signal for descendant components.
+   */
+  export type ReturnValue = UseDialogCloseContextReturnValue;
+}

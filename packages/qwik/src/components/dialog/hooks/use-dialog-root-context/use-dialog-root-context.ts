@@ -13,3 +13,12 @@ export const useDialogRootContext = (): UseDialogRootContextReturnValue => {
 
   return { open, setOpen$ };
 };
+
+export namespace useDialogRootContext {
+  /**
+   * The value returned by the `useDialogRootContext` hook.
+   *
+   * Provides access to the dialog's readonly signal and `QRL` function for descendant components.
+   */
+  export type ReturnValue = UseDialogRootContextReturnValue;
+}

@@ -38,3 +38,10 @@ export const DialogRoot = component$((props: DialogRootProps) => {
 
   return <Slot />;
 });
+
+export namespace DialogRoot {
+  /**
+   * Props for the `<Dialog.Root>` component.
+   */
+  export type Props = DialogRootProps;
+}

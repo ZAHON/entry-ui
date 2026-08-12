@@ -266,3 +266,12 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
     </Primitive.dialog>
   );
 });
+
+export namespace DialogPopup {
+  /**
+   * Props for the `<Dialog.Popup>` component.
+   *
+   * Extends the standard HTML attributes for a `<dialog>` element.
+   */
+  export type Props = DialogPopupProps;
+}

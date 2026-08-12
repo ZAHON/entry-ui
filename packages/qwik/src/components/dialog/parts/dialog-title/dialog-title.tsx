@@ -35,3 +35,12 @@ export const DialogTitle = component$((props: DialogTitleProps) => {
     </Primitive.h2>
   );
 });
+
+export namespace DialogTitle {
+  /**
+   * Props for the `<Dialog.Title>` component.
+   *
+   * Extends the standard HTML attributes for an `<h2>` element.
+   */
+  export type Props = DialogTitleProps;
+}

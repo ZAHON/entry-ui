@@ -41,3 +41,12 @@ export const DialogClose = component$((props: DialogCloseProps) => {
     </Primitive.button>
   );
 });
+
+export namespace DialogClose {
+  /**
+   * Props for the `<Dialog.Close>` component.
+   *
+   * Extends the standard HTML attributes for a `<button>` element.
+   */
+  export type Props = DialogCloseProps;
+}
