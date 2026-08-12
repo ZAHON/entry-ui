@@ -15,5 +15,6 @@
     "src/root.tsx",
     "src/entry.ssr.tsx",
     "vite.config.ts",
+    "vitest.setup.ts",
   ],
 }
