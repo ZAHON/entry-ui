@@ -93,3 +93,23 @@ export const useCycle = <T>(params: UseCycleParams<T>): UseCycleReturnValue<T> =
 
   return { option, next$, previous$, first$, last$, set$ };
 };
+
+export namespace useCycle {
+  /**
+   * Configuration parameters for the `useCycle` hook.
+   *
+   * This interface encapsulates the parameters required to govern navigation through a predefined dataset sequence.
+   * It allows the caller to establish the comprehensive scope of valid value states, configure deterministic
+   * initialization boundaries, and dictate boundary-crossing mechanics such as automated sequence wrapping.
+   */
+  export type Params<T> = UseCycleParams<T>;
+
+  /**
+   * Represents the object returned by the `useCycle` hook.
+   *
+   * This interface exposes a comprehensive state-traversal API designed to navigate sequentially through a predefined collection.
+   * It provides the consuming component with an immutable, reactive view of the currently active state node, coupled with
+   * a set of specialized, serialized navigation dispatchers for directional, boundary-snapped, and direct-access state transitions.
+   */
+  export type ReturnValue<T> = UseCycleReturnValue<T>;
+}
