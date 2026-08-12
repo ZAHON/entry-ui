@@ -6,7 +6,7 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "declarationDir": "lib",
-    "noEmit": false
+    "noEmit": false,
   },
   "exclude": [
     "src/**/*.test.ts",
@@ -14,6 +14,6 @@
     "src/routes/**",
     "src/root.tsx",
     "src/entry.ssr.tsx",
-    "vite.config.ts"
-  ]
+    "vite.config.ts",
+  ],
 }
