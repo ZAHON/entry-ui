@@ -1,2 +1,2 @@
-export * from './toggle-root';
 export * from './toggle-indicator';
+export * from './toggle-root';
