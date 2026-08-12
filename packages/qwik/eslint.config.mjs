@@ -9,4 +9,9 @@ export default [
       'qwik/use-method-usage': 'off',
     },
   },
+  {
+    rules: {
+      '@typescript-eslint/no-namespace': 'off',
+    },
+  },
 ];
