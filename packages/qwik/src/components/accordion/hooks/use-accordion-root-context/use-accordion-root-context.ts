@@ -14,3 +14,12 @@ export const useAccordionRootContext = (): UseAccordionRootContextReturnValue =>
 
   return { value, setValue$, disabled };
 };
+
+export namespace useAccordionRootContext {
+  /**
+   * The value returned by the `useAccordionRootContext` hook.
+   *
+   * Provides access to the accordion's readonly signals and `QRL` function for descendant components.
+   */
+  export type ReturnValue = UseAccordionRootContextReturnValue;
+}

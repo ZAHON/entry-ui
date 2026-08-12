@@ -1,2 +1,4 @@
-export * as Accordion from './parts';
+export * as Accordion from './accordion.namespace';
+
+export * from './parts';
 export * from './hooks';

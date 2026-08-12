@@ -29,3 +29,12 @@ export const AccordionItemHeader = component$<AccordionItemHeaderProps>((props) 
     </Primitive.h3>
   );
 });
+
+export namespace AccordionItemHeader {
+  /**
+   * Props for the `<Accordion.ItemHeader>` component.
+   *
+   * Extends the standard HTML attributes for an `<h3>` element.
+   */
+  export type Props = AccordionItemHeaderProps;
+}

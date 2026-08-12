@@ -59,3 +59,12 @@ export const AccordionItemTrigger = component$<AccordionItemTriggerProps>((props
     </Primitive.button>
   );
 });
+
+export namespace AccordionItemTrigger {
+  /**
+   * Props for the `<Accordion.ItemTrigger>` component.
+   *
+   * Extends the standard HTML attributes for a `<button>` element.
+   */
+  export type Props = AccordionItemTriggerProps;
+}

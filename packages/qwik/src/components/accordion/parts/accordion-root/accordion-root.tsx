@@ -81,3 +81,12 @@ export const AccordionRoot = component$<AccordionRootProps>((props) => {
     </Primitive.div>
   );
 });
+
+export namespace AccordionRoot {
+  /**
+   * Props for the `<Accordion.Root>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = AccordionRootProps;
+}

@@ -26,3 +26,12 @@ export const AccordionItemIndicator = component$<AccordionItemIndicatorProps>((p
     </Indicator>
   );
 });
+
+export namespace AccordionItemIndicator {
+  /**
+   * Props for the `<Accordion.ItemIndicator>` component.
+   *
+   * Extends the standard HTML attributes for a `<span>` element.
+   */
+  export type Props = AccordionItemIndicatorProps;
+}

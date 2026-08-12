@@ -47,3 +47,12 @@ export const AccordionItem = component$<AccordionItemProps>((props) => {
     </Primitive.div>
   );
 });
+
+export namespace AccordionItem {
+  /**
+   * Props for the `<Accordion.Item>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = AccordionItemProps;
+}

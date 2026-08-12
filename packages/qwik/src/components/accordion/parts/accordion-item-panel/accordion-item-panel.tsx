@@ -45,3 +45,12 @@ export const AccordionItemPanel = component$<AccordionItemPanelProps>((props) =>
     </CollapsiblePanel>
   );
 });
+
+export namespace AccordionItemPanel {
+  /**
+   * Props for the `<Accordion.ItemPanel>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = AccordionItemPanelProps;
+}

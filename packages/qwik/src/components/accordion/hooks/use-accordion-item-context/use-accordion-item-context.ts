@@ -13,3 +13,12 @@ export const useAccordionItemContext = (): UseAccordionItemContextReturnValue =>
 
   return { value, open, setOpen$, disabled };
 };
+
+export namespace useAccordionItemContext {
+  /**
+   * The value returned by the `useAccordionItemContext` hook.
+   *
+   * Provides access to the accordion item's readonly signals and `QRL` function for descendant components.
+   */
+  export type ReturnValue = UseAccordionItemContextReturnValue;
+}

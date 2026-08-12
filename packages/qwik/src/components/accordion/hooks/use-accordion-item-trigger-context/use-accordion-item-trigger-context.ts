@@ -13,3 +13,12 @@ export const useAccordionItemTriggerContext = (): UseAccordionItemTriggerContext
 
   return { disabled };
 };
+
+export namespace useAccordionItemTriggerContext {
+  /**
+   * The value returned by the `useAccordionItemTriggerContext` hook.
+   *
+   * Provides access to the accordion item trigger's readonly signal for descendant components.
+   */
+  export type ReturnValue = UseAccordionItemTriggerContextReturnValue;
+}
