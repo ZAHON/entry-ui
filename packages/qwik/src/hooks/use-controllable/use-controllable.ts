@@ -87,3 +87,25 @@ export const useControllable = <T>(params: UseControllableParams<T> = {}): UseCo
     controlled: false,
   };
 };
+
+export namespace useControllable {
+  /**
+   * Configuration parameters for the `useControllable` hook.
+   *
+   * This interface encapsulates the parameters required to initialize the hook in either
+   * controlled or uncontrolled mode, enabling cohesive state management within a single component.
+   * It allows the caller to delegate state authority to an external signal or manage it internally,
+   * providing dedicated lifecycle callbacks to synchronize value updates across architectural boundaries.
+   */
+  export type Params<T> = UseControllableParams<T>;
+
+  /**
+   * Represents the object returned by the `useControllable` hook.
+   *
+   * This interface exposes a unified API to consume and manipulate the underlying state,
+   * abstracting the synchronization mechanics between controlled and uncontrolled execution tracks.
+   * It provides the consuming component with seamless access to the current value context,
+   * safe update dispatchers, and explicit metadata regarding the active management mode.
+   */
+  export type ReturnValue<T> = UseControllableReturnValue<T>;
+}
