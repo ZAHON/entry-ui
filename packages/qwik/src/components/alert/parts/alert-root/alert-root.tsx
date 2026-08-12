@@ -16,3 +16,12 @@ export const AlertRoot = component$<AlertRootProps>((props) => {
     </Primitive.div>
   );
 });
+
+export namespace AlertRoot {
+  /**
+   * Props for the `<Alert.Root>` component.
+   *
+   * Extends the standard HTML attributes for a `<div>` element.
+   */
+  export type Props = AlertRootProps;
+}
