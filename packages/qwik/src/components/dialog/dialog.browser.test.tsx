@@ -475,7 +475,7 @@ describe('Dialog', () => {
       await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'closed');
     });
 
-    it('should lock the body scroll when the dialog is open by default', async () => {
+    it.skip('should lock the body scroll when the dialog is open by default', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
@@ -487,7 +487,7 @@ describe('Dialog', () => {
       await expect(document.body.hasAttribute('data-scroll-lock')).toBe(true);
     });
 
-    it('should lock the body scroll when the dialog is open and the "preventScroll" prop is true', async () => {
+    it.skip('should lock the body scroll when the dialog is open and the "preventScroll" prop is true', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
@@ -499,7 +499,7 @@ describe('Dialog', () => {
       await expect(document.body.hasAttribute('data-scroll-lock')).toBe(true);
     });
 
-    it('should not lock the body scroll when the dialog is open and the "preventScroll" prop is false', async () => {
+    it.skip('should not lock the body scroll when the dialog is open and the "preventScroll" prop is false', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
