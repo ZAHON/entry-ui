@@ -2,6 +2,40 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.12.0 (2026-08-13)
+
+### Features
+
+- **Introduce `resolveQrl` utility for asynchronous reference resolution.**
+  A performance-optimized helper designed to simplify the process of asynchronously resolving a `QRL` reference into its underlying value or symbol. It abstracts away manual resolution details and framework mechanisms for fetching lazy-loaded JavaScript chunks, while optimizing performance by checking in-memory cache to avoid redundant loading steps.
+
+- **Introduce `unwrapSignal` utility for flexible signal extraction.**
+  A utility helper designed to unwrap potential signals, returning their current value or the original value if it is not a signal. It abstracts away conditional checks when dealing with flexible component props or parameters that can accept either raw values or reactive signals, improving code readability and reducing boilerplate.
+
+- **Introduce `MaybeSignal` utility type for flexible signal handling.**
+  A utility type designed to simplify component props and utility signatures by seamlessly accepting standard raw values, mutable `Signal<T>`, and readonly signals (such as those from `useComputed$`). It eliminates the need for manual type unions and improves type safety and codebase interoperability when handling both static data and reactive signals.
+
+### Refactors
+
+- **Introduce namespaces to component exports and hook types.**
+  Enhanced the public API surface across components and utility hooks by grouping related sub-components, types, and context hooks into TypeScript namespaces (e.g., `<Accordion.Root>`, `Accordion.Root.Props`, `useClipboard.Params`). This enables both structured dot-notation imports and traditional flat imports for improved developer experience and code readability.
+
+- **Refactor `useScrollLock` hook context resolution and unmount cleanup.**
+  Updated the `useScrollLock` hook to replace the `resolveDocument$` parameter with `getDocumentViewportContext$`, enabling seamless resolution of custom window, document, and element contexts for isolated environments like iframes. Updated the return type interface to reflect asynchronous lock execution (`Promise<void>`) and added an automatic unmount cleanup task using `useTask$` to safely release active scroll locks when components unmount.
+
+- **Remove `PossibleRef` utility type in favor of inline definition.**
+  Cleaned up the package API by removing the standalone `PossibleRef` type in the `mergeRefs` utility. The reference union type is now defined directly within the function parameter to simplify the codebase while preserving full type safety for Qwik signals and callbacks.
+
+- **Remove `PossibleStyle` utility type in favor of inline definition.**
+  Cleaned up the package API by removing the standalone `PossibleStyle` type in the `mergeStyles` utility. The style union type is now defined directly within the function parameter to simplify the codebase while preserving full type safety for standard inline strings, CSS objects, and undefined values.
+
+- **Enhance JSDoc API documentation globally across the entire codebase.**
+  Significantly improved package documentation by expanding and refining comprehensive JSDoc comments for all components, hooks, utilities, and type interfaces. This update ensures consistent parameter descriptions, default value annotations, and accurate context execution details across the entire public API surface.
+
+### Dependencies
+
+- **Update `@entry-ui/utilities` to version `0.11.0`.**
+
 ## 0.11.0 (2026-07-16)
 
 ### Breaking changes
