@@ -21,35 +21,38 @@ The function performs a circular shift:
 
 - Elements originally appearing before the `startIndex` are appended to the end.
 
+- Supports negative indices (e.g., `-1` shifts starting from the last item) and indices larger than the array length.
+
 - The original array remains immutable, as the utility returns a new array instance.
 
 ```ts
 import { wrapArray } from '@entry-ui/utilities/wrap-array';
 
-const data = ['a', 'b', 'c', 'd'];
-
-wrapArray({ array: data, startIndex: 2 });
+// Standard shift starting from index 2.
+wrapArray({ array: ['a', 'b', 'c', 'd'], startIndex: 2 });
 // Returns: ["c", "d", "a", "b"]
 
-wrapArray({ array: data, startIndex: 3 });
+// Shift starting from the last element (index 3).
+wrapArray({ array: ['a', 'b', 'c', 'd'], startIndex: 3 });
 // Returns: ["d", "a", "b", "c"]
 
-wrapArray({ array: data, startIndex: 0 });
+// Zero shift returning a copy in original order.
+wrapArray({ array: ['a', 'b', 'c', 'd'], startIndex: 0 });
 // Returns: ["a", "b", "c", "d"]
 ```
 
 ## API reference
 
-This section provides a detailed technical overview of the `wrapArray` function, its generic type support, and parameter requirements.
+This section provides a detailed technical overview of the `wrapArray` utility, its configuration properties, and its return values.
 
 ### Parameters
 
-The `wrapArray` function accepts a single configuration object as its parameter. All properties are required and marked with an asterisk (`*`):
+The `wrapArray` function accepts a single configuration object as its parameter to define the array sequence and shift behavior, where all properties are required and marked with an asterisk (`*`):
 
 | Property      | Type     | Default | Description                                                                                                                                                                                                            |
 | :------------ | :------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `array*`      | `T[]`    | `-`     | The source array to be rearranged. This array remains unmodified as the function returns a new mapped instance.                                                                                                        |
-| `startIndex*` | `number` | `-`     | The zero-based index in the original array that will serve as the new starting point. Elements before this index will be appended to the end of the new array, maintaining their relative order in a circular fashion. |
+| `array*`      | `T[]`    | `—`     | The source array to be rearranged. This array remains unmodified as the function returns a new mapped instance.                                                                                                        |
+| `startIndex*` | `number` | `—`     | The zero-based index in the original array that will serve as the new starting point. Elements before this index will be appended to the end of the new array, maintaining their relative order in a circular fashion. |
 
 ### Returns
 
