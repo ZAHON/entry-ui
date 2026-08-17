@@ -3,19 +3,21 @@ import type { WrapArrayParams } from './wrap-array.types';
 /**
  * Rearranges an array by shifting its starting point to a specified index.
  *
- * This utility creates a circular shift of the array elements. The element at
- * `startIndex` becomes the first element of the resulting array, followed by
- * subsequent elements. When the end of the original array is reached, it wraps
- * around to the beginning until all elements are included.
+ * This utility performs a circular shift on the provided array, returning a new array
+ * without modifying the original. The element at `startIndex` becomes the new head,
+ * with subsequent elements wrapping around seamlessly to preserve relative order.
  *
  * @example
  * ```ts
+ * // Standard shift starting from index 2.
  * wrapArray({ array: ["a", "b", "c", "d"], startIndex: 2 });
  * // Returns: ["c", "d", "a", "b"]
  *
+ * // Shift starting from the last element (index 3).
  * wrapArray({ array: ["a", "b", "c", "d"], startIndex: 3 });
  * // Returns: ["d", "a", "b", "c"]
  *
+ * // Zero shift returning a copy in original order.
  * wrapArray({ array: ["a", "b", "c", "d"], startIndex: 0 });
  * // Returns: ["a", "b", "c", "d"]
  * ```
