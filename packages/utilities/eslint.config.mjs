@@ -1,3 +1,10 @@
-import { baseConfig } from "@entry-ui/eslint";
+import { baseConfig } from '@entry-ui/eslint';
 
-export default [...baseConfig];
+export default [
+  ...baseConfig,
+  {
+    rules: {
+      '@typescript-eslint/no-namespace': 'off',
+    },
+  },
+];
