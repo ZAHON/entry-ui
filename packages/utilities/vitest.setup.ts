@@ -1,5 +1,5 @@
 import { beforeEach } from 'vitest';
-import { resetAnimationFrameScheduler } from './src/reset-animation-frame-scheduler';
+import { resetAnimationFrameScheduler } from './src/scheduling/reset-animation-frame-scheduler';
 
 beforeEach(() => {
   // Reset the shared global animation frame scheduler to drop pending callbacks

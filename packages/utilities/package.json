@@ -14,9 +14,149 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./*": {
-      "types": "./dist/*/index.d.ts",
-      "import": "./dist/*/index.js"
+    "./wrap-array": {
+      "types": "./dist/array/wrap-array/index.d.ts",
+      "import": "./dist/array/wrap-array/index.js"
+    },
+    "./error": {
+      "types": "./dist/common/error/index.d.ts",
+      "import": "./dist/common/error/index.js"
+    },
+    "./fail": {
+      "types": "./dist/common/fail/index.d.ts",
+      "import": "./dist/common/fail/index.js"
+    },
+    "./warn": {
+      "types": "./dist/common/warn/index.d.ts",
+      "import": "./dist/common/warn/index.js"
+    },
+    "./add-event-listener-once": {
+      "types": "./dist/dom/add-event-listener-once/index.d.ts",
+      "import": "./dist/dom/add-event-listener-once/index.js"
+    },
+    "./copy-to-clipboard": {
+      "types": "./dist/dom/copy-to-clipboard/index.d.ts",
+      "import": "./dist/dom/copy-to-clipboard/index.js"
+    },
+    "./focus-element": {
+      "types": "./dist/dom/focus-element/index.d.ts",
+      "import": "./dist/dom/focus-element/index.js"
+    },
+    "./focus-first-element": {
+      "types": "./dist/dom/focus-first-element/index.d.ts",
+      "import": "./dist/dom/focus-first-element/index.js"
+    },
+    "./get-active-element": {
+      "types": "./dist/dom/get-active-element/index.d.ts",
+      "import": "./dist/dom/get-active-element/index.js"
+    },
+    "./get-document": {
+      "types": "./dist/dom/get-document/index.d.ts",
+      "import": "./dist/dom/get-document/index.js"
+    },
+    "./get-window": {
+      "types": "./dist/dom/get-window/index.d.ts",
+      "import": "./dist/dom/get-window/index.js"
+    },
+    "./has-window": {
+      "types": "./dist/dom/has-window/index.d.ts",
+      "import": "./dist/dom/has-window/index.js"
+    },
+    "./is-html-element": {
+      "types": "./dist/dom/is-html-element/index.d.ts",
+      "import": "./dist/dom/is-html-element/index.js"
+    },
+    "./is-overflow-element": {
+      "types": "./dist/dom/is-overflow-element/index.d.ts",
+      "import": "./dist/dom/is-overflow-element/index.js"
+    },
+    "./is-selectable-input": {
+      "types": "./dist/dom/is-selectable-input/index.d.ts",
+      "import": "./dist/dom/is-selectable-input/index.js"
+    },
+    "./clamp": {
+      "types": "./dist/number/clamp/index.d.ts",
+      "import": "./dist/number/clamp/index.js"
+    },
+    "./is-number": {
+      "types": "./dist/number/is-number/index.d.ts",
+      "import": "./dist/number/is-number/index.js"
+    },
+    "./is-shallow-subset": {
+      "types": "./dist/object/is-shallow-subset/index.d.ts",
+      "import": "./dist/object/is-shallow-subset/index.js"
+    },
+    "./get-platform": {
+      "types": "./dist/platform/get-platform/index.d.ts",
+      "import": "./dist/platform/get-platform/index.js"
+    },
+    "./get-user-agent": {
+      "types": "./dist/platform/get-user-agent/index.d.ts",
+      "import": "./dist/platform/get-user-agent/index.js"
+    },
+    "./is-ios": {
+      "types": "./dist/platform/is-ios/index.d.ts",
+      "import": "./dist/platform/is-ios/index.js"
+    },
+    "./is-test-environment-dom": {
+      "types": "./dist/platform/is-test-environment-dom/index.d.ts",
+      "import": "./dist/platform/is-test-environment-dom/index.js"
+    },
+    "./is-webkit": {
+      "types": "./dist/platform/is-webkit/index.d.ts",
+      "import": "./dist/platform/is-webkit/index.js"
+    },
+    "./create-animation-frame": {
+      "types": "./dist/scheduling/create-animation-frame/index.d.ts",
+      "import": "./dist/scheduling/create-animation-frame/index.js"
+    },
+    "./create-timeout": {
+      "types": "./dist/scheduling/create-timeout/index.d.ts",
+      "import": "./dist/scheduling/create-timeout/index.js"
+    },
+    "./reset-animation-frame-scheduler": {
+      "types": "./dist/scheduling/reset-animation-frame-scheduler/index.d.ts",
+      "import": "./dist/scheduling/reset-animation-frame-scheduler/index.js"
+    },
+    "./wait": {
+      "types": "./dist/scheduling/wait/index.d.ts",
+      "import": "./dist/scheduling/wait/index.js"
+    },
+    "./get-scroll-locker": {
+      "types": "./dist/scroll-lock/get-scroll-locker/index.d.ts",
+      "import": "./dist/scroll-lock/get-scroll-locker/index.js"
+    },
+    "./get-computed-style": {
+      "types": "./dist/style/get-computed-style/index.d.ts",
+      "import": "./dist/style/get-computed-style/index.js"
+    },
+    "./get-css-dimensions": {
+      "types": "./dist/style/get-css-dimensions/index.d.ts",
+      "import": "./dist/style/get-css-dimensions/index.js"
+    },
+    "./get-hidden-element-height": {
+      "types": "./dist/style/get-hidden-element-height/index.d.ts",
+      "import": "./dist/style/get-hidden-element-height/index.js"
+    },
+    "./merge-styles": {
+      "types": "./dist/style/merge-styles/index.d.ts",
+      "import": "./dist/style/merge-styles/index.js"
+    },
+    "./set-style": {
+      "types": "./dist/style/set-style/index.d.ts",
+      "import": "./dist/style/set-style/index.js"
+    },
+    "./set-style-property": {
+      "types": "./dist/style/set-style-property/index.d.ts",
+      "import": "./dist/style/set-style-property/index.js"
+    },
+    "./visually-hidden-input-style": {
+      "types": "./dist/style/visually-hidden-input-style/index.d.ts",
+      "import": "./dist/style/visually-hidden-input-style/index.js"
+    },
+    "./visually-hidden-style": {
+      "types": "./dist/style/visually-hidden-style/index.d.ts",
+      "import": "./dist/style/visually-hidden-style/index.js"
     }
   },
   "files": [

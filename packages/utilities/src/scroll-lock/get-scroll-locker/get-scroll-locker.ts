@@ -1,10 +1,10 @@
 import type { GetScrollLockerReturnValue } from './get-scroll-locker.types';
-import { createTimeout } from '../create-timeout';
-import { isViewportScrollLocked } from '../is-viewport-scroll-locked';
-import { isIos } from '../is-ios';
-import { hasInsetScrollbars } from '../has-inset-scrollbars';
-import { preventScrollOverlayScrollbars } from '../prevent-scroll-overlay-scrollbars';
-import { preventScrollInsetScrollbars } from '../prevent-scroll-inset-scrollbars';
+import { createTimeout } from '../../scheduling/create-timeout';
+import { isIos } from '../../platform/is-ios';
+import { isViewportScrollLocked } from '../_internal/is-viewport-scroll-locked';
+import { hasInsetScrollbars } from '../_internal/has-inset-scrollbars';
+import { preventScrollOverlayScrollbars } from '../_internal/prevent-scroll-overlay-scrollbars';
+import { preventScrollInsetScrollbars } from '../_internal/prevent-scroll-inset-scrollbars';
 
 /**
  * Creates an isolated, reference-counted viewport scroll locker instance.

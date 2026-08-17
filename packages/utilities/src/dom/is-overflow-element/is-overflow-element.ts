@@ -1,4 +1,4 @@
-import { getComputedStyle } from '../get-computed-style';
+import { getComputedStyle } from '../../style/get-computed-style';
 
 /**
  * Determines whether an element acts as an overflow or scroll container for its content.

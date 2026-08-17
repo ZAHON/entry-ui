@@ -1,5 +1,5 @@
 import type { SetStyleParams } from './set-style.types';
-import { isShallowSubset } from '../is-shallow-subset';
+import { isShallowSubset } from '../../object/is-shallow-subset';
 
 /**
  * Safely applies inline styles to an element and returns a cleanup function to revert changes.

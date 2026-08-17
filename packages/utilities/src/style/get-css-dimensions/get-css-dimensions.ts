@@ -1,6 +1,6 @@
 import type { GetCssDimensionsReturnValue } from './get-css-dimensions.types';
 import { getComputedStyle } from '../get-computed-style';
-import { isHTMLElement } from '../is-html-element';
+import { isHTMLElement } from '../../dom/is-html-element';
 
 /**
  * Calculates the visual dimensions of an element, reconciling CSS styles with layout geometry.

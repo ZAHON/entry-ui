@@ -1,6 +1,6 @@
 import type { PreventScrollInsetScrollbarsParams } from './prevent-scroll-inset-scrollbars.types';
-import { createAnimationFrame } from '../create-animation-frame';
-import { isWebKit } from '../is-webkit';
+import { createAnimationFrame } from '../../../scheduling/create-animation-frame';
+import { isWebKit } from '../../../platform/is-webkit';
 import { getViewportScroller } from '../get-viewport-scroller';
 import { isStableScrollbarGutterSupported } from '../is-stable-scrollbar-gutter-supported';
 

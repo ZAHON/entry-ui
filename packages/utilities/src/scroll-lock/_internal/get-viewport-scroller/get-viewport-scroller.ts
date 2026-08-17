@@ -1,5 +1,5 @@
 import type { GetViewportScrollerParams } from './get-viewport-scroller.types';
-import { isOverflowElement } from '../is-overflow-element';
+import { isOverflowElement } from '../../../dom/is-overflow-element';
 
 /**
  * Determines and returns the active element responsible for scrolling the document viewport.

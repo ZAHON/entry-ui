@@ -1,4 +1,4 @@
-import { getWindow } from '../get-window';
+import { getWindow } from '../../dom/get-window';
 
 /**
  * Retrieves the computed style properties for a specified HTML element.
