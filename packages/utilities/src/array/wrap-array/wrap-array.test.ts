@@ -74,6 +74,20 @@ describe('wrapArray', () => {
     expect(result).toEqual(['c', 'a', 'b']);
   });
 
+  it('should handle negative startIndex', () => {
+    const array = ['a', 'b', 'c', 'd'];
+    const result = wrapArray({ array, startIndex: -1 });
+
+    expect(result).toEqual(['d', 'a', 'b', 'c']);
+  });
+
+  it('should handle negative startIndex smaller than -array length', () => {
+    const array = ['a', 'b', 'c', 'd'];
+    const result = wrapArray({ array, startIndex: -6 });
+
+    expect(result).toEqual(['c', 'd', 'a', 'b']);
+  });
+
   it('should handle large arrays', () => {
     const array = Array.from({ length: 100 }, (_, i) => i);
     const result = wrapArray({ array, startIndex: 50 });
