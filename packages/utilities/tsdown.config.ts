@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: [
@@ -64,7 +64,6 @@ export default defineConfig({
   clean: true,
   minify: true,
   treeshake: true,
-  splitting: true,
   sourcemap: true,
   shims: true,
   outDir: 'dist',

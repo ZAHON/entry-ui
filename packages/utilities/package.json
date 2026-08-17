@@ -7,156 +7,156 @@
   "license": "MIT",
   "author": "ZAHON",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     },
     "./wrap-array": {
-      "types": "./dist/array/wrap-array/index.d.ts",
-      "import": "./dist/array/wrap-array/index.js"
+      "types": "./dist/array/wrap-array/index.d.mts",
+      "import": "./dist/array/wrap-array/index.mjs"
     },
     "./error": {
-      "types": "./dist/common/error/index.d.ts",
-      "import": "./dist/common/error/index.js"
+      "types": "./dist/common/error/index.d.mts",
+      "import": "./dist/common/error/index.mjs"
     },
     "./fail": {
-      "types": "./dist/common/fail/index.d.ts",
-      "import": "./dist/common/fail/index.js"
+      "types": "./dist/common/fail/index.d.mts",
+      "import": "./dist/common/fail/index.mjs"
     },
     "./warn": {
-      "types": "./dist/common/warn/index.d.ts",
-      "import": "./dist/common/warn/index.js"
+      "types": "./dist/common/warn/index.d.mts",
+      "import": "./dist/common/warn/index.mjs"
     },
     "./add-event-listener-once": {
-      "types": "./dist/dom/add-event-listener-once/index.d.ts",
-      "import": "./dist/dom/add-event-listener-once/index.js"
+      "types": "./dist/dom/add-event-listener-once/index.d.mts",
+      "import": "./dist/dom/add-event-listener-once/index.mjs"
     },
     "./copy-to-clipboard": {
-      "types": "./dist/dom/copy-to-clipboard/index.d.ts",
-      "import": "./dist/dom/copy-to-clipboard/index.js"
+      "types": "./dist/dom/copy-to-clipboard/index.d.mts",
+      "import": "./dist/dom/copy-to-clipboard/index.mjs"
     },
     "./focus-element": {
-      "types": "./dist/dom/focus-element/index.d.ts",
-      "import": "./dist/dom/focus-element/index.js"
+      "types": "./dist/dom/focus-element/index.d.mts",
+      "import": "./dist/dom/focus-element/index.mjs"
     },
     "./focus-first-element": {
-      "types": "./dist/dom/focus-first-element/index.d.ts",
-      "import": "./dist/dom/focus-first-element/index.js"
+      "types": "./dist/dom/focus-first-element/index.d.mts",
+      "import": "./dist/dom/focus-first-element/index.mjs"
     },
     "./get-active-element": {
-      "types": "./dist/dom/get-active-element/index.d.ts",
-      "import": "./dist/dom/get-active-element/index.js"
+      "types": "./dist/dom/get-active-element/index.d.mts",
+      "import": "./dist/dom/get-active-element/index.mjs"
     },
     "./get-document": {
-      "types": "./dist/dom/get-document/index.d.ts",
-      "import": "./dist/dom/get-document/index.js"
+      "types": "./dist/dom/get-document/index.d.mts",
+      "import": "./dist/dom/get-document/index.mjs"
     },
     "./get-window": {
-      "types": "./dist/dom/get-window/index.d.ts",
-      "import": "./dist/dom/get-window/index.js"
+      "types": "./dist/dom/get-window/index.d.mts",
+      "import": "./dist/dom/get-window/index.mjs"
     },
     "./has-window": {
-      "types": "./dist/dom/has-window/index.d.ts",
-      "import": "./dist/dom/has-window/index.js"
+      "types": "./dist/dom/has-window/index.d.mts",
+      "import": "./dist/dom/has-window/index.mjs"
     },
     "./is-html-element": {
-      "types": "./dist/dom/is-html-element/index.d.ts",
-      "import": "./dist/dom/is-html-element/index.js"
+      "types": "./dist/dom/is-html-element/index.d.mts",
+      "import": "./dist/dom/is-html-element/index.mjs"
     },
     "./is-overflow-element": {
-      "types": "./dist/dom/is-overflow-element/index.d.ts",
-      "import": "./dist/dom/is-overflow-element/index.js"
+      "types": "./dist/dom/is-overflow-element/index.d.mts",
+      "import": "./dist/dom/is-overflow-element/index.mjs"
     },
     "./is-selectable-input": {
-      "types": "./dist/dom/is-selectable-input/index.d.ts",
-      "import": "./dist/dom/is-selectable-input/index.js"
+      "types": "./dist/dom/is-selectable-input/index.d.mts",
+      "import": "./dist/dom/is-selectable-input/index.mjs"
     },
     "./clamp": {
-      "types": "./dist/number/clamp/index.d.ts",
-      "import": "./dist/number/clamp/index.js"
+      "types": "./dist/number/clamp/index.d.mts",
+      "import": "./dist/number/clamp/index.mjs"
     },
     "./is-number": {
-      "types": "./dist/number/is-number/index.d.ts",
-      "import": "./dist/number/is-number/index.js"
+      "types": "./dist/number/is-number/index.d.mts",
+      "import": "./dist/number/is-number/index.mjs"
     },
     "./is-shallow-subset": {
-      "types": "./dist/object/is-shallow-subset/index.d.ts",
-      "import": "./dist/object/is-shallow-subset/index.js"
+      "types": "./dist/object/is-shallow-subset/index.d.mts",
+      "import": "./dist/object/is-shallow-subset/index.mjs"
     },
     "./get-platform": {
-      "types": "./dist/platform/get-platform/index.d.ts",
-      "import": "./dist/platform/get-platform/index.js"
+      "types": "./dist/platform/get-platform/index.d.mts",
+      "import": "./dist/platform/get-platform/index.mjs"
     },
     "./get-user-agent": {
-      "types": "./dist/platform/get-user-agent/index.d.ts",
-      "import": "./dist/platform/get-user-agent/index.js"
+      "types": "./dist/platform/get-user-agent/index.d.mts",
+      "import": "./dist/platform/get-user-agent/index.mjs"
     },
     "./is-ios": {
-      "types": "./dist/platform/is-ios/index.d.ts",
-      "import": "./dist/platform/is-ios/index.js"
+      "types": "./dist/platform/is-ios/index.d.mts",
+      "import": "./dist/platform/is-ios/index.mjs"
     },
     "./is-test-environment-dom": {
-      "types": "./dist/platform/is-test-environment-dom/index.d.ts",
-      "import": "./dist/platform/is-test-environment-dom/index.js"
+      "types": "./dist/platform/is-test-environment-dom/index.d.mts",
+      "import": "./dist/platform/is-test-environment-dom/index.mjs"
     },
     "./is-webkit": {
-      "types": "./dist/platform/is-webkit/index.d.ts",
-      "import": "./dist/platform/is-webkit/index.js"
+      "types": "./dist/platform/is-webkit/index.d.mts",
+      "import": "./dist/platform/is-webkit/index.mjs"
     },
     "./create-animation-frame": {
-      "types": "./dist/scheduling/create-animation-frame/index.d.ts",
-      "import": "./dist/scheduling/create-animation-frame/index.js"
+      "types": "./dist/scheduling/create-animation-frame/index.d.mts",
+      "import": "./dist/scheduling/create-animation-frame/index.mjs"
     },
     "./create-timeout": {
-      "types": "./dist/scheduling/create-timeout/index.d.ts",
-      "import": "./dist/scheduling/create-timeout/index.js"
+      "types": "./dist/scheduling/create-timeout/index.d.mts",
+      "import": "./dist/scheduling/create-timeout/index.mjs"
     },
     "./reset-animation-frame-scheduler": {
-      "types": "./dist/scheduling/reset-animation-frame-scheduler/index.d.ts",
-      "import": "./dist/scheduling/reset-animation-frame-scheduler/index.js"
+      "types": "./dist/scheduling/reset-animation-frame-scheduler/index.d.mts",
+      "import": "./dist/scheduling/reset-animation-frame-scheduler/index.mjs"
     },
     "./wait": {
-      "types": "./dist/scheduling/wait/index.d.ts",
-      "import": "./dist/scheduling/wait/index.js"
+      "types": "./dist/scheduling/wait/index.d.mts",
+      "import": "./dist/scheduling/wait/index.mjs"
     },
     "./get-scroll-locker": {
-      "types": "./dist/scroll-lock/get-scroll-locker/index.d.ts",
-      "import": "./dist/scroll-lock/get-scroll-locker/index.js"
+      "types": "./dist/scroll-lock/get-scroll-locker/index.d.mts",
+      "import": "./dist/scroll-lock/get-scroll-locker/index.mjs"
     },
     "./get-computed-style": {
-      "types": "./dist/style/get-computed-style/index.d.ts",
-      "import": "./dist/style/get-computed-style/index.js"
+      "types": "./dist/style/get-computed-style/index.d.mts",
+      "import": "./dist/style/get-computed-style/index.mjs"
     },
     "./get-css-dimensions": {
-      "types": "./dist/style/get-css-dimensions/index.d.ts",
-      "import": "./dist/style/get-css-dimensions/index.js"
+      "types": "./dist/style/get-css-dimensions/index.d.mts",
+      "import": "./dist/style/get-css-dimensions/index.mjs"
     },
     "./get-hidden-element-height": {
-      "types": "./dist/style/get-hidden-element-height/index.d.ts",
-      "import": "./dist/style/get-hidden-element-height/index.js"
+      "types": "./dist/style/get-hidden-element-height/index.d.mts",
+      "import": "./dist/style/get-hidden-element-height/index.mjs"
     },
     "./merge-styles": {
-      "types": "./dist/style/merge-styles/index.d.ts",
-      "import": "./dist/style/merge-styles/index.js"
+      "types": "./dist/style/merge-styles/index.d.mts",
+      "import": "./dist/style/merge-styles/index.mjs"
     },
     "./set-style": {
-      "types": "./dist/style/set-style/index.d.ts",
-      "import": "./dist/style/set-style/index.js"
+      "types": "./dist/style/set-style/index.d.mts",
+      "import": "./dist/style/set-style/index.mjs"
     },
     "./set-style-property": {
-      "types": "./dist/style/set-style-property/index.d.ts",
-      "import": "./dist/style/set-style-property/index.js"
+      "types": "./dist/style/set-style-property/index.d.mts",
+      "import": "./dist/style/set-style-property/index.mjs"
     },
     "./visually-hidden-input-style": {
-      "types": "./dist/style/visually-hidden-input-style/index.d.ts",
-      "import": "./dist/style/visually-hidden-input-style/index.js"
+      "types": "./dist/style/visually-hidden-input-style/index.d.mts",
+      "import": "./dist/style/visually-hidden-input-style/index.mjs"
     },
     "./visually-hidden-style": {
-      "types": "./dist/style/visually-hidden-style/index.d.ts",
-      "import": "./dist/style/visually-hidden-style/index.js"
+      "types": "./dist/style/visually-hidden-style/index.d.mts",
+      "import": "./dist/style/visually-hidden-style/index.mjs"
     }
   },
   "files": [
@@ -175,7 +175,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "bun run lint && bun run clean && tsup",
+    "build": "bun run lint && bun run clean && tsdown",
     "clean": "rm -rf dist",
     "fmt": "prettier --write . --ignore-path ../../.prettierignore",
     "fmt:check": "prettier --check . --ignore-path ../../.prettierignore",
@@ -191,7 +191,7 @@
     "eslint": "^10.4.1",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.4",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.22.14",
     "typescript": "^6.0.3",
     "vitest": "^4.1.8"
   }
