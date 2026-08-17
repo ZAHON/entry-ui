@@ -34,7 +34,6 @@ export * from './prevent-body-scroll';
 export * from './prevent-scroll-inset-scrollbars';
 export * from './prevent-scroll-overlay-scrollbars';
 export * from './reset-animation-frame-scheduler';
-export * from './scroll-into-view-if-needed';
 export * from './set-style';
 export * from './set-style-property';
 export * from './visually-hidden-input-style';
