@@ -23,5 +23,19 @@ import type { WrapArrayParams } from './wrap-array.types';
 export const wrapArray = <T>(params: WrapArrayParams<T>) => {
   const { array, startIndex } = params;
 
-  return array.map<T>((_, index) => array[(startIndex + index) % array.length]!);
+  const arrayLength = array.length;
+
+  if (arrayLength === 0) {
+    return [];
+  }
+
+  const normalizedIndex = ((startIndex % arrayLength) + arrayLength) % arrayLength;
+
+  const result = new Array<T>(arrayLength);
+
+  for (let i = 0; i < arrayLength; i++) {
+    result[i] = array[(normalizedIndex + i) % arrayLength]!;
+  }
+
+  return result;
 };
