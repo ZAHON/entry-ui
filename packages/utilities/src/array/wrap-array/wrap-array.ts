@@ -56,12 +56,11 @@ export const wrapArray = <T>(params: WrapArrayParams<T>) => {
 
 export namespace wrapArray {
   /**
-   * Configuration object for the `wrapArray` utility.
+   * Represents the configuration parameters required by the `wrapArray` utility.
    *
-   * This interface defines the necessary parameters to perform a circular shift
-   * on a generic collection. It ensures type safety by leveraging a generic type `T`,
-   * allowing the utility to maintain the integrity of the array elements throughout
-   * the rearrangement process.
+   * This interface defines the essential input fields needed to perform a circular shift on a generic collection.
+   * It enforces type safety and immutability across the operation by pairing a target source array with an
+   * explicit starting index identifier.
    */
   export type Params<T> = WrapArrayParams<T>;
 }
