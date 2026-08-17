@@ -53,3 +53,15 @@ export const wrapArray = <T>(params: WrapArrayParams<T>) => {
   // The original array remains completely untouched ensuring pure immutability.
   return result;
 };
+
+export namespace wrapArray {
+  /**
+   * Configuration object for the `wrapArray` utility.
+   *
+   * This interface defines the necessary parameters to perform a circular shift
+   * on a generic collection. It ensures type safety by leveraging a generic type `T`,
+   * allowing the utility to maintain the integrity of the array elements throughout
+   * the rearrangement process.
+   */
+  export type Params<T> = WrapArrayParams<T>;
+}
