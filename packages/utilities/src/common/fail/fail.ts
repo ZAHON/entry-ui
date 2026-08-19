@@ -33,3 +33,14 @@ export const fail = (params: FailParams) => {
   // This immediately halts execution and propagates the exception up the call stack.
   throw new Error(`${prefix} ${message}`);
 };
+
+export namespace fail {
+  /**
+   * Represents the configuration parameters required by the `fail` utility.
+   *
+   * This interface defines the essential payload fields needed to construct and throw consistent error exceptions.
+   * It enforces a unified error-handling structure across the codebase by pairing an explicit component prefix
+   * with an array of contextual message fragments.
+   */
+  export type Params = FailParams;
+}
