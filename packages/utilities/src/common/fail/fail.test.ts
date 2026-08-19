@@ -5,19 +5,19 @@ describe('fail', () => {
   it('should throw an error with prefix and joined messages', () => {
     expect(() => {
       fail({ prefix: '[Core]', messages: ['Critical', 'failure', 'detected.'] });
-    }).toThrowError('[Core] Critical failure detected.');
+    }).toThrow('[Core] Critical failure detected.');
   });
 
   it('should throw an error with single message', () => {
     expect(() => {
       fail({ prefix: '[Auth]', messages: ['Unauthorized'] });
-    }).toThrowError('[Auth] Unauthorized');
+    }).toThrow('[Auth] Unauthorized');
   });
 
   it('should throw an error with empty messages array', () => {
     expect(() => {
       fail({ prefix: '[Error]', messages: [] });
-    }).toThrowError('[Error] ');
+    }).toThrow('[Error] ');
   });
 
   it('should throw an error with multiple word messages', () => {
@@ -26,7 +26,7 @@ describe('fail', () => {
         prefix: '[Database]',
         messages: ['Connection failed', 'to server', 'localhost:5432'],
       });
-    }).toThrowError('[Database] Connection failed to server localhost:5432');
+    }).toThrow('[Database] Connection failed to server localhost:5432');
   });
 
   it('should throw an error with special characters in messages', () => {
@@ -35,7 +35,7 @@ describe('fail', () => {
         prefix: '[Validation]',
         messages: ['Invalid input:', 'expected <string>', 'got null'],
       });
-    }).toThrowError('[Validation] Invalid input: expected <string> got null');
+    }).toThrow('[Validation] Invalid input: expected <string> got null');
   });
 
   it('should throw an Error instance', () => {
