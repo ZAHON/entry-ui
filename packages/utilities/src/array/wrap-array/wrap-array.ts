@@ -13,9 +13,9 @@ import type { WrapArrayParams } from './wrap-array.types';
  * wrapArray({ array: ["a", "b", "c", "d"], startIndex: 2 });
  * // Returns: ["c", "d", "a", "b"]
  *
- * // Shift starting from the last element (index 3).
- * wrapArray({ array: ["a", "b", "c", "d"], startIndex: 3 });
- * // Returns: ["d", "a", "b", "c"]
+ * // Shift starting from index -3 (equivalent to index 1).
+ * wrapArray({ array: ["a", "b", "c", "d"], startIndex: -3 });
+ * // Returns: ["b", "c", "d", "a"]
  *
  * // Zero shift returning a copy in original order.
  * wrapArray({ array: ["a", "b", "c", "d"], startIndex: 0 });
