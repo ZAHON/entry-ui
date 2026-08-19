@@ -67,4 +67,5 @@ export default defineConfig({
   sourcemap: true,
   shims: true,
   outDir: 'dist',
+  platform: 'neutral',
 });
