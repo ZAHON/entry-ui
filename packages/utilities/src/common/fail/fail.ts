@@ -9,8 +9,17 @@ import type { FailParams } from './fail.types';
  *
  * @example
  * ```ts
+ * // Standard usage with a component prefix and multiple message parts.
  * fail({ prefix: "[Core]", messages: ["Critical", "failure", "detected."] });
  * // Throws: Error: [Core] Critical failure detected.
+ *
+ * // Throwing an error with a single message element.
+ * fail({ prefix: "[Auth]", messages: ["Unauthorized access attempt."] });
+ * // Throws: Error: [Auth] Unauthorized access attempt.
+ *
+ * // Passing an empty messages array for a minimal header exception.
+ * fail({ prefix: "[Database]", messages: [] });
+ * // Throws: Error: [Database]
  * ```
  */
 export const fail = (params: FailParams) => {
