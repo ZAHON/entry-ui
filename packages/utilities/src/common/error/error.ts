@@ -32,3 +32,14 @@ export const error = (params: ErrorParams) => {
   // The prefix is attached at the beginning to clearly indicate the error source.
   console.error(`${prefix} ${message}`);
 };
+
+export namespace error {
+  /**
+   * Represents the configuration parameters required by the `error` utility.
+   *
+   * This interface defines the essential payload fields needed to format and emit consistent console errors.
+   * It enforces a unified logging structure across the codebase by pairing an explicit component prefix
+   * with an array of contextual message fragments.
+   */
+  export type Params = ErrorParams;
+}
