@@ -1,6 +1,8 @@
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({
+  // Entry points configuration defining build targets.
+  // Specifies both main package entry and individual utility modules for granular exports.
   entry: [
     // main entry point
     'src/index.ts',
@@ -59,13 +61,40 @@ export default defineConfig({
     'src/style/visually-hidden-input-style/index.ts',
     'src/style/visually-hidden-style/index.ts',
   ],
+
+  // Specifies the output module format for the bundle.
+  // Enforces ECMAScript module standard for modern bundlers and runtime import statements.
   format: 'esm',
-  dts: true,
-  clean: true,
-  minify: true,
-  treeshake: true,
-  sourcemap: true,
-  shims: true,
-  outDir: 'dist',
+
+  // Defines the target deployment environment for the compiled code.
+  // Prevents environment-specific assumptions to generate runtime-agnostic code artifacts.
   platform: 'neutral',
+
+  // Sets the target directory path for compiled build artifacts.
+  // Stores all generated bundle files, declaration files, and sourcemaps in a single location.
+  outDir: 'dist',
+
+  // Controls the automatic generation of TypeScript type definition files.
+  // Produces strongly-typed `.d.ts` declaration files alongside bundled JavaScript assets.
+  dts: true,
+
+  // Enables external source map generation for step-through debugging.
+  // Maps original TypeScript source files to production bundles for simplified stack traces.
+  sourcemap: true,
+
+  // Clears the output directory before executing a new build run.
+  // Ensures stale artifacts from previous builds are purged to prevent release pollution.
+  clean: true,
+
+  // Applies code compression and variable renaming algorithms.
+  // Reduces overall bundle size by stripping whitespace, comments, and unused identifiers.
+  treeshake: true,
+
+  // Removes unused exports and unreachable code branches.
+  // Performs static code analysis to eliminate dead code and minimize final bundle weight.
+  minify: true,
+
+  // Injects compatibility polyfills for environment-specific globals.
+  // Guarantees consistent availability of core features across browser and Node runtimes.
+  shims: true,
 });
