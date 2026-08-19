@@ -16,7 +16,11 @@ import type { FailParams } from './fail.types';
 export const fail = (params: FailParams) => {
   const { prefix, messages } = params;
 
+  // Combine all individual message fragments into a single continuous string.
+  // Each segment is separated by a space to construct a readable failure description.
   const message = messages.join(' ');
 
+  // Instantiate and throw a native `Error` containing the formatted prefix and message.
+  // This immediately halts execution and propagates the exception up the call stack.
   throw new Error(`${prefix} ${message}`);
 };
