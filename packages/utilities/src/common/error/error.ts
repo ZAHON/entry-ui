@@ -8,8 +8,17 @@ import type { ErrorParams } from './error.types';
  *
  * @example
  * ```ts
+ * // Standard usage with a component prefix and multiple message parts.
  * error({ prefix: "[Parser]", messages: ["Failed to", "process", "the style string."] });
  * // Console outputs: [Parser] Failed to process the style string.
+ *
+ * // Formatting an error message with a single message element.
+ * error({ prefix: "[Auth]", messages: ["Invalid token provided."] });
+ * // Console outputs: [Auth] Invalid token provided.
+ *
+ * // Passing an empty messages array for a minimal header notice.
+ * error({ prefix: "[Database]", messages: [] });
+ * // Console outputs: [Database]
  * ```
  */
 export const error = (params: ErrorParams) => {
