@@ -18,10 +18,17 @@ The `error` utility is designed to standardize how errors are reported across yo
 ```ts
 import { error } from '@entry-ui/utilities/error';
 
+// Standard usage with a component prefix and multiple message parts.
 error({ prefix: '[Parser]', messages: ['Failed to', 'process', 'the style string.'] });
+// Console outputs: [Parser] Failed to process the style string.
 
-// Console outputs:
-// [Parser] Failed to process the style string.
+// Formatting an error message with a single message element.
+error({ prefix: '[Auth]', messages: ['Invalid token provided.'] });
+// Console outputs: [Auth] Invalid token provided.
+
+// Passing an empty messages array for a minimal header notice.
+error({ prefix: '[Database]', messages: [] });
+// Console outputs: [Database]
 ```
 
 ## API reference
@@ -30,12 +37,12 @@ This section provides a detailed technical overview of the `error` function, inc
 
 ### Parameters
 
-The `error` function accepts a single object as its parameter, with the following properties (required properties are marked with an asterisk `*`):
+The `error` function accepts a single configuration object as its parameter to define the log prefix and contextual details, where all properties are required and marked with an asterisk (`*`):
 
 | Property    | Type       | Default | Description                                                                                                                                            |
 | :---------- | :--------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `prefix*`   | `string`   | `-`     | A string that identifies the origin or category of the error. Prepended to the logged error message to provide context about where the issue occurred. |
-| `messages*` | `string[]` | `-`     | An array of message segments that will be joined with a space. Useful for constructing a detailed error description from multiple parts.               |
+| `prefix*`   | `string`   | `—`     | A string that identifies the origin or category of the error. Prepended to the logged error message to provide context about where the issue occurred. |
+| `messages*` | `string[]` | `—`     | An array of message segments that will be joined with a space. Useful for constructing a detailed error description from multiple parts.               |
 
 ### Returns
 
