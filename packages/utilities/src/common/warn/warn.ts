@@ -24,7 +24,11 @@ import type { WarnParams } from './warn.types';
 export const warn = (params: WarnParams) => {
   const { prefix, messages } = params;
 
+  // Combine all individual message fragments into a single continuous string.
+  // Each segment is separated by a space to construct a readable sentence.
   const message = messages.join(' ');
 
+  // Output the formatted warning to the browser or Node.js console using `console.warn`.
+  // The prefix is attached at the beginning to clearly indicate the warning source.
   console.warn(`${prefix} ${message}`);
 };
