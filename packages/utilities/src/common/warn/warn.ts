@@ -32,3 +32,14 @@ export const warn = (params: WarnParams) => {
   // The prefix is attached at the beginning to clearly indicate the warning source.
   console.warn(`${prefix} ${message}`);
 };
+
+export namespace warn {
+  /**
+   * Represents the configuration parameters required by the `warn` utility.
+   *
+   * This interface defines the essential payload fields needed to format and emit consistent console warnings.
+   * It enforces a unified logging structure across the codebase by pairing an explicit component prefix
+   * with an array of contextual message fragments.
+   */
+  export type Params = WarnParams;
+}
