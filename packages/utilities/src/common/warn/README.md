@@ -1,6 +1,6 @@
 # warn
 
-Logs a formatted warning message to the console.
+Logs a formatted warning message to the console with a specific prefix.
 
 [![Source](https://img.shields.io/badge/Source-GitHub-gray?logo=github)](https://github.com/ZAHON/entry-ui/tree/main/packages/utilities/src/warn)
 [![Issue](https://img.shields.io/badge/Report-Issue-red?logo=github)](https://github.com/ZAHON/entry-ui/issues/new?title=[Entry%20UI%20Utilities%20warn]%20Issue)
@@ -18,10 +18,17 @@ The `warn` utility is designed to communicate non-critical issues or reminders t
 ```ts
 import { warn } from '@entry-ui/utilities/warn';
 
+// Standard usage with a component prefix and multiple message parts.
 warn({ prefix: '[Validator]', messages: ['The property', 'color', 'is deprecated.'] });
+// Console outputs: [Validator] The property color is deprecated.
 
-// Console outputs:
-// [Validator] The property color is deprecated.
+// Formatting a warning message with a single message element.
+warn({ prefix: '[Deprecation]', messages: ['Feature will be removed in v2.0.'] });
+// Console outputs: [Deprecation] Feature will be removed in v2.0.
+
+// Passing an empty messages array for a minimal header notice.
+warn({ prefix: '[Config]', messages: [] });
+// Console outputs: [Config]
 ```
 
 ## API reference
@@ -30,12 +37,12 @@ This section provides a detailed technical overview of the `warn` function, incl
 
 ### Parameters
 
-The `warn` function accepts a single object as its parameter, with the following properties (required properties are marked with an asterisk `*`):
+The `warn` function accepts a single configuration object as its parameter to define the log prefix and contextual details, where all properties are required and marked with an asterisk (`*`):
 
 | Property    | Type       | Default | Description                                                                                                                                 |
 | :---------- | :--------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------ |
-| `prefix*`   | `string`   | `-`     | A string that identifies the origin or category of the warning. Usually displayed at the beginning of the log message for easier filtering. |
-| `messages*` | `string[]` | `-`     | An array of message segments that will be joined together into a single string. Allows for clean passing of multiple log parts.             |
+| `prefix*`   | `string`   | `—`     | A string that identifies the origin or category of the warning. Usually displayed at the beginning of the log message for easier filtering. |
+| `messages*` | `string[]` | `—`     | An array of message segments that will be joined together into a single string. Allows for clean passing of multiple log parts.             |
 
 ### Returns
 
