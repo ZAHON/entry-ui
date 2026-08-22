@@ -18,7 +18,6 @@
  * // Returns: false
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isNumber = (value: any): value is number => {
+export const isNumber = (value: unknown): value is number => {
   return typeof value === 'number' && !Number.isNaN(value);
 };
