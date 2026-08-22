@@ -1,11 +1,10 @@
 import type { WarnParams } from './warn.types';
 
 /**
- * Logs a formatted warning message to the console.
+ * Logs a formatted warning message to the console with a specific prefix.
  *
- * This function is a wrapper around `console.warn` that joins multiple
- * message segments into a single string and prepends the specified prefix
- * for clear identification in the console output.
+ * This utility helps maintain consistent warning reporting by joining multiple
+ * message segments and tagging them with a clear origin identifier.
  *
  * @example
  * ```ts
