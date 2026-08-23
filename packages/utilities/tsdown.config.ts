@@ -16,6 +16,7 @@ export default defineConfig({
     'src/common/warn/index.ts',
 
     // dom
+    'src/dom/add-event-listener/index.ts',
     'src/dom/add-event-listener-once/index.ts',
     'src/dom/copy-to-clipboard/index.ts',
     'src/dom/focus-element/index.ts',

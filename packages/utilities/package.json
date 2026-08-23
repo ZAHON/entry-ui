@@ -30,6 +30,10 @@
       "types": "./dist/common/warn/index.d.ts",
       "import": "./dist/common/warn/index.js"
     },
+    "./add-event-listener": {
+      "types": "./dist/dom/add-event-listener/index.d.ts",
+      "import": "./dist/dom/add-event-listener/index.js"
+    },
     "./add-event-listener-once": {
       "types": "./dist/dom/add-event-listener-once/index.d.ts",
       "import": "./dist/dom/add-event-listener-once/index.js"

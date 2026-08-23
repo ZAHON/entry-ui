@@ -1,3 +1,4 @@
+export * from './add-event-listener';
 export * from './add-event-listener-once';
 export * from './copy-to-clipboard';
 export * from './focus-element';
