@@ -20,5 +20,13 @@ import type { IsShallowSubsetParams } from './is-shallow-subset.types';
 export const isShallowSubset = (params: IsShallowSubsetParams) => {
   const { source, target } = params;
 
-  return Object.keys(source).every((key) => source[key] === target[key]);
+  for (const key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      if (source[key] !== target[key]) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 };
