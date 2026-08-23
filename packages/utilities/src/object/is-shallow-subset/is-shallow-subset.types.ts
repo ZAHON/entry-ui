@@ -1,5 +1,5 @@
 /**
- * Configuration object for the `isShallowSubset` utility.
+ * Represents the configuration parameters required by the `isShallowSubset` utility.
  *
  * This interface defines the parameters required to perform a shallow comparison
  * between two objects. It facilitates a partial equality check by focusing
