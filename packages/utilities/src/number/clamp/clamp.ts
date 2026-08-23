@@ -9,12 +9,15 @@ import type { ClampParams } from './clamp.types';
  *
  * @example
  * ```ts
+ * // Values exceeding the maximum boundary return the maximum threshold.
  * clamp({ value: 150, min: 0, max: 100 });
  * // Returns: 100
  *
+ * // Values below the minimum boundary return the minimum threshold.
  * clamp({ value: -20, min: 0, max: 100 });
  * // Returns: 0
  *
+ * // Values within the valid boundary range are returned unchanged.
  * clamp({ value: 50, min: 0, max: 100 });
  * // Returns: 50
  * ```
