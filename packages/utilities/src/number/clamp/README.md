@@ -29,29 +29,32 @@ The function applies the following mathematical constraints:
 ```ts
 import { clamp } from '@entry-ui/utilities/clamp';
 
+// Values exceeding the maximum boundary return the maximum threshold.
 clamp({ value: 150, min: 0, max: 100 });
 // Returns: 100
 
+// Values below the minimum boundary return the minimum threshold.
 clamp({ value: -20, min: 0, max: 100 });
 // Returns: 0
 
+// Values within the valid boundary range are returned unchanged.
 clamp({ value: 50, min: 0, max: 100 });
 // Returns: 50
 ```
 
 ## API reference
 
-This section provides a detailed technical overview of the `clamp` function, its requirements, and its error-handling behavior.
+This section provides a detailed technical overview of the `clamp` utility, its configuration properties, and its return values.
 
 ### Parameters
 
-The `clamp` function accepts a single configuration object as its parameter. This object contains the following properties, where those marked with an asterisk (`*`) are required for the utility to function correctly:
+The `clamp` function accepts a single configuration object as its parameter to define the target value and range boundaries, where all properties are required and marked with an asterisk (`*`):
 
 | Property | Type     | Default | Description                                                                                 |
 | :------- | :------- | :------ | :------------------------------------------------------------------------------------------ |
-| `value*` | `number` | `-`     | The numerical value to be restricted within the specified range.                            |
-| `min*`   | `number` | `-`     | The lower bound of the range. If `value` is less than `min`, the function returns `min`.    |
-| `max*`   | `number` | `-`     | The upper bound of the range. If `value` is greater than `max`, the function returns `max`. |
+| `value*` | `number` | `—`     | The numerical value to be restricted within the specified range.                            |
+| `min*`   | `number` | `—`     | The lower bound of the range. If `value` is less than `min`, the function returns `min`.    |
+| `max*`   | `number` | `—`     | The upper bound of the range. If `value` is greater than `max`, the function returns `max`. |
 
 ### Returns
 
