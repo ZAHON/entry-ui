@@ -17,5 +17,7 @@
  * ```
  */
 export const isSelectableInput = (element: HTMLElement) => {
+  // Verify that the provided `element` is an `HTMLInputElement` instance and supports the native `select` method.
+  // This guards against invoking text selection on unsupported input types (such as date or color inputs).
   return element instanceof HTMLInputElement && 'select' in element;
 };
