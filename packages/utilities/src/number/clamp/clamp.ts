@@ -22,5 +22,7 @@ import type { ClampParams } from './clamp.types';
 export const clamp = (params: ClampParams) => {
   const { value, min, max } = params;
 
+  // Restrict the `value` to the lower boundary first,
+  // then cap the result to ensure it does not exceed the upper boundary.
   return Math.min(max, Math.max(min, value));
 };
