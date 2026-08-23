@@ -12,8 +12,7 @@ export interface IsShallowSubsetParams {
    * The utility iterates only over the keys defined in this object to determine
    * if the target satisfies the subset criteria.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  source: Record<string, any>;
+  source: Record<string, unknown>;
 
   /**
    * The target object to be inspected against the source.
@@ -21,6 +20,5 @@ export interface IsShallowSubsetParams {
    * source with strictly equal values (`===`). Any additional properties present
    * in the target that are missing from the source are ignored.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  target: Record<string, any>;
+  target: Record<string, unknown>;
 }
