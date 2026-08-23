@@ -15,7 +15,7 @@ import { isWebKit } from '@entry-ui/utilities/is-webkit';
 
 The `isWebKit` utility provides a reliable feature-detection mechanism to identify WebKit-based browser environments (such as [**Safari**](https://www.apple.com/safari/), [**all iOS browsers**](https://developer.apple.com/documentation/webkit), or [**GNOME Web**](https://apps.gnome.org/Epiphany/)) while excluding Blink-based browsers.
 
-[**Blink**](https://www.chromium.org/blink/) forked from [**WebKit**](https://webkit.org/) in 2013 and only supports the unprefixed `backdrop-filter` property. In contrast, WebKit retains support for the legacy `-webkit-backdrop-filter` vendor prefix. This utility leverages `CSS.supports` to check for `-webkit-backdrop-filter: "none"`, offering a lightweight and robust engine check.
+[**Blink**](https://www.chromium.org/blink/) forked from [**WebKit**](https://webkit.org/) in 2013 and only supports the unprefixed `backdrop-filter` property. In contrast, WebKit retains support for the legacy `-webkit-backdrop-filter` vendor prefix. This utility leverages `CSS.supports` to check for `-webkit-backdrop-filter: none`, offering a lightweight and robust engine check.
 
 ```ts
 import { isWebKit } from '@entry-ui/utilities/is-webkit';
