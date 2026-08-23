@@ -34,10 +34,6 @@
       "types": "./dist/dom/add-event-listener/index.d.ts",
       "import": "./dist/dom/add-event-listener/index.js"
     },
-    "./add-event-listener-once": {
-      "types": "./dist/dom/add-event-listener-once/index.d.ts",
-      "import": "./dist/dom/add-event-listener-once/index.js"
-    },
     "./copy-to-clipboard": {
       "types": "./dist/dom/copy-to-clipboard/index.d.ts",
       "import": "./dist/dom/copy-to-clipboard/index.js"

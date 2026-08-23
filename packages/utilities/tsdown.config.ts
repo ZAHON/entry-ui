@@ -17,7 +17,6 @@ export default defineConfig({
 
     // dom
     'src/dom/add-event-listener/index.ts',
-    'src/dom/add-event-listener-once/index.ts',
     'src/dom/copy-to-clipboard/index.ts',
     'src/dom/focus-element/index.ts',
     'src/dom/focus-first-element/index.ts',
