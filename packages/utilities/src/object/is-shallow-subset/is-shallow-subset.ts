@@ -20,13 +20,21 @@ import type { IsShallowSubsetParams } from './is-shallow-subset.types';
 export const isShallowSubset = (params: IsShallowSubsetParams) => {
   const { source, target } = params;
 
+  // Iterate over enumerable properties of the `source` object.
+  // Using a `for...in` loop prevents creating temporary key arrays in memory.
   for (const key in source) {
+    // Confirm that the property belongs directly to the `source` object.
+    // This safeguards against evaluating inherited prototype properties.
     if (Object.prototype.hasOwnProperty.call(source, key)) {
+      // Perform a strict equality check between `source` and `target` properties.
+      // Trigger an early return as soon as a value mismatch is encountered.
       if (source[key] !== target[key]) {
         return false;
       }
     }
   }
 
+  // Return `true` after successfully verifying all `source` properties.
+  // Reaching this line guarantees that the `target` contains a matching subset.
   return true;
 };
