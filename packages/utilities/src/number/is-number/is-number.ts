@@ -22,5 +22,7 @@
  * ```
  */
 export const isNumber = (value: unknown): value is number => {
+  // Verify that the target value has a primitive numeric type first.
+  // Then, explicitly filter out `NaN` values to ensure safe arithmetic usage.
   return typeof value === 'number' && !Number.isNaN(value);
 };
