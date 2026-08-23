@@ -45,8 +45,9 @@ export namespace isShallowSubset {
   /**
    * Represents the configuration parameters required by the `isShallowSubset` utility.
    *
-   * This interface defines the essential payload fields needed to verify partial key-value equality between objects.
-   * It enforces a unified parameter structure across the codebase by pairing a baseline source reference with a target comparison object.
+   * This interface defines the essential payload fields needed to verify partial key-value equality
+   * between objects. It enforces a unified parameter structure across the codebase by pairing
+   * a baseline source reference with a target comparison object.
    */
   export type Params = IsShallowSubsetParams;
 }
