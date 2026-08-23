@@ -10,10 +10,12 @@ import type { IsShallowSubsetParams } from './is-shallow-subset.types';
  *
  * @example
  * ```ts
+ * // Target contains all key-value pairs defined in source.
  * isShallowSubset({ source: { id: 1 }, target: { id: 1, name: "John" } });
  * // Returns: true
  *
- * isShallowSubset({ source: { id: 1, type: 'admin' }, target: { id: 1 } });
+ * // Target is missing a required property or value does not match.
+ * isShallowSubset({ source: { id: 1, type: "admin" }, target: { id: 1 } });
  * // Returns: false
  * ```
  */
