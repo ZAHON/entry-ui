@@ -13,16 +13,16 @@ import { isSelectableInput } from '@entry-ui/utilities/is-selectable-input';
 
 ## Usage
 
-The `isSelectableInput` utility acts as a TypeScript type guard to safely identify elements that support the native `.select()` method. While many HTML elements are part of the DOM, only specific input types allow for programmatic text selection.
+The `isSelectableInput` utility acts as a TypeScript type guard to safely identify elements that support the native [`select`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select) method. While many HTML elements are part of the DOM, only specific input types allow for programmatic text selection.
 
 ```ts
 import { isSelectableInput } from '@entry-ui/utilities/is-selectable-input';
 
-const element = document.activeElement;
+const input = document.querySelector('input[type="text"]');
 
-if (isSelectableInput(element)) {
-  // TypeScript now knows `element` is `HTMLInputElement`.
-  element.select();
+// Check if the element supports text selection before highlighting content.
+if (input && isSelectableInput(input)) {
+  input.select();
 }
 ```
 
@@ -36,11 +36,11 @@ The `isSelectableInput` function accepts a single required parameter (marked wit
 
 | Parameter  | Type          | Default | Description                                                                                                   |
 | :--------- | :------------ | :------ | :------------------------------------------------------------------------------------------------------------ |
-| `element*` | `HTMLElement` | `-`     | The HTML element to inspect. The utility checks its instance type and the existence of the `select` property. |
+| `element*` | `HTMLElement` | `—`     | The HTML element to inspect. The utility checks its instance type and the existence of the `select` property. |
 
 ### Returns
 
-The `isSelectableInput` function returns a boolean that acts as a type predicate, narrowing the type within the conditional scope.
+The `isSelectableInput` function returns a boolean that acts as a type predicate, narrowing the type within the conditional scope:
 
 | Type                          | Description                                                                                                                                                        |
 | :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
