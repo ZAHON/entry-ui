@@ -10,8 +10,9 @@
  * ```ts
  * const input = document.querySelector('input[type="text"]');
  *
- * if (isSelectableInput(input)) {
- * 	input.select();
+ * // Check if the element supports text selection before highlighting content.
+ * if (input && isSelectableInput(input)) {
+ *   input.select();
  * }
  * ```
  */
