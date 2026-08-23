@@ -40,3 +40,15 @@ export const isShallowSubset = (params: IsShallowSubsetParams) => {
   // Reaching this line guarantees that the `target` contains a matching subset.
   return true;
 };
+
+export namespace isShallowSubset {
+  /**
+   * Represents the configuration parameters required by the `isShallowSubset` utility.
+   *
+   * This interface defines the parameters required to perform a shallow comparison
+   * between two objects. It facilitates a partial equality check by focusing
+   * exclusively on the keys provided in the source object, making it ideal for
+   * state validation, delta checks, or filtering logic.
+   */
+  export type Params = IsShallowSubsetParams;
+}
