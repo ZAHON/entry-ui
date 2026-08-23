@@ -1,9 +1,9 @@
 /**
  * Represents the configuration parameters required by the `clamp` utility.
  *
- * This interface defines the essential payload fields needed to restrict a numeric value within a closed interval.
- * It enforces a unified parameter structure across the codebase by pairing the target value with explicit minimum
- * and maximum boundary thresholds.
+ * This interface defines the essential payload fields needed to restrict a numeric value
+ * within a closed interval. It enforces a unified parameter structure across the codebase
+ * by pairing the target value with explicit minimum and maximum boundary thresholds.
  */
 export interface ClampParams {
   /**
