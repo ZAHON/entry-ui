@@ -20,25 +20,27 @@ This is particularly useful for performance-optimized updates, state change dete
 ```ts
 import { isShallowSubset } from '@entry-ui/utilities/is-shallow-subset';
 
+// Target contains all key-value pairs defined in source.
 isShallowSubset({ source: { id: 1 }, target: { id: 1, name: 'John' } });
 // Returns: true
 
+// Target is missing a required property or value does not match.
 isShallowSubset({ source: { id: 1, type: 'admin' }, target: { id: 1 } });
 // Returns: false
 ```
 
 ## API reference
 
-This section provides a technical overview of the `isShallowSubset` function and its configuration properties.
+This section provides a detailed technical overview of the `isShallowSubset` utility, its configuration properties, and its return values.
 
 ### Parameters
 
-The `isShallowSubset` function accepts a single configuration object as its parameter. Required properties are marked with an asterisk (`*`):
+The `isShallowSubset` function accepts a single configuration object as its parameter to define the source and target objects for comparison, where all properties are required and marked with an asterisk (`*`):
 
-| Property  | Type                  | Default | Description                                                                                                                                                                                                                                                             |
-| :-------- | :-------------------- | :------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `source*` | `Record<string, any>` | `-`     | The reference object containing the key-value pairs that must be matched. The utility iterates only over the keys defined in this object to determine if the target satisfies the subset criteria.                                                                      |
-| `target*` | `Record<string, any>` | `-`     | The target object to be inspected against the source. For a successful match, this object must contain all keys present in the source with strictly equal values (`===`). Any additional properties present in the target that are missing from the source are ignored. |
+| Property  | Type                      | Default | Description                                                                                                                                                                                                                                                             |
+| :-------- | :------------------------ | :------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `source*` | `Record<string, unknown>` | `—`     | The reference object containing the key-value pairs that must be matched. The utility iterates only over the keys defined in this object to determine if the target satisfies the subset criteria.                                                                      |
+| `target*` | `Record<string, unknown>` | `—`     | The target object to be inspected against the source. For a successful match, this object must contain all keys present in the source with strictly equal values (`===`). Any additional properties present in the target that are missing from the source are ignored. |
 
 ### Returns
 
