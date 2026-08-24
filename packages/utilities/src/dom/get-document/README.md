@@ -13,7 +13,7 @@ import { getDocument } from '@entry-ui/utilities/get-document';
 
 ## Usage
 
-The `getDocument` utility identifies the correct `ownerDocument` for a specific DOM node. This is particularly useful when working with applications that utilize iframes or multiple windows, as it ensures that document-level APIs are accessed from the node's actual environment rather than the current global document.
+The `getDocument` utility identifies the correct [`ownerDocument`](https://developer.mozilla.org/en-US/docs/Web/API/Node/ownerDocument) for a specific DOM node. This is particularly useful when working with applications that utilize iframes or multiple windows, as it ensures that document-level APIs are accessed from the node's actual environment rather than the current global document.
 
 By using this utility, you ensure that document-specific methods (like [`createElement`](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement), [`getElementById`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById), or [`addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)) are executed within the correct context relative to the element.
 
@@ -34,14 +34,14 @@ This section provides a technical overview of the `getDocument` function and how
 
 The `getDocument` function accepts a single required parameter (marked with an asterisk `*`) that represents the starting point for finding the document context:
 
-| Parameter | Type                        | Default | Description                                                                                                                                                                  |
-| :-------- | :-------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `node*`   | `Node \| null \| undefined` | `—`     | The DOM node or object to inspect. The utility attempts to access `node.ownerDocument`. If the node is null or lacks this property, it returns the global `document` object. |
+| Parameter | Type                        | Default | Description                                                                                                                                                                      |
+| :-------- | :-------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `node*`   | `Node \| null \| undefined` | `—`     | The DOM node or object to inspect. The utility attempts to access `node.ownerDocument`. If the `node` is `null` or lacks this property, it returns the global `Document` object. |
 
 ### Returns
 
 The `getDocument` function returns the resolved `Document` object:
 
-| Type       | Description                                                                                                                                         |
-| :--------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Document` | The `document` object where the node resides, or the current global `document` if the node is invalid or resides in the standard top-level context. |
+| Type       | Description                                                                                                                                           |
+| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Document` | The `Document` object where the node resides, or the current global `Document` if the `node` is invalid or resides in the standard top-level context. |
