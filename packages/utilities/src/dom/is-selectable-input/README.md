@@ -18,7 +18,7 @@ The `isSelectableInput` utility acts as a TypeScript type guard to safely identi
 ```ts
 import { isSelectableInput } from '@entry-ui/utilities/is-selectable-input';
 
-const input = document.querySelector('input[type="text"]');
+const input = document.querySelector<HTMLElement>('input');
 
 // Check if the element supports text selection before highlighting content.
 if (input && isSelectableInput(input)) {
