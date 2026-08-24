@@ -1,5 +1,5 @@
 /**
- * Checks whether the `window` object is defined in the current execution environment.
+ * Checks whether the Window object is defined in the current execution environment.
  *
  * This utility is primarily used to detect if the code is running in a browser
  * environment versus a server-side environment (like Node.js or during SSR).
