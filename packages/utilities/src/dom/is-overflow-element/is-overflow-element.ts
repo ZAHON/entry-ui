@@ -9,7 +9,7 @@ import { getComputedStyle } from '../../style/get-computed-style';
  *
  * @example
  * ```ts
- * const container = document.querySelector('#container');
+ * const container = document.querySelector("#container");
  *
  * // Check if an element manages overflow or scroll boundaries.
  * if (container && isOverflowElement(container)) {
