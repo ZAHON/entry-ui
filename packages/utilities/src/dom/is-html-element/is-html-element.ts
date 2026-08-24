@@ -24,9 +24,14 @@ import { getWindow } from '../get-window';
  * ```
  */
 export const isHTMLElement = (value: unknown): value is HTMLElement => {
+  // Immediately return `false` in non-browser or server-side (SSR) execution contexts.
+  // Guards against potential `ReferenceError` exceptions when DOM classes are unavailable.
   if (!hasWindow()) {
     return false;
   }
 
+  // Validate the target `value` against the current execution environment's global `HTMLElement` constructor.
+  // Fall back to checking against the specific `HTMLElement` constructor resolved from the node's owner window context.
+  // This dual verification prevents false negatives for nodes originating from different frames or iframes (cross-realm).
   return value instanceof HTMLElement || value instanceof getWindow(value as Node | null | undefined).HTMLElement;
 };
