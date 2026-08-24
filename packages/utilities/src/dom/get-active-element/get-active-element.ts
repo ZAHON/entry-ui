@@ -7,13 +7,12 @@
  *
  * @example
  * ```ts
- * // If focus is inside a web component's shadow DOM:
- * getActiveElement(document);
- * // Returns: <input /> (inside shadow root)
+ * const activeElement = getActiveElement(document);
  *
- * // Standard approach would only return:
- * document.activeElement;
- * // Returns: <my-custom-component /> (the host)
+ * // Safely interact with the currently focused element (even inside shadow DOM).
+ * if (activeElement) {
+ *   // Safe to read element properties, dispatch events, or trigger blur/focus operations.
+ * }
  * ```
  */
 export const getActiveElement = (doc: Document) => {
