@@ -28,12 +28,23 @@ export const focusFirstElement = (params: FocusFirstElementParams) => {
 
   const doc = getDocument(candidates[0]);
   const previouslyFocusedElement = getActiveElement(doc);
+  const candidatesLength = candidates.length;
 
-  for (const candidate of candidates) {
-    if (candidate === previouslyFocusedElement) return;
+  for (let i = 0; i < candidatesLength; i++) {
+    const candidate = candidates[i];
+
+    if (!candidate) {
+      continue;
+    }
+
+    if (candidate === previouslyFocusedElement) {
+      return;
+    }
 
     focusElement({ element: candidate, focusVisible, preventScroll, select });
 
-    if (getActiveElement(doc) !== previouslyFocusedElement) return;
+    if (getActiveElement(doc) !== previouslyFocusedElement) {
+      return;
+    }
   }
 };
