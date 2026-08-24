@@ -14,7 +14,7 @@
  * const doc = getDocument(element);
  * ```
  */
-export const getDocument = (node: Node | null | undefined): Document => {
+export const getDocument = (node: Node | null | undefined) => {
   // Access the `ownerDocument` property to retrieve the document instance where the `node` lives.
   // If the `node` is `null`, `undefined`, or detached from a specific context, fallback to the global `document`.
   return node?.ownerDocument || document;
