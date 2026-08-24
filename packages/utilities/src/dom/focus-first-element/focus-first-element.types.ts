@@ -1,9 +1,10 @@
 /**
- * Configuration object for the `focusFirstElement` utility.
+ * Represents the configuration parameters required by the `focusFirstElement` utility.
  *
- * This interface defines the parameters for attempting to shift focus to the first
- * available and valid element from a list of potential candidates. It provides
- * options to control visual focus indicators, scroll behavior, and text selection.
+ * This interface defines the essential payload fields needed to programmatically shift focus
+ * to the first viable candidate within a prioritized list of DOM elements. It enforces a unified
+ * parameter structure across the codebase by pairing an ordered array of target elements with
+ * configurable options for visual indicators, scroll behavior, and text selection.
  */
 export interface FocusFirstElementParams {
   /**
