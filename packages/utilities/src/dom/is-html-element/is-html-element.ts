@@ -28,5 +28,5 @@ export const isHTMLElement = (value: unknown): value is HTMLElement => {
     return false;
   }
 
-  return value instanceof HTMLElement || value instanceof getWindow(value).HTMLElement;
+  return value instanceof HTMLElement || value instanceof getWindow(value as Node | null | undefined).HTMLElement;
 };
