@@ -74,3 +74,15 @@ export const focusFirstElement = (params: FocusFirstElementParams) => {
     }
   }
 };
+
+export namespace focusFirstElement {
+  /**
+   * Represents the configuration parameters required by the `focusFirstElement` utility.
+   *
+   * This interface defines the essential payload fields needed to programmatically shift focus
+   * to the first viable candidate within a prioritized list of DOM elements. It enforces a unified
+   * parameter structure across the codebase by pairing an ordered array of target elements with
+   * configurable options for visual indicators, scroll behavior, and text selection.
+   */
+  export type Params = FocusFirstElementParams;
+}
