@@ -16,7 +16,7 @@ import { isSelectableInput } from '../is-selectable-input';
  *
  * @example
  * ```ts
- * const input = document.querySelector<HTMLInputElement>('#search-input');
+ * const input = document.querySelector<HTMLInputElement>("#search-input");
  *
  * // Programmatically focus the input and select its text without triggering auto-scroll.
  * if (input) {
