@@ -8,11 +8,10 @@
  *
  * @example
  * ```ts
- * getWindow(document.getElementById("my-element"));
- * // Returns: the window object where the element resides
+ * const element = document.querySelector('#my-element');
  *
- * getWindow(null);
- * // Returns: the global window object as a fallback
+ * // Access window-level APIs from the element's actual owner environment.
+ * const win = getWindow(element);
  * ```
  */
 export const getWindow = (node: Node | null | undefined) => {
