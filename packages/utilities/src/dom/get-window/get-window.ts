@@ -15,7 +15,6 @@
  * // Returns: the global window object as a fallback
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getWindow = (node: any): typeof window => {
+export const getWindow = (node: Node | null | undefined): typeof window => {
   return node?.ownerDocument?.defaultView || window;
 };
