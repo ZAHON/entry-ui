@@ -32,7 +32,7 @@ export const focusElement = (params: FocusElementParams) => {
     const doc = getDocument(element);
     const previouslyFocusedElement = getActiveElement(doc);
 
-    element.focus({ focusVisible, preventScroll });
+    element.focus({ focusVisible, preventScroll } as { focusVisible?: boolean } & FocusOptions);
 
     // If the element is an input field and selection is explicitly requested,
     // select its content only if it wasn't the previously focused element.
