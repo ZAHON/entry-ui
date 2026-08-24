@@ -18,11 +18,13 @@ The `focusFirstElement` utility is designed for managing focus in dynamic enviro
 ```ts
 import { focusFirstElement } from '@entry-ui/utilities/focus-first-element';
 
-// Focus the first visible input or fallback to a close button
-focusFirstElement({ candidates: [input, closeButton], select: true });
+const input = document.querySelector<HTMLElement>('#search-input');
+const button = document.querySelector<HTMLElement>('#submit-button');
 
-// Attempt to focus multiple elements, preventing scroll on the successful one
-focusFirstElement({ candidates: [primaryAction, secondaryAction], preventScroll: true });
+// Focus the first available candidate (e.g. input) and select its text without auto-scrolling.
+if (input && button) {
+  focusFirstElement({ candidates: [input, button], preventScroll: true, select: true });
+}
 ```
 
 ## API reference
@@ -31,11 +33,11 @@ This section provides a technical overview of the `focusFirstElement` function a
 
 ### Parameters
 
-The `focusFirstElement` function accepts a single configuration object as its parameter. Required properties are marked with an asterisk (`*`):
+The `focusFirstElement` function accepts a single configuration object as its parameter to define the target candidate list and focus options, where required properties are marked with an asterisk (`*`):
 
 | Property        | Type            | Default | Description                                                                                                                                                                                                                                |
 | :-------------- | :-------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `candidates*`   | `HTMLElement[]` | `-`     | An ordered array of DOM elements to be evaluated for focusing. The utility iterates through this list and attempts to focus each element sequentially until one successfully receives focus.                                               |
+| `candidates*`   | `HTMLElement[]` | `—`     | An ordered array of DOM elements to be evaluated for focusing. The utility iterates through this list and attempts to focus each element sequentially until one successfully receives focus.                                               |
 | `focusVisible`  | `boolean`       | `false` | Whether the focus indicator (e.g., focus ring) should be visible. This mimics the behavior of the `:focus-visible` CSS pseudo-class, ensuring the element appears focused to the user, typically used for keyboard navigation consistency. |
 | `preventScroll` | `boolean`       | `false` | Whether the browser should scroll the element into view after focusing. If set to `true`, it prevents the default scrolling behavior, which is useful for maintaining the current viewport position.                                       |
 | `select`        | `boolean`       | `false` | Whether to select the text content within the candidate element. Selection is only performed if the focused candidate is an `HTMLInputElement` that supports text selection.                                                               |
