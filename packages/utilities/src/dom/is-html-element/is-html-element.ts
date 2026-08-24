@@ -11,7 +11,7 @@ import { getWindow } from '../get-window';
  *
  * @example
  * ```ts
- * const element = document.querySelector('#my-element');
+ * const element = document.querySelector("#my-element");
  *
  * // Safely verify if a target value is a valid HTML element (even across iframes).
  * if (isHTMLElement(element)) {
