@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * const element = document.querySelector('#my-element');
+ * const element = document.querySelector("#my-element");
  *
  * // Access window-level APIs from the element's actual owner environment.
  * const win = getWindow(element);
