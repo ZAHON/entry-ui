@@ -15,6 +15,6 @@
  * // Returns: the global window object as a fallback
  * ```
  */
-export const getWindow = (node: Node | null | undefined): typeof window => {
+export const getWindow = (node: Node | null | undefined) => {
   return node?.ownerDocument?.defaultView || window;
 };
