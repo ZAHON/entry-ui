@@ -16,7 +16,6 @@
  * // Returns: the global document object as a fallback
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getDocument = (node: any): Document => {
+export const getDocument = (node: Node | null | undefined): Document => {
   return node?.ownerDocument || document;
 };
