@@ -14,11 +14,13 @@ import { focusElement } from '../focus-element';
  *
  * @example
  * ```ts
- * // Focus the first visible input or fallback to a close button
- * focusFirstElement({ candidates: [input, closeButton], select: true });
+ * const input = document.querySelector<HTMLElement>("#search-input");
+ * const button = document.querySelector<HTMLElement>("#submit-button");
  *
- * // Attempt to focus multiple elements, preventing scroll on the successful one
- * focusFirstElement({ candidates: [primaryAction, secondaryAction], preventScroll: true });
+ * // Focus the first available candidate (e.g. input) and select its text without auto-scrolling.
+ * if (input && button) {
+ *   focusFirstElement({ candidates: [input, button], preventScroll: true, select: true });
+ * }
  * ```
  */
 export const focusFirstElement = (params: FocusFirstElementParams) => {
