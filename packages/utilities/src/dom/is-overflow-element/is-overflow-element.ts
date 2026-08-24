@@ -4,7 +4,7 @@ import { getComputedStyle } from '../../style/get-computed-style';
  * Determines whether an element acts as an overflow or scroll container for its content.
  *
  * This utility checks if an element's computed CSS properties enable scrollbars or content clipping.
- * It also filters out elements with layout modes like `"inline"` or `"contents"`, which cannot physically
+ * It also filters out elements with layout modes like `inline` or `contents`, which cannot physically
  * contain or clip overflowing child elements.
  *
  * @example
