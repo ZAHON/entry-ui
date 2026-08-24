@@ -8,8 +8,10 @@
  *
  * @example
  * ```ts
- * hasWindow()
- * // Returns: true if the window object is available, false otherwise
+ * // Safely access browser-only APIs without triggering server-side errors.
+ * if (hasWindow()) {
+ *   // Safe to access window, document, or local storage APIs.
+ * }
  * ```
  */
 export const hasWindow = () => {
