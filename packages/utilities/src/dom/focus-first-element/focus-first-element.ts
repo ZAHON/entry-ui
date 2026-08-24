@@ -26,9 +26,14 @@ import { focusElement } from '../focus-element';
 export const focusFirstElement = (params: FocusFirstElementParams) => {
   const { candidates, focusVisible = false, preventScroll = false, select = false } = params;
 
+  const candidatesLength = candidates.length;
+
+  if (candidatesLength === 0) {
+    return;
+  }
+
   const doc = getDocument(candidates[0]);
   const previouslyFocusedElement = getActiveElement(doc);
-  const candidatesLength = candidates.length;
 
   for (let i = 0; i < candidatesLength; i++) {
     const candidate = candidates[i];
