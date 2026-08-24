@@ -6,7 +6,7 @@ import { focusElement } from '../focus-element';
 /**
  * Attempts to focus the first available element from a list of candidates.
  *
- * This function iterates through an array of elements and tries to set focus on each
+ * This utility iterates through an array of elements and tries to set focus on each
  * one sequentially. The process stops as soon as an element successfully receives focus
  * (i.e., when the document's active element changes). This is particularly useful for
  * managing focus in modals, forms, or complex components where the primary focus target
