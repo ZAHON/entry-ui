@@ -11,14 +11,12 @@ import { getWindow } from '../get-window';
  *
  * @example
  * ```ts
- * isHTMLElement(document.createElement('div'));
- * // Returns: true
+ * const element = document.querySelector('#my-element');
  *
- * isHTMLElement(null);
- * // Returns: false
- *
- * isHTMLElement(iframeElement.contentDocument.body);
- * // Returns: true (even if the instance comes from another window context)
+ * // Safely verify if a target value is a valid HTML element (even across iframes).
+ * if (isHTMLElement(element)) {
+ *   // Safe to access HTMLElement properties, methods, or styles.
+ * }
  * ```
  */
 export const isHTMLElement = (value: unknown): value is HTMLElement => {
