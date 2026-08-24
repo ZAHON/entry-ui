@@ -13,22 +13,17 @@ import { getWindow } from '@entry-ui/utilities/get-window';
 
 ## Usage
 
-The `getWindow` utility identifies the global `window` object (execution context) for a specific DOM node. This is essential when building applications that interact with `iframes` or multiple browser windows, where a node's owner document might differ from the top-level `window`.
+The `getWindow` utility identifies the global [`Window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) object (execution context) for a specific DOM node. This is essential when building applications that interact with iframes or multiple browser windows, where a node's owner document might differ from the top-level window.
 
-By using this utility, you ensure that window-level APIs (like `getComputedStyle`, `requestAnimationFrame`, or event listeners) are accessed from the correct environment relative to the element.
+By using this utility, you ensure that window-level APIs (like [`getComputedStyle`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle), [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame), or [`scrollTo`](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo)) are accessed from the correct environment relative to the element.
 
 ```ts
 import { getWindow } from '@entry-ui/utilities/get-window';
 
-const element = document.getElementById('my-iframe-element');
-const targetWindow = getWindow(element);
+const element = document.querySelector('#my-element');
 
-// Now you can safely use window-specific APIs
-const styles = targetWindow.getComputedStyle(element);
-
-// If node is null, it falls back to the current global window
-getWindow(null);
-// Returns: window
+// Access window-level APIs from the element's actual owner environment.
+const win = getWindow(element);
 ```
 
 ## API reference
@@ -39,14 +34,14 @@ This section provides a technical overview of the `getWindow` function and how i
 
 The `getWindow` function accepts a single required parameter (marked with an asterisk `*`) that represents the starting point for finding the window context:
 
-| Parameter | Type  | Default | Description                                                                                                                                                                        |
-| :-------- | :---- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `node*`   | `any` | `-`     | The DOM node or object to inspect. The utility attempts to access `node.ownerDocument.defaultView`. If the node is null or lacks these properties, it returns the global `window`. |
+| Parameter | Type                           | Default | Description                                                                                                                                                                                   |
+| :-------- | :----------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `node*`   | `Node  \| null   \| undefined` | `-`     | The DOM node or object to inspect. The utility attempts to access `node.ownerDocument.defaultView`. If the `node` is `null` or lacks these properties, it returns the global `Window` object. |
 
 ### Returns
 
-The `getWindow` function returns the resolved `window` object:
+The `getWindow` function returns the resolved `Window` object:
 
-| Type            | Description                                                                                                                                        |
-| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `typeof window` | The `window` object associated with the node's document, or the current global `window` if the node is invalid or resides in the standard context. |
+| Type     | Description                                                                                                                                          |
+| :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Window` | The `Window` object associated with the node's document, or the current global `Window` if the `node` is invalid or resides in the standard context. |
