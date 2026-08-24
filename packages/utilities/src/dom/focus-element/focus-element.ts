@@ -16,17 +16,12 @@ import { isSelectableInput } from '../is-selectable-input';
  *
  * @example
  * ```ts
- * // Basic focus with scroll prevention
- * focusElement({ element: myButton, preventScroll: true });
+ * const input = document.querySelector<HTMLInputElement>('#search-input');
  *
- * // Focus an input and automatically select its text content
- * focusElement({ element: myInput, select: true });
- *
- * // Requesting selection on an already active element will focus it without re-selecting
- * focusElement({ element: alreadyActiveInput, select: true });
- *
- * // Triggering focus with a visible focus ring (mimics keyboard navigation)
- * focusElement({ element: myLink, focusVisible: true });
+ * // Programmatically focus the input and select its text without triggering auto-scroll.
+ * if (input) {
+ *   focusElement({ element: input, preventScroll: true, select: true });
+ * }
  * ```
  */
 export const focusElement = (params: FocusElementParams) => {
