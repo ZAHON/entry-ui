@@ -15,7 +15,7 @@ import { isOverflowElement } from '@entry-ui/utilities/is-overflow-element';
 
 The `isOverflowElement` utility checks whether a target DOM element can act as a scrollable or clipping container for its content.
 
-It verifies if any of the element's overflow CSS rules (`overflow`, `overflowX`, `overflowY`) are active, while filtering out elements with `display: "inline"` or `display: "contents"` which cannot physically clip or scroll child elements.
+It verifies if any of the element's overflow CSS rules (`overflow`, `overflowX`, `overflowY`) are active, while filtering out elements with `display: inline` or `display: contents` which cannot physically clip or scroll child elements.
 
 ```ts
 import { isOverflowElement } from '@entry-ui/utilities/is-overflow-element';
@@ -38,7 +38,7 @@ The `isOverflowElement` function accepts a single required parameter (marked wit
 
 | Parameter  | Type      | Default | Description                                                       |
 | :--------- | :-------- | :------ | :---------------------------------------------------------------- |
-| `element*` | `Element` | `-`     | The target DOM element to evaluate for overflow and scroll state. |
+| `element*` | `Element` | `—`     | The target DOM element to evaluate for overflow and scroll state. |
 
 ### Returns
 
