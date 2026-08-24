@@ -1,6 +1,6 @@
 # isHTMLElement
 
-Verifies whether a given value is an instance of HTMLElement, with support for cross-realm environments.
+Verifies whether a given value is a valid HTML element, with support for cross-realm environments.
 
 [![Source](https://img.shields.io/badge/Source-GitHub-gray?logo=github)](https://github.com/ZAHON/entry-ui/tree/main/packages/utilities/src/is-html-element)
 [![Issue](https://img.shields.io/badge/Report-Issue-red?logo=github)](https://github.com/ZAHON/entry-ui/issues/new?title=[Entry%20UI%20Utilities%20isHTMLElement]%20Issue)
@@ -20,14 +20,12 @@ This function ensures that the check is performed against both the global enviro
 ```ts
 import { isHTMLElement } from '@entry-ui/utilities/is-html-element';
 
-isHTMLElement(document.createElement('div'));
-// Returns: true
+const element = document.querySelector('#my-element');
 
-isHTMLElement(null);
-// Returns: false
-
-isHTMLElement(iframeElement.contentDocument.body);
-// Returns: true (even if the instance comes from another window context)
+// Safely verify if a target value is a valid HTML element (even across iframes).
+if (isHTMLElement(element)) {
+  // Safe to access HTMLElement properties, methods, or styles.
+}
 ```
 
 ## API reference
@@ -40,12 +38,12 @@ The `isHTMLElement` function accepts a single required parameter (marked with an
 
 | Parameter | Type      | Default | Description                                                                                     |
 | :-------- | :-------- | :------ | :---------------------------------------------------------------------------------------------- |
-| `value*`  | `unknown` | `-`     | The value to check. Can be any type, as the function safely handles non-object and null inputs. |
+| `value*`  | `unknown` | `—`     | The value to check. Can be any type, as the function safely handles non-object and null inputs. |
 
 ### Returns
 
 The `isHTMLElement` function returns a boolean that acts as a type predicate.
 
-| Type                   | Description                                                                                                                                                                  |
-| :--------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value is HTMLElement` | Returns `true` if the value is an instance of `HTMLElement` (considering its own window context). Returns `false` if the window is undefined or the value is not an element. |
+| Type                   | Description                                                                                                                                                                      |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value is HTMLElement` | Returns `true` if the value is an instance of `HTMLElement` (considering its own window context). Returns `false` if the `window` is `undefined` or the value is not an element. |
