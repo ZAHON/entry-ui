@@ -17,7 +17,7 @@ import { getComputedStyle } from '../../style/get-computed-style';
  * }
  * ```
  */
-export const isOverflowElement = (element: Element): boolean => {
+export const isOverflowElement = (element: Element) => {
   // Extract and cache the resolved layout and overflow CSS properties from the target element.
   // We inspect both generic (`overflow`) and axis-specific (`overflowX`, `overflowY`) rules
   // along with `display` to accurately determine how the browser constructs the element's box model.
