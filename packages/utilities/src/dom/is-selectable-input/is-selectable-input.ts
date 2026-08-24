@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * const input = document.querySelector('input[type="text"]');
+ * const input = document.querySelector<HTMLElement>("input");
  *
  * // Check if the element supports text selection before highlighting content.
  * if (input && isSelectableInput(input)) {
