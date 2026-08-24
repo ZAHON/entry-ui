@@ -16,5 +16,7 @@
  * ```
  */
 export const getWindow = (node: Node | null | undefined) => {
+  // Access the `defaultView` property of the node's owner document to retrieve its associated `window` context.
+  // If the `node` is `null`, `undefined`, or lacks an owner document/view, fallback to the global `window`.
   return node?.ownerDocument?.defaultView || window;
 };
