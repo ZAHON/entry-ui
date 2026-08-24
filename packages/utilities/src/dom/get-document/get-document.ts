@@ -8,11 +8,10 @@
  *
  * @example
  * ```ts
- * getDocument(document.getElementById("my-element"));
- * // Returns: the document object where the element resides
+ * const element = document.querySelector('#my-element');
  *
- * getDocument(null);
- * // Returns: the global document object as a fallback
+ * // Access document-level APIs from the element's actual owner environment.
+ * const doc = getDocument(element);
  * ```
  */
 export const getDocument = (node: Node | null | undefined): Document => {
