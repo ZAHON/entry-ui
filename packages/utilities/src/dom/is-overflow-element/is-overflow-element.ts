@@ -28,11 +28,11 @@ export const isOverflowElement = (element: Element): boolean => {
     // Matching keywords like `auto`, `scroll`, `overlay`, `hidden`, or `clip` confirms that at least
     // one axis actively intercepts, clips, or renders scrollbars for overflowing child content.
     /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) &&
-    // Exclude inline elements (`display: "inline"`).
+    // Exclude inline elements (`display: inline`).
     // Standard inline boxes do not form independent block formatting contexts and cannot contain
     // or scroll overflowing content, causing CSS overflow rules to be silently ignored by layout engines.
     display !== 'inline' &&
-    // Exclude elements using `display: "contents"`.
+    // Exclude elements using `display: contents`.
     // This value suppresses the generation of the element's own principal box in the render tree,
     // causing it to render only its children and effectively rendering its overflow properties completely inert.
     display !== 'contents'
