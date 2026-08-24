@@ -1,9 +1,9 @@
 /**
- * Configuration object for the `focusElement` utility.
+ * Represents the configuration parameters required by the `focusElement` utility.
  *
- * This interface encapsulates the parameters required to programmatically manage
- * focus on a specific DOM element. It provides options to control visual focus
- * indicators, scroll behavior, and automatic text selection for input fields.
+ * This interface defines the essential payload fields needed to programmatically manage focus state
+ * on a target DOM element. It enforces a unified parameter structure across the codebase by pairing
+ * a target HTML element with configurable options for visual indicators, scroll behavior, and text selection.
  */
 export interface FocusElementParams {
   /**
