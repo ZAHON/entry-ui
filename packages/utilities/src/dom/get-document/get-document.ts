@@ -1,11 +1,10 @@
 /**
  * Retrieves the document object associated with a given DOM node, ensuring the correct execution context.
  *
- * This utility identifies the correct owner document for a specific node. It is
- * particularly useful when working with applications that utilize iframes or
- * multiple windows, as it ensures that document-level APIs (like `createElement`,
- * `getElementById`, or `addEventListener`) are accessed from the node's actual
- * environment rather than the current global document.
+ * This utility identifies the correct owner document for a specific node. It is particularly useful when working
+ * with applications that utilize iframes or multiple windows, as it ensures that document-level APIs (like
+ * `createElement`, `getElementById`, or `addEventListener`) are accessed from the node's actual environment
+ * rather than the current global document.
  *
  * @example
  * ```ts
