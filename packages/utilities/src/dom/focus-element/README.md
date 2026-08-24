@@ -13,19 +13,17 @@ import { focusElement } from '@entry-ui/utilities/focus-element';
 
 ## Usage
 
-The `focusElement` utility wraps the native `HTMLElement.focus()` method to provide a unified interface for common focus-related tasks. It allows for precise control over visual indicators, scroll behavior, and text selection, ensuring a consistent user experience across different interaction patterns (e.g., switching between mouse and keyboard).
+The `focusElement` utility wraps the native [`HTMLElement.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) method to provide a unified interface for common focus-related tasks. It allows for precise control over visual indicators, scroll behavior, and text selection, ensuring a consistent user experience across different interaction patterns (e.g., switching between mouse and keyboard).
 
 ```ts
 import { focusElement } from '@entry-ui/utilities/focus-element';
 
-// Focus an input and automatically select its text content
-focusElement({ element: myInput, select: true });
+const input = document.querySelector<HTMLInputElement>('#search-input');
 
-// Basic focus with scroll prevention
-focusElement({ element: myButton, preventScroll: true });
-
-// Triggering focus with a visible focus ring (mimics keyboard navigation)
-focusElement({ element: myLink, focusVisible: true });
+// Programmatically focus the input and select its text without triggering auto-scroll.
+if (input) {
+  focusElement({ element: input, preventScroll: true, select: true });
+}
 ```
 
 ## API reference
@@ -34,11 +32,11 @@ This section provides a technical overview of the `focusElement` function and it
 
 ### Parameters
 
-The `focusElement` function accepts a single configuration object as its parameter. Required properties are marked with an asterisk (`*`):
+The `focusElement` function accepts a single configuration object as its parameter to define the target element and its focus behavior, where required properties are marked with an asterisk (`*`):
 
 | Property        | Type          | Default | Description                                                                                                                                                                                                                                |
 | :-------------- | :------------ | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `element*`      | `HTMLElement` | `-`     | The target HTML element that should receive focus. This element will be focused using the native `HTMLElement.focus()` method.                                                                                                             |
+| `element*`      | `HTMLElement` | `—`     | The target HTML element that should receive focus. This element will be focused using the native `HTMLElement.focus()` method.                                                                                                             |
 | `focusVisible`  | `boolean`     | `false` | Whether the focus indicator (e.g., focus ring) should be visible. This mimics the behavior of the `:focus-visible` CSS pseudo-class, ensuring the element appears focused to the user, typically used for keyboard navigation consistency. |
 | `preventScroll` | `boolean`     | `false` | Whether the browser should scroll the element into view after focusing. If set to `true`, it prevents the default scrolling behavior.                                                                                                      |
 | `select`        | `boolean`     | `false` | Whether to select the text content within the element. Selection is only performed if the element is an `HTMLInputElement`, supports selection, and is not already the currently focused element.                                          |
@@ -47,6 +45,6 @@ The `focusElement` function accepts a single configuration object as its paramet
 
 The `focusElement` function is a void utility and does not return a value:
 
-| Type   | Description                                                                           |
-| :----- | :------------------------------------------------------------------------------------ |
-| `void` | The function performs an action (focusing/selecting) and completes without returning. |
+| Type   | Description                                                                                     |
+| :----- | :---------------------------------------------------------------------------------------------- |
+| `void` | Performs side effects (focus management and optional text selection) without returning a value. |
