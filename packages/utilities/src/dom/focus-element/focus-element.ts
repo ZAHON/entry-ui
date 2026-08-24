@@ -27,11 +27,19 @@ import { isSelectableInput } from '../is-selectable-input';
 export const focusElement = (params: FocusElementParams) => {
   const { element, focusVisible = false, preventScroll = false, select = false } = params;
 
-  // Only focus if that element is focusable.
+  // Verify that the target element supports the native `focus` method before proceeding.
+  // Guards against potential runtime errors if a non-focusable object or invalid DOM node is provided.
   if ('focus' in element) {
+    // Resolve the owner document context for the target element.
+    // Ensures safe active element checking across different frames or window environments.
     const doc = getDocument(element);
+
+    // Capture the currently active element prior to applying new focus.
+    // This snapshot is used to determine whether a text selection operation is redundant.
     const previouslyFocusedElement = getActiveElement(doc);
 
+    // Trigger native focus with configuration options applied.
+    // The type cast ensures compatibility with `focusVisible` across standard DOM types.
     element.focus({ focusVisible, preventScroll } as { focusVisible?: boolean } & FocusOptions);
 
     // If the element is an input field and selection is explicitly requested,
