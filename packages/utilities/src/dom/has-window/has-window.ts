@@ -13,5 +13,7 @@
  * ```
  */
 export const hasWindow = () => {
+  // Safely check if the global `Window` object is defined in the current execution environment.
+  // This guards against `ReferenceError` exceptions when running in server-side (SSR) contexts.
   return typeof window !== 'undefined';
 };
