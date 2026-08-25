@@ -13,39 +13,36 @@ import { mergeStyles } from '@entry-ui/utilities/merge-styles';
 
 ## Usage
 
-The `mergeStyles` utility is designed to handle the complexity of CSS styling in JavaScript environments. It allows developers to combine inline strings and structured objects while ensuring that property keys are correctly normalized.
+The `mergeStyles` utility consolidates heterogeneous style inputs (inline `string` declarations, `object` records, and falsy values like `undefined` or `false`) into a single unified `object`.
 
-To ensure compatibility with JavaScript-based styling engines, the function applies the following transformations:
+To ensure full compatibility with JavaScript-based styling engines, the function applies the following property transformations during normalization:
+
+- **Falsy values and conditional guards**:
+  Falsy entries (`false`, `undefined`, `null`), boolean values within style objects (e.g., `{ padding: isFocused && '10px' }`), and stringified boolean tokens inside inline CSS (e.g., `font-size: ${false}`) are safely ignored, enabling clean short-circuit conditional styling.
 
 - **Kebab-case to camelCase**:
-  `background-color` becomes `backgroundColor`.
+  Standard property names like `background-color` or `margin-top` are transformed into `backgroundColor` and `marginTop`.
 
 - **Vendor prefixes**:
-  Standard prefixes like `-webkit-` or `-moz-` are converted to PascalCase (e.g., `WebkitTransform`).
+  Standard browser prefixes like `-webkit-` or `-moz-` are normalized to PascalCase (e.g., `-webkit-transform` becomes `WebkitTransform`).
 
-- **IE prefix**:
-  The `-ms-` prefix is specifically handled to start with a lowercase "m" (e.g., `msTransform`).
+- **IE vendor prefix**:
+  The `-ms-` prefix is specifically mapped to start with a lowercase "m" (e.g., `-ms-transform` becomes `msTransform`).
 
-- **CSS variables**:
-  Properties starting with `--` are preserved in their original format.
+- **CSS custom properties**:
+  CSS variables starting with `--` retain their original kebab-case format (e.g., `--primary-color`).
 
 ```ts
 import { mergeStyles } from '@entry-ui/utilities/merge-styles';
 
+// Consolidate inline strings, objects, and conditional falsy values.
 mergeStyles([
   'color: red; margin-top: 10px;',
+  false && 'padding: 10px',
   { marginTop: '20px', '--spacing-unit': '20px' },
-  undefined,
-  'background-color: blue',
 ]);
 
-// Returns:
-// {
-//   color: "red",
-//   marginTop: "20px",
-//   "--spacing-unit": "20px",
-//   backgroundColor: "blue"
-// }
+// Returns: { color: "red", marginTop: "20px", "--spacing-unit": "20px" }
 ```
 
 ## API reference
@@ -56,9 +53,9 @@ This section provides a detailed technical overview of the `mergeStyles` functio
 
 The `mergeStyles` function accepts a single required parameter (marked with an asterisk `*`) containing an array of style sources. Each element in the array is evaluated and merged into the final result, allowing for a mix of different formats:
 
-| Parameter | Type              | Default | Description                                                                                                                                                                     |
-| :-------- | :---------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `styles*` | `PossibleStyle[]` | `-`     | An array of styles to be merged. Can contain `string` values, style objects (`Record<string, string \| number \| undefined>`), or `undefined` values for conditional rendering. |
+| Parameter | Type                                                                                           | Default | Description                                                                                                                                                               |
+| :-------- | :--------------------------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `styles*` | `(string \| Record<string, string \| number \| boolean \| undefined> \| false \| undefined)[]` | `—`     | An array of heterogeneous styles to be merged. Accepts inline `string` declarations, `object` records, or falsy values (`false`, `undefined`) for conditional evaluation. |
 
 ### Returns
 
@@ -67,24 +64,3 @@ The `mergeStyles` function returns a single consolidated object representing the
 | Type                                            | Description                                                                               |
 | :---------------------------------------------- | :---------------------------------------------------------------------------------------- |
 | `Record<string, string \| number \| undefined>` | A unified object with normalized keys and the final values determined by the merge order. |
-
-## Type definitions
-
-This section details the internal types used by `mergeStyles` to ensure full TypeScript support and seamless integration with CSS-in-JS patterns.
-
-### PossibleStyle
-
-The `PossibleStyle` type is a union that ensures flexibility in how styles are defined, supporting various formats out of the box:
-
-- **`string`**:
-  Standard inline CSS strings (e.g., `"color: red; padding: 10px"`).
-
-- **`Record<string, string | number | undefined>`**:
-  A structured object of CSS declarations. Supports camelCase, kebab-case, and CSS custom properties (e.g., `{ color: "red", "margin-top": 10, "--spacing-unit": "20px" }`).
-
-- **`undefined`**:
-  Useful for conditional styling where a style might not be present. Since `boolean` is not accepted, use ternary operators or logical OR to ensure a valid type (e.g., `isActive ? "color: red" : undefined`).
-
-```ts
-type PossibleStyle = string | Record<string, string | number | undefined> | undefined;
-```
