@@ -19,5 +19,7 @@ import { getWindow } from '../../dom/get-window';
  * ```
  */
 export const getComputedStyle = (element: Element) => {
+  // Resolve the correct `Window` context associated with the element to safely access its computed styles.
+  // Invoke the native `getComputedStyle` method from that specific window environment for accurate results.
   return getWindow(element).getComputedStyle(element);
 };
