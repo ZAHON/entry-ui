@@ -3,8 +3,8 @@ import { getWindow } from '../../dom/get-window';
 /**
  * Retrieves the computed style properties for a specified HTML element.
  *
- * This function provides a reliable way to access an element's computed styles,
- * automatically resolving the correct window context. This ensures accurate
+ * This utility provides a reliable way to access an element's computed styles,
+ * automatically resolving the correct `Window` context. This ensures accurate
  * results even when the element is located within a different document context,
  * such as an iframe or a popup window.
  *
