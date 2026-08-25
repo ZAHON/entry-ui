@@ -471,4 +471,160 @@ describe('mergeStyles', () => {
 
     expect(result).toEqual(expected);
   });
+
+  it('should skip a string declaration whose value stringifies to "false"', () => {
+    const isActive = false;
+    const result = mergeStyles([`color: ${isActive && 'red'}`]);
+    expect(result).toEqual({});
+  });
+
+  it('should keep a string declaration whose guard is truthy', () => {
+    const isActive = true;
+    const result = mergeStyles([`color: ${isActive && 'red'}`]);
+    expect(result).toEqual({ color: 'red' });
+  });
+
+  it('should skip a string declaration whose value stringifies to "true"', () => {
+    const result = mergeStyles([`color: ${true as unknown as string}`]);
+    expect(result).toEqual({});
+  });
+
+  it('should skip a string declaration whose value stringifies to "undefined"', () => {
+    const result = mergeStyles([`color: ${undefined as unknown as string}`]);
+    expect(result).toEqual({});
+  });
+
+  it('should skip a string declaration whose value stringifies to "null"', () => {
+    const result = mergeStyles([`color: ${null as unknown as string}`]);
+    expect(result).toEqual({});
+  });
+
+  it('should not skip a string declaration whose value is "0"', () => {
+    const result = mergeStyles(['margin: 0; padding: 0']);
+    expect(result).toEqual({ margin: '0', padding: '0' });
+  });
+
+  it('should skip only the falsy declaration while keeping others in the same string', () => {
+    const isActive = false;
+    const result = mergeStyles([`color: red; font-size: ${isActive && '1rem'}; display: block`]);
+    expect(result).toEqual({ color: 'red', display: 'block' });
+  });
+
+  it('should not skip a value that merely contains "false" as a substring', () => {
+    const result = mergeStyles(['content: "false-positive"; --flag: false-ish']);
+    expect(result).toEqual({
+      content: '"false-positive"',
+      '--flag': 'false-ish',
+    });
+  });
+
+  it('should skip an object property whose value is boolean false', () => {
+    const isActive = false;
+    const result = mergeStyles([{ padding: isActive && '2rem' }]);
+    expect(result).toEqual({});
+  });
+
+  it('should skip an object property whose value is boolean true', () => {
+    const result = mergeStyles([{ padding: true as unknown as string }]);
+    expect(result).toEqual({});
+  });
+
+  it('should keep an object property whose guard is truthy', () => {
+    const isActive = true;
+    const result = mergeStyles([{ margin: isActive && '1rem' }]);
+    expect(result).toEqual({ margin: '1rem' });
+  });
+
+  it('should not skip an object property whose value is the number 0', () => {
+    const result = mergeStyles([{ margin: 0, padding: 0 }]);
+    expect(result).toEqual({ margin: 0, padding: 0 });
+  });
+
+  it('should skip only the false property while keeping others in the same object', () => {
+    const isActive = false;
+    const result = mergeStyles([{ color: 'red', padding: isActive && '2rem', display: 'block' }]);
+    expect(result).toEqual({ color: 'red', display: 'block' });
+  });
+
+  it('should skip a whole array entry that is boolean false', () => {
+    const isActive = false;
+    const result = mergeStyles([{ color: 'red' }, isActive && { backgroundColor: 'blue' }]);
+    expect(result).toEqual({ color: 'red' });
+  });
+
+  it('should include a whole array entry whose guard is truthy', () => {
+    const isActive = true;
+    const result = mergeStyles([isActive && { backgroundColor: 'blue' }]);
+    expect(result).toEqual({ backgroundColor: 'blue' });
+  });
+
+  it('should skip a whole falsy string array entry produced by a guard', () => {
+    const isActive = false;
+    const result = mergeStyles([isActive && 'color: red', { display: 'block' }]);
+    expect(result).toEqual({ display: 'block' });
+  });
+
+  it('should handle a realistic mix of string, object, and array-level guards', () => {
+    const isActive = true;
+    const result = mergeStyles([
+      `color: ${isActive && 'red'}`,
+      `font-size: ${!isActive && '1rem'}`,
+      { margin: isActive && '1rem' },
+      { padding: !isActive && '2rem' },
+      isActive && { backgroundColor: 'blue' },
+      !isActive && { borderRadius: '4px' },
+    ]);
+    expect(result).toEqual({
+      color: 'red',
+      margin: '1rem',
+      backgroundColor: 'blue',
+    });
+  });
+
+  it('should handle the same realistic scenario with the opposite condition', () => {
+    const isActive = false;
+    const result = mergeStyles([
+      `color: ${isActive && 'red'}`,
+      `font-size: ${!isActive && '1rem'}`,
+      { margin: isActive && '1rem' },
+      { padding: !isActive && '2rem' },
+      isActive && { backgroundColor: 'blue' },
+      !isActive && { borderRadius: '4px' },
+    ]);
+    expect(result).toEqual({
+      fontSize: '1rem',
+      padding: '2rem',
+      borderRadius: '4px',
+    });
+  });
+
+  it('should not let a skipped falsy value overwrite an earlier valid value for the same property', () => {
+    const isActive = false;
+    const result = mergeStyles([{ padding: '10px' }, { padding: isActive && '2rem' }]);
+    expect(result).toEqual({ padding: '10px' });
+  });
+
+  it('should allow a later valid value to override an earlier one even when a falsy guard sits between them', () => {
+    const isActive = false;
+    const result = mergeStyles([{ color: 'red' }, { color: isActive && 'blue' }, { color: 'green' }]);
+    expect(result).toEqual({ color: 'green' });
+  });
+
+  it('should apply falsy-guard filtering together with vendor-prefix normalization', () => {
+    const isActive = false;
+    const result = mergeStyles([{ '-webkit-transform': isActive && 'scale(1.2)', '-moz-transform': 'scale(1.5)' }]);
+    expect(result).toEqual({ MozTransform: 'scale(1.5)' });
+  });
+
+  it('should apply falsy-guard filtering together with CSS custom properties', () => {
+    const isActive = false;
+    const result = mergeStyles([{ '--spacing-unit': isActive && '20px', color: 'red' }]);
+    expect(result).toEqual({ color: 'red' });
+  });
+
+  it('should skip all entries when every style in the array is falsy', () => {
+    const isActive = false;
+    const result = mergeStyles([isActive && { color: 'red' }, isActive && 'display: block', undefined]);
+    expect(result).toEqual({});
+  });
 });
