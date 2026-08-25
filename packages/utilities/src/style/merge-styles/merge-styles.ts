@@ -3,15 +3,12 @@ import { FALSY_GUARD_TOKENS } from './_internal/falsy-guard-tokens';
 /**
  * Merges multiple style values into a single, unified style object.
  *
- * This function consolidates a variety of style formats (inline strings, object records,
- * or undefined) into a single object. It ensures that all property keys are normalized
- * to camelCase or PascalCase where appropriate (e.g., handling vendor prefixes like
- * `-webkit-` as `Webkit` and `-ms-` as `ms`), while preserving CSS custom properties.
- *
- * The parser intelligently handles complex string values like `calc()` or `url()` to
- * ensure semicolons within them do not break the merging process. Following the CSS
- * cascade principle, styles appearing later in the array will override matching
- * properties from earlier ones.
+ * This utility consolidates various style inputs (inline `string` declarations,
+ * `object` records, and falsy values like `undefined`) into a single unified
+ * `object`. It ensures that all property keys are correctly transformed
+ * and normalized (converting kebab-case to camelCase, handling vendor
+ * prefixes appropriately, and preserving CSS variables) to remain fully
+ * compatible with JavaScript-based styling engines.
  *
  * @example
  * ```ts
