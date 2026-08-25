@@ -1,3 +1,5 @@
+const FALSY_GUARD_TOKENS = new Set(['false', 'true', 'undefined', 'null']);
+
 /**
  * Merges multiple style values into a single, unified style object.
  *
@@ -17,12 +19,15 @@
  * // Returns: { color: "red", marginTop: "20px", "--spacing-unit": "20px" }
  * ```
  */
-export const mergeStyles = (styles: (string | Record<string, string | number | undefined> | undefined)[]) => {
+export const mergeStyles = (
+  styles: (string | Record<string, string | number | boolean | undefined> | false | undefined)[]
+) => {
   // Short-circuit if no styles are provided to avoid unnecessary processing.
   if (styles.length === 0) return {};
 
   return styles.reduce<Record<string, string | number | undefined>>((acc, style) => {
-    // Skip nullish values (`null`, `undefined`) which are common in conditional styling.
+    // Skip nullish/falsy values (`null`, `undefined`, `false`) which are common
+    // in conditional styling, e.g. `isActive && { color: 'red' }`.
     if (!style) return acc;
 
     let styleObject: Record<string, string | number | undefined>;
@@ -70,13 +75,22 @@ export const mergeStyles = (styles: (string | Record<string, string | number | u
         const property = declaration.slice(0, colonIndex).trim();
         const value = declaration.slice(colonIndex + 1).trim();
 
-        if (property && value) {
-          styleObject[property] = value;
-        }
+        if (!property || !value) continue;
+
+        // Skip values that came from a falsy `&&`/ternary guard being stringified
+        // (e.g. `${!isActive && '1rem'}` becomes the literal text "font-size: false").
+        if (FALSY_GUARD_TOKENS.has(value)) continue;
+
+        styleObject[property] = value;
       }
     } else {
-      // Case 2: Style is already an object, use it directly for normalization.
-      styleObject = style;
+      // Case 2: Style is already an object. Filter out boolean values that came
+      // from a falsy `&&` guard (e.g. `{ padding: !isActive && '2rem' }` → `false`).
+      styleObject = {};
+      for (const [key, value] of Object.entries(style)) {
+        if (typeof value === 'boolean') continue;
+        styleObject[key] = value;
+      }
     }
 
     // Normalization Loop:
