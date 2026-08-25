@@ -12,7 +12,13 @@ import { FALSY_GUARD_TOKENS } from './_internal/falsy-guard-tokens';
  *
  * @example
  * ```ts
- * mergeStyles(["color: red; margin-top: 10px;", { marginTop: "20px", "--spacing-unit": "20px" }]);
+ * // Consolidate inline strings, objects, and conditional falsy values.
+ * mergeStyles([
+ *   "color: red; margin-top: 10px;",
+ *   false && "padding: 10px",
+ *   { marginTop: "20px", "--spacing-unit": "20px" }
+ * ]);
+ *
  * // Returns: { color: "red", marginTop: "20px", "--spacing-unit": "20px" }
  * ```
  */
