@@ -10,8 +10,12 @@ import { getWindow } from '../../dom/get-window';
  *
  * @example
  * ```ts
- * getComputedStyle(document.body);
- * // Returns: CSSStyleDeclaration object
+ * const element = document.querySelector("#my-element");
+ *
+ * // Retrieve computed styles ensuring the correct window context.
+ * if (element) {
+ *   const styles = getComputedStyle(element);
+ * }
  * ```
  */
 export const getComputedStyle = (element: Element) => {
