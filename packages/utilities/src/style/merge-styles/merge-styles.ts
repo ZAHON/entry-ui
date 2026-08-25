@@ -1,13 +1,4 @@
-/**
- * An internal set of stringified boolean and falsy primitive tokens resulting from template literal interpolation.
- *
- * Used by `mergeStyles` utility to identify and ignore invalid CSS property values produced when a conditional
- * short-circuit evaluation fails inside an inline style string
- * (e.g.,  `color: ${isActive && "red"}` resulting in `"color: false"`).
- *
- * @internal
- */
-const FALSY_GUARD_TOKENS = new Set(['false', 'true', 'undefined', 'null']);
+import { FALSY_GUARD_TOKENS } from './_internal/falsy-guard-tokens';
 
 /**
  * Merges multiple style values into a single, unified style object.
