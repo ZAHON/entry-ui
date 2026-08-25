@@ -59,7 +59,7 @@ The `mergeStyles` function accepts a single required parameter (marked with an a
 
 ### Returns
 
-The `mergeStyles` function returns a single consolidated object representing the final computed styles. This object is ready to be used directly as a style prop in most JavaScript-based UI frameworks.
+The `mergeStyles` function returns a single consolidated object representing the final computed styles. This object is ready to be used directly as a style prop in most JavaScript-based UI frameworks:
 
 | Type                                            | Description                                                                               |
 | :---------------------------------------------- | :---------------------------------------------------------------------------------------- |
