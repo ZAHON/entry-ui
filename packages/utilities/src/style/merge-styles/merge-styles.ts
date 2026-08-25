@@ -1,5 +1,3 @@
-import type { PossibleStyle } from './merge-styles.types';
-
 /**
  * Merges multiple style values into a single, unified style object.
  *
@@ -19,7 +17,7 @@ import type { PossibleStyle } from './merge-styles.types';
  * // Returns: { color: "red", marginTop: "20px", "--spacing-unit": "20px" }
  * ```
  */
-export const mergeStyles = (styles: PossibleStyle[]) => {
+export const mergeStyles = (styles: (string | Record<string, string | number | undefined> | undefined)[]) => {
   // Short-circuit if no styles are provided to avoid unnecessary processing.
   if (styles.length === 0) return {};
 
