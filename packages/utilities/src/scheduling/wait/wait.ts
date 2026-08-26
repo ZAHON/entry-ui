@@ -1,16 +1,16 @@
 /**
  * Pauses the execution of the current asynchronous function for a specified duration.
  *
- * This function utilizes a Promise-based wrapper around `setTimeout` to create
- * a non-blocking delay, allowing for cleaner asynchronous control flows using
- * async/await syntax.
+ * This utility wraps `setTimeout` within a native `Promise` to suspend asynchronous execution
+ * without blocking the main event loop. It simplifies asynchronous control flows, delay-based
+ * sequencing, and polling patterns when consumed with `async/await` syntax.
  *
  * @example
  * ```ts
+ * // Pause execution for 2 seconds before proceeding with the task.
  * const performTask = async () => {
- * 	console.log("Starting task...");
- * 	await wait(2000); // Pauses execution for 2 seconds
- * 	console.log("Task resumed after 2 seconds.");
+ *   await wait(2000);
+ *   console.log("Task resumed after 2 seconds.");
  * };
  * ```
  */
