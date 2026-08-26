@@ -14,7 +14,7 @@ import type { CreateTimeoutReturnValue } from './create-timeout.types';
  *
  * // Schedule a task after 500ms.
  * timer.start({
- *   callback: () => console.log('Executed!'),
+ *   callback: () => console.log("Executed!"),
  *   delayMs: 500,
  * });
  *
