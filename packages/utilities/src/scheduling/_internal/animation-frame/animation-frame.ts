@@ -226,7 +226,7 @@ export const resetAnimationFrameScheduler = () => {
 /**
  * Creates an isolated, stateful animation frame handle instance.
  *
- * This factory function provides an intuitive interface for scheduling single execution frame tasks.
+ * This factory utility provides an intuitive interface for scheduling single execution frame tasks.
  * It automatically cancels any pending frame execution whenever a new frame is requested on the same handle,
  * protecting against overlapping executions and layout thrashing.
  *
