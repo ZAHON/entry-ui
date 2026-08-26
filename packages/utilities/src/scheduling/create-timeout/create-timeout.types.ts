@@ -1,10 +1,9 @@
 /**
- * The API controls returned by the `createTimeout` factory utility.
+ * Represents the controller API returned by the `createTimeout` factory utility.
  *
- * This interface encapsulates management methods for scheduling, executing,
- * clearing, and inspecting an isolated, stateful timer instance. It provides
- * a clean abstraction over native global timeouts, preventing race conditions
- * and accidental multiple timer overlaps.
+ * This interface defines the operational contract for managing an isolated, stateful timer controller.
+ * It encapsulates methods for scheduling, canceling, and inspecting delayed callback executions while
+ * providing built-in lifecycle management to prevent overlapping timers and memory leaks.
  */
 export interface CreateTimeoutReturnValue {
   /**
