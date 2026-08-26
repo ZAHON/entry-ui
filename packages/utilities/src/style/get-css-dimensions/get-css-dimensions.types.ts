@@ -1,10 +1,9 @@
 /**
- * The geometric results of an element's dimension calculation.
+ * Represents the spatial result returned by the `getCssDimensions` utility.
  *
- * This interface represents the reconciled spatial measurements of a DOM element.
- * It provides a normalized output that bridges the gap between computed CSS
- * properties and actual layout geometry, ensuring consistency regardless of
- * whether the element is a standard HTML component or an SVG.
+ * This interface defines the normalized geometric payload calculated for a target DOM element.
+ * It enforces a consistent layout contract across measurement operations by pairing explicit pixel
+ * width and height properties reconciled from computed CSS styles and offset geometry.
  */
 export interface GetCssDimensionsReturnValue {
   /**
