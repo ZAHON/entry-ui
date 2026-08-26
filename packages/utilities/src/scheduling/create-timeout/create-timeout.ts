@@ -70,5 +70,7 @@ export const createTimeout = (): CreateTimeoutReturnValue => {
     return currentId !== 0;
   };
 
+  // Return the controller API exposing methods to schedule, cancel, and inspect the timer instance.
+  // Encapsulates the internal timer handle state within a clean, stateful interface.
   return { start, clear, isStarted };
 };
