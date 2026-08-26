@@ -182,7 +182,7 @@ export const createAnimationFrameScheduler = () => {
 };
 
 /**
- * Internal global instance of the animation frame batch scheduler.
+ * An internal global instance of the animation frame batch scheduler.
  *
  * Coordinates execution across all standalone `createAnimationFrame` handles, batching
  * callbacks into unified browser frame ticks for optimal rendering performance.
