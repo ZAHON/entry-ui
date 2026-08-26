@@ -1,6 +1,6 @@
 # visuallyHiddenStyle
 
-A set of CSS properties used to hide an element visually while keeping it accessible to screen readers.
+Defines the immutable CSS property object used to visually hide an element while preserving accessibility.
 
 [![Source](https://img.shields.io/badge/Source-GitHub-gray?logo=github)](https://github.com/ZAHON/entry-ui/tree/main/packages/utilities/src/visually-hidden-style)
 [![Issue](https://img.shields.io/badge/Report-Issue-red?logo=github)](https://github.com/ZAHON/entry-ui/issues/new?title=[Entry%20UI%20Utilities%20visuallyHiddenStyle]%20Issue)
@@ -13,37 +13,38 @@ import { visuallyHiddenStyle } from '@entry-ui/utilities/visually-hidden-style';
 
 ## Usage
 
-The `visuallyHiddenStyle` utility is essential for providing additional context to assistive technologies without affecting the visual layout. It uses a combination of clipping, absolute positioning, and dimension constraints to ensure an element is effectively hidden from the screen while remaining fully "visible" in the accessibility tree.
+The `visuallyHiddenStyle` utility provides an immutable CSS property object that strips an element of its visual layout footprint while keeping it fully accessible to screen readers and assistive technologies.
 
-This is commonly used for icon-only buttons, descriptive labels, or skip links that should only be detectable by screen reader users.
+It combines fixed positioning, zeroed padding and borders, a 1x1 pixel bounding box, and inset clipping to guarantee that element content is hidden visually without being removed from the accessibility tree. This makes it ideal for icon-only buttons, descriptive screen-reader labels, or skip links.
 
 ```tsx
 import { visuallyHiddenStyle } from '@entry-ui/utilities/visually-hidden-style';
 
+// Visually hide the label text while maintaining screen reader accessibility.
 const SearchButton = () => (
   <button type="button">
-    <SearchIcon />
-    <span style={visuallyHiddenStyle}>Search site</span>
+    <Icon name="search" />
+    <span style={visuallyHiddenStyle}>Search</span>
   </button>
 );
 ```
 
 ## API reference
 
-This section details the composition of the `visuallyHiddenStyle` object and the purpose of its specific CSS declarations.
+This section details the composition of the `visuallyHiddenStyle` object and the technical purpose of its CSS declarations.
 
-The `visuallyHiddenStyle` is a frozen object that satisfies the `CSS.Properties<string | number>` type. This ensures full compatibility and seamless integration with the `style` attribute in modern frameworks such as [**Qwik**](https://qwik.dev/), [**React**](https://react.dev/), and [**Astro**](https://astro.build/).
+The `visuallyHiddenStyle` constant is a frozen object (`Object.freeze`) that satisfies `CSS.Properties<string | number>`. This guarantees immutability and ensures seamless compatibility with `style` attributes in modern frameworks such as [**Qwik**](https://qwik.dev/), [**React**](https://react.dev/), and [**Astro**](https://astro.build/).
 
 The style object is composed of the following properties to ensure consistent behavior across all modern browsers:
 
-- **Positioning**:
-  Uses `position: "fixed"` combined with `top: 0` and `left: 0` to remove the element from the normal document flow without causing layout shifts.
+- **Positioning (`position: "fixed"`, `top: 0`, `left: 0`)**:
+  Removes the element from the standard document flow, preventing layout shifts and scrolling side effects.
 
-- **Clipping**:
-  Applies `clipPath: "inset(50%)"` and `overflow: "hidden"` to ensure no part of the element is rendered visually.
+- **Clipping (`clipPath: "inset(50%)"`, `overflow: "hidden"`)**:
+  Applies spatial clipping to ensure no visual rendered content spills outside the bounding box.
 
-- **Dimensions**:
-  Enforces a `1x1` pixel size with a `margin: -1px` to collapse the space it would otherwise occupy while maintaining a presence that screen readers can focus on.
+- **Dimensions (`width: 1`, `height: 1`, `margin: -1`)**:
+  Restricts the spatial bounding box to a 1x1 pixel size while collapsing surrounding layout space.
 
-- **Reset**:
-  Zeroes out `border` and `padding` while forcing `whiteSpace: "nowrap"` to prevent the content from wrapping or affecting the size of parent containers.
+- **Reset (`border: 0`, `padding: 0`, `whiteSpace: "nowrap"`)**:
+  Zeroes out structural spacing and prevents inline text wrapping from expanding parent dimensions.
