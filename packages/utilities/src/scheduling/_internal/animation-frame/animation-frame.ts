@@ -281,3 +281,14 @@ export const createAnimationFrame = (): CreateAnimationFrameReturnValue => {
 
   return { request, cancel };
 };
+
+export namespace createAnimationFrame {
+  /**
+   * Represents the controller API returned by the `createAnimationFrame` factory utility.
+   *
+   * This interface defines the operational contract for managing an isolated, stateful animation frame handle.
+   * It encapsulates methods for scheduling and canceling frame execution callbacks managed by a shared,
+   * low-level batch scheduler to maximize rendering performance and avoid layout thrashing.
+   */
+  export type ReturnValue = CreateAnimationFrameReturnValue;
+}
