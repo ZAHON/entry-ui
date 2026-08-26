@@ -3,7 +3,7 @@ import type { CreateTimeoutReturnValue } from './create-timeout.types';
 /**
  * Creates an isolated, stateful timer controller instance.
  *
- * This factory function encapsulates native timeout scheduling logic into a safe controller interface.
+ * This factory utility encapsulates native timeout scheduling logic into a safe controller interface.
  * It prevents overlapping executions by automatically clearing any pending timer when a new execution
  * is scheduled, and exposes explicit methods for cancellation and state inspection.
  *
