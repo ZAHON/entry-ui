@@ -13,16 +13,14 @@ import { wait } from '@entry-ui/utilities/wait';
 
 ## Usage
 
-The `wait` utility provides a Promise-based wrapper around `setTimeout`, enabling a non-blocking delay within asynchronous workflows. It is particularly useful for controlling execution flow, throttling operations, or simulating network latency in tests.
+The `wait` utility wraps `setTimeout` within a native `Promise` to suspend asynchronous execution without blocking the main event loop. It simplifies asynchronous control flows, delay-based sequencing, and polling patterns when consumed with `async/await` syntax.
 
 ```ts
 import { wait } from '@entry-ui/utilities/wait';
 
+// Pause execution for 2 seconds before proceeding with the task.
 const performTask = async () => {
-  console.log('Starting task...');
-
-  await wait(2000); // Pauses execution for 2 seconds
-
+  await wait(2000);
   console.log('Task resumed after 2 seconds.');
 };
 ```
@@ -33,16 +31,16 @@ This section provides a detailed technical overview of the `wait` function, incl
 
 ### Parameters
 
-The `wait` function accepts a single required parameter (marked with an asterisk `*`) that defines the duration of the delay in milliseconds. This value is used to initialize the internal timer:
+The `wait` function accepts a single required parameter (marked with an asterisk `*`) that defines the duration of the delay:
 
-| Parameter  | Type     | Default | Description                                                                                                  |
-| :--------- | :------- | :------ | :----------------------------------------------------------------------------------------------------------- |
-| `delayMs*` | `number` | `-`     | The number of milliseconds to wait before the `Promise` resolves. This determines the duration of the pause. |
+| Parameter  | Type     | Default | Description                                                                                |
+| :--------- | :------- | :------ | :----------------------------------------------------------------------------------------- |
+| `delayMs*` | `number` | `—`     | The duration in milliseconds to pause execution before resolving the underlying `Promise`. |
 
 ### Returns
 
 The `wait` function returns a `Promise` that acts as a synchronization point in asynchronous execution:
 
-| Type               | Description                                                         |
-| :----------------- | :------------------------------------------------------------------ |
-| `Promise<unknown>` | A `Promise` that resolves once the specified `delayMs` has elapsed. |
+| Type               | Description                                                                                                      |
+| :----------------- | :--------------------------------------------------------------------------------------------------------------- |
+| `Promise<unknown>` | A `Promise` that resolves once the specified `delayMs` timer expires, allowing asynchronous execution to resume. |
