@@ -56,7 +56,6 @@ export default defineConfig({
     'src/style/get-css-dimensions/index.ts',
     'src/style/get-hidden-element-height/index.ts',
     'src/style/merge-styles/index.ts',
-    'src/style/set-style-property/index.ts',
     'src/style/visually-hidden-input-style/index.ts',
     'src/style/visually-hidden-style/index.ts',
   ],

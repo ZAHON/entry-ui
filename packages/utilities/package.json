@@ -142,10 +142,6 @@
       "types": "./dist/style/merge-styles/index.d.ts",
       "import": "./dist/style/merge-styles/index.js"
     },
-    "./set-style-property": {
-      "types": "./dist/style/set-style-property/index.d.ts",
-      "import": "./dist/style/set-style-property/index.js"
-    },
     "./visually-hidden-input-style": {
       "types": "./dist/style/visually-hidden-input-style/index.d.ts",
       "import": "./dist/style/visually-hidden-input-style/index.js"
