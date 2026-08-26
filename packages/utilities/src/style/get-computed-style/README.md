@@ -13,22 +13,19 @@ import { getComputedStyle } from '@entry-ui/utilities/get-computed-style';
 
 ## Usage
 
-The `getComputedStyle` utility is a reliable wrapper around the native browser API. Standard calls to `window.getComputedStyle(element)` may return incorrect values or fail if the element resides within a different execution context, such as an `iframe` or a popup window.
+The `getComputedStyle` utility is a reliable wrapper around the native browser API. Standard calls to [`window.getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) may return incorrect values or fail if the element resides within a different execution context, such as an iframe or a popup window.
 
 This utility ensures that the styles are always retrieved from the context where the element actually exists, guaranteeing that the returned `CSSStyleDeclaration` reflects the true computed state of the node.
 
 ```ts
 import { getComputedStyle } from '@entry-ui/utilities/get-computed-style';
 
-const element = document.querySelector('.my-element');
-const styles = getComputedStyle(element);
+const element = document.querySelector('#my-element');
 
-console.log(styles.color);
-// Returns: e.g., "rgb(0, 0, 0)"
-
-// Safe to use with elements from different contexts (e.g., iframes)
-const iframeElement = myIframe.contentDocument.getElementById('inner-element');
-const iframeStyles = getComputedStyle(iframeElement);
+// Retrieve computed styles ensuring the correct window context.
+if (element) {
+  const styles = getComputedStyle(element);
+}
 ```
 
 ## API reference
@@ -41,7 +38,7 @@ The `getComputedStyle` function accepts a single required parameter (marked with
 
 | Parameter  | Type      | Default | Description                                                                                                                             |
 | :--------- | :-------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| `element*` | `Element` | `-`     | The target element for which you want to retrieve the styles. The function will automatically resolve the correct window for this node. |
+| `element*` | `Element` | `—`     | The target element for which you want to retrieve the styles. The function will automatically resolve the correct window for this node. |
 
 ### Returns
 
