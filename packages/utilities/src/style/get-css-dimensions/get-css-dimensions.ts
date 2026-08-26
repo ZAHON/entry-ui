@@ -3,14 +3,11 @@ import { getComputedStyle } from '../get-computed-style';
 import { isHTMLElement } from '../../dom/is-html-element';
 
 /**
- * Calculates the visual dimensions of an element, reconciling CSS styles with layout geometry.
+ * Calculates the reconciled spatial dimensions of a target DOM element.
  *
- * This utility determines the most accurate width and height of an element by
- * comparing its computed CSS values with its offset dimensions. It accounts for
- * edge cases where `getComputedStyle` might return inconsistent results, such as
- * in testing environments or when dealing with SVG elements. If a significant
- * discrepancy is detected between the CSS-defined size and the actual offset size,
- * it prioritizes the offset dimensions to ensure layout accuracy.
+ * This utility determines accurate pixel measurements by evaluating computed CSS values against
+ * rendered offset geometry. It resolves edge cases in non-standard environments by automatically falling back
+ * to layout bounds whenever a discrepancy is detected between computed styles and rendered dimensions.
  *
  * @example
  * ```ts
