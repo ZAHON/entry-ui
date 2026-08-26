@@ -15,5 +15,7 @@
  * ```
  */
 export const wait = (delayMs: number) => {
+  // Wrap `setTimeout` in a `Promise` that resolves after the specified duration in milliseconds (`delayMs`).
+  // This enables non-blocking asynchronous delays when consumed with `async/await` syntax.
   return new Promise((resolve) => setTimeout(resolve, delayMs));
 };
