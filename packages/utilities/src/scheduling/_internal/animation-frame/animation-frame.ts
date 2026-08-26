@@ -237,7 +237,7 @@ export const resetAnimationFrameScheduler = () => {
  *
  * // Schedule a task to run on the next frame.
  * anim.request(() => {
- *   console.log('Executed on animation frame!');
+ *   console.log("Executed on animation frame!");
  * });
  *
  * // Cancel the pending frame if needed.
