@@ -11,8 +11,12 @@ import { isHTMLElement } from '../../dom/is-html-element';
  *
  * @example
  * ```ts
- * getCssDimensions(myElement);
- * // Returns: { width: 150, height: 42 }
+ * const element = document.querySelector("#my-element");
+ *
+ * // Retrieve reconciled spatial dimensions for the target element.
+ * if (element) {
+ *   const dimensions = getCssDimensions(element);
+ * }
  * ```
  */
 export const getCssDimensions = (element: Element): GetCssDimensionsReturnValue => {
