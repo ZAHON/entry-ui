@@ -279,6 +279,8 @@ export const createAnimationFrame = (): CreateAnimationFrameReturnValue => {
     });
   };
 
+  // Return the controller API exposing methods to schedule and cancel animation frame callbacks.
+  // Encapsulates the internal frame handle state within a clean, stateful interface.
   return { request, cancel };
 };
 
