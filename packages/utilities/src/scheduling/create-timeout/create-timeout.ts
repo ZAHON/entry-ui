@@ -74,3 +74,14 @@ export const createTimeout = (): CreateTimeoutReturnValue => {
   // Encapsulates the internal timer handle state within a clean, stateful interface.
   return { start, clear, isStarted };
 };
+
+export namespace createTimeout {
+  /**
+   * Represents the controller API returned by the `createTimeout` factory utility.
+   *
+   * This interface defines the operational contract for managing an isolated, stateful timer controller.
+   * It encapsulates methods for scheduling, canceling, and inspecting delayed callback executions while
+   * providing built-in lifecycle management to prevent overlapping timers and memory leaks.
+   */
+  export type ReturnValue = CreateTimeoutReturnValue;
+}
