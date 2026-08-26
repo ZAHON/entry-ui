@@ -1,16 +1,15 @@
 import type * as CSS from 'csstype';
 
 /**
- * A set of CSS properties used to hide an element visually while keeping it
- * accessible to screen readers.
+ * Defines the immutable CSS property object used to visually hide an element while preserving accessibility.
  *
- * This utility is essential for providing additional context to assistive
- * technologies without affecting the visual layout. It uses a combination of
- * clipping, overflow, and absolute positioning to ensure the element has
- * dimensions of 1x1 pixel but remains "visible" in the accessibility tree.
+ * This object encapsulates spatial clipping and positioning rules that strip an element of its visual layout footprint
+ * without removing it from the accessibility tree. It combines fixed positioning, zeroed padding and borders, a 1x1 pixel bounding box,
+ * and inset clipping to ensure assistive technologies can still announce hidden context (such as screen-reader-only labels).
  *
  * @example
  * ```tsx
+ * // Visually hide the label text while maintaining screen reader accessibility.
  * const SearchButton = () => (
  * 	<button type="button">
  * 		<Icon name="search" />
