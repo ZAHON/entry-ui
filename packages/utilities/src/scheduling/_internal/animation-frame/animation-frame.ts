@@ -1,7 +1,7 @@
 import type { CreateAnimationFrameReturnValue } from './animation-frame.types';
 
 /**
- * Cached reference to the active global `requestAnimationFrame` implementation.
+ * An internal cached reference to the active global `requestAnimationFrame` implementation.
  *
  * Used to detect dynamic timer reference swaps (e.g. mock timers during testing)
  * and trigger automatic re-scheduling when the underlying environment context changes.
