@@ -9,9 +9,9 @@ import type { CreateAnimationFrameReturnValue } from './animation-frame.types';
 let LAST_RAF = globalThis.requestAnimationFrame;
 
 /**
- * Creates a low-level, batched animation frame scheduler for batching multiple frame requests.
+ * An internal factory utility that creates a low-level, batched animation frame scheduler.
  *
- * It uses an array as an internal backing storage to achieve `O(1)` cancellation efficiency.
+ * It uses an array as internal backing storage to achieve `O(1)` cancellation efficiency.
  * It also handles edge cases like mock timers swapping during test suites.
  */
 export const createAnimationFrameScheduler = () => {
