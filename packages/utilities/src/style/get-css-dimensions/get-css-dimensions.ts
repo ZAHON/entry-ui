@@ -59,3 +59,14 @@ export const getCssDimensions = (element: Element): GetCssDimensionsReturnValue 
   // Fulfills the layout contract expected by downstream consumers requiring reconciled element geometry.
   return { width, height };
 };
+
+export namespace getCssDimensions {
+  /**
+   * Represents the spatial result returned by the `getCssDimensions` utility.
+   *
+   * This interface defines the normalized geometric payload calculated for a target DOM element.
+   * It enforces a consistent layout contract across measurement operations by pairing explicit pixel
+   * width and height properties reconciled from computed CSS styles and offset geometry.
+   */
+  export type ReturnValue = GetCssDimensionsReturnValue;
+}
