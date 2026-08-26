@@ -191,6 +191,41 @@ describe('createAnimationFrameScheduler', () => {
 
       expect(freshCallback).toHaveBeenCalledTimes(1);
     });
+
+    it('should not prevent other pending callbacks from running when cancel is called twice for the same id', () => {
+      const scheduler = createAnimationFrameScheduler();
+      const firstCallback = vi.fn();
+      const secondCallback = vi.fn();
+
+      const firstId = scheduler.request(firstCallback);
+      scheduler.request(secondCallback);
+
+      scheduler.cancel(firstId);
+      scheduler.cancel(firstId); // duplikat - nie powinien nic dodatkowo zdekrementować
+
+      vi.advanceTimersToNextFrame();
+
+      expect(firstCallback).not.toHaveBeenCalled();
+      expect(secondCallback).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not underflow the active callback count when cancel is called more times than there are pending callbacks', () => {
+      const scheduler = createAnimationFrameScheduler();
+      const callback = vi.fn();
+
+      const id = scheduler.request(callback);
+      scheduler.cancel(id);
+      scheduler.cancel(id);
+      scheduler.cancel(id);
+
+      const freshCallback = vi.fn();
+      scheduler.request(freshCallback);
+
+      vi.advanceTimersToNextFrame();
+
+      expect(callback).not.toHaveBeenCalled();
+      expect(freshCallback).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('nextId / startId accessors', () => {

@@ -111,6 +111,12 @@ export const createAnimationFrameScheduler = () => {
       return;
     }
 
+    // Verify if the callback at the target index has already been nullified.
+    // Prevents duplicate cancellation calls from incorrectly decrementing the active task counter.
+    if (callbacks[index] === null) {
+      return;
+    }
+
     // Nullify callback slot to perform `O(1)` cancellation without array mutation.
     // Decrements active task counter to allow tick phase early-exits when queue empties.
     callbacks[index] = null;
