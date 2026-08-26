@@ -1,6 +1,6 @@
 # visuallyHiddenInputStyle
 
-Visually hides an input element while keeping it functional and accessible.
+Defines the immutable CSS property object used to visually hide form input elements while preserving interactive accessibility.
 
 [![Source](https://img.shields.io/badge/Source-GitHub-gray?logo=github)](https://github.com/ZAHON/entry-ui/tree/main/packages/utilities/src/visually-hidden-input-style)
 [![Issue](https://img.shields.io/badge/Report-Issue-red?logo=github)](https://github.com/ZAHON/entry-ui/issues/new?title=[Entry%20UI%20Utilities%20visuallyHiddenInputStyle]%20Issue)
@@ -13,13 +13,14 @@ import { visuallyHiddenInputStyle } from '@entry-ui/utilities/visually-hidden-in
 
 ## Usage
 
-The `visuallyHiddenInputStyle` utility is specifically designed for styling native form elements like checkboxes, radio buttons, or file inputs. It hides the default browser UI while ensuring the underlying input remains fully functional, focusable, and reachable by assistive technologies.
+The `visuallyHiddenInputStyle` utility provides an immutable CSS property object specifically designed for native form elements such as checkboxes, radio buttons, or file inputs. It strips default browser controls of their visual layout footprint while keeping them fully focusable, reachable, and interactive for keyboard and screen reader users.
 
-This allows developers to build custom-designed form controls that maintain standard browser behaviors and accessibility compliance.
+It combines absolute positioning, zeroed padding and borders, a 1x1 pixel bounding box, and inset clipping to enable building custom UI controls on top of fully accessible native form inputs.
 
 ```tsx
 import { visuallyHiddenInputStyle } from '@entry-ui/utilities/visually-hidden-input-style';
 
+// Visually hide a native checkbox input while preserving custom label interactivity and focus.
 const CustomCheckbox = () => (
   <>
     <input type="checkbox" id="terms" style={visuallyHiddenInputStyle} />
@@ -30,20 +31,20 @@ const CustomCheckbox = () => (
 
 ## API reference
 
-This section details the composition of the `visuallyHiddenInputStyle` object and the purpose of its specific CSS declarations.
+This section details the composition of the visuallyHiddenInputStyle object and the technical purpose of its CSS declarations.
 
-The `visuallyHiddenInputStyle` is a frozen object that satisfies the `CSS.Properties<string | number>` type. This ensures full compatibility and seamless integration with the `style` attribute in modern frameworks such as [**Qwik**](https://qwik.dev/), [**React**](https://react.dev/), and [**Astro**](https://astro.build/).
+The `visuallyHiddenInputStyle` constant is a frozen object (`Object.freeze`) that satisfies `CSS.Properties<string | number`>. This guarantees immutability and ensures seamless compatibility with `style` attributes in modern frameworks such as [**Qwik**](https://qwik.dev/), [**React**](https://react.dev/), and [**Astro**](https://astro.build/).
 
 The style object is composed of the following properties to ensure consistent behavior across all modern browsers:
 
-- **Positioning**:
-  Uses `position: "absolute"` to remove the input from the visual flow while keeping it logically tied to its associated label and position in the DOM.
+- **Positioning (`position: "absolute"`)**:
+  Removes the input from the visual layout flow while keeping it logically positioned near its label for focus management and DOM accessibility.
 
-- **Clipping**:
-  Applies `clipPath: "inset(50%)"` and `overflow: "hidden"` to ensure the native browser element is not rendered visually.
+- **Clipping (`clipPath: "inset(50%)"`, `overflow: "hidden"`)**:
+  Applies spatial clipping to ensure no visual rendered content spills outside the bounding box.
 
-- **Dimensions**:
-  Enforces a `1x1` pixel size with a `margin: -1px` to collapse its visual footprint while remaining detectable by screen readers and focus managers.
+- **Dimensions (`width: 1`, `height: 1`, `margin: -1`)**:
+  Restricts the spatial bounding box to a 1x1 pixel size while collapsing surrounding layout space.
 
-- **Reset**:
-  Zeroes out `border` and `padding` while forcing `whiteSpace: "nowrap"` to prevent the element from affecting the layout of parent containers or wrapping content.
+- **Reset (`border: 0`, `padding: 0`, `whiteSpace: "nowrap"`)**:
+  Zeroes out structural spacing and prevents inline text wrapping from expanding parent dimensions.
