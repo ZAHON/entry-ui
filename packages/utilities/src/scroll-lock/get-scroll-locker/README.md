@@ -1,6 +1,6 @@
 # getScrollLocker
 
-Retrieves the shared reference-counted viewport scroll locker singleton.
+Retrieves the shared reference-counted viewport scroll locker singleton instance.
 
 [![Source](https://img.shields.io/badge/Source-GitHub-gray?logo=github)](https://github.com/ZAHON/entry-ui/tree/main/packages/utilities/src/get-scroll-locker)
 [![Issue](https://img.shields.io/badge/Report-Issue-red?logo=github)](https://github.com/ZAHON/entry-ui/issues/new?title=[Entry%20UI%20Utilities%20getScrollLocker]%20Issue)
