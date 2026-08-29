@@ -1,9 +1,9 @@
 /**
- * Configuration object for the `getViewportScroller` utility.
+ * Represents the configuration parameters required by the internal `getViewportScroller` utility.
  *
- * This interface encapsulates the root element references required to identify the active
- * scrolling element for the document viewport. It accepts both the root `<html>` element
- * and the document `<body>` element to resolve layout overflow propagation rules properly.
+ * This interface defines the essential element reference fields needed to identify the active
+ * scroll container for the document viewport. It enforces consistent scroll target resolution
+ * across varying CSS layout configurations by pairing the root `<html>` element with the document `<body>` element.
  */
 export interface GetViewportScrollerParams {
   /**
