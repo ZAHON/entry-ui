@@ -34,12 +34,12 @@ This section provides a technical overview of the `focusElement` function and it
 
 The `focusElement` function accepts a single configuration object as its parameter to define the target element and its focus behavior, where required properties are marked with an asterisk (`*`):
 
-| Property        | Type          | Default | Description                                                                                                                                                                                                                                |
-| :-------------- | :------------ | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `element*`      | `HTMLElement` | `—`     | The target HTML element that should receive focus. This element will be focused using the native `HTMLElement.focus()` method.                                                                                                             |
-| `focusVisible`  | `boolean`     | `false` | Whether the focus indicator (e.g., focus ring) should be visible. This mimics the behavior of the `:focus-visible` CSS pseudo-class, ensuring the element appears focused to the user, typically used for keyboard navigation consistency. |
-| `preventScroll` | `boolean`     | `false` | Whether the browser should scroll the element into view after focusing. If set to `true`, it prevents the default scrolling behavior.                                                                                                      |
-| `select`        | `boolean`     | `false` | Whether to select the text content within the element. Selection is only performed if the element is an `HTMLInputElement`, supports selection, and is not already the currently focused element.                                          |
+| Property        | Type                   | Default | Description                                                                                                                                                                                                                                |
+| :-------------- | :--------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `element*`      | `HTMLElement`          | `—`     | The target HTML element that should receive focus. This element will be focused using the native `HTMLElement.focus()` method.                                                                                                             |
+| `focusVisible`  | `boolean \| undefined` | `false` | Whether the focus indicator (e.g., focus ring) should be visible. This mimics the behavior of the `:focus-visible` CSS pseudo-class, ensuring the element appears focused to the user, typically used for keyboard navigation consistency. |
+| `preventScroll` | `boolean \| undefined` | `false` | Whether the browser should scroll the element into view after focusing. If set to `true`, it prevents the default scrolling behavior.                                                                                                      |
+| `select`        | `boolean \| undefined` | `false` | Whether to select the text content within the element. Selection is only performed if the element is an `HTMLInputElement`, supports selection, and is not already the currently focused element.                                          |
 
 ### Returns
 
