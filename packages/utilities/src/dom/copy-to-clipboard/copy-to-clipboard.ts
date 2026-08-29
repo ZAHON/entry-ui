@@ -1,21 +1,19 @@
 import type { CopyToClipboardParams } from './copy-to-clipboard.types';
 
 /**
- * Asynchronously transfers text to the system clipboard using the Clipboard API.
+ * Asynchronously transfers text to the system clipboard using the native Clipboard API.
  *
- * This utility provides a structured wrapper around `navigator.clipboard.writeText`,
- * offering specific error types to distinguish between unsupported environments
- * and runtime failures.
- *
- * This function expects a browser environment where `window` or
- * `document` is globally available.
+ * This utility wraps `navigator.clipboard.writeText` in a structured interface,
+ * providing failure handling and granular error types to gracefully distinguish between
+ * environments lacking clipboard support and runtime execution errors.
  *
  * @example
  * ```ts
+ * // Safely attempt to copy a string to the clipboard with handleable callbacks.
  * copyToClipboard({
- * 	value: "Hello World",
- * 	onSuccess: () => console.log("Text copied!"),
- * 	onError: (err) => console.error(`Copy failed: ${err.type}, ${err.message}`),
+ *   value: "Hello World",
+ *   onSuccess: () => console.log("Text successfully copied to clipboard"'),
+ *   onError: (err) => console.error(`Copy operation failed: ${err.type}`, err.message),
  * });
  * ```
  */
