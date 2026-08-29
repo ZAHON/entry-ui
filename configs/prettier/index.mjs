@@ -2,13 +2,13 @@ const getPlugins = () => {
   const plugins = [];
 
   try {
-    require.resolve('prettier-plugin-astro');
-    plugins.push('prettier-plugin-astro');
+    require.resolve("prettier-plugin-astro");
+    plugins.push("prettier-plugin-astro");
   } catch {}
 
   try {
-    require.resolve('prettier-plugin-tailwindcss');
-    plugins.push('prettier-plugin-tailwindcss');
+    require.resolve("prettier-plugin-tailwindcss");
+    plugins.push("prettier-plugin-tailwindcss");
   } catch {}
 
   return plugins;
@@ -17,23 +17,23 @@ const getPlugins = () => {
 export const config = {
   printWidth: 120,
   semi: true,
-  trailingComma: 'es5',
+  trailingComma: "es5",
   singleQuote: true,
   tabWidth: 2,
   useTabs: false,
-  tailwindFunctions: ['cva'],
+  tailwindFunctions: ["cva"],
   plugins: getPlugins(),
   overrides: [
     {
-      files: '*.svg',
+      files: "*.svg",
       options: {
-        parser: 'html',
+        parser: "html",
       },
     },
     {
-      files: '*.astro',
+      files: "*.astro",
       options: {
-        parser: 'astro',
+        parser: "astro",
       },
     },
   ],
