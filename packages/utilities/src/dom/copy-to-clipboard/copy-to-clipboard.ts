@@ -21,15 +21,32 @@ export const copyToClipboard = async (params: CopyToClipboardParams) => {
   const { value, onSuccess, onError } = params;
 
   try {
+    // Verify that the native `navigator.clipboard.writeText` API is supported in the current environment.
+    // Handles cases where the Clipboard API is unavailable (e.g., non-secure HTTP origins or unsupported browsers).
     if (!window.navigator.clipboard?.writeText) {
+      // Dispatch a structured error payload indicating that clipboard operations are unsupported.
+      // Notifies the caller about environment constraints so they can update UI or log a warning.
       onError?.({ type: 'NOT_SUPPORTED' });
+
+      // Halt further function execution immediately after signaling the unsupported state.
+      // Prevents runtime exceptions caused by attempting to invoke undefined native API methods.
       return;
     }
 
+    // Execute the native asynchronous write operation to commit the target string into the clipboard.
+    // Awaits promise resolution before signaling successful completion to downstream consumer code.
     await window.navigator.clipboard.writeText(value);
+
+    // Trigger the optional success callback once the clipboard write operation completes without errors.
+    // Provides a predictable hook for consumers to trigger visual feedback (e.g., UI toasts or state changes).
     onSuccess?.();
   } catch (error) {
+    // Safely normalize uncaught exceptions into a standardized string representation.
+    // Distinguishes between native JavaScript `Error` instances and arbitrary thrown values.
     const message = error instanceof Error ? error.message : String(error);
+
+    // Forward the operational failure details to the consumer-defined error handler.
+    // Enforces a uniform error payload structure for runtime execution failures.
     onError?.({ type: 'COPY_FAILED', message });
   }
 };
