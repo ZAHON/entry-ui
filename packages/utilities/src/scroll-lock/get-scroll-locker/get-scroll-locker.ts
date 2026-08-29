@@ -166,11 +166,11 @@ export const createScrollLocker = () => {
 const scrollLocker = createScrollLocker();
 
 /**
- * Retrieves the shared reference-counted viewport scroll locker singleton.
+ * Retrieves the shared reference-counted viewport scroll locker singleton instance.
  *
- * Exposes a unified global handle to the underlying reference-counted scroll controller.
- * This guarantees that independent UI components, custom hooks, and overlapping overlays
- * share a single synchronized state machine to prevent unwanted page scrolling and layout shifts.
+ * This utility provides a unified global handle to the underlying reference-counted scroll controller.
+ * It guarantees that independent UI components, custom hooks, and overlapping overlays share a single
+ * synchronized state machine to prevent unwanted page scrolling and dynamic layout shifts.
  *
  * @example
  * ```ts
