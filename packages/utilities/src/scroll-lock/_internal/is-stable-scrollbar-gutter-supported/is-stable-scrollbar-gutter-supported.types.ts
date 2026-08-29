@@ -1,9 +1,9 @@
 /**
- * Configuration object for the `isStableScrollbarGutterSupported` utility.
+ * Represents the configuration parameters required by the internal `isStableScrollbarGutterSupported` utility.
  *
- * This interface encapsulates references to the root `<html>` and `<body>` elements
- * required to resolve the active viewport scroller and verify runtime support
- * for the CSS `scrollbar-gutter: "stable"` property.
+ * This interface defines the essential element reference fields needed to identify the active viewport scroll container
+ * and verify runtime layout support for the CSS `scrollbar-gutter: stable` property. It ensures reliable feature
+ * testing by pairing the root `<html>` element with the document `<body>` element.
  */
 export interface IsStableScrollbarGutterSupportedParams {
   /**
