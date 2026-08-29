@@ -32,11 +32,11 @@ export interface CopyToClipboardParams {
 }
 
 /**
- * Represents a structured error object returned when a clipboard operation fails.
+ * Represents the error payload structure returned by the `copyToClipboard` utility when an operation fails.
  *
- * This interface provides a uniform error shape to distinguish between
- * environment-level limitations and unexpected runtime failures,
- * allowing consumers to handle each case appropriately.
+ * This interface defines the essential diagnostic fields needed to gracefully handle clipboard failures.
+ * It enforces a unified error shape across the codebase by classifying the failure type and providing
+ * optional descriptive error details for runtime rejections.
  */
 export interface CopyToClipboardError {
   /**
