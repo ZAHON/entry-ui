@@ -24,7 +24,8 @@
   "devDependencies": {
     "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
+    "@entry-ui/prettier": "workspace:*",
     "husky": "^9.1.7",
-    "@entry-ui/prettier": "workspace:*"
+    "prettier": "^3.9.6"
   }
 }
