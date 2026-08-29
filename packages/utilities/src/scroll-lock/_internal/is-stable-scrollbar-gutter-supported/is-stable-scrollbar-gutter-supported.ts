@@ -2,24 +2,11 @@ import type { IsStableScrollbarGutterSupportedParams } from './is-stable-scrollb
 import { getViewportScroller } from '../get-viewport-scroller';
 
 /**
- * Evaluates whether the environment correctly supports stable scrollbar gutters at runtime.
+ * An internal utility that evaluates whether the environment correctly supports stable scrollbar gutters at runtime.
  *
- * While syntax checks confirm basic browser API support, engine implementation bugs or OS scrollbar settings
- * may still cause layout shifts. This utility performs both a feature and layout measurement check
- * by temporarily applying the property and comparing container widths under different overflow states.
- *
- * @example
- * ```ts
- * // Determine if stable scrollbar gutters can be safely relied upon to prevent layout shifts.
- * const isSupported = isStableScrollbarGutterSupported({
- *   html: document.documentElement,
- *   body: document.body,
- * });
- *
- * if (isSupported) {
- *   // Use stable scrollbar gutter styling for scroll locking strategies.
- * }
- * ```
+ * This utility performs both a syntax feature check and a live layout measurement test by temporarily applying
+ * the property and comparing container widths under different overflow states. This ensures engine implementation
+ * bugs or OS scrollbar settings will not cause visual layout shifts despite basic browser API support.
  */
 export const isStableScrollbarGutterSupported = (params: IsStableScrollbarGutterSupportedParams) => {
   const { html, body } = params;
