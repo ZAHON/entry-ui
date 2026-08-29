@@ -22,7 +22,7 @@ export interface FocusFirstElementParams {
    *
    * @default false
    */
-  focusVisible?: boolean;
+  focusVisible?: boolean | undefined;
 
   /**
    * Whether the browser should scroll the element into view after focusing.
@@ -31,7 +31,7 @@ export interface FocusFirstElementParams {
    *
    * @default false
    */
-  preventScroll?: boolean;
+  preventScroll?: boolean | undefined;
 
   /**
    * Whether to select the text content within the candidate element.
@@ -40,5 +40,5 @@ export interface FocusFirstElementParams {
    *
    * @default false
    */
-  select?: boolean;
+  select?: boolean | undefined;
 }
