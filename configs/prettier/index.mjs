@@ -11,6 +11,11 @@ const getPlugins = () => {
   } catch {}
 
   try {
+    require.resolve("prettier-plugin-packagejson");
+    plugins.push("prettier-plugin-packagejson");
+  } catch {}
+
+  try {
     require.resolve("prettier-plugin-tailwindcss");
     plugins.push("prettier-plugin-tailwindcss");
   } catch {}
