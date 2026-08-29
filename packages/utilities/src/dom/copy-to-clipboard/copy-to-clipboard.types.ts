@@ -1,27 +1,4 @@
 /**
- * Represents a structured error object returned when a clipboard operation fails.
- *
- * This interface provides a uniform error shape to distinguish between
- * environment-level limitations and unexpected runtime failures,
- * allowing consumers to handle each case appropriately.
- */
-export interface ClipboardError {
-  /**
-   * The classification of the failure.
-   * - `"NOT_SUPPORTED"`: The browser lacks `navigator.clipboard.writeText` support.
-   * - `"COPY_FAILED"`: The operation was rejected (e.g., lack of permissions).
-   */
-  type: 'NOT_SUPPORTED' | 'COPY_FAILED';
-
-  /**
-   * A descriptive message detailing the cause of the failure.
-   * This field is populated exclusively when the error `type` is `"COPY_FAILED"`,
-   * typically containing the message from the native `Error` object.
-   */
-  message?: string;
-}
-
-/**
  * Represents the configuration parameters required by the `copyToClipboard` utility.
  *
  * This interface defines the essential payload fields needed to programmatically transfer text
@@ -51,5 +28,28 @@ export interface CopyToClipboardParams {
    *
    * @default undefined
    */
-  onError?: (error: ClipboardError) => void | undefined;
+  onError?: (error: CopyToClipboardError) => void | undefined;
+}
+
+/**
+ * Represents a structured error object returned when a clipboard operation fails.
+ *
+ * This interface provides a uniform error shape to distinguish between
+ * environment-level limitations and unexpected runtime failures,
+ * allowing consumers to handle each case appropriately.
+ */
+export interface CopyToClipboardError {
+  /**
+   * The classification of the failure.
+   * - `"NOT_SUPPORTED"`: The browser lacks `navigator.clipboard.writeText` support.
+   * - `"COPY_FAILED"`: The operation was rejected (e.g., lack of permissions).
+   */
+  type: 'NOT_SUPPORTED' | 'COPY_FAILED';
+
+  /**
+   * A descriptive message detailing the cause of the failure.
+   * This field is populated exclusively when the error `type` is `"COPY_FAILED"`,
+   * typically containing the message from the native `Error` object.
+   */
+  message?: string;
 }
