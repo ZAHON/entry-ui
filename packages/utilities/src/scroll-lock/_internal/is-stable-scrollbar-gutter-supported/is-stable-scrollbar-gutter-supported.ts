@@ -11,7 +11,7 @@ import { getViewportScroller } from '../get-viewport-scroller';
 export const isStableScrollbarGutterSupported = (params: IsStableScrollbarGutterSupportedParams) => {
   const { html, body } = params;
 
-  // Verify basic engine syntax support for the `scrollbar-gutter: "stable"` rule via the CSS API.
+  // Verify basic engine syntax support for the `scrollbar-gutter: stable` rule via the CSS API.
   // Immediately returns false if runtime CSS evaluation is absent or explicitly reports no property support.
   if (!(typeof CSS !== 'undefined' && CSS.supports && CSS.supports('scrollbar-gutter', 'stable'))) {
     return false;
