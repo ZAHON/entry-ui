@@ -158,9 +158,9 @@ export const createScrollLocker = () => {
 };
 
 /**
- * Internal singleton scroll locker instance shared across the application runtime.
+ * An internal singleton scroll locker instance shared across the application runtime.
  *
- * Encapsulates the shared reference counting state and coordinates viewport
+ * This instance encapsulates the shared reference counting state and coordinates viewport
  * scroll prevention across independent UI components and hooks.
  */
 const scrollLocker = createScrollLocker();
