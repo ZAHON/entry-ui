@@ -5,7 +5,7 @@ import { isBrowser, isDev } from '@qwik.dev/core';
 import { getComputedStyle } from '@entry-ui/utilities/get-computed-style';
 import { getHiddenElementHeight } from '@entry-ui/utilities/get-hidden-element-height';
 import { getWindow } from '@entry-ui/utilities/get-window';
-import { addEventListenerOnce } from '@entry-ui/utilities/add-event-listener-once';
+import { addEventListener } from '@entry-ui/utilities/add-event-listener';
 import { mergeStyles } from '@/utilities/merge-styles';
 import { mergeRefs } from '@/utilities/merge-refs';
 import { warn } from '@/_internal/utilities/warn';
@@ -252,20 +252,22 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
 
         applyFinalState();
       } else if (transitionDuration !== '0s') {
-        const removeTransitionEndListener = addEventListenerOnce({
+        const removeTransitionEndListener = addEventListener({
           target: panelRef,
           type: 'transitionend',
           listener: applyFinalState,
+          options: { once: true },
         });
 
         cleanup(() => {
           removeTransitionEndListener();
         });
       } else if (animationDuration !== '0s') {
-        const removeAnimationEndListener = addEventListenerOnce({
+        const removeAnimationEndListener = addEventListener({
           target: panelRef,
           type: 'animationend',
           listener: applyFinalState,
+          options: { once: true },
         });
 
         cleanup(() => {

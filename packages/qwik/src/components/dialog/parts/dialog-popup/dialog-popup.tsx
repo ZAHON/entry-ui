@@ -5,7 +5,7 @@ import { isBrowser, isDev } from '@qwik.dev/core';
 import { getWindow } from '@entry-ui/utilities/get-window';
 import { getDocument } from '@entry-ui/utilities/get-document';
 import { getComputedStyle } from '@entry-ui/utilities/get-computed-style';
-import { addEventListenerOnce } from '@entry-ui/utilities/add-event-listener-once';
+import { addEventListener } from '@entry-ui/utilities/add-event-listener';
 import { useScrollLock } from '@/hooks/use-scroll-lock';
 import { useLifecycle } from '@/hooks/use-lifecycle';
 import { mergeStyles } from '@/utilities/merge-styles';
@@ -127,20 +127,22 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
 
         applyFinalState();
       } else if (transitionDuration !== '0s') {
-        const removeTransitionEndListener = addEventListenerOnce({
+        const removeTransitionEndListener = addEventListener({
           target: popupRef,
           type: 'transitionend',
           listener: applyFinalState,
+          options: { once: true },
         });
 
         cleanup(() => {
           removeTransitionEndListener();
         });
       } else if (animationDuration !== '0s') {
-        const removeAnimationEndListener = addEventListenerOnce({
+        const removeAnimationEndListener = addEventListener({
           target: popupRef,
           type: 'animationend',
           listener: applyFinalState,
+          options: { once: true },
         });
 
         cleanup(() => {
