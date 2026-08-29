@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { isTestEnvironmentDOM } from '../is-test-environment-dom';
+import { isTestEnvironmentDOM } from '../../../platform/is-test-environment-dom';
 import { isViewportScrollLocked } from '.';
 
 describe('isViewportScrollLocked', () => {
