@@ -51,5 +51,5 @@ export interface CopyToClipboardError {
    * This field is populated exclusively when the error `type` is `"COPY_FAILED"`,
    * typically containing the message from the native `Error` object.
    */
-  message?: string;
+  message?: string | undefined;
 }
