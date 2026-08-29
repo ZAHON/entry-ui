@@ -2,23 +2,11 @@ import type { PreventScrollOverlayScrollbarsParams } from './prevent-scroll-over
 import { getViewportScroller } from '../get-viewport-scroller';
 
 /**
- * Prevents viewport scrolling in overlay scrollbar environments by disabling scroll overflow.
+ * An internal utility that prevents viewport scrolling in overlay scrollbar environments by disabling scroll overflow.
  *
- * Designed specifically for platforms with floating/overlay scrollbars (e.g., macOS, iOS, or systems with auto-hiding bars),
+ * This utility is designed specifically for platforms with floating/overlay scrollbars (e.g., macOS, iOS, or systems with auto-hiding bars),
  * where disabling overflow does not cause layout shifts. It resolves the active viewport scroller, locks scrolling across
- * both axes, and returns a cleanup function that perfectly restores previous inline styles and purges empty `style` attributes.
- *
- * @example
- * ```ts
- * // Lock viewport scrolling when opening a modal overlay.
- * const restoreScroll = preventScrollOverlayScrollbars({
- *   html: document.documentElement,
- *   body: document.body,
- * });
- *
- * // Later, restore original scroll behavior when the modal closes.
- * restoreScroll();
- * ```
+ * both axes, and returns a cleanup function that restores previous inline styles and purges empty `style` attributes.
  */
 export const preventScrollOverlayScrollbars = (params: PreventScrollOverlayScrollbarsParams) => {
   const { html, body } = params;
