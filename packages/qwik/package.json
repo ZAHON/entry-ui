@@ -132,7 +132,7 @@
     "qwik": "qwik"
   },
   "dependencies": {
-    "@entry-ui/utilities": "^0.11.0"
+    "@entry-ui/utilities": "^0.12.0"
   },
   "devDependencies": {
     "@entry-ui/eslint": "workspace:*",
