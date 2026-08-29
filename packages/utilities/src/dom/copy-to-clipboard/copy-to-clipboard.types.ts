@@ -42,7 +42,7 @@ export interface CopyToClipboardParams {
    *
    * @default undefined
    */
-  onSuccess?: () => void;
+  onSuccess?: () => void | undefined;
 
   /**
    * An optional callback executed when the copy operation fails or is not supported.
@@ -51,5 +51,5 @@ export interface CopyToClipboardParams {
    *
    * @default undefined
    */
-  onError?: (error: ClipboardError) => void;
+  onError?: (error: ClipboardError) => void | undefined;
 }
