@@ -2,26 +2,11 @@ import type { IsViewportScrollLockedParams } from './is-viewport-scroll-locked.t
 import { getViewportScroller } from '../get-viewport-scroller';
 
 /**
- * Determines whether vertical scrolling on the document viewport is actively locked or disabled.
+ * An internal utility that determines whether vertical scrolling on the document viewport is actively locked or disabled.
  *
  * This utility resolves the current active viewport scroller (either `<html>` or `<body>`)
  * and inspects its computed `overflowY` style property. If the resolved scroller applies
- * `"hidden"` or `"clip"`, vertical viewport scrolling is considered locked.
- *
- * @example
- * ```ts
- * // Check if the viewport scrolling is currently locked by a modal or overlay.
- *
- * const isLocked = isViewportScrollLocked({
- *   win: window,
- *   html: document.documentElement,
- *   body: document.body,
- * });
- *
- * if (isLocked) {
- *   // Prevent secondary scroll operations or layout adjustments while locked.
- * }
- * ```
+ * `hidden` or `clip`, vertical viewport scrolling is considered locked.
  */
 export const isViewportScrollLocked = (params: IsViewportScrollLockedParams) => {
   const { win, html, body } = params;
