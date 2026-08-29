@@ -189,3 +189,14 @@ const scrollLocker = createScrollLocker();
 export const getScrollLocker = (): GetScrollLockerReturnValue => {
   return scrollLocker;
 };
+
+export namespace getScrollLocker {
+  /**
+   * Represents the controller API returned by the `getScrollLocker` utility.
+   *
+   * This interface defines the operational contract for acquiring reference-counted viewport scroll locks.
+   * It encapsulates management methods required to coordinate viewport scroll prevention across concurrent UI
+   * components, custom hooks, and application runtime execution contexts.
+   */
+  export type ReturnValue = GetScrollLockerReturnValue;
+}
