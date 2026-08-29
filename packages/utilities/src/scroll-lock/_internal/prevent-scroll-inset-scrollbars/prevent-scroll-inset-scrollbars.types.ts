@@ -1,10 +1,9 @@
 /**
- * Configuration object for the `preventScrollInsetScrollbars` utility.
+ * Represents the configuration parameters required by the internal `preventScrollInsetScrollbars` utility.
  *
- * This interface encapsulates references to the target `Window` object context alongside
- * the root `<html>` and `<body>` element references required to identify the active element
- * responsible for scrolling the document viewport, evaluate layout dimensions, and suppress
- * viewport scrolling without layout shift.
+ * This interface defines the essential execution context and element reference fields needed to identify the active
+ * scroll container for the document viewport, evaluate layout dimensions, and suppress viewport scrolling without layout shift.
+ * It pairs the target `Window` object context with the root `<html>` and `<body>` elements.
  */
 export interface PreventScrollInsetScrollbarsParams {
   /**
