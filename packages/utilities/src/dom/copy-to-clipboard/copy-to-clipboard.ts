@@ -1,4 +1,4 @@
-import type { CopyToClipboardParams } from './copy-to-clipboard.types';
+import type { CopyToClipboardParams, CopyToClipboardError } from './copy-to-clipboard.types';
 
 /**
  * Asynchronously transfers text to the system clipboard using the native Clipboard API.
@@ -50,3 +50,23 @@ export const copyToClipboard = async (params: CopyToClipboardParams) => {
     onError?.({ type: 'COPY_FAILED', message });
   }
 };
+
+export namespace copyToClipboard {
+  /**
+   * Represents the configuration parameters required by the `copyToClipboard` utility.
+   *
+   * This interface defines the essential payload fields needed to programmatically transfer text
+   * to the system clipboard. It enforces a unified parameter structure across the codebase by pairing
+   * a target text string with configurable lifecycle callbacks for success notification and error handling.
+   */
+  export type Params = CopyToClipboardParams;
+
+  /**
+   * Represents the error payload structure returned by the `copyToClipboard` utility when an operation fails.
+   *
+   * This interface defines the essential diagnostic fields needed to gracefully handle clipboard failures.
+   * It enforces a unified error shape across the codebase by classifying the failure type and providing
+   * optional descriptive error details for runtime rejections.
+   */
+  export type Error = CopyToClipboardError;
+}
