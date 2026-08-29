@@ -7,11 +7,11 @@ import { preventScrollOverlayScrollbars } from '../_internal/prevent-scroll-over
 import { preventScrollInsetScrollbars } from '../_internal/prevent-scroll-inset-scrollbars';
 
 /**
- * Creates an isolated, reference-counted viewport scroll locker instance.
+ * An internal factory utility that creates an isolated, reference-counted viewport scroll locker instance.
  *
- * This factory function manages viewport scroll prevention across concurrent components.
- * It prevents dynamic layout shifts, respects external lock states using mutation observers,
- * and defers lock/unlock execution to the next event loop tick to batch DOM state changes.
+ * This factory utility manages viewport scroll prevention across concurrent components. It prevents dynamic layout shifts,
+ * respects external lock states using mutation observers, and defers lock and unlock execution to the next event
+ * loop tick to batch DOM state changes.
  */
 export const createScrollLocker = () => {
   // Track total active scroll lock requests across the application runtime.
