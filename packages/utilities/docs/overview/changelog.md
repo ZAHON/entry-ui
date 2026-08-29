@@ -2,6 +2,83 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.12.0 (2026-08-30)
+
+### Breaking changes
+
+- **Remove `addEventListenerOnce` utility.**
+  The `addEventListenerOnce` utility function has been completely removed from the package. If your codebase relies on this helper, you should migrate to `addEventListener` by setting `{ once: true }` in the `options` parameter.
+
+- **Remove `hasStableScrollbarGutter` utility.**
+  The `hasStableScrollbarGutter` utility function has been completely removed from the package. If your codebase relies on this helper, you should remove its imports and usage.
+
+- **Remove `preventBodyScroll` utility.**
+  The `preventBodyScroll` utility function has been completely removed from the package. If your codebase relies on this helper, you should remove its imports and usage.
+
+- **Remove `scrollIntoViewIfNeeded` utility.**
+  The `scrollIntoViewIfNeeded` utility function has been completely removed from the package. If your codebase relies on this helper, you should remove its imports and usage.
+
+- **Remove `setStyle` utility.**
+  The `setStyle` utility function has been completely removed from the package. If your codebase relies on this helper, you should remove its imports and usage.
+
+- **Remove `setStyleProperty` utility.**
+  The `setStyleProperty` utility function has been completely removed from the package. If your codebase relies on this helper, you should remove its imports and usage.
+
+- **Remove `getViewportScroller` utility from public exports.**
+  The `getViewportScroller` utility function is no longer exported from the package's public API. If your codebase relies on this helper, you should remove its imports.
+
+- **Remove `hasInsetScrollbars` utility from public exports.**
+  The `hasInsetScrollbars` utility function is no longer exported from the package's public API. If your codebase relies on this helper, you should remove its imports.
+
+- **Remove `isStableScrollbarGutterSupported` utility from public exports.**
+  The `isStableScrollbarGutterSupported` utility function is no longer exported from the package's public API. If your codebase relies on this helper, you should remove its imports.
+
+- **Remove `isViewportScrollLocked` utility from public exports.**
+  The `isViewportScrollLocked` utility function is no longer exported from the package's public API. If your codebase relies on this helper, you should remove its imports.
+
+- **Remove `preventScrollInsetScrollbars` utility from public exports.**
+  The `preventScrollInsetScrollbars` utility function is no longer exported from the package's public API. If your codebase relies on this helper, you should remove its imports.
+
+- **Remove `preventScrollOverlayScrollbars` utility from public exports.**
+  The `preventScrollOverlayScrollbars` utility function is no longer exported from the package's public API. If your codebase relies on this helper, you should remove its imports.
+
+- **Remove `PossibleStyle` utility type from public exports.**
+  The `PossibleStyle` type has been removed from public exports and inlined directly into the `mergeStyles` function parameter. This cleans up the package's public API surface by eliminating an unnecessary standalone type abstraction.
+
+- **Rename `ClipboardError` interface to `CopyToClipboardError`.**
+  The `ClipboardError` interface has been renamed to `CopyToClipboardError` to align with `CopyToClipboardParams` naming conventions and enforce consistent type naming across the package. If your codebase explicitly imports or references `ClipboardError`, you should update your imports and type annotations to `CopyToClipboardError`.
+
+### Features
+
+- **Introduce `addEventListener` utility for type-safe DOM event management.**
+  A streamlined wrapper around the standard DOM event listener API that simplifies event subscription across `Element`, `Document`, `Window`, and `SVGElement` targets. It provides strong type inference for event objects based on the target node and event name, while returning a dedicated cleanup function for automatic teardown to prevent memory leaks and eliminate manual reference tracking.
+
+- **Enhance `mergeStyles` utility to support conditional falsy guards.**
+  The `mergeStyles` function now gracefully handles boolean values and falsy fallbacks resulting from short-circuit evaluations (e.g., `isActive && { padding: "1rem" }`). It safely strips out `false` at the array level, ignores boolean values inside style objects, and intelligently filters out stringified tokens (like `"false"` or `"undefined"`) from inline style strings, preventing invalid CSS declarations without requiring manual type assertions.
+
+- **Enhance `wrapArray` utility with flexible `startIndex` normalization.**
+  Upgrades the circular array helper to safely handle negative values and indices exceeding the array length for `startIndex`. The function now gracefully accepts any integer value for `startIndex` without producing unexpected behavior, while preserving original array immutability.
+
+### Refactors
+
+- **Introduce namespaces for utility exports and types.**
+  Enhanced the public API surface across utility functions by grouping related types, parameters, and error interfaces into TypeScript namespaces attached to the function exports (e.g., `focusElement.Params`, `copyToClipboard.Params`, `copyToClipboard.Error`). This enables both structured dot-notation type access and traditional flat imports for an improved developer experience and better code readability.
+
+- **Refactor `getDocument` utility parameter to use explicit `Node` types.**
+  Updates the `node` parameter type from `any` to `Node | null | undefined` in the `getDocument` function. This change enhances type safety by eliminating explicit `any` usages.
+
+- **Refactor `getWindow` utility parameter to use explicit `Node` types.**
+  Updates the `node` parameter type from `any` to `Node | null | undefined` in the `getWindow` function. This change enhances type safety by eliminating explicit `any` usages.
+
+- **Refactor `isNumber` utility to use `unknown` type.**
+  Updates the `value` parameter type from `any` to `unknown` in the `isNumber` type guard. This change enhances type safety by preventing unchecked operations prior to type narrowing.
+
+- **Refactor `isShallowSubset` utility parameters to use `unknown` type.**
+  Updates property types in `IsShallowSubsetParams` from `any` to `unknown`. This change enhances type safety by eliminating explicit `any` usages.
+
+- **Enhance global JSDoc API documentation.**
+  Significantly improved package documentation by expanding and refining comprehensive JSDoc comments for all utilities and type interfaces. This update ensures consistent parameter descriptions and accurate execution context details across the entire public API surface.
+
 ## 0.11.0 (2026-08-07)
 
 ### Features
