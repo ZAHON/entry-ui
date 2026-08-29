@@ -22,12 +22,11 @@ export interface ClipboardError {
 }
 
 /**
- * Configuration object for the `copyToClipboard` utility.
+ * Represents the configuration parameters required by the `copyToClipboard` utility.
  *
- * This interface encapsulates the parameters required to perform a clipboard write operation.
- * It allows the caller to define custom behavior for both successful data persistence
- * and potential browser-level restrictions or runtime failures through dedicated
- * callback handlers.
+ * This interface defines the essential payload fields needed to programmatically transfer text
+ * to the system clipboard. It enforces a unified parameter structure across the codebase by pairing
+ * a target text string with configurable lifecycle callbacks for success notification and error handling.
  */
 export interface CopyToClipboardParams {
   /**
