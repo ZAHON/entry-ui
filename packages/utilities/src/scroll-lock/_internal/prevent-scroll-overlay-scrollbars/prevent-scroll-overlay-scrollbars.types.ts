@@ -1,8 +1,8 @@
 /**
- * Configuration object for the `preventScrollOverlayScrollbars` utility.
+ * Represents the configuration parameters required by the internal `preventScrollOverlayScrollbars` utility.
  *
- * This interface encapsulates references to the root `<html>` and `<body>` elements
- * required to resolve the active viewport scroller and suppress viewport scrolling.
+ * This interface defines the essential element reference fields needed to identify the active viewport scroll container
+ * and suppress viewport scrolling in overlay scrollbar environments. It pairs the root `<html>` element with the document `<body>` element.
  */
 export interface PreventScrollOverlayScrollbarsParams {
   /**
