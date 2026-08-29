@@ -22,15 +22,13 @@ import type { CopyToClipboardParams } from './copy-to-clipboard.types';
 export const copyToClipboard = async (params: CopyToClipboardParams) => {
   const { value, onSuccess, onError } = params;
 
-  const win = document.defaultView || window;
-
   try {
-    if (!win.navigator.clipboard?.writeText) {
+    if (!window.navigator.clipboard?.writeText) {
       onError?.({ type: 'NOT_SUPPORTED' });
       return;
     }
 
-    await win.navigator.clipboard.writeText(value);
+    await window.navigator.clipboard.writeText(value);
     onSuccess?.();
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
