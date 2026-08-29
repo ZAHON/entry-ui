@@ -20,6 +20,6 @@ export const isViewportScrollLocked = (params: IsViewportScrollLockedParams) => 
   const { overflowY } = win.getComputedStyle(viewportScroller);
 
   // Evaluate whether the computed vertical overflow behavior suppresses scroll interactions.
-  // Values of `"hidden"` or `"clip"` explicitly lock or strip scrollability from the viewport container.
+  // Values of `hidden` or `clip` explicitly lock or strip scrollability from the viewport container.
   return /hidden|clip/.test(overflowY);
 };
