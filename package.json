@@ -1,18 +1,18 @@
 {
   "name": "entry-ui",
+  "private": true,
   "description": "",
   "keywords": [],
   "homepage": "https://github.com/ZAHON/entry-ui#readme",
-  "license": "MIT",
-  "author": "ZAHON",
-  "private": true,
+  "bugs": {
+    "url": "https://github.com/ZAHON/entry-ui/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZAHON/entry-ui.git"
   },
-  "bugs": {
-    "url": "https://github.com/ZAHON/entry-ui/issues"
-  },
+  "license": "MIT",
+  "author": "ZAHON",
   "workspaces": [
     "configs/*",
     "packages/*",
