@@ -42,6 +42,6 @@ The `getWindow` function accepts a single required parameter (marked with an ast
 
 The `getWindow` function returns the resolved `Window` object:
 
-| Type     | Description                                                                                                                                          |
-| :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Window` | The `Window` object associated with the node's document, or the current global `Window` if the `node` is invalid or resides in the standard context. |
+| Type            | Description                                                                                                                                          |
+| :-------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `typeof window` | The `Window` object associated with the node's document, or the current global `Window` if the `node` is invalid or resides in the standard context. |
