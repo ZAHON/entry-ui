@@ -1,9 +1,9 @@
 /**
- * Configuration object for the `isViewportScrollLocked` utility.
+ * Represents the configuration parameters required by the internal `isViewportScrollLocked` utility.
  *
- * This interface encapsulates the target `Window` object reference alongside the root `<html>`
- * and `<body>` element references required to resolve the active viewport scroller
- * and evaluate its vertical scroll lock state.
+ * This interface defines the essential execution context and element reference fields needed to evaluate
+ * the vertical scroll lock state of the document viewport. It pairs the target `Window` object context
+ * with the root `<html>` and `<body>` elements to properly resolve active scroller styles.
  */
 export interface IsViewportScrollLockedParams {
   /**
