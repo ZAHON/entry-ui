@@ -1,9 +1,9 @@
 /**
- * Configuration object for the `hasInsetScrollbars` utility.
+ * Represents the configuration parameters required by the internal `hasInsetScrollbars` utility.
  *
- * This interface encapsulates references to the `Window` and `Document` objects
- * required to calculate the difference between the full viewport width (including scrollbars)
- * and the layout width available to content (excluding scrollbars).
+ * This interface defines the essential execution context reference fields needed to detect space-occupying
+ * scrollbars in the viewport. It ensures accurate layout measurement evaluations across cross-frame or
+ * multi-window environments by pairing the target `Window` object with its corresponding `Document` context.
  */
 export interface HasInsetScrollbarsParams {
   /**
