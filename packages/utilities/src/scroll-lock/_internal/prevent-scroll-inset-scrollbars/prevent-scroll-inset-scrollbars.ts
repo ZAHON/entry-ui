@@ -5,25 +5,12 @@ import { getViewportScroller } from '../get-viewport-scroller';
 import { isStableScrollbarGutterSupported } from '../is-stable-scrollbar-gutter-supported';
 
 /**
- * Prevents viewport scrolling in inset scrollbar environments while preserving layout stability.
+ * An internal utility that prevents viewport scrolling in inset scrollbar environments while preserving layout stability.
  *
- * Designed specifically for platforms with classic, physical inset scrollbars where hiding scrollbars
+ * This utility is designed specifically for platforms with classic, physical inset scrollbars where hiding scrollbars
  * typically triggers unwanted content shifts (layout jitter). It leverages modern native `scrollbar-gutter: stable`
  * support when available, or seamlessly falls back to dynamic dimensional compensation and body locking.
  * A teardown cleanup function is returned to restore original inline styles, scroll positions, and DOM attributes.
- *
- * @example
- * ```ts
- * // Lock viewport scrolling without triggering layout shifts when displaying a modal dialog.
- * const restoreScroll = preventScrollInsetScrollbars({
- *   win: window,
- *   html: document.documentElement,
- *   body: document.body,
- * });
- *
- * // Later, restore original layout dimensions and scrolling behavior upon closing.
- * restoreScroll();
- * ```
  */
 export const preventScrollInsetScrollbars = (params: PreventScrollInsetScrollbarsParams) => {
   const { win, html, body } = params;
