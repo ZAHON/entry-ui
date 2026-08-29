@@ -1,8 +1,9 @@
 /**
- * The API controls returned by the `getScrollLocker` utility.
+ * Represents the controller API returned by the `getScrollLocker` utility.
  *
- * This interface encapsulates management methods for acquiring and releasing reference-counted
- * viewport scroll locks across concurrent UI components and application runtime execution contexts.
+ * This interface defines the operational contract for acquiring reference-counted viewport scroll locks.
+ * It encapsulates management methods required to coordinate viewport scroll prevention across concurrent UI
+ * components, custom hooks, and application runtime execution contexts.
  */
 export interface GetScrollLockerReturnValue {
   /**
