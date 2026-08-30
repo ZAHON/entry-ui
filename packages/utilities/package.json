@@ -168,7 +168,7 @@
     "clean": "rm -rf dist",
     "fmt": "prettier --write . --ignore-path ../../.prettierignore",
     "fmt:check": "prettier --check . --ignore-path ../../.prettierignore",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint src",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
