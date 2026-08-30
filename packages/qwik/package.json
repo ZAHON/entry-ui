@@ -4,12 +4,18 @@
   "description": "",
   "keywords": [],
   "homepage": "https://github.com/ZAHON/entry-ui#readme",
+  "bugs": {
+    "url": "https://github.com/ZAHON/entry-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZAHON/entry-ui.git",
+    "directory": "packages/qwik"
+  },
   "license": "MIT",
   "author": "ZAHON",
+  "sideEffects": false,
   "type": "module",
-  "main": "./lib/index.qwik.mjs",
-  "qwik": "./lib/index.qwik.mjs",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -95,24 +101,11 @@
       "types": "./lib/types/index.d.ts"
     }
   },
+  "main": "./lib/index.qwik.mjs",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib"
   ],
-  "sideEffects": false,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ZAHON/entry-ui.git",
-    "directory": "packages/qwik"
-  },
-  "bugs": {
-    "url": "https://github.com/ZAHON/entry-ui/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "engines": {
-    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
-  },
   "scripts": {
     "build": "bun run lint && bun run clean && bun run build:lib && bun run build:types",
     "build:lib": "vite build --mode lib",
@@ -122,14 +115,14 @@
     "fmt": "prettier --write . --ignore-path ../../.prettierignore",
     "fmt:check": "prettier --check . --ignore-path ../../.prettierignore",
     "lint": "eslint \"./src/**/*.ts*\"",
+    "qwik": "qwik",
     "test": "vitest run",
-    "test:watch": "vitest",
     "test:browser": "vitest run --project browser",
     "test:browser:watch": "vitest --project browser",
     "test:unit": "vitest run --project unit",
     "test:unit:watch": "vitest --project unit",
-    "typecheck": "tsc --noEmit",
-    "qwik": "qwik"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@entry-ui/utilities": "^0.12.0"
@@ -155,5 +148,12 @@
   },
   "peerDependencies": {
     "@qwik.dev/core": ">=2.0.0-beta.37"
-  }
+  },
+  "engines": {
+    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "qwik": "./lib/index.qwik.mjs"
 }
