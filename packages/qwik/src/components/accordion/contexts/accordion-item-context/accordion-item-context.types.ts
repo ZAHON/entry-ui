@@ -1,4 +1,4 @@
-import { Signal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * The value provided by the `AccordionItemContext` context.
