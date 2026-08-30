@@ -1,4 +1,5 @@
 import type { PropsOf, Component } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Accordion.ItemIndicator>` component.
@@ -13,5 +14,5 @@ export interface AccordionItemIndicatorProps extends PropsOf<'span'> {
    *
    * @default "span"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 }
