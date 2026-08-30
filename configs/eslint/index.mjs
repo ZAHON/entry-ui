@@ -10,7 +10,6 @@ import astroParser from 'astro-eslint-parser';
 const ignores = [
   '**/*.log',
   '**/.DS_Store',
-  '**/*.',
   '.vscode/settings.json',
   '**/.history',
   '**/.yarn',
@@ -36,7 +35,6 @@ const ignores = [
   '**/.cache',
   '**/.vscode',
   '**/.rollup.cache',
-  '**/dist',
   '**/tsconfig.tsbuildinfo',
   '**/*.spec.tsx',
   '**/*.spec.ts',
@@ -45,8 +43,6 @@ const ignores = [
   '**/package-lock.json',
   '**/yarn.lock',
   '**/server',
-  'eslint.config.mjs',
-  'prettier.config.mjs',
 ];
 
 export const baseConfig = [
