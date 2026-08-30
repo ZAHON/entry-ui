@@ -5,6 +5,8 @@ import { mergeRefs } from '.';
 
 vi.mock('@qwik.dev/core', () => ({
   isSignal: vi.fn(),
+  noSerialize: vi.fn((val) => val),
+  $: vi.fn((fn) => fn),
 }));
 
 describe('mergeRefs', () => {
