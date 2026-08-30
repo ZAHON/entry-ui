@@ -76,13 +76,13 @@ The `Collapsible` component is built using a modular, compound component pattern
 
 Groups all parts of the collapsible. Renders a `<div>` element.
 
-| Prop            | Type                                        | Default | Description                                                                                                                                                                                    |
-| :-------------- | :------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`            | `string \| Component \| undefined`          | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `defaultOpen`   | `boolean \| undefined`                      | `—`     | The open state of the collapsible when it is initially rendered. Use when you do not need to control its open state.                                                                           |
-| `open`          | `Signal<boolean> \| undefined`              | `—`     | The controlled open state of the collapsible. Must be used in conjunction with `onOpenChange$`.                                                                                                |
-| `onOpenChange$` | `QRL<(open: boolean) => void> \| undefined` | `—`     | A `QRL` callback function that is called when the open state of the collapsible changes.                                                                                                       |
-| `disabled`      | `boolean \| undefined`                      | `false` | When `true`, prevents the user from interacting with the collapsible.                                                                                                                          |
+| Prop            | Type                                                    | Default | Description                                                                                                                                                                                    |
+| :-------------- | :------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`            | `keyof QwikIntrinsicElements \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `defaultOpen`   | `boolean \| undefined`                                  | `—`     | The open state of the collapsible when it is initially rendered. Use when you do not need to control its open state.                                                                           |
+| `open`          | `Signal<boolean> \| undefined`                          | `—`     | The controlled open state of the collapsible. Must be used in conjunction with `onOpenChange$`.                                                                                                |
+| `onOpenChange$` | `QRL<(open: boolean) => void> \| undefined`             | `—`     | A `QRL` callback function that is called when the open state of the collapsible changes.                                                                                                       |
+| `disabled`      | `boolean \| undefined`                                  | `false` | When `true`, prevents the user from interacting with the collapsible.                                                                                                                          |
 
 | Data attribute  | Values               | Description                                     |
 | :-------------- | :------------------- | :---------------------------------------------- |
@@ -93,10 +93,10 @@ Groups all parts of the collapsible. Renders a `<div>` element.
 
 A button that opens and closes the collapsible panel. Renders a `<button>` element.
 
-| Prop       | Type                               | Default    | Description                                                                                                                                                                                    |
-| :--------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `disabled` | `boolean \| undefined`             | `—`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Collapsible.Root>` component.            |
+| Prop       | Type                                                    | Default    | Description                                                                                                                                                                                    |
+| :--------- | :------------------------------------------------------ | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `disabled` | `boolean \| undefined`                                  | `—`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Collapsible.Root>` component.            |
 
 | Data attribute  | Values               | Description                                     |
 | :-------------- | :------------------- | :---------------------------------------------- |
@@ -107,11 +107,11 @@ A button that opens and closes the collapsible panel. Renders a `<button>` eleme
 
 A panel with the collapsible contents. Renders a `<div>` element.
 
-| Prop                    | Type                                        | Default | Description                                                                                                                                                                                                               |
-| :---------------------- | :------------------------------------------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `as`                    | `string \| Component \| undefined`          | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                            |
-| `hiddenUntilFound`      | `boolean \| undefined`                      | `false` | When `true`, the panel uses the `hidden="until-found"` attribute when closed. This allows the browser to search and reveal content within the panel even before it is manually opened.                                    |
-| `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined` | `—`     | A `QRL` callback invoked once the panel's expansion or collapse has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
+| Prop                    | Type                                                    | Default | Description                                                                                                                                                                                                               |
+| :---------------------- | :------------------------------------------------------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `as`                    | `keyof QwikIntrinsicElements \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                            |
+| `hiddenUntilFound`      | `boolean \| undefined`                                  | `false` | When `true`, the panel uses the `hidden="until-found"` attribute when closed. This allows the browser to search and reveal content within the panel even before it is manually opened.                                    |
+| `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined`             | `—`     | A `QRL` callback invoked once the panel's expansion or collapse has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
 
 | Data attribute  | Values               | Description                                     |
 | :-------------- | :------------------- | :---------------------------------------------- |
@@ -129,9 +129,9 @@ An optional visual indicator that reflects the collapsible's open or closed stat
 > [!NOTE]
 > This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the trigger's interactivity or accessibility.
 
-| Prop | Type                               | Default  | Description                                                                                                                                                                                    |
-| :--- | :--------------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                                                    | Default  | Description                                                                                                                                                                                    |
+| :--- | :------------------------------------------------------ | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 | Data attribute  | Values               | Description                                     |
 | :-------------- | :------------------- | :---------------------------------------------- |
