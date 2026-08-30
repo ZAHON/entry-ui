@@ -132,7 +132,7 @@
     "@playwright/test": "^1.62.1",
     "@qwik.dev/core": "2.0.0-beta.37",
     "@qwik.dev/router": "2.0.0-beta.37",
-    "@vitest/browser-playwright": "^4.1.8",
+    "@vitest/browser-playwright": "^4.1.11",
     "jsdom": "^29.1.1",
     "typescript-plugin-css-modules": "^5.2.0",
     "undici": "^8.4.1",
