@@ -1,4 +1,5 @@
 import type { PropsOf, Component } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Dialog.Trigger>` component.
@@ -13,7 +14,7 @@ export interface DialogTriggerProps extends PropsOf<'button'> {
    *
    * @default "button"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 
   /**
    * When `true`, prevents the user from interacting with the trigger.
