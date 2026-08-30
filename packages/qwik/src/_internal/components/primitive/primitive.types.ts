@@ -1,4 +1,5 @@
 import type { Component, PropsOf } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the internal polymorphic primitive components.
@@ -14,5 +15,5 @@ export type PrimitiveProps<Node> = {
    * with another native HTML tag name or custom Qwik component, while preserving
    * compatibility with the underlying node's props.
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 } & PropsOf<Node>;
