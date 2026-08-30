@@ -1,4 +1,5 @@
 import { PropsOf, Component, QRL } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the internal `<CollapsiblePanel>` component.
@@ -13,7 +14,7 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 
   /**
    * The name of the parent component using this panel (e.g., "Accordion.ItemPanel").
