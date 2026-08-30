@@ -66,11 +66,11 @@ The `Separator` component is built using a modular, compound component pattern, 
 
 A horizontal or vertical line that visually and semantically separates content. Renders a `<div>` element.
 
-| Prop          | Type                                      | Default        | Description                                                                                                                                                                                    |
-| :------------ | :---------------------------------------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`          | `string \| Component \| undefined`        | `"div"`        | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `orientation` | `"horizontal" \| "vertical" \| undefined` | `"horizontal"` | The orientation of the separator.                                                                                                                                                              |
-| `decorative`  | `boolean \| undefined`                    | `false`        | Whether or not the component is purely decorative. When `true`, accessibility-related attributes are updated so that the rendered element is removed from the accessibility tree.              |
+| Prop          | Type                                                    | Default        | Description                                                                                                                                                                                    |
+| :------------ | :------------------------------------------------------ | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`          | `keyof QwikIntrinsicElements \| Component \| undefined` | `"div"`        | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `orientation` | `"horizontal" \| "vertical" \| undefined`               | `"horizontal"` | The orientation of the separator.                                                                                                                                                              |
+| `decorative`  | `boolean \| undefined`                                  | `false`        | Whether or not the component is purely decorative. When `true`, accessibility-related attributes are updated so that the rendered element is removed from the accessibility tree.              |
 
 | Data attribute     | Values                       | Description                                 |
 | :----------------- | :--------------------------- | :------------------------------------------ |
