@@ -1,4 +1,5 @@
 import { PropsOf, Component } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Accordion.ItemHeader>` component.
@@ -13,5 +14,5 @@ export interface AccordionItemHeaderProps extends PropsOf<'h3'> {
    *
    * @default "h3"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 }
