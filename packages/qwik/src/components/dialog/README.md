@@ -91,10 +91,10 @@ Groups all parts of the dialog. Doesn’t render its own HTML element.
 
 A button that opens the dialog. Renders a `<button>` element.
 
-| Prop       | Type                               | Default    | Description                                                                                                                                                                                    |
-| :--------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `disabled` | `boolean \| undefined`             | `false`    | When `true`, prevents the user from interacting with the trigger.                                                                                                                              |
+| Prop       | Type                                                    | Default    | Description                                                                                                                                                                                    |
+| :--------- | :------------------------------------------------------ | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `disabled` | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the trigger.                                                                                                                              |
 
 | Data attribute  | Values               | Description                                                         |
 | :-------------- | :------------------- | :------------------------------------------------------------------ |
@@ -105,13 +105,13 @@ A button that opens the dialog. Renders a `<button>` element.
 
 A container for the dialog contents. Renders a `<dialog>` element.
 
-| Prop                    | Type                                        | Default    | Description                                                                                                                                                                                                                       |
-| :---------------------- | :------------------------------------------ | :--------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`                    | `string \| Component \| undefined`          | `"dialog"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                    |
-| `preventScroll`         | `boolean \| undefined`                      | `true`     | If `true`, locks background scrolling while the dialog is open. This ensures the user remains focused on the dialog content, prevents background movement, and mitigates layout shifts.                                           |
-| `closeOnEscapeKeyDown`  | `boolean \| undefined`                      | `true`     | If `true`, the dialog will close when the user presses the <kbd>Esc</kbd> key.                                                                                                                                                    |
-| `closeOnClickOutside`   | `boolean \| undefined`                      | `true`     | If `true`, the dialog will close when the user clicks outside the dialog's content area (e.g., on the backdrop).                                                                                                                  |
-| `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined` | `—`        | A `QRL` callback invoked once the popup's opening or closing transition has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
+| Prop                    | Type                                                    | Default    | Description                                                                                                                                                                                                                       |
+| :---------------------- | :------------------------------------------------------ | :--------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`                    | `keyof QwikIntrinsicElements \| Component \| undefined` | `"dialog"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                    |
+| `preventScroll`         | `boolean \| undefined`                                  | `true`     | If `true`, locks background scrolling while the dialog is open. This ensures the user remains focused on the dialog content, prevents background movement, and mitigates layout shifts.                                           |
+| `closeOnEscapeKeyDown`  | `boolean \| undefined`                                  | `true`     | If `true`, the dialog will close when the user presses the <kbd>Esc</kbd> key.                                                                                                                                                    |
+| `closeOnClickOutside`   | `boolean \| undefined`                                  | `true`     | If `true`, the dialog will close when the user clicks outside the dialog's content area (e.g., on the backdrop).                                                                                                                  |
+| `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined`             | `—`        | A `QRL` callback invoked once the popup's opening or closing transition has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
 
 | Data attribute | Values               | Description                                |
 | :------------- | :------------------- | :----------------------------------------- |
@@ -121,26 +121,26 @@ A container for the dialog contents. Renders a `<dialog>` element.
 
 A heading that labels the dialog. Renders an `<h2>` element.
 
-| Prop | Type                               | Default | Description                                                                                                                                                                                    |
-| :--- | :--------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component \| undefined` | `"h2"`  | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                                                    | Default | Description                                                                                                                                                                                    |
+| :--- | :------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"h2"`  | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 ### Description
 
 A paragraph with additional information about the dialog. Renders a `<p>` element.
 
-| Prop | Type                               | Default | Description                                                                                                                                                                                    |
-| :--- | :--------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component \| undefined` | `"p"`   | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                                                    | Default | Description                                                                                                                                                                                    |
+| :--- | :------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"p"`   | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 ### Close
 
 A button that closes the dialog. Renders a `<button>` element.
 
-| Prop       | Type                               | Default    | Description                                                                                                                                                                                    |
-| :--------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `disabled` | `boolean \| undefined`             | `false`    | When `true`, prevents the user from interacting with the close button.                                                                                                                         |
+| Prop       | Type                                                    | Default    | Description                                                                                                                                                                                    |
+| :--------- | :------------------------------------------------------ | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `disabled` | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the close button.                                                                                                                         |
 
 | Data attribute  | Values | Description                                                              |
 | :-------------- | :----- | :----------------------------------------------------------------------- |
