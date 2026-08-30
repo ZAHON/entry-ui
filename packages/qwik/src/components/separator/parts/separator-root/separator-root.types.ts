@@ -1,4 +1,4 @@
-import type { Component, PropsOf } from '@qwik.dev/core';
+import type { PropsOf, Component } from '@qwik.dev/core';
 
 /**
  * Props for the `<Separator.Root>` component.
