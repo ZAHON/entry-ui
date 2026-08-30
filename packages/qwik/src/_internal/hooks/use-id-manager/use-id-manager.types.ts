@@ -1,4 +1,4 @@
-import { Signal, QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Configuration parameters for the internal `useIdManager` hook.
