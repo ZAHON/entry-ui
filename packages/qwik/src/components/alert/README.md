@@ -58,9 +58,9 @@ The `Alert` component is built using a modular, compound component pattern, prov
 
 Contains the content for the alert. Renders a `<div>` element.
 
-| Prop | Type                               | Default | Description                                                                                                                                                                                    |
-| :--- | :--------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                                                    | Default | Description                                                                                                                                                                                    |
+| :--- | :------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 ## Accessibility
 
