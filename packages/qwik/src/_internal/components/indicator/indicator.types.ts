@@ -1,4 +1,5 @@
 import { PropsOf, Component } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the internal `<Indicator>` component.
@@ -13,5 +14,5 @@ export interface IndicatorProps extends PropsOf<'span'> {
    *
    * @default "span"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 }
