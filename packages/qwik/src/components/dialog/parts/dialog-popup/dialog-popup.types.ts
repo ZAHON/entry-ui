@@ -1,4 +1,5 @@
 import type { PropsOf, Component, QRL } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Dialog.Popup>` component.
@@ -13,7 +14,7 @@ export interface DialogPopupProps extends PropsOf<'dialog'> {
    *
    * @default "dialog"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 
   /**
    * If `true`, locks background scrolling while the dialog is open.
