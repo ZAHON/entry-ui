@@ -142,7 +142,7 @@
     "vitest-browser-qwik": "^0.3.11"
   },
   "peerDependencies": {
-    "@qwik.dev/core": ">=2.0.0-beta.37"
+    "@qwik.dev/core": ">=2.0.0-beta.42"
   },
   "engines": {
     "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
