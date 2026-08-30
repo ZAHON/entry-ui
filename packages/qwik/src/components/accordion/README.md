@@ -107,15 +107,15 @@ The `Accordion` component is built using a modular, compound component pattern, 
 
 Groups all parts of the accordion. Renders a `<div>` element.
 
-| Prop               | Type                                          | Default | Description                                                                                                                                                                                                                              |
-| :----------------- | :-------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`               | `string \| Component \| undefined`            | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                           |
-| `defaultOpen`      | `string[] \| undefined`                       | `—`     | The value of the accordion item or items to expand when initially rendered. When `multiple` is `false`, this array should contain at most one element. Use when you do not need to control the state of the accordion items.             |
-| `value`            | `Signal<string[]> \| undefined`               | `—`     | The controlled value of the accordion item or items to expand. When `multiple` is `false`, this array should contain at most one element. Must be used in conjunction with `onValueChange$`.                                             |
-| `onValueChange$`   | `QRL<(value: string[]) => void> \| undefined` | `—`     | A `QRL` callback function that is called when the expanded state of an accordion item or items changes.                                                                                                                                  |
-| `multiple`         | `boolean \| undefined`                        | `false` | Whether or not multiple accordion items can be expanded at the same time. When `false`, expanding one item will automatically collapse the others.                                                                                       |
-| `hiddenUntilFound` | `boolean \| undefined`                        | `false` | When `true`, all collapsed accordion panels will use the `hidden="until-found"` attribute. This allows the browser's "Find in page" feature to search through collapsed content and automatically expand the item when a match is found. |
-| `disabled`         | `boolean \| undefined`                        | `false` | When `true`, prevents the user from interacting with the accordion and all its items.                                                                                                                                                    |
+| Prop               | Type                                                    | Default | Description                                                                                                                                                                                                                              |
+| :----------------- | :------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`               | `keyof QwikIntrinsicElements \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                                           |
+| `defaultOpen`      | `string[] \| undefined`                                 | `—`     | The value of the accordion item or items to expand when initially rendered. When `multiple` is `false`, this array should contain at most one element. Use when you do not need to control the state of the accordion items.             |
+| `value`            | `Signal<string[]> \| undefined`                         | `—`     | The controlled value of the accordion item or items to expand. When `multiple` is `false`, this array should contain at most one element. Must be used in conjunction with `onValueChange$`.                                             |
+| `onValueChange$`   | `QRL<(value: string[]) => void> \| undefined`           | `—`     | A `QRL` callback function that is called when the expanded state of an accordion item or items changes.                                                                                                                                  |
+| `multiple`         | `boolean \| undefined`                                  | `false` | Whether or not multiple accordion items can be expanded at the same time. When `false`, expanding one item will automatically collapse the others.                                                                                       |
+| `hiddenUntilFound` | `boolean \| undefined`                                  | `false` | When `true`, all collapsed accordion panels will use the `hidden="until-found"` attribute. This allows the browser's "Find in page" feature to search through collapsed content and automatically expand the item when a match is found. |
+| `disabled`         | `boolean \| undefined`                                  | `false` | When `true`, prevents the user from interacting with the accordion and all its items.                                                                                                                                                    |
 
 | Data attribute  | Values | Description                             |
 | :-------------- | :----- | :-------------------------------------- |
@@ -125,11 +125,11 @@ Groups all parts of the accordion. Renders a `<div>` element.
 
 Groups all the parts of a collapsible section. Renders a `<div>` element.
 
-| Prop       | Type                               | Default | Description                                                                                                                                                                                                     |
-| :--------- | :--------------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                  |
-| `value`    | `string \| undefined`              | `—`     | A unique value that identifies this accordion item. If no value is provided, a unique ID will be generated automatically. Use when controlling the accordion programmatically, or to set an initial open state. |
-| `disabled` | `boolean \| undefined`             | `false` | When `true`, prevents the user from interacting with the accordion item.                                                                                                                                        |
+| Prop       | Type                                                    | Default | Description                                                                                                                                                                                                     |
+| :--------- | :------------------------------------------------------ | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                  |
+| `value`    | `string \| undefined`                                   | `—`     | A unique value that identifies this accordion item. If no value is provided, a unique ID will be generated automatically. Use when controlling the accordion programmatically, or to set an initial open state. |
+| `disabled` | `boolean \| undefined`                                  | `false` | When `true`, prevents the user from interacting with the accordion item.                                                                                                                                        |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
@@ -140,9 +140,9 @@ Groups all the parts of a collapsible section. Renders a `<div>` element.
 
 A heading that labels the corresponding panel. It provides a semantic structure to the collapsible section, ensuring it follows accessibility best practices by wrapping the interactive trigger in a heading element. Renders an `<h3>` element.
 
-| Prop | Type                               | Default | Description                                                                                                                                                                                    |
-| :--- | :--------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component \| undefined` | `"h3"`  | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                                                    | Default | Description                                                                                                                                                                                    |
+| :--- | :------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"h3"`  | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
@@ -153,10 +153,10 @@ A heading that labels the corresponding panel. It provides a semantic structure 
 
 A button that opens and closes the corresponding panel. Renders a `<button>` element.
 
-| Prop       | Type                               | Default    | Description                                                                                                                                                                                    |
-| :--------- | :--------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`       | `string \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `disabled` | `boolean`                          | `—`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Accordion.Item>` component.              |
+| Prop       | Type                                                    | Default    | Description                                                                                                                                                                                    |
+| :--------- | :------------------------------------------------------ | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `disabled` | `boolean`                                               | `—`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Accordion.Item>` component.              |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
@@ -167,11 +167,11 @@ A button that opens and closes the corresponding panel. Renders a `<button>` ele
 
 A collapsible panel with the accordion item contents. Renders a `<div>` element.
 
-| Prop                    | Type                                        | Default | Description                                                                                                                                                                                                               |
-| :---------------------- | :------------------------------------------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `as`                    | `string \| Component \| undefined`          | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                            |
-| `hiddenUntilFound`      | `boolean \| undefined`                      | `false` | When `true`, the panel uses the `hidden="until-found"` attribute when closed. This allows the browser to search and reveal content within the panel even before it is manually opened.                                    |
-| `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined` | `—`     | A `QRL` callback invoked once the panel's expansion or collapse has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
+| Prop                    | Type                                                    | Default | Description                                                                                                                                                                                                               |
+| :---------------------- | :------------------------------------------------------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `as`                    | `keyof QwikIntrinsicElements \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                            |
+| `hiddenUntilFound`      | `boolean \| undefined`                                  | `false` | When `true`, the panel uses the `hidden="until-found"` attribute when closed. This allows the browser to search and reveal content within the panel even before it is manually opened.                                    |
+| `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined`             | `—`     | A `QRL` callback invoked once the panel's expansion or collapse has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
@@ -189,9 +189,9 @@ An optional visual indicator that reflects the item's open or closed state. It t
 > [!NOTE]
 > This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the trigger's interactivity or accessibility.
 
-| Prop | Type                               | Default  | Description                                                                                                                                                                                    |
-| :--- | :--------------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                                                    | Default  | Description                                                                                                                                                                                    |
+| :--- | :------------------------------------------------------ | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 | Data attribute  | Values               | Description                                        |
 | :-------------- | :------------------- | :------------------------------------------------- |
