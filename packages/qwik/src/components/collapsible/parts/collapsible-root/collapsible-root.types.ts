@@ -1,4 +1,4 @@
-import { PropsOf, Component, Signal, QRL } from '@qwik.dev/core';
+import type { PropsOf, Component, Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Props for the `<Collapsible.Root>` component.
