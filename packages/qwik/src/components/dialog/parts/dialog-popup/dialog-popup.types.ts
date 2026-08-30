@@ -1,4 +1,4 @@
-import { PropsOf, Component, QRL } from '@qwik.dev/core';
+import type { PropsOf, Component, QRL } from '@qwik.dev/core';
 
 /**
  * Props for the `<Dialog.Popup>` component.
