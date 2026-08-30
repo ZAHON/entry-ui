@@ -1,4 +1,5 @@
 import type { PropsOf, Component, Signal, QRL } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Collapsible.Root>` component.
@@ -13,7 +14,7 @@ export interface CollapsibleRootProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 
   /**
    * The open state of the collapsible when it is initially rendered.
