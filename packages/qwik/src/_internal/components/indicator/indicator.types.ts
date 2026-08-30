@@ -1,4 +1,4 @@
-import { PropsOf, Component } from '@qwik.dev/core';
+import type { PropsOf, Component } from '@qwik.dev/core';
 import type { IntrinsicTagName } from '@/types';
 
 /**
