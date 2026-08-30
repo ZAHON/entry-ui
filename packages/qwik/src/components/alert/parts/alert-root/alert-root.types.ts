@@ -1,4 +1,5 @@
 import type { PropsOf, Component } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Alert.Root>` component.
@@ -13,5 +14,5 @@ export interface AlertRootProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 }
