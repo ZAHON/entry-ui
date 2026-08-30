@@ -2,16 +2,16 @@
   "name": "@entry-ui/eslint",
   "private": true,
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZAHON/entry-ui.git",
+    "directory": "configs/eslint"
+  },
   "license": "MIT",
   "author": "ZAHON",
   "type": "module",
   "exports": {
     ".": "./index.mjs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ZAHON/entry-ui.git",
-    "directory": "configs/eslint"
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
