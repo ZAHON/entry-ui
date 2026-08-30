@@ -26,6 +26,7 @@
     "@commitlint/config-conventional": "^21.0.2",
     "@entry-ui/eslint": "workspace:*",
     "@entry-ui/prettier": "workspace:*",
+    "eslint": "^10.9.1",
     "husky": "^9.1.7",
     "prettier": "^3.9.6",
     "prettier-plugin-packagejson": "^3.0.2"
