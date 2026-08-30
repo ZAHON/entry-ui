@@ -1,4 +1,5 @@
 import type { PropsOf, Component, QRL } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Collapsible.Panel>` component.
@@ -13,7 +14,7 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 
   /**
    * When `true`, the panel uses the `hidden="until-found"` attribute when closed.
