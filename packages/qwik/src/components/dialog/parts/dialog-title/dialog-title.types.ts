@@ -1,4 +1,5 @@
 import type { PropsOf, Component } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Dialog.Title>` component.
@@ -13,5 +14,5 @@ export interface DialogTitleProps extends PropsOf<'h2'> {
    *
    * @default "h2"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 }
