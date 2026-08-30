@@ -11,8 +11,11 @@
   "author": "ZAHON",
   "type": "module",
   "exports": {
-    ".": "./index.mjs"
+    "types": "./index.d.ts",
+    "default": "./index.mjs"
   },
+  "main": "./index.mjs",
+  "types": "./index.d.ts",
   "dependencies": {
     "@eslint/js": "^10.0.1",
     "@typescript-eslint/parser": "^8.61.0",
