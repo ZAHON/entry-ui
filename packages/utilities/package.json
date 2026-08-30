@@ -4,11 +4,18 @@
   "description": "",
   "keywords": [],
   "homepage": "https://github.com/ZAHON/entry-ui/tree/main/packages/utilities#readme",
+  "bugs": {
+    "url": "https://github.com/ZAHON/entry-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZAHON/entry-ui.git",
+    "directory": "packages/utilities"
+  },
   "license": "MIT",
   "author": "ZAHON",
+  "sideEffects": false,
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -151,21 +158,11 @@
       "import": "./dist/style/visually-hidden-style/index.js"
     }
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "sideEffects": false,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ZAHON/entry-ui.git",
-    "directory": "packages/utilities"
-  },
-  "bugs": {
-    "url": "https://github.com/ZAHON/entry-ui/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "build": "bun run lint && bun run clean && tsdown",
     "clean": "rm -rf dist",
@@ -187,5 +184,8 @@
     "tsdown": "^0.22.14",
     "typescript": "^6.0.3",
     "vitest": "^4.1.8"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
