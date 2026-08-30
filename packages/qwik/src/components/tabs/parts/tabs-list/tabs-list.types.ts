@@ -1,4 +1,5 @@
 import type { PropsOf, Component } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Tabs.List>` component.
@@ -13,7 +14,7 @@ export interface TabsListProps extends PropsOf<'div'> {
    *
    * @default "div"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 
   /**
    * Whether the tabs should be activated automatically on focus or manually on click.
