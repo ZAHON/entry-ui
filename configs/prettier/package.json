@@ -15,7 +15,7 @@
     "default": "./index.mjs"
   },
   "main": "./index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./index.d.ts",
   "peerDependencies": {
     "prettier": ">=3.0.0"
   }
