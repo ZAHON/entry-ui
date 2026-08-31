@@ -1,4 +1,5 @@
 import type { PropsOf, Component } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Tabs.Tab>` component.
@@ -13,7 +14,7 @@ export interface TabsTabProps extends PropsOf<'button'> {
    *
    * @default "button"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 
   /**
    * A unique value that associates the tab with a panel.
