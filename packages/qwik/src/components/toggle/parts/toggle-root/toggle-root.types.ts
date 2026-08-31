@@ -1,4 +1,5 @@
 import type { PropsOf, Component, Signal, QRL } from '@qwik.dev/core';
+import type { IntrinsicTagName } from '@/types';
 
 /**
  * Props for the `<Toggle.Root>` component.
@@ -13,7 +14,7 @@ export interface ToggleRootProps extends PropsOf<'button'> {
    *
    * @default "button"
    */
-  as?: string | Component | undefined;
+  as?: IntrinsicTagName | Component | undefined;
 
   /**
    * The pressed state of the toggle when it is initially rendered.
