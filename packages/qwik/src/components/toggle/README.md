@@ -79,13 +79,13 @@ The `Toggle` component is built using a modular, compound component pattern, pro
 
 Contains the content for the toggle. Renders a `<button>` element.
 
-| Prop               | Type                                           | Default    | Description                                                                                                                                                                                    |
-| :----------------- | :--------------------------------------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`               | `string \| Component \| undefined`             | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `defaultPressed`   | `boolean \| undefined`                         | `—`        | The pressed state of the toggle when it is initially rendered. Use when you do not need to control its pressed state.                                                                          |
-| `pressed`          | `Signal<boolean> \| undefined`                 | `—`        | The controlled pressed state of the toggle. Must be used in conjunction with `onPressedChange$`.                                                                                               |
-| `onPressedChange$` | `QRL<(pressed: boolean) => void> \| undefined` | `—`        | A `QRL` callback function that is called when the pressed state of the toggle changes.                                                                                                         |
-| `disabled`         | `boolean \| undefined`                         | `false`    | When `true`, prevents the user from interacting with the toggle.                                                                                                                               |
+| Prop               | Type                                                    | Default    | Description                                                                                                                                                                                    |
+| :----------------- | :------------------------------------------------------ | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as`               | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| `defaultPressed`   | `boolean \| undefined`                                  | `—`        | The pressed state of the toggle when it is initially rendered. Use when you do not need to control its pressed state.                                                                          |
+| `pressed`          | `Signal<boolean> \| undefined`                          | `—`        | The controlled pressed state of the toggle. Must be used in conjunction with `onPressedChange$`.                                                                                               |
+| `onPressedChange$` | `QRL<(pressed: boolean) => void> \| undefined`          | `—`        | A `QRL` callback function that is called when the pressed state of the toggle changes.                                                                                                         |
+| `disabled`         | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the toggle.                                                                                                                               |
 
 | Data attribute  | Values          | Description                                |
 | :-------------- | :-------------- | :----------------------------------------- |
@@ -99,9 +99,9 @@ An optional visual indicator that reflects the toggle's pressed or unpressed sta
 > [!NOTE]
 > This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the `<Toggle.Root>` interactivity or accessibility.
 
-| Prop | Type                               | Default  | Description                                                                                                                                                                                    |
-| :--- | :--------------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as` | `string \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
+| Prop | Type                                                    | Default  | Description                                                                                                                                                                                    |
+| :--- | :------------------------------------------------------ | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
 | Data attribute  | Values          | Description                                |
 | :-------------- | :-------------- | :----------------------------------------- |
