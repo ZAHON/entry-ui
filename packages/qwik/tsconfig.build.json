@@ -9,6 +9,7 @@
     "noEmit": false,
   },
   "exclude": [
+    "**/__tests__/**",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
     "src/routes/**",
