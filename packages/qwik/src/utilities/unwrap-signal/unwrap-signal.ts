@@ -4,7 +4,7 @@ import { isSignal } from '@qwik.dev/core';
 /**
  * Unwraps a potential signal, returning its current value or the original value if it is not a signal.
  *
- * This function checks whether the provided input is a Qwik `Signal`. If it is, it extracts and returns
+ * This utility checks whether the provided input is a Qwik `Signal`. If it is, it extracts and returns
  * the underlying value via the `.value` property; otherwise, it returns the input value as-is.
  *
  * It simplifies working with flexible component props or parameters that can accept either raw values
