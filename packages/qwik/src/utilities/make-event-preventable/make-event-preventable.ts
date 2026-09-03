@@ -3,7 +3,7 @@ import type { EntryUIQwikEvent } from '@/types';
 /**
  * Augments a standard event with internal handler prevention capabilities.
  *
- * This utility function transforms a standard event object into an `EntryUIQwikEvent`.
+ * This utility transforms a standard event object into an `EntryUIQwikEvent`.
  * It adds a `preventEntryUIQwikHandler` method, allowing developers to flag
  * an event during its execution. This flag can then be checked by subsequent
  * handlers in any Qwik event chain (such as `onClick$`, `onKeyDown$`, or `onInput$`)
