@@ -3,7 +3,7 @@ import type { QRL } from '@qwik.dev/core';
 /**
  * Asynchronously resolves a QRL reference into its underlying value or symbol.
  *
- * This function handles specialized lazy-loaded code references embedded within HTML attributes,
+ * This utility handles specialized lazy-loaded code references embedded within HTML attributes,
  * leveraging framework mechanisms to fetch the target JavaScript chunk and retrieve the exported symbol.
  *
  * It simplifies the process of getting the actual value from a `QRL` reference (such as a lazy function)
