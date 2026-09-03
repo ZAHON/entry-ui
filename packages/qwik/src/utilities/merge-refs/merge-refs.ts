@@ -4,7 +4,7 @@ import { noSerialize, $, isSignal } from '@qwik.dev/core';
 /**
  * Merges multiple references into a single callback ref.
  *
- * This utility function accepts an array of reference handlers and allows you to assign
+ * This utility accepts an array of reference handlers and allows you to assign
  * a single DOM element to multiple handlers simultaneously (both `Signal` objects and callback `function` items).
  * It is particularly useful when a component needs to maintain its own internal reference to an element
  * while also forwarding a reference to a consumer via props.
