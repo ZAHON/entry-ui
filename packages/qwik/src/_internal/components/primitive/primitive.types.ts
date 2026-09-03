@@ -7,7 +7,7 @@ import type { IntrinsicTagName } from '@/types';
  * Combines the standard attributes of the specified HTML element (`Node`)
  * with the `as` prop to allow component composition and semantic overrides.
  */
-export type PrimitiveProps<Node> = {
+export type PrimitiveProps<Node extends IntrinsicTagName> = {
   /**
    * The element or component this component should render as.
    *
