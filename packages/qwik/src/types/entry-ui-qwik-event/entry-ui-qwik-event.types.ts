@@ -19,5 +19,5 @@ export type EntryUIQwikEvent<EV extends Event> = EV & {
    * This property is read-only and is typically checked by internal component
    * handlers to determine if they should skip their default execution logic.
    */
-  readonly entryUIQwikHandlerPrevented?: boolean;
+  readonly entryUIQwikHandlerPrevented?: boolean | undefined;
 };
