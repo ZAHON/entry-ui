@@ -1,11 +1,11 @@
 import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
- * Represents the object returned by the `useBoolean` hook.
+ * Represents the controller API returned by the `useBoolean` hook.
  *
- * This interface exposes a highly specialized API designed to manage binary state flags efficiently.
- * It provides the consuming component with an immutable, reactive view of the underlying boolean value
- * alongside a set of standalone, serialized mutation dispatchers optimized for common toggle and reset operations.
+ * This interface defines the operational contract for managing reactive binary state.
+ * It encapsulates a readonly state view alongside a set of standalone, QRL-serialized mutation
+ * dispatchers engineered to perform deterministic state transitions across Qwik's asynchronous runtime boundaries.
  */
 export interface UseBooleanReturnValue {
   /**
