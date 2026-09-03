@@ -13,5 +13,5 @@ export type EntryUIQwikEventState<EV extends Event> = EV & {
    * the prevention mechanism, and the current handler should likely skip
    * its default state updates or behaviors.
    */
-  readonly entryUIQwikHandlerPrevented?: boolean;
+  readonly entryUIQwikHandlerPrevented?: boolean | undefined;
 };
