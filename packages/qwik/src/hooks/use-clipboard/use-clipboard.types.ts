@@ -31,11 +31,11 @@ export interface UseClipboardParams {
 }
 
 /**
- * Represents the object returned by the `useClipboard` hook.
+ * Represents the controller API returned by the `useClipboard` hook.
  *
- * This interface exposes a comprehensive API to interact with the system clipboard and monitor its operation.
- * It provides the consuming component with immutable, reactive states representing the transaction outcomes
- * alongside serialized asynchronous command dispatchers to execute write actions and explicitly reset the hook's lifecycle.
+ * This interface defines the operational contract for interacting with the system clipboard and monitoring its transaction state.
+ * It encapsulates readonly reactive state views alongside a set of standalone, QRL-serialized command
+ * dispatchers engineered to execute asynchronous clipboard writes and explicitly manage the hook's lifecycle across Qwik's runtime boundaries.
  */
 export interface UseClipboardReturnValue {
   /**
