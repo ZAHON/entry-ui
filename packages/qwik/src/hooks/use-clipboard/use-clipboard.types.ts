@@ -1,11 +1,11 @@
 import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
- * Configuration parameters for the `useClipboard` hook.
+ * Represents the configuration parameters accepted by the `useClipboard` hook.
  *
- * This interface encapsulates the parameters required to fine-tune the clipboard interaction layer.
- * It allows the caller to define temporal thresholds for automated success state retention
- * and bind serialized status listeners to monitor asynchronous write lifecycles and runtime failures.
+ * This interface defines the essential options needed to customize the clipboard interaction layer.
+ * It establishes a unified structure for configuring temporal thresholds for automated success state
+ * retention alongside QRL-serialized callbacks to monitor asynchronous write lifecycles and runtime failures.
  */
 export interface UseClipboardParams {
   /**
