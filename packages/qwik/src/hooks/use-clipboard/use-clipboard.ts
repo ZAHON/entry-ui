@@ -152,9 +152,10 @@ export namespace useClipboard {
   /**
    * Represents the controller API returned by the `useClipboard` hook.
    *
-   * This interface defines the operational contract for interacting with the system clipboard and monitoring its transaction state.
-   * It encapsulates readonly reactive state views alongside a set of standalone, QRL-serialized command
-   * dispatchers engineered to execute asynchronous clipboard writes and explicitly manage the hook's lifecycle across Qwik's runtime boundaries.
+   * This interface defines the operational contract for interacting with the system clipboard and monitoring its
+   * transaction state. It encapsulates readonly reactive state views alongside a set of standalone, QRL-serialized
+   * command dispatchers engineered to execute asynchronous clipboard writes and explicitly manage the hook's lifecycle
+   * across Qwik's runtime boundaries.
    */
   export type ReturnValue = UseClipboardReturnValue;
 }
