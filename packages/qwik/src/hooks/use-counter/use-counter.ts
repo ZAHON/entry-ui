@@ -45,12 +45,11 @@ export const useCounter = (params: UseCounterParams = {}): UseCounterReturnValue
 
 export namespace useCounter {
   /**
-   * Configuration parameters for the `useCounter` hook.
+   * Represents the configuration parameters accepted by the `useCounter` hook.
    *
-   * This interface encapsulates the parameters required to govern the numerical boundaries
-   * and stepping behavior of a stateful counter. It allows the caller to establish
-   * initial baseline values, define the granular step delta for arithmetic transitions,
-   * and enforce hard upper and lower mathematical constraints.
+   * This interface defines the essential options needed to govern the numerical boundaries and stepping behavior
+   * of a stateful counter. It establishes a unified structure for initializing baseline values, defining granular
+   * arithmetic step deltas, and enforcing hard upper and lower mathematical constraints.
    */
   export type Params = UseCounterParams;
 
