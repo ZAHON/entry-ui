@@ -6,13 +6,15 @@ import { error } from '@/_internal/utilities/error';
 /**
  * An internal utility that creates a centralized observer to manage element unmounting across the application.
  *
- * This factory function returns an object with methods to track HTMLElements and execute
- * associated cleanup QRLs when those elements are removed from the DOM. It solves
- * the "ghost element" problem in Qwik by using a single `MutationObserver` instance,
- * which is lazily initialized and automatically disconnected when no elements are
- * being tracked, ensuring optimal memory management and performance.
- * The observer uses a `WeakMap` internally to prevent memory leaks, allowing the
- * garbage collector to reclaim elements even if they are still registered in the observer.
+ * This factory utility returns an object with methods to track `HTMLElement` instances and execute
+ * their associated cleanup QRL functions when those elements are removed from the DOM. It solves Qwik's
+ * "lost cleanup" problem across the server-to-browser boundary by sharing a single `MutationObserver`
+ * instance to minimize DOM monitoring overhead.
+ *
+ * The observer is lazily initialized upon tracking the first element and automatically disconnects
+ * when no elements remain. To ensure optimal performance, it filters DOM mutations to run removal
+ * checks only when nodes are actually detached, using an internal `WeakMap` to associate elements
+ * with their cleanup tasks without mutating the DOM nodes directly.
  */
 export const createGlobalUnmountObserver = (): CreateGlobalUnmountObserverReturnValue => {
   let isInitialized = false;
