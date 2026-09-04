@@ -28,7 +28,7 @@ const globalUnmountObserver = createGlobalUnmountObserver();
  *
  * @remarks
  * Inspired by and adapted from the `useMountTask$` implementation in the **Qwik Design System (QDS)**.
- * @see {@link https://github.com/kunai-consulting/qwik-design-system/blob/v2-migration/libs/base/src/hooks/use-unmount.tsx QDS use-unmount implementation}
+ * @see {@link https://www.npmjs.com/package/@qds.dev/base @qds.dev/base package on npm}
  */
 export const useLifecycle = (params: UseLifecycleParams) => {
   const { element, onMount$, onUnmount$ } = params;
