@@ -26,7 +26,7 @@ export interface UseLifecycleParams {
    *
    * @default undefined
    */
-  onMount$?: QRL<() => void> | QRL<() => Promise<void>>;
+  onMount$?: QRL<() => void> | QRL<() => Promise<void>> | undefined;
 
   /**
    * A `QRL` function executed when the element is removed from the DOM.
@@ -36,5 +36,5 @@ export interface UseLifecycleParams {
    *
    * @default undefined
    */
-  onUnmount$?: QRL<() => void> | QRL<() => Promise<void>>;
+  onUnmount$?: QRL<() => void> | QRL<() => Promise<void>> | undefined;
 }
