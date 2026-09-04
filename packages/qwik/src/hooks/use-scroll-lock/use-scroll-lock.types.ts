@@ -1,12 +1,12 @@
 import type { QRL } from '@qwik.dev/core';
 
 /**
- * Represents the object returned by the `useScrollLock` hook.
+ * Represents the controller API returned by the `useScrollLock` hook.
  *
- * This interface defines the toggle methods required to manage document scrolling.
- * It provides the execution handles necessary to disable or enable layout interaction,
- * adjusting document styling, injecting layout-shift variables, and resolving platform-specific
- * scroll boundaries to preserve layout continuity during overlay presentation.
+ * This interface defines the operational contract for managing background document scrolling and layout continuity.
+ * It encapsulates QRL-serialized command dispatchers engineered to toggle layout interaction, manipulate document
+ * viewport styling, inject layout-shift mitigation variables, and resolve platform-specific scroll boundaries
+ * across Qwik's runtime boundaries.
  */
 export interface UseScrollLockReturnValue {
   /**
