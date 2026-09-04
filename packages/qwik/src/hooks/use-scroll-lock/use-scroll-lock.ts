@@ -59,31 +59,33 @@ export const useScrollLock = (
       ]);
     }
 
-    // Set up the default global window and document context parameters.
-    // These defaults serve as fallback values when no custom viewport context `QRL` is provided.
-    let documentViewportContext = {
-      win: window,
-      doc: document,
-      html: document.documentElement,
-      body: document.body,
-    };
+    if (isBrowser) {
+      // Set up the default global window and document context parameters.
+      // These defaults serve as fallback values when no custom viewport context `QRL` is provided.
+      let documentViewportContext = {
+        win: window,
+        doc: document,
+        html: document.documentElement,
+        body: document.body,
+      };
 
-    // Check if a custom document viewport context QRL has been provided by the consumer.
-    // If available, attempt to resolve and execute it asynchronously to target specific viewports.
-    if (getDocumentViewportContext$) {
-      try {
-        const getDocumentViewportContext = await resolveQrl(getDocumentViewportContext$);
+      // Check if a custom document viewport context QRL has been provided by the consumer.
+      // If available, attempt to resolve and execute it asynchronously to target specific viewports.
+      if (getDocumentViewportContext$) {
+        try {
+          const getDocumentViewportContext = await resolveQrl(getDocumentViewportContext$);
 
-        documentViewportContext = getDocumentViewportContext();
-      } catch {
-        // Fall back to the default global document and viewport context
-        // if resolving or executing the custom `QRL` fails, ensuring safe execution.
+          documentViewportContext = getDocumentViewportContext();
+        } catch {
+          // Fall back to the default global document and viewport context
+          // if resolving or executing the custom `QRL` fails, ensuring safe execution.
+        }
       }
-    }
 
-    // Acquire the scroll lock using the resolved document and viewport context.
-    // Store the returned release callback inside the reactive signal state.
-    release.value = getScrollLocker().acquire(documentViewportContext);
+      // Acquire the scroll lock using the resolved document and viewport context.
+      // Store the returned release callback inside the reactive signal state.
+      release.value = getScrollLocker().acquire(documentViewportContext);
+    }
   });
 
   const unlock$ = $(() => {
@@ -94,11 +96,13 @@ export const useScrollLock = (
       ]);
     }
 
-    // Check if an active release callback exists within the signal reference.
-    // If present, invoke the cleanup handler to restore styles and reset the signal state.
-    if (release.value) {
-      release.value();
-      release.value = undefined;
+    if (isBrowser) {
+      // Check if an active release callback exists within the signal reference.
+      // If present, invoke the cleanup handler to restore styles and reset the signal state.
+      if (release.value) {
+        release.value();
+        release.value = undefined;
+      }
     }
   });
 
