@@ -89,12 +89,12 @@ export const useLifecycle = (params: UseLifecycleParams) => {
 
 export namespace useLifecycle {
   /**
-   * Configuration parameters for the `useLifecycle` hook.
+   * Represents the configuration parameters accepted by the `useLifecycle` hook.
    *
-   * This interface encapsulates the parameters required to establish reliable lifecycle synchronization
-   * across the server-to-browser continuity gap. It allows the caller to bind a target DOM reference
-   * for global mutation tracking and register serialized initialization and teardown hooks that safeguard
-   * against the traditional "lost cleanup" limitations of a resumable application architecture.
+   * This interface defines the essential options needed to establish reliable lifecycle synchronization
+   * across the server-to-browser continuity gap. It establishes a unified structure for binding target DOM
+   * node references to global mutation tracking and registering serialized initialization and teardown
+   * callbacks that safeguard against lost cleanup during component unmounting.
    */
   export type Params = UseLifecycleParams;
 }
