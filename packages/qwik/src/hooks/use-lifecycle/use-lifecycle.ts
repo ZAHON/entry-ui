@@ -5,11 +5,11 @@ import { error } from '@/_internal/utilities/error';
 import { createGlobalUnmountObserver } from './utilities/create-global-unmount-observer';
 
 /**
- * A shared instance of the unmount observer used to track element removal across the application.
+ * An internal global unmount observer instance used to track DOM element removals across the application.
  *
- * This singleton ensures that all `useLifecycle` instances share a single `MutationObserver`,
- * minimizing DOM overhead. It acts as a bridge for server-rendered components,
- * allowing them to register cleanup logic once they are resumed in the browser.
+ * This singleton ensures that all `useLifecycle` hook instances share a single underlying `MutationObserver`,
+ * minimizing DOM overhead and memory footprint. It acts as a bridge for server-rendered components,
+ * enabling them to seamlessly register cleanup logic upon browser resumption.
  */
 const globalUnmountObserver = createGlobalUnmountObserver();
 
