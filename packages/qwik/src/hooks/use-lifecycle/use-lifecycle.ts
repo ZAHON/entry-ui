@@ -16,20 +16,18 @@ const globalUnmountObserver = createGlobalUnmountObserver();
 /**
  * A hook that manages component lifecycle events with reliable server-to-browser continuity.
  *
- * This hook addresses a fundamental limitation in Qwik's standard `useTask$`: the fact that
- * server-defined cleanup functions are not transferred to the client. Unlike `useVisibleTask$`,
- * which forces eager execution and impacts performance, `useLifecycle` leverages a
- * global `MutationObserver` and the `qresume` event to ensure cleanup logic is
- * consistently executed when an element is removed from the DOM.
+ * This hook addresses Qwik's resumability limitations where server-rendered cleanup closures are not
+ * serialized across the network boundary. Unlike `useVisibleTask$`, which forces eager JavaScript execution
+ * and degrades performance, `useLifecycle` leverages a centralized `MutationObserver` paired with the
+ * `qresume` event to guarantee teardown execution without unnecessary client overhead.
  *
- * Lifecycle synchronization is handled via:
- * - **Mounting**: Executes `onMount$` during the initial task run (server or client).
- * - **Unmounting**: Automatically registers the element for tracking upon resumption
- * or client-side mounting, ensuring `onUnmount$` runs even if the component was SSR-ed.
+ * Lifecycle synchronization is coordinated through two distinct phases:
+ * - **Mounting**: Executes the `onMount$` QRL during the initial `useTask$` scope across both server and client environments.
+ * - **Unmounting**: Registers the target `element` reference with a shared global observer upon DOM attachment or application
+ * resumption, ensuring `onUnmount$` runs reliably when the node leaves the document tree.
  *
  * @remarks
- * This hook was inspired by and contains logic adapted from the `useMountTask$` implementation
- * in the **Qwik Design System (QDS)**.
+ * Inspired by and adapted from the `useMountTask$` implementation in the **Qwik Design System (QDS)**.
  * @see {@link https://github.com/kunai-consulting/qwik-design-system/blob/v2-migration/libs/base/src/hooks/use-unmount.tsx QDS use-unmount implementation}
  */
 export const useLifecycle = (params: UseLifecycleParams) => {
