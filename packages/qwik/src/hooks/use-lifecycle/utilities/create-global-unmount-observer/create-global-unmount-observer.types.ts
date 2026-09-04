@@ -1,27 +1,29 @@
 import type { QRL } from '@qwik.dev/core';
 
 /**
- * Represents the object returned by the `createGlobalUnmountObserver` internal utility.
+ * Represents the controller API returned by the `createGlobalUnmountObserver` internal utility.
  *
- * This interface defines the registration methods required to monitor element detachment.
- * It provides a centralized mechanism to track individual DOM elements and execute their
- * corresponding cleanup closures, utilizing a single, shared observer instance to minimize
- * resource consumption and prevent memory leaks.
+ * This interface defines the operational contract for managing centralized DOM element detachment tracking.
+ * It encapsulates registration methods required to coordinate lifecycle cleanup execution across concurrent UI
+ * components, custom hooks, and application runtime execution contexts.
  */
 export interface CreateGlobalUnmountObserverReturnValue {
   /**
-   * Registers an element and its cleanup logic to be monitored.
-   * If the `MutationObserver` is not yet active, it will be initialized.
-   * If the element is already being tracked, the new `QRL` will be added
-   * to the existing set of cleanup tasks for that element.
+   * Registers a target DOM `element` and its associated cleanup `QRL` function for unmount tracking.
+   *
+   * If the shared `MutationObserver` is not yet active, this method initializes it lazily.
+   * If the specified `element` is already being monitored, the provided cleanup `QRL` is appended
+   * to its set of execution callbacks. If the `element` is already detached from the DOM
+   * at the time of registration, the cleanup callback is processed immediately.
    */
   add: (params: { element: HTMLElement; qrl: QRL<() => void> | QRL<() => Promise<void>> }) => void;
 
   /**
-   * Unregisters a specific cleanup QRL from an element.
-   * If no more `QRL`s are associated with the element, the element is removed
-   * from tracking. If no elements are left in the tracking set, the
-   * `MutationObserver` is disconnected to free up system resources.
+   * Unregisters a specific cleanup `QRL` function from a tracked DOM `element`.
+   *
+   * If no remaining cleanup `QRL` functions are associated with the `element`, the `element` is removed
+   * from tracking and memory maps. When the total set of monitored elements reaches zero, the underlying
+   * `MutationObserver` is automatically disconnected to release system resources.
    */
   remove: (params: { element: HTMLElement; qrl: QRL<() => void> | QRL<() => Promise<void>> }) => void;
 }
