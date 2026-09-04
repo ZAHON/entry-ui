@@ -1,11 +1,11 @@
 import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
- * Configuration parameters for the `useCycle` hook.
+ * Represents the configuration parameters accepted by the `useCycle` hook.
  *
- * This interface encapsulates the parameters required to govern navigation through a predefined dataset sequence.
- * It allows the caller to establish the comprehensive scope of valid value states, configure deterministic
- * initialization boundaries, and dictate boundary-crossing mechanics such as automated sequence wrapping.
+ * This interface defines the essential options needed to govern state traversal through a predefined dataset
+ * sequence. It establishes a unified structure for defining valid option scopes, configuring deterministic
+ * initialization baselines, and dictating boundary-crossing mechanics such as automated sequence wrapping.
  */
 export interface UseCycleParams<T> {
   /**
