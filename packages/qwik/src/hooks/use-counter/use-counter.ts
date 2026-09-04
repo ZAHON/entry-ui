@@ -54,12 +54,12 @@ export namespace useCounter {
   export type Params = UseCounterParams;
 
   /**
-   * Represents the object returned by the `useCounter` hook.
+   * Represents the controller API returned by the `useCounter` hook.
    *
-   * This interface exposes a comprehensive arithmetic API designed to mutate and monitor a bounded numerical state.
-   * It provides the consuming component with an immutable, reactive view of the current counter value,
-   * paired with a suite of specialized, serialized QRL dispatchers for directional stepping, direct assignment,
-   * and state restoration with integrated boundary-clamping.
+   * This interface defines the operational contract for mutating and monitoring a bounded numerical state.
+   * It encapsulates a readonly reactive state view alongside a suite of specialized, QRL-serialized command
+   * dispatchers engineered to execute directional stepping, direct assignment, and state restoration
+   * with integrated boundary-clamping across Qwik's runtime boundaries.
    */
   export type ReturnValue = UseCounterReturnValue;
 }
