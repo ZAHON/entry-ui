@@ -15,7 +15,7 @@ import { useBoolean } from '@entry-ui/qwik/use-boolean';
 
 The `useBoolean` hook provides a simple yet powerful way to manage boolean state within your Qwik components. It's designed to simplify common UI patterns like controlling visibility (modals, drawers), managing toggles, or handling loading states.
 
-The hook accepts a single optional `initialState` parameter to set the starting value. If no value is provided, it defaults to `false`.
+This hook accepts a single optional `initialState` parameter to set the starting value. If no value is provided, it defaults to `false`.
 
 To ensure a predictable data flow, the returned `state` is a readonly signal. Mutations can only be performed using the provided `QRL` functions: `setTrue$`, `setFalse$`, and `toggle$`.
 
