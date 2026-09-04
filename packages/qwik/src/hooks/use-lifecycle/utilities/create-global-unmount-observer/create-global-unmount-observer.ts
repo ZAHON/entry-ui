@@ -7,7 +7,7 @@ import { error } from '@/_internal/utilities/error';
  * An internal utility that creates a centralized observer to manage element unmounting across the application.
  *
  * This factory utility returns an object with methods to track `HTMLElement` instances and execute
- * their associated cleanup QRL functions when those elements are removed from the DOM. It solves Qwik's
+ * their associated cleanup `QRL` functions when those elements are removed from the DOM. It solves Qwik's
  * "lost cleanup" problem across the server-to-browser boundary by sharing a single `MutationObserver`
  * instance to minimize DOM monitoring overhead.
  *
