@@ -1,12 +1,12 @@
 import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
- * Configuration parameters for the `useControllable` hook.
+ * Represents the configuration parameters accepted by the `useControllable` hook.
  *
- * This interface encapsulates the parameters required to initialize the hook in either
- * controlled or uncontrolled mode, enabling cohesive state management within a single component.
- * It allows the caller to delegate state authority to an external signal or manage it internally,
- * providing dedicated lifecycle callbacks to synchronize value updates across architectural boundaries.
+ * This interface defines the essential options needed to configure dual-mode state management across controlled
+ * and uncontrolled execution tracks. It establishes a unified structure for delegating state authority
+ * to an external signal or encapsulating internal reactive state, alongside QRL-serialized lifecycle callbacks
+ * to synchronize value mutations across architectural boundaries.
  */
 export interface UseControllableParams<T> {
   /**
