@@ -100,12 +100,11 @@ export namespace useControllable {
   export type Params<T> = UseControllableParams<T>;
 
   /**
-   * Represents the object returned by the `useControllable` hook.
+   * Represents the controller API returned by the `useControllable` hook.
    *
-   * This interface exposes a unified API to consume and manipulate the underlying state,
-   * abstracting the synchronization mechanics between controlled and uncontrolled execution tracks.
-   * It provides the consuming component with seamless access to the current value context,
-   * safe update dispatchers, and explicit metadata regarding the active management mode.
+   * This interface defines the operational contract for consuming and manipulating state across controlled and uncontrolled
+   * execution tracks. It encapsulates a readonly state view, a QRL-serialized mutation dispatcher engineered to execute
+   * state transitions, and explicit metadata indicating the active management mode across Qwik's runtime boundaries.
    */
   export type ReturnValue<T> = UseControllableReturnValue<T>;
 }
