@@ -35,11 +35,12 @@ export interface UseCycleParams<T> {
 }
 
 /**
- * Represents the object returned by the `useCycle` hook.
+ * Represents the controller API returned by the `useCycle` hook.
  *
- * This interface exposes a comprehensive state-traversal API designed to navigate sequentially through a predefined collection.
- * It provides the consuming component with an immutable, reactive view of the currently active state node, coupled with
- * a set of specialized, serialized navigation dispatchers for directional, boundary-snapped, and direct-access state transitions.
+ * This interface defines the operational contract for navigating sequentially through a predefined dataset collection.
+ * It encapsulates a readonly reactive state view of the currently active state node alongside a set of specialized,
+ * QRL-serialized navigation dispatchers engineered to execute directional, boundary-snapped, and direct-access state
+ * transitions across Qwik's runtime boundaries.
  */
 export interface UseCycleReturnValue<T> {
   /**
