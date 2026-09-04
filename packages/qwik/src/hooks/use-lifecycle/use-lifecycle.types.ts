@@ -1,5 +1,4 @@
-import type { SignalOrReadonlySignal } from '@/types';
-import type { QRL } from '@qwik.dev/core';
+import type { Signal, QRL } from '@qwik.dev/core';
 
 /**
  * Configuration parameters for the `useLifecycle` hook.
@@ -17,7 +16,7 @@ export interface UseLifecycleParams {
    * correctly associated with the specific node, enabling reliable detection
    * of its removal even across the server-to-browser boundary.
    */
-  element: SignalOrReadonlySignal<HTMLElement | undefined | null>;
+  element: Signal<HTMLElement | undefined> | Readonly<Signal<HTMLElement | undefined>>;
 
   /**
    * A `QRL` function executed when the component is first initialized or mounted.
