@@ -23,21 +23,26 @@ export const createGlobalUnmountObserver = (): CreateGlobalUnmountObserverReturn
 
   const processRemovedElements = () => {
     const toRemove: HTMLElement[] = [];
+    const elementsArray = Array.from(elements);
 
-    for (const element of elements) {
+    for (let i = 0; i < elementsArray.length; i++) {
+      const element = elementsArray[i];
+
       if (!document.contains(element)) {
         toRemove.push(element);
       }
     }
 
-    for (const element of toRemove) {
+    for (let i = 0; i < toRemove.length; i++) {
+      const element = toRemove[i];
       const qrls = qrlMap.get(element);
 
       if (qrls) {
         const promises: Promise<void>[] = [];
+        const qrlsArray = Array.from(qrls);
 
-        for (const qrl of qrls) {
-          const result = qrl();
+        for (let j = 0; j < qrlsArray.length; j++) {
+          const result = qrlsArray[j]();
 
           if (result instanceof Promise) {
             promises.push(result);
@@ -77,7 +82,20 @@ export const createGlobalUnmountObserver = (): CreateGlobalUnmountObserverReturn
 
     isInitialized = true;
 
-    mutationObserver = new MutationObserver(() => {
+    mutationObserver = new MutationObserver((mutationsList) => {
+      let hasRemovals = false;
+
+      for (let i = 0; i < mutationsList.length; i++) {
+        if (mutationsList[i].removedNodes.length > 0) {
+          hasRemovals = true;
+          break;
+        }
+      }
+
+      if (!hasRemovals) {
+        return;
+      }
+
       processRemovedElements();
       cleanupObserver();
     });
@@ -112,18 +130,18 @@ export const createGlobalUnmountObserver = (): CreateGlobalUnmountObserverReturn
 
     const qrls = qrlMap.get(element);
 
-    if (!qrls) return;
+    if (!qrls) {
+      return;
+    }
 
     qrls.delete(qrl);
 
     if (qrls.size === 0) {
+      qrlMap.delete(element);
       elements.delete(element);
       cleanupObserver();
     }
   };
 
-  return {
-    add,
-    remove,
-  };
+  return { add, remove };
 };
