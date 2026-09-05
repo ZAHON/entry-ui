@@ -4,4 +4,5 @@ export * from './use-controllable';
 export * from './use-counter';
 export * from './use-cycle';
 export * from './use-lifecycle';
+export * from './use-previous';
 export * from './use-scroll-lock';
