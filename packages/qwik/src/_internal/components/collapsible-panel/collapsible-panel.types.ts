@@ -17,7 +17,7 @@ export interface CollapsiblePanelProps extends PropsOf<'div'> {
   as?: IntrinsicTagName | Component | undefined;
 
   /**
-   * The name of the parent component using this panel (e.g., "Accordion.ItemPanel").
+   * The name of the parent component using this panel (e.g., `"Accordion.ItemPanel"`).
    * Used primarily for developer warnings and debugging.
    */
   componentName: string;
