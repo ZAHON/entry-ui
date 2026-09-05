@@ -1,10 +1,9 @@
 /**
- * Configuration parameters for the internal `useId` hook.
+ * Represents the configuration parameters accepted by the internal `useId` hook.
  *
- * This interface defines the properties required to customize identifier generation.
- * It provides the configuration layer necessary to establish namespace prefixes
- * and apply manual identifier overrides, ensuring full control over the final
- * string construction used for accessibility and DOM targeting.
+ * This interface defines the essential options needed to customize unique identifier generation.
+ * It establishes a unified structure for defining custom namespace prefixes alongside optional
+ * manual base ID overrides, ensuring stable and accessible DOM targeting across component hierarchies.
  */
 export interface UseIdParams {
   /**
