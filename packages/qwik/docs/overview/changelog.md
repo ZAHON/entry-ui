@@ -2,6 +2,31 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.13.0 (2026-09-05)
+
+### Features
+
+- **Introduce `usePrevious` hook for tracking previous signal values.**
+  A hook that tracks and retains the previous value of a reactive signal across updates. It leverages Qwik's reactive tasks to safely capture state changes without triggering unnecessary cascading renders, providing a readonly signal containing the prior value. It accepts either a mutable `Signal` or a `Readonly<Signal>`, making it versatile for tracking props, derived states, or local component variables.
+
+- **Introduce `IntrinsicTagName` utility type for native element tags.**
+  A utility type representing all valid native HTML and SVG element tag names supported by Qwik. It is ideal for building polymorphic components, dynamic element rendering, or restricting component props specifically to built-in DOM tags rather than custom Qwik components.
+
+### Fixes
+
+- **Guard `useScrollLock` hook DOM operations with `isBrowser` check.**
+  Wrapped internal execution logic inside the `QRL` functions (`lock$` and `unlock$`) with `isBrowser` environment checks. This prevents unintended DOM access and potential runtime errors during server-side evaluation in production environments.
+
+- **Remove `null` from `element` signal type in `UseLifecycleParams` interface.**
+  Updated the `element` parameter type to `Signal<HTMLElement | undefined> | Readonly<Signal<HTMLElement | undefined>>`, removing `null` from the signal value union. This resolves TypeScript compiler errors when passing element signals directly to Qwik's native JSX `ref` attribute, ensuring seamless type compatibility with framework element references
+
+### Dependencies
+
+- **Update `@qwik.dev/core` peer dependency minimum version.**
+  Bumped the minimum required version to `>=2.0.0-beta.42` to align with the current development environment.
+
+- **Update `@entry-ui/utilities` to version `0.12.0`.**
+
 ## 0.12.0 (2026-08-13)
 
 ### Features
