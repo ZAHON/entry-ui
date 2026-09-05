@@ -12,6 +12,7 @@ These hooks provide effective solutions for managing your component's internal d
 | [`useControllable`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-controllable) | A hook that manages state in either controlled or uncontrolled mode.           |
 | [`useCounter`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-counter)           | A hook that manages a numeric state with built-in clamping and boundary logic. |
 | [`useCycle`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-cycle)               | A hook that manages navigation through a predefined sequence of options.       |
+| [`usePrevious`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-previous)         | A hook that tracks and retains the previous value of a reactive signal.        |
 
 ## UI and DOM
 
