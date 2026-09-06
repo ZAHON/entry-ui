@@ -3,8 +3,11 @@ import type { CreateAnimationFrameSchedulerReturnValue } from './create-animatio
 /**
  * An internal cached reference to the active global `requestAnimationFrame` implementation.
  *
- * Used to detect dynamic timer reference swaps (e.g. mock timers during testing)
- * and trigger automatic re-scheduling when the underlying environment context changes.
+ * This cache acts as a sentinel to detect dynamic timer reference swaps (such as mock timers
+ * introduced during testing). By comparing the global `requestAnimationFrame` against this
+ * reference during scheduling, it instantly identifies context changes and automatically
+ * triggers re-scheduling against the new implementation, preventing orphaned frames or deadlocks
+ * caused by stale execution references.
  */
 let LAST_RAF = globalThis.requestAnimationFrame;
 
