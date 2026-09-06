@@ -27,20 +27,20 @@ import type { CreateTimeoutReturnValue } from './create-timeout.types';
  */
 export const createTimeout = (): CreateTimeoutReturnValue => {
   // Hold internal reference to the currently active native timeout handle.
-  // Initialized to `0` to represent an idle state with no pending executions.
-  let currentId: number = 0;
+  // Initialized to `-1` to represent an idle state with no pending executions.
+  let currentId: number = -1;
 
   const clear = () => {
     // Check if an active timer handle exists before attempting cancellation.
     // Clears the scheduled execution and restores the internal state back to idle.
-    if (currentId !== 0) {
+    if (currentId !== -1) {
       // Cancel the currently scheduled native execution to prevent it from firing in the background.
       // This ensures that any scheduled callback is safely aborted before it can be triggered.
       clearTimeout(currentId);
 
       // Reset the internal handle reference back to zero to signify that the controller is idle.
       // This state change ensures that subsequent status checks correctly report no active timer.
-      currentId = 0;
+      currentId = -1;
     }
   };
 
@@ -56,7 +56,7 @@ export const createTimeout = (): CreateTimeoutReturnValue => {
     currentId = setTimeout(() => {
       // Mark the controller as idle immediately before executing the target callback.
       // Resetting the handle to zero ensures that `isStarted` returns `false` during execution.
-      currentId = 0;
+      currentId = -1;
 
       // Invoke the user-provided callback function after the delay has successfully elapsed.
       // Executes the scheduled task once the timer cycle is fully completed.
@@ -67,7 +67,7 @@ export const createTimeout = (): CreateTimeoutReturnValue => {
   const isStarted = () => {
     // Evaluate whether the internal handle currently holds an active timer ID.
     // Returns `true` when execution is pending, and `false` when idle or cleared.
-    return currentId !== 0;
+    return currentId !== -1;
   };
 
   // Return the controller API exposing methods to schedule, cancel, and inspect the timer instance.
