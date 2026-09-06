@@ -9,10 +9,16 @@ import type { CreateAnimationFrameSchedulerReturnValue } from './create-animatio
 let LAST_RAF = globalThis.requestAnimationFrame;
 
 /**
- * An internal factory utility that creates a low-level, batched animation frame scheduler.
+ * An internal factory utility that creates a low-level, batched animation frame scheduler instance.
  *
- * It uses an array as internal backing storage to achieve `O(1)` cancellation efficiency.
- * It also handles edge cases like mock timers swapping during test suites.
+ * This utility establishes an optimized task-scheduling architecture designed to minimize layout thrashing
+ * and maximize rendering performance by batching multiple individual frame requests into unified browser
+ * frame ticks. It utilizes an internal array-based backing store combined with explicit index tracking
+ * to achieve `O(1)` constant-time callback cancellation without expensive array re-indexing or splicing overhead.
+ *
+ * Additionally, it incorporates robust environment context detection to handle dynamic timer reference swaps
+ * (such as those introduced by mock timers in testing suites), automatically triggering re-scheduling against
+ * the active environment implementation to prevent orphaned tasks or infinite deadlocks.
  */
 export const createAnimationFrameScheduler = (): CreateAnimationFrameSchedulerReturnValue => {
   // Uses an array backing store to enable `O(1)` callback cancellation via `null` insertion.
