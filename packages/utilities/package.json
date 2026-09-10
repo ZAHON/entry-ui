@@ -133,6 +133,10 @@
       "types": "./dist/scroll-lock/get-scroll-locker/index.d.ts",
       "import": "./dist/scroll-lock/get-scroll-locker/index.js"
     },
+    "./get-animation-type": {
+      "types": "./dist/style/get-animation-type/index.d.ts",
+      "import": "./dist/style/get-animation-type/index.js"
+    },
     "./get-computed-style": {
       "types": "./dist/style/get-computed-style/index.d.ts",
       "import": "./dist/style/get-computed-style/index.js"

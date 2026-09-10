@@ -1,3 +1,4 @@
+export * from './get-animation-type';
 export * from './get-computed-style';
 export * from './get-css-dimensions';
 export * from './get-hidden-element-height';
