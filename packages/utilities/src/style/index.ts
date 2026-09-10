@@ -1,3 +1,4 @@
+export * from './create-animations-finished';
 export * from './get-animation-type';
 export * from './get-computed-style';
 export * from './get-content-box-width';

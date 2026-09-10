@@ -133,6 +133,10 @@
       "types": "./dist/scroll-lock/get-scroll-locker/index.d.ts",
       "import": "./dist/scroll-lock/get-scroll-locker/index.js"
     },
+    "./create-animations-finished": {
+      "types": "./dist/style/create-animations-finished/index.d.ts",
+      "import": "./dist/style/create-animations-finished/index.js"
+    },
     "./get-animation-type": {
       "types": "./dist/style/get-animation-type/index.d.ts",
       "import": "./dist/style/get-animation-type/index.js"

@@ -52,6 +52,7 @@ export default defineConfig({
     'src/scroll-lock/get-scroll-locker/index.ts',
 
     // style
+    'src/style/create-animations-finished/index.ts',
     'src/style/get-animation-type/index.ts',
     'src/style/get-computed-style/index.ts',
     'src/style/get-content-box-width/index.ts',
