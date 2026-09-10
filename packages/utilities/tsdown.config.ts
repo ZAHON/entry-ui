@@ -54,6 +54,7 @@ export default defineConfig({
     // style
     'src/style/get-animation-type/index.ts',
     'src/style/get-computed-style/index.ts',
+    'src/style/get-content-box-width/index.ts',
     'src/style/get-css-dimensions/index.ts',
     'src/style/get-hidden-element-height/index.ts',
     'src/style/merge-styles/index.ts',

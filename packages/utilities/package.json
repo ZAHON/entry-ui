@@ -141,6 +141,10 @@
       "types": "./dist/style/get-computed-style/index.d.ts",
       "import": "./dist/style/get-computed-style/index.js"
     },
+    "./get-content-box-width": {
+      "types": "./dist/style/get-content-box-width/index.d.ts",
+      "import": "./dist/style/get-content-box-width/index.js"
+    },
     "./get-css-dimensions": {
       "types": "./dist/style/get-css-dimensions/index.d.ts",
       "import": "./dist/style/get-css-dimensions/index.js"

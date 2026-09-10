@@ -1,5 +1,6 @@
 export * from './get-animation-type';
 export * from './get-computed-style';
+export * from './get-content-box-width';
 export * from './get-css-dimensions';
 export * from './get-hidden-element-height';
 export * from './merge-styles';
