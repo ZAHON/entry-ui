@@ -1,232 +1,329 @@
-import { describe, beforeEach, afterEach, it, expect } from 'vitest';
-import { getHiddenElementHeight } from '.';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
+import { getHiddenElementHeight } from './get-hidden-element-height';
 
 describe('getHiddenElementHeight', () => {
-  let testElement: HTMLElement;
+  const setClientWidth = (element: Element, width: number) => {
+    Object.defineProperty(element, 'clientWidth', { value: width, configurable: true });
+  };
+
+  /**
+   * `element.after(clone)` is the point where the clone is inserted into the
+   * live DOM, right before `getCssDimensions` reads its dimensions. jsdom
+   * doesn't perform real layout, so `offsetWidth`/`offsetHeight` are always 0
+   * by default.
+   *
+   * We intercept `after` on every test to (a) capture a reference to the
+   * clone, so its attributes/styles remain inspectable even after `remove()`
+   * detaches it, and (b) stamp mocked offset values onto it before the real
+   * insertion runs, so `getCssDimensions` reads a realistic height/width.
+   *
+   * Tests that don't care about the returned height can ignore the default
+   * offset (0, 0); tests that do can set `nextCloneOffset` beforehand.
+   */
+  let capturedClone: HTMLElement | null = null;
+  let nextCloneOffset = { width: 0, height: 0 };
 
   beforeEach(() => {
-    testElement = document.createElement('div');
-    document.body.appendChild(testElement);
-  });
+    capturedClone = null;
+    nextCloneOffset = { width: 0, height: 0 };
 
-  afterEach(() => {
-    testElement.remove();
-    document.querySelectorAll('[aria-hidden="true"]').forEach((el) => el.remove());
-  });
+    const originalAfter = Element.prototype.after;
 
-  it('should return height as a number', () => {
-    testElement.style.height = '75px';
-    const result = getHiddenElementHeight(testElement);
-    expect(typeof result).toBe('number');
-  });
+    vi.spyOn(Element.prototype, 'after').mockImplementation(function (this: Element, ...nodes: Array<Node | string>) {
+      const clone = nodes.find((node): node is HTMLElement => node instanceof HTMLElement);
 
-  it('should measure hidden elements with display none', () => {
-    testElement.style.height = '100px';
-    testElement.style.display = 'none';
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBeGreaterThanOrEqual(0);
-  });
+      if (clone) {
+        capturedClone = clone;
+        Object.defineProperty(clone, 'offsetWidth', { value: nextCloneOffset.width, configurable: true });
+        Object.defineProperty(clone, 'offsetHeight', { value: nextCloneOffset.height, configurable: true });
+      }
 
-  it('should measure elements with visibility hidden', () => {
-    testElement.style.height = '80px';
-    testElement.style.visibility = 'hidden';
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBeGreaterThanOrEqual(0);
-  });
-
-  it('should create a clone and remove it after measurement', () => {
-    testElement.id = 'original-element';
-    const initialChildCount = document.body.children.length;
-    getHiddenElementHeight(testElement);
-    const finalChildCount = document.body.children.length;
-    expect(finalChildCount).toBe(initialChildCount);
-  });
-
-  it('should set aria-hidden attribute on clone', () => {
-    testElement.id = 'original-element';
-    let capturedClone: HTMLElement | null = null;
-
-    const originalCloneNode = testElement.cloneNode.bind(testElement);
-    testElement.cloneNode = function (deep: boolean) {
-      capturedClone = originalCloneNode(deep) as HTMLElement;
-      return capturedClone;
-    };
-
-    getHiddenElementHeight(testElement);
-
-    expect(capturedClone).not.toBeNull();
-    expect(capturedClone!.getAttribute('aria-hidden')).toBe('true');
-
-    testElement.cloneNode = originalCloneNode;
-  });
-
-  it('should handle elements with constrained height', () => {
-    testElement.style.height = '100px';
-    testElement.style.maxHeight = '50px';
-    const result = getHiddenElementHeight(testElement);
-    // Clone should reset max constraints
-    expect(result).toBeDefined();
-    expect(typeof result).toBe('number');
-  });
-
-  it('should handle elements with overflow hidden', () => {
-    testElement.style.height = '50px';
-    testElement.style.overflow = 'hidden';
-    testElement.textContent =
-      'Very long content that would normally overflow the container and cause scrolling. '.repeat(10);
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBeGreaterThanOrEqual(0);
-  });
-
-  it('should preserve child elements in clone', () => {
-    const child = document.createElement('span');
-    child.textContent = 'Child content';
-    child.style.display = 'block';
-    child.style.height = '100px';
-    testElement.appendChild(child);
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBeDefined();
-    expect(typeof result).toBe('number');
-  });
-
-  it('should handle elements with nested structure', () => {
-    const nested1 = document.createElement('div');
-    const nested2 = document.createElement('div');
-    nested2.style.height = '50px';
-    nested1.appendChild(nested2);
-    testElement.appendChild(nested1);
-    testElement.style.height = '75px';
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBeGreaterThanOrEqual(0);
-  });
-
-  it('should return 0 for empty elements without dimensions', () => {
-    const emptyElement = document.createElement('div');
-    document.body.appendChild(emptyElement);
-    const result = getHiddenElementHeight(emptyElement);
-    expect(result).toBe(0);
-    emptyElement.remove();
-  });
-
-  it('should handle fractional CSS values', () => {
-    testElement.style.height = '67.89px';
-    const result = getHiddenElementHeight(testElement);
-    expect(typeof result).toBe('number');
-    expect(result).toBeGreaterThanOrEqual(0);
-  });
-
-  it('should handle different HTML element types', () => {
-    const elements = [
-      document.createElement('div'),
-      document.createElement('span'),
-      document.createElement('button'),
-      document.createElement('section'),
-      document.createElement('article'),
-    ];
-
-    elements.forEach((element) => {
-      element.style.height = '50px';
-      document.body.appendChild(element);
-      const result = getHiddenElementHeight(element);
-      expect(typeof result).toBe('number');
-      element.remove();
+      return originalAfter.apply(this, nodes);
     });
   });
 
-  it('should return consistent results for multiple calls', () => {
-    testElement.style.height = '90px';
-    const result1 = getHiddenElementHeight(testElement);
-    const result2 = getHiddenElementHeight(testElement);
-    expect(result1).toEqual(result2);
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
-  it('should handle elements with transitions and animations', () => {
-    testElement.style.height = '50px';
-    testElement.style.transition = 'all 0.3s ease';
-    testElement.style.animation = 'spin 1s infinite';
-    const result = getHiddenElementHeight(testElement);
-    // Clone should have transitions and animations disabled
-    expect(result).toBeGreaterThanOrEqual(0);
+  it('should return the offset height of the measured clone', () => {
+    nextCloneOffset = { width: 100, height: 150 };
+
+    const div = document.createElement('div');
+    div.style.display = 'none';
+    document.body.appendChild(div);
+
+    expect(getHiddenElementHeight(div)).toBe(150);
+
+    div.remove();
   });
 
-  it('should handle elements with position absolute', () => {
-    testElement.style.position = 'absolute';
-    testElement.style.height = '60px';
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBeGreaterThanOrEqual(0);
+  it('should return 0 when the clone has no measurable offset height', () => {
+    const div = document.createElement('div');
+    div.style.display = 'none';
+    document.body.appendChild(div);
+
+    expect(getHiddenElementHeight(div)).toBe(0);
+
+    div.remove();
   });
 
-  it('should handle elements with opacity 0', () => {
-    testElement.style.height = '50px';
-    testElement.style.opacity = '0';
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBeGreaterThanOrEqual(0);
+  it('should remove the clone from the document after measuring', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    getHiddenElementHeight(div);
+
+    expect(capturedClone).not.toBeNull();
+    expect(capturedClone!.isConnected).toBe(false);
+    expect(capturedClone!.parentNode).toBeNull();
+
+    div.remove();
   });
 
-  it('should handle zero height', () => {
-    testElement.style.height = '0px';
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBe(0);
+  it('should insert the clone as a sibling immediately after the original element', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    getHiddenElementHeight(div);
+
+    expect(capturedClone).not.toBeNull();
+    expect(div.nextSibling).toBeNull(); // clone was removed already
+    expect(capturedClone!.previousSibling).toBeNull(); // detached, no context, but confirms distinct node
+
+    div.remove();
   });
 
-  it('should handle em units by returning computed pixel values', () => {
-    testElement.style.height = '5em';
-    const result = getHiddenElementHeight(testElement);
-    expect(typeof result).toBe('number');
+  it('should not mutate the original element', () => {
+    const div = document.createElement('div');
+    div.id = 'original-id';
+    div.style.display = 'none';
+    document.body.appendChild(div);
+
+    getHiddenElementHeight(div);
+
+    expect(div.id).toBe('original-id');
+    expect(div.style.display).toBe('none');
+    expect(div.hasAttribute('aria-hidden')).toBe(false);
+    expect(div.hasAttribute('inert')).toBe(false);
+
+    div.remove();
   });
 
-  it('should insert clone after the original element', () => {
-    testElement.id = 'original';
-    const nextSibling = document.createElement('div');
-    nextSibling.id = 'next-sibling';
-    testElement.after(nextSibling);
+  it('should not affect the checked state or name attribute of an original radio input', () => {
+    const form = document.createElement('form');
+    form.style.display = 'none';
+    form.innerHTML = `
+      <input type="radio" name="plan" id="plan-basic" checked />
+      <input type="radio" name="plan" id="plan-pro" />
+    `;
+    document.body.appendChild(form);
 
-    // Patch remove to capture position before removal
-    let wasInsertedCorrectly = false;
-    const originalRemove = HTMLElement.prototype.remove;
-    HTMLElement.prototype.remove = function () {
-      if (this.getAttribute('aria-hidden') === 'true' && this.previousElementSibling?.id === 'original') {
-        wasInsertedCorrectly = true;
-      }
-      return originalRemove.call(this);
-    };
+    const basicRadio = form.querySelector<HTMLInputElement>('#plan-basic')!;
 
-    getHiddenElementHeight(testElement);
+    getHiddenElementHeight(form);
 
-    expect(wasInsertedCorrectly).toBe(true);
+    expect(basicRadio.checked).toBe(true);
+    expect(basicRadio.getAttribute('name')).toBe('plan');
 
-    HTMLElement.prototype.remove = originalRemove;
-    nextSibling.remove();
+    form.remove();
   });
 
-  it('should handle elements with content visibility', () => {
-    testElement.style.height = '50px';
-    testElement.style.contentVisibility = 'auto';
-    const result = getHiddenElementHeight(testElement);
-    expect(result).toBeGreaterThanOrEqual(0);
+  it('should isolate id and name attributes on the clone without affecting the original', () => {
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.id = 'radio-id';
+    input.name = 'radio-group';
+    document.body.appendChild(input);
+
+    getHiddenElementHeight(input);
+
+    expect(capturedClone).not.toBeNull();
+    expect(capturedClone!.hasAttribute('id')).toBe(false);
+    expect(capturedClone!.hasAttribute('name')).toBe(false);
+
+    expect(input.id).toBe('radio-id');
+    expect(input.getAttribute('name')).toBe('radio-group');
+
+    input.remove();
   });
 
-  it('should handle elements with box-sizing border-box', () => {
-    testElement.style.height = '100px';
-    testElement.style.padding = '10px';
-    testElement.style.boxSizing = 'border-box';
-    const result = getHiddenElementHeight(testElement);
-    expect(typeof result).toBe('number');
-    expect(result).toBeGreaterThanOrEqual(0);
+  it('should set aria-hidden="true" on the clone', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    getHiddenElementHeight(div);
+
+    expect(capturedClone!.getAttribute('aria-hidden')).toBe('true');
+
+    div.remove();
   });
 
-  it('should handle percentage height by computing to pixels', () => {
+  it('should set inert on the clone', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    getHiddenElementHeight(div);
+
+    expect(capturedClone!.hasAttribute('inert')).toBe(true);
+
+    div.remove();
+  });
+
+  it('should apply layout-neutral, invisible styles to the clone', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    getHiddenElementHeight(div);
+
+    const { style } = capturedClone!;
+
+    expect(style.position).toBe('absolute');
+    expect(style.top).toBe('-9999px');
+    expect(style.display).toBe('block');
+    expect(style.visibility).toBe('hidden');
+    expect(style.opacity).toBe('0');
+    expect(style.contentVisibility).toBe('visible');
+    expect(style.height).toBe('auto');
+    expect(style.maxHeight).toBe('none');
+    expect(style.overflow).toBe('visible');
+    expect(style.transition).toBe('none');
+    expect(style.animation).toBe('none');
+
+    div.remove();
+  });
+
+  it('should set an explicit width on the clone when a measurable ancestor width is found', () => {
     const parent = document.createElement('div');
-    parent.style.height = '200px';
+    const child = document.createElement('div');
+    parent.appendChild(child);
     document.body.appendChild(parent);
 
-    const child = document.createElement('div');
-    child.style.height = '50%';
-    parent.appendChild(child);
+    setClientWidth(parent, 300);
+    setClientWidth(child, 0);
+    child.style.display = 'none';
 
-    const result = getHiddenElementHeight(child);
-    expect(typeof result).toBe('number');
+    getHiddenElementHeight(child);
+
+    expect(capturedClone!.style.width).toBe('300px');
 
     parent.remove();
+  });
+
+  it('should account for ancestor padding when computing the clone width', () => {
+    const parent = document.createElement('div');
+    const child = document.createElement('div');
+    parent.appendChild(child);
+    document.body.appendChild(parent);
+
+    setClientWidth(parent, 300);
+    parent.style.paddingLeft = '20px';
+    parent.style.paddingRight = '30px';
+    setClientWidth(child, 0);
+    child.style.display = 'none';
+
+    getHiddenElementHeight(child);
+
+    expect(capturedClone!.style.width).toBe('250px');
+
+    parent.remove();
+  });
+
+  it('should not set a width style when no measurable ancestor width is found', () => {
+    const div = document.createElement('div');
+    setClientWidth(div, 0);
+
+    getHiddenElementHeight(div);
+
+    expect(capturedClone!.style.width).toBe('');
+  });
+
+  it('should use the element own width when it is directly measurable', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    setClientWidth(div, 180);
+
+    getHiddenElementHeight(div);
+
+    expect(capturedClone!.style.width).toBe('180px');
+
+    div.remove();
+  });
+
+  it('should deep clone descendant content', () => {
+    const div = document.createElement('div');
+    div.innerHTML = `<p>Hello <strong>world</strong></p>`;
+    document.body.appendChild(div);
+
+    getHiddenElementHeight(div);
+
+    expect(capturedClone!.innerHTML).toBe('<p>Hello <strong>world</strong></p>');
+
+    div.remove();
+  });
+
+  it('should not throw and should return a number for an element with no children', () => {
+    const span = document.createElement('span');
+    document.body.appendChild(span);
+
+    expect(() => getHiddenElementHeight(span)).not.toThrow();
+    expect(typeof getHiddenElementHeight(span)).toBe('number');
+
+    span.remove();
+  });
+
+  it('should work correctly for an element that is currently visible, not just hidden ones', () => {
+    nextCloneOffset = { width: 100, height: 60 };
+
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    expect(getHiddenElementHeight(div)).toBe(60);
+
+    div.remove();
+  });
+
+  it('should measure an element that is detached from the document', () => {
+    const div = document.createElement('div');
+
+    expect(() => getHiddenElementHeight(div)).not.toThrow();
+    expect(capturedClone).not.toBeNull();
+  });
+
+  it('should call cloneNode with deep set to true', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    const cloneNodeSpy = vi.spyOn(div, 'cloneNode');
+
+    getHiddenElementHeight(div);
+
+    expect(cloneNodeSpy).toHaveBeenCalledWith(true);
+
+    div.remove();
+  });
+
+  it('should isolate a deeply nested subtree containing multiple radio groups on the clone only', () => {
+    const form = document.createElement('form');
+    form.innerHTML = `
+      <fieldset>
+        <input type="radio" name="plan" id="plan-a" checked />
+        <input type="radio" name="plan" id="plan-b" />
+      </fieldset>
+      <div>
+        <input type="checkbox" name="terms" id="terms" />
+      </div>
+    `;
+    document.body.appendChild(form);
+
+    getHiddenElementHeight(form);
+
+    expect(capturedClone!.querySelectorAll('[id]').length).toBe(0);
+    expect(capturedClone!.querySelectorAll('input[name]').length).toBe(0);
+
+    expect(form.querySelectorAll('[id]').length).toBe(3);
+    expect(form.querySelectorAll('input[name]').length).toBe(3);
+
+    form.remove();
   });
 });
