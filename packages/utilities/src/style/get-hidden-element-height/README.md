@@ -13,47 +13,51 @@ import { getHiddenElementHeight } from '@entry-ui/utilities/get-hidden-element-h
 
 ## Usage
 
-The `getHiddenElementHeight` utility is designed for cases where you need to know the height of an element before it is shown, for example, to animate a "collapse" or "accordion" component. Since elements with `display: "none"` have no height in the DOM, this utility temporarily renders a hidden clone to measure its intrinsic size.
+The `getHiddenElementHeight` utility is designed for cases where you need to know the height of an element before it is shown, for example, to animate a "collapse" or "accordion" component. Since elements with `display: none` have no height in the DOM, this utility temporarily renders a hidden clone to measure its intrinsic size.
 
-The utility ensures that the measurement process does not interfere with the user experience by applying the following strategy:
+The utility ensures that the measurement process does not interfere with the user experience by applying the following style and attribute strategy:
 
-- **Invisibility**:
-  Applies `visibility: "hidden"`, `opacity: "0"`, and `aria-hidden="true"` to ensure the cloned element remains completely invisible to both sighted users and assistive technologies.
+- **Positioning (`position: absolute`, `top: -9999px`, measurable width)**:
+  Removes the clone from the normal document flow and places it far outside the visible viewport, applying ancestor-based width constraints to ensure proper block sizing.
 
-- **Positioning**:
-  Uses `position: "absolute"` with a significant negative offset (`top: "-9999px"`) to render the clone far outside the visible viewport, preventing any accidental scrollbars or layout shifts.
+- **Invisibility (`display: block`, `visibility: hidden`, `opacity: 0`, `contentVisibility: visible`)**:
+  Forces block display for layout calculation while keeping the element completely transparent and invisible on screen.
 
-- **Interaction reset**:
-  Enforces `pointerEvents: "none"` and `userSelect: "none"` to disable all mouse and keyboard interactions, while stripping `transition` and `animation` to ensure immediate, static measurement.
+- **Layout reset (`height: auto`, `maxHeight: none`, `overflow: visible`)**:
+  Removes vertical size limits and clipping constraints to allow the element to expand to its full natural height.
 
-- **Layout neutrality**:
-  Forces `display: "block"` and `height: "auto"` with no constraints (`maxHeight: "none"`) to capture the element's natural height before it is immediately removed from the DOM.
+- **Interaction (`transition: none`, `animation: none`)**:
+  Disables all active animations and transitions to ensure an immediate, static measurement snapshot without layout delays.
+
+- **Accessibility (`inert`, `aria-hidden="true"`)**:
+  Applies the `inert` attribute to block focus and pointer interactions while removing the node from the accessibility tree, paired with `aria-hidden="true"` to ensure screen readers completely ignore the temporary measurement clone.
 
 ```ts
 import { getHiddenElementHeight } from '@entry-ui/utilities/get-hidden-element-height';
 
-const hiddenPanel = document.getElementById('accordion-panel');
+const element = document.querySelector<HTMLElement>('#hidden-element');
 
-const targetHeight = getHiddenElementHeight(hiddenPanel);
-
-console.log(`The element will be ${targetHeight}px tall when opened.`);
+// Retrieve the natural height of the hidden element.
+if (element) {
+  const height = getHiddenElementHeight(element);
+}
 ```
 
 ## API reference
 
-This section provides a technical overview of the `getHiddenElementHeight` function.
+This section provides a technical overview of the `getHiddenElementHeight` function and its return type.
 
 ### Parameters
 
-The `getHiddenElementHeight` function accepts a single required parameter (marked with an asterisk `*`):
+The `getHiddenElementHeight` function accepts a single required parameter (marked with an asterisk `*`) that points to the hidden element whose height you want to calculate:
 
 | Parameter  | Type          | Default | Description                                                    |
 | :--------- | :------------ | :------ | :------------------------------------------------------------- |
-| `element*` | `HTMLElement` | `-`     | The hidden element whose natural height you want to calculate. |
+| `element*` | `HTMLElement` | `—`     | The hidden element whose natural height you want to calculate. |
 
 ### Returns
 
-The `getHiddenElementHeight` function returns the calculated height as a number:
+The `getHiddenElementHeight` function returns a numeric value representing the intrinsic height of the element in pixels:
 
 | Type     | Description                                                                                             |
 | :------- | :------------------------------------------------------------------------------------------------------ |
