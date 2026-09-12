@@ -30,10 +30,8 @@ export const createScrollLocker = () => {
   // Guarantees teardown runs deterministically after all active lock references complete.
   const timeoutUnlock = createTimeout();
 
-  /**
-   * Evaluates current DOM viewport conditions and applies optimal scroll prevention rules.
-   * Handles external lock synchronization via `MutationObserver` and device-specific strategies.
-   */
+  // Evaluates current DOM viewport conditions and applies optimal scroll prevention rules.
+  // Handles external lock synchronization via `MutationObserver` and device-specific strategies.
   const lock = (params: { win: typeof window; doc: Document; html: HTMLElement; body: HTMLElement }) => {
     const { win, doc, html, body } = params;
 
@@ -53,6 +51,8 @@ export const createScrollLocker = () => {
         // Re-evaluate lock condition on every DOM attribute change; continue waiting if still locked.
         // Prevents premature lock acquisition while third-party scripts complete their teardown.
         if (isViewportScrollLocked({ win, html, body })) {
+          // Abort callback execution if the viewport remains locked by external scripts.
+          // Defer lock takeover until all third-party style or attribute modifications are completely cleared.
           return;
         }
 
@@ -105,23 +105,24 @@ export const createScrollLocker = () => {
       : preventScrollInsetScrollbars({ win, html, body });
   };
 
-  /**
-   * Internal unlock handler executed after reference counts drop to zero.
-   * Invokes active restoration logic and purges internal cleanup pointers.
-   */
+  // Internal unlock handler executed after reference counts drop to zero.
+  // Invokes active restoration logic and purges internal cleanup pointers.
   const unlock = () => {
     // Confirm reference count is zero and active restoration function exists before executing teardown.
     // Safely invokes cleanup logic and restores internal state pointer back to `null`.
     if (lockCount === 0 && restore) {
+      // Execute the stored restoration callback to revert modified DOM styles.
+      // Restores default overflow settings, body paddings, and scrollbar gutter properties.
       restore?.();
+
+      // Reset active restoration callback reference to clean up internal state pointers.
+      // Ensures future acquisition attempts can safely register new lock restoration callbacks.
       restore = null;
     }
   };
 
-  /**
-   * Decrements reference count and schedules scroll restoration if no active locks remain.
-   * Serves as the session cleanup callback returned upon invoking `acquire()`.
-   */
+  // Decrements reference count and schedules scroll restoration if no active locks remain.
+  // Serves as the session cleanup callback returned upon invoking `acquire()`.
   const release = () => {
     // Decrement reference count tracking active scroll lock consumers.
     // Ensures scroll lock stays applied until every acquiring subscriber invokes release.
@@ -130,14 +131,14 @@ export const createScrollLocker = () => {
     // Schedule deferred unlock task when all lock consumers have released their session.
     // Uses `timeoutUnlock` to allow synchronous re-acquisitions within the same tick.
     if (lockCount === 0 && restore) {
+      // Schedule async unlock task to prevent immediate style thrashing during state updates.
+      // Defers scroll cleanup to allow synchronous re-acquisitions within the current execution frame.
       timeoutUnlock.start({ callback: unlock, delayMs: 0 });
     }
   };
 
-  /**
-   * Acquires a viewport scroll lock session and increments reference counter.
-   * Schedules lock execution on first acquire call and returns a release callback.
-   */
+  // Acquires a viewport scroll lock session and increments reference counter.
+  // Schedules lock execution on first acquire call and returns a release callback.
   const acquire = (params: { win: typeof window; doc: Document; html: HTMLElement; body: HTMLElement }) => {
     // Increment active lock reference counter for each acquiring consumer call.
     // Enables concurrent UI components to share a single global scroll lock session.
@@ -146,6 +147,8 @@ export const createScrollLocker = () => {
     // Schedule initial scroll lock task on first active request when no lock process exists.
     // Defers execution via `timeoutLock` to batch multiple synchronous acquisition calls.
     if (lockCount === 1 && restore === null) {
+      // Schedule deferred scroll lock execution to consolidate rapid acquisition requests.
+      // Ensures layout measurements and style changes are batched efficiently across the current tick.
       timeoutLock.start({ callback: () => lock(params), delayMs: 0 });
     }
 
@@ -154,6 +157,8 @@ export const createScrollLocker = () => {
     return release;
   };
 
+  // Return public scroll locker API instance exposing reference-counted lock acquisition handle.
+  // Encapsulates internal state management while granting consumers control over viewport scroll sessions.
   return { acquire };
 };
 
