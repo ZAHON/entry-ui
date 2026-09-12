@@ -161,7 +161,8 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
     }
   });
 
-  // TODO
+  // Expose state signals and `QRL` control methods defining the public hook API interface.
+  // Provides external components access to reactive clipboard state and control dispatchers.
   return { copied, error, copy$, reset$ };
 };
 
