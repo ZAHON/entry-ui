@@ -2,6 +2,24 @@
 
 Changelogs for each `@entry-ui/utilities` release.
 
+## 0.13.0 (2026-09-12)
+
+### Features
+
+- **Introduce `getAnimationType` utility for active CSS motion state classification.**
+  A specialized helper that inspects an element's computed styles for `animation-name`, `animation-duration`, and `transition-duration` to categorize its motion state into `"both"`, `"css-animation"`, `"css-transition"`, or `"none"`. It safely handles multi-valued property strings and zero-duration rules using performance-optimized evaluation loops, while providing an `ignoreAnimationName` option to bypass keyframe name checks when animation identifiers are suppressed or managed externally during lifecycle transitions.
+
+- **Introduce `getContentBoxWidth` utility for precise content-box width measurement.**
+  A specialized helper that calculates the exact interior content-box width of a DOM element by subtracting horizontal padding from `clientWidth`. It operates consistently across different `box-sizing` models, optimizes performance by skipping computed style lookups when `clientWidth` is zero, handles missing or unparsable padding values safely, and guarantees a non-negative pixel output.
+
+- **Introduce `createAnimationsFinished` utility for stateful animation lifecycle tracking.**
+  A stateful controller factory that observes Web Animations API completions on target DOM elements. It safely manages replaced or aborted animation tracks, supports microtask pre-paint batching, synchronizes with `[data-starting-style]` attribute removal via `MutationObserver`, integrates custom framework flush wrappers, and provides `AbortSignal` and explicit cancellation controls.
+
+### Refactors
+
+- **Enhance `getHiddenElementHeight` utility with improved layout accuracy and DOM isolation.**
+  Refactors the hidden element height measurement logic to resolve width constraints from surrounding parent containers, guaranteeing accurate text wrapping and natural height calculations. Additionally, it improves DOM safety by sanitizing duplicate element attributes and applying the `inert` attribute to completely isolate the temporary off-screen measurement node from accessibility trees and user interaction.
+
 ## 0.12.0 (2026-08-30)
 
 ### Breaking changes
