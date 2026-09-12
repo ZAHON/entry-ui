@@ -1,6 +1,7 @@
 import type { UseClipboardParams, UseClipboardReturnValue } from './use-clipboard.types';
 import { useSignal, $ } from '@qwik.dev/core';
 import { copyToClipboard } from '@entry-ui/utilities/copy-to-clipboard';
+import { useTimeout } from '../use-timeout';
 import { fail } from '@/_internal/utilities/fail';
 import { error as logError } from '@/_internal/utilities/error';
 import { isDev, isServer, isBrowser } from '@qwik.dev/core/build';
@@ -33,9 +34,9 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
   // Reverts to `false` automatically after the timeout elapses.
   const copied = useSignal(false);
 
-  // Stores the active timer handle for auto-resetting the state.
-  // Initialized to `-1` when no active timer is running.
-  const copyTimeout = useSignal(-1);
+  // Instantiate the internal `useTimeout` controller to handle automated state resetting.
+  // Provides serializable `QRL` methods for scheduling and clearing state restoration timers.
+  const timeout = useTimeout();
 
   const copy$ = $(async (value: string) => {
     // Check if function is executed on the server during development.
@@ -51,48 +52,68 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
     // Ensure the clipboard API is accessed only in client environments.
     // Prevents execution errors during server-side rendering phases.
     if (isBrowser) {
+      // Delegate the write operation to the low-level clipboard utility.
+      // Triggers native browser clipboard APIs and executes corresponding lifecycle callbacks.
       await copyToClipboard({
         value,
         onSuccess: () => {
-          // Clear any active timeout handle from previous execution.
-          // Prevents conflicting state resets when triggered repeatedly.
-          if (copyTimeout.value !== -1) {
-            clearTimeout(copyTimeout.value);
-          }
+          // Schedule an automated timer to reset the success state after the configured delay.
+          // Automatically clears any previous active timer to guarantee single-execution statefulness.
+          timeout.start$({
+            callback: $(() => {
+              // Revert the `copied` reactive signal to `false` when the delay timer elapses.
+              // Signals to consumers that the success indication window has expired.
+              copied.value = false;
 
-          // Schedule auto-reset of reactive states after configured delay.
-          // Reverts signals back to initial state automatically.
-          copyTimeout.value = setTimeout(() => {
-            copied.value = false;
-            error.value = null;
+              // Ensure any active `error` state remains cleared during the scheduled reset.
+              // Restores the internal error signal to an idle `null` state.
+              error.value = null;
 
-            copyTimeout.value = -1;
+              // Evaluate whether an external status listener callback has been registered.
+              // Dispatches automated reset notifications when the timeout threshold is reached.
+              if (onStatusChange$) {
+                // Invoke the external `onStatusChange$` QRL callback with the updated idle status details.
+                // Notifies parent components or subscribers that the success state has been cleared.
+                onStatusChange$({ copied: false, error: null });
+              }
+            }),
+            delayMs: timeoutMs,
+          });
 
-            // Notify external listeners about automated state reset.
-            // Dispatches status event when timer elapses.
-            onStatusChange$?.({ copied: false, error: null });
-          }, timeoutMs) as unknown as number; // Reconcile Node.js `Timeout` type with DOM browser handle type.
-
-          // Update state signals to reflect a successful copy action.
-          // Clears prior errors and sets copied flag to true.
+          // Mark the operation as successful by updating the `copied` signal to `true`.
+          // Provides immediate visual and reactive feedback to UI consumers.
           copied.value = true;
+
+          // Clear any previous error code stored in the `error` signal upon a successful write.
+          // Resets failure state tracking to ensure accurate status representation.
           error.value = null;
 
-          // Dispatch status change event to external subscriber.
-          // Informs parent components about operation success.
-          onStatusChange$?.({ copied: true, error: null });
+          // Check for the presence of an optional external status change callback.
+          // Allows parent components to react immediately to a successful copy operation.
+          if (onStatusChange$) {
+            // Dispatch status update details indicating a successful copy transaction.
+            // Passes the active success state and empty error context to the callback.
+            onStatusChange$({ copied: true, error: null });
+          }
         },
         onError: (err) => {
           const { type, message } = err;
 
-          // Update state signals to reflect execution failure.
-          // Sets copied to false and records the error code.
+          // Revert the `copied` signal to `false` to reflect the operational failure.
+          // Ensures that success indicators are not displayed when an error occurs.
           copied.value = false;
+
+          // Store the specific error classification type in the reactive `error` signal.
+          // Exposes standardized failure reasons like `"NOT_SUPPORTED"` or `"COPY_FAILED"`.
           error.value = type;
 
-          // Notify external subscriber about execution failure.
-          // Passes error detail context to handler function.
-          onStatusChange$?.({ copied: false, error: type });
+          // Check if an external status observer callback is attached to the hook options.
+          // Triggers notification handlers when an asynchronous write error takes place.
+          if (onStatusChange$) {
+            // Invoke the subscriber callback with error failure details and cleared copy state.
+            // Informs external context handlers about the failure type for custom error handling.
+            onStatusChange$({ copied: false, error: type });
+          }
 
           // Log detailed troubleshooting messages in development mode.
           // Helps developers diagnose missing browser APIs or permissions.
@@ -119,23 +140,28 @@ export const useClipboard = (params: UseClipboardParams = {}): UseClipboardRetur
   });
 
   const reset$ = $(() => {
-    // Revert state signals back to default values.
-    // Clears copied status and erases current error.
+    // Revert the `copied` reactive signal to `false` upon manual reset invocation.
+    // Clears any active success indicator state immediately.
     copied.value = false;
+
+    // Reset the `error` reactive signal back to an idle `null` state.
+    // Erases any previously recorded operational failure classification.
     error.value = null;
 
-    // Clear any pending timeout instance actively running.
-    // Prevents scheduled state resets from firing.
-    if (copyTimeout.value !== -1) {
-      clearTimeout(copyTimeout.value);
-      copyTimeout.value = -1;
-    }
+    // Cancel any active auto-reset timer currently managed by `useTimeout`.
+    // Prevents lingering scheduled callbacks from firing after a manual reset.
+    timeout.clear$();
 
-    // Notify external listeners about manual state reset.
-    // Signals subscribers that state was cleared.
-    onStatusChange$?.({ copied: false, error: null });
+    // Evaluate whether an external status change callback was provided in parameters.
+    // Ensures subscribers are notified of explicit manual state clearings.
+    if (onStatusChange$) {
+      // Dispatch an explicit notification with idle values to the external status observer.
+      // Informs parent subscribers that both success and error states are now cleared.
+      onStatusChange$({ copied: false, error: null });
+    }
   });
 
+  // TODO
   return { copied, error, copy$, reset$ };
 };
 
