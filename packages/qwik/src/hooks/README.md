@@ -26,9 +26,10 @@ These hooks provide solutions for interacting with DOM elements, managing window
 
 These hooks provide convenient interfaces for interacting with browser APIs and common web patterns, simplifying complex tasks into easy-to-use functions.
 
-| Hook                                                                                                | Description                                                                |
-| :-------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
-| [`useClipboard`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-clipboard) | A hook that provides a declarative interface for the system clipboard API. |
+| Hook                                                                                                | Description                                                                               |
+| :-------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| [`useClipboard`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-clipboard) | A hook that provides a declarative interface for the system clipboard API.                |
+| [`useTimeout`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/hooks/use-timeout)     | A hook that provides a reactive controller for scheduling and managing delayed callbacks. |
 
 ## Lifecycle
 
