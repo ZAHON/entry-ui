@@ -81,6 +81,10 @@
       "types": "./lib/hooks/use-scroll-lock/index.d.ts",
       "import": "./lib/hooks/use-scroll-lock/index.qwik.mjs"
     },
+    "./use-timeout": {
+      "types": "./lib/hooks/use-timeout/index.d.ts",
+      "import": "./lib/hooks/use-timeout/index.qwik.mjs"
+    },
     "./make-event-preventable": {
       "types": "./lib/utilities/make-event-preventable/index.d.ts",
       "import": "./lib/utilities/make-event-preventable/index.qwik.mjs"

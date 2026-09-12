@@ -41,6 +41,7 @@ export default defineConfig(() => {
           'hooks/use-lifecycle/index': 'src/hooks/use-lifecycle/index.ts',
           'hooks/use-previous/index': 'src/hooks/use-previous/index.ts',
           'hooks/use-scroll-lock/index': 'src/hooks/use-scroll-lock/index.ts',
+          'hooks/use-timeout/index': 'src/hooks/use-timeout/index.ts',
 
           // utilities
           'utilities/make-event-preventable/index': 'src/utilities/make-event-preventable/index.ts',

@@ -6,3 +6,4 @@ export * from './use-cycle';
 export * from './use-lifecycle';
 export * from './use-previous';
 export * from './use-scroll-lock';
+export * from './use-timeout';
