@@ -192,6 +192,8 @@ const scrollLocker = createScrollLocker();
  * ```
  */
 export const getScrollLocker = (): GetScrollLockerReturnValue => {
+  // Return the singleton scroll locker instance sharing global lock state.
+  // Grants consumers access to the unified reference-counted viewport controller.
   return scrollLocker;
 };
 
