@@ -52,7 +52,8 @@ export const CollapsibleTrigger = component$<CollapsibleTriggerProps>((props) =>
       aria-controls={panelId.id.value && open.value ? panelId.id.value : undefined}
       aria-expanded={panelId.id.value ? open.value : undefined}
       data-entry-ui-qwik-collapsible-trigger=""
-      data-state={open.value ? 'open' : 'closed'}
+      data-open={open.value ? '' : undefined}
+      data-closed={!open.value ? '' : undefined}
       // Present when the entire collapsible component is in a disabled state.
       data-disabled={rootDisabled.value ? '' : undefined}
       onClick$={[onClick$, handleClick$]}
