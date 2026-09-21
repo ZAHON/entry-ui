@@ -54,8 +54,7 @@ export const CollapsibleTrigger = component$<CollapsibleTriggerProps>((props) =>
       data-entry-ui-qwik-collapsible-trigger=""
       data-open={open.value ? '' : undefined}
       data-closed={!open.value ? '' : undefined}
-      // Present when the entire collapsible component is in a disabled state.
-      data-disabled={rootDisabled.value ? '' : undefined}
+      data-disabled={disabled.value ? '' : undefined}
       onClick$={[onClick$, handleClick$]}
       {...others}
     >
