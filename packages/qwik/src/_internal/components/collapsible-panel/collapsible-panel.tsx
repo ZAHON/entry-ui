@@ -181,7 +181,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
 
             if (isDev && animationType === 'both') {
               warn([
-                `Both CSS transitions and CSS animations are detected on ${componentName} component.`,
+                `Both CSS transitions and CSS animations are detected on '<${componentName}>' component.`,
                 `Using both at the same time may cause unpredictable behavior.`,
                 `Please use only one animation method.`,
               ]);
