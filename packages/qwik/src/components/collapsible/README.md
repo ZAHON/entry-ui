@@ -84,10 +84,11 @@ Groups all parts of the collapsible. Renders a `<div>` element.
 | `onOpenChange$` | `QRL<(open: boolean) => void> \| undefined`             | `—`     | A `QRL` callback function that is called when the open state of the collapsible changes.                                                                                                       |
 | `disabled`      | `boolean \| undefined`                                  | `false` | When `true`, prevents the user from interacting with the collapsible.                                                                                                                          |
 
-| Data attribute  | Values               | Description                                     |
-| :-------------- | :------------------- | :---------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the collapsible. |
-| `data-disabled` | `—`                  | Present when the collapsible is disabled.       |
+| Data attribute  | Values | Description                               |
+| :-------------- | :----- | :---------------------------------------- |
+| `data-open`     | `—`    | Present when the collapsible is open.     |
+| `data-closed`   | `—`    | Present when the collapsible is closed.   |
+| `data-disabled` | `—`    | Present when the collapsible is disabled. |
 
 ### Trigger
 
@@ -98,10 +99,11 @@ A button that opens and closes the collapsible panel. Renders a `<button>` eleme
 | `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 | `disabled` | `boolean \| undefined`                                  | `—`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Collapsible.Root>` component.            |
 
-| Data attribute  | Values               | Description                                     |
-| :-------------- | :------------------- | :---------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the collapsible. |
-| `data-disabled` | `—`                  | Present when the collapsible is disabled.       |
+| Data attribute  | Values | Description                                                                     |
+| :-------------- | :----- | :------------------------------------------------------------------------------ |
+| `data-open`     | `—`    | Present when the collapsible is open.                                           |
+| `data-closed`   | `—`    | Present when the collapsible is closed.                                         |
+| `data-disabled` | `—`    | Present when the collapsible trigger is disabled and cannot be interacted with. |
 
 ### Panel
 
@@ -113,10 +115,13 @@ A panel with the collapsible contents. Renders a `<div>` element.
 | `hiddenUntilFound`      | `boolean \| undefined`                                  | `false` | When `true`, the panel uses the `hidden="until-found"` attribute when closed. This allows the browser to search and reveal content within the panel even before it is manually opened.                                    |
 | `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined`             | `—`     | A `QRL` callback invoked once the panel's expansion or collapse has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
 
-| Data attribute  | Values               | Description                                     |
-| :-------------- | :------------------- | :---------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the collapsible. |
-| `data-disabled` | `—`                  | Present when the collapsible is disabled.       |
+| Data attribute        | Values | Description                                             |
+| :-------------------- | :----- | :------------------------------------------------------ |
+| `data-open`           | `—`    | Present when the collapsible panel is open.             |
+| `data-closed`         | `—`    | Present when the collapsible panel is closed.           |
+| `data-starting-style` | `—`    | Present when the collapsible panel begins animating in. |
+| `data-ending-style`   | `—`    | Present when the collapsible panel is animating out.    |
+| `data-disabled`       | `—`    | Present when the collapsible is disabled.               |
 
 | CSS variable                               | Description                     |
 | :----------------------------------------- | :------------------------------ |
@@ -133,10 +138,11 @@ An optional visual indicator that reflects the collapsible's open or closed stat
 | :--- | :------------------------------------------------------ | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
-| Data attribute  | Values               | Description                                     |
-| :-------------- | :------------------- | :---------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the collapsible. |
-| `data-disabled` | `—`                  | Present when the collapsible is disabled.       |
+| Data attribute  | Values | Description                               |
+| :-------------- | :----- | :---------------------------------------- |
+| `data-open`     | `—`    | Present when the collapsible is open.     |
+| `data-closed`   | `—`    | Present when the collapsible is closed.   |
+| `data-disabled` | `—`    | Present when the collapsible is disabled. |
 
 ### useCollapsibleRootContext
 
@@ -210,7 +216,7 @@ const Example = component$(() => {
 
 ### Animating panel height with CSS transitions
 
-The `<Collapsible.Panel>` automatically calculates its content's height and provides it via the `--entry-ui-qwik-collapsible-panel-height` CSS variable. This allows you to create smooth expansion and collapse effects using standard CSS transitions. To implement this, ensure your panel has `overflow: hidden` and a transition applied to the `height` property.
+The `<Collapsible.Panel>` automatically calculates its content's height and provides it via the `--entry-ui-qwik-collapsible-panel-height` CSS variable. Additionally, it applies `[data-starting-style]` and `[data-ending-style]` attributes during expansion and collapse phases to establish a clean numeric height baseline. This enables smooth CSS height transitions without layout jumps. To implement this, ensure your panel has `overflow: hidden` and target these lifecycle attributes to set `height: 0`.
 
 > [!TIP]
 > Transitions are the recommended method for animating the `<Collapsible.Panel>` height, especially because they allow for smooth cancellation mid-way through an animation. For example, if a user quickly opens and then closes the collapsible before it fully expands, a transition will smoothly animate it back to its closed state without any abrupt jumps.
@@ -239,13 +245,18 @@ const Example = component$(() => {
 .collapsible-panel {
   overflow: hidden;
   height: var(--entry-ui-qwik-collapsible-panel-height);
-  transition: height 300ms cubic-bezier(0.87, 0, 0.13, 1);
+  transition: height 300ms ease-out;
+}
+
+.collapsible-panel[data-starting-style],
+.collapsible-panel[data-ending-style] {
+  height: 0;
 }
 ```
 
 ### Animating panel height with CSS animations
 
-You can also use CSS keyframes to animate the height of the `<Collapsible.Panel>`. By leveraging the `[data-state]` attribute, you can trigger specific keyframe animations for both opening and closing states. This method is particularly useful when you want to choreograph the height change alongside other properties like opacity or scale, as it allows you to define the exact flow of the height animation from `0` to the value stored in the `--entry-ui-qwik-collapsible-panel-height` CSS variable.
+You can also use CSS keyframes to animate the height of the `<Collapsible.Panel>`. By leveraging the `[data-open]` and `[data-closed]` attributes, you can trigger specific keyframe animations for both opening and closing states. This method is particularly useful when you want to choreograph the height change alongside other properties like opacity or scale, as it allows you to define the exact flow of the height animation from `0` to the value stored in the `--entry-ui-qwik-collapsible-panel-height` CSS variable.
 
 > [!NOTE]
 > While CSS animations offer great control over choreography, they are generally less flexible than transitions for toggling the `<Collapsible.Panel>` height. Because keyframe animations always run from a fixed start to a fixed end point, they cannot be smoothly cancelled mid-way. If a user interrupts the animation, the panel may "jump" to the start of the next animation state rather than reversing fluidly from its current position.
@@ -275,12 +286,12 @@ const Example = component$(() => {
   overflow: hidden;
 }
 
-.collapsible-panel[data-state='open'] {
-  animation: collapsible-panel-down 300ms cubic-bezier(0.87, 0, 0.13, 1);
+.collapsible-panel[data-open] {
+  animation: collapsible-panel-down 300ms ease-out;
 }
 
-.collapsible-panel[data-state='closed'] {
-  animation: collapsible-panel-up 300ms cubic-bezier(0.87, 0, 0.13, 1);
+.collapsible-panel[data-closed] {
+  animation: collapsible-panel-up 300ms ease-out;
 }
 
 @keyframes collapsible-panel-down {
@@ -368,7 +379,7 @@ const Example = component$(() => {
 
 The `<Collapsible.Indicator>` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the collapsible's current layout status. By hook-riding on the context of `<Collapsible.Root>`, it synchronizes effortlessly and updates its underlying data attributes automatically.
 
-This layout relies on the `[data-state]` attribute, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the panel is expanded or collapsed. This approach ensures a highly interactive and polished user experience while keeping the visual indicator decoupled from core toggle mechanics.
+This layout relies on boolean state attributes such as `[data-open]`, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the panel is expanded or collapsed. This approach ensures a highly interactive and polished user experience while keeping the visual indicator decoupled from core toggle mechanics.
 
 ```tsx
 // index.tsx
@@ -416,7 +427,7 @@ const Example = component$(() => {
   transform-origin: center;
 }
 
-.collapsible-indicator[data-state='open'] {
+.collapsible-indicator[data-open] {
   transform: rotate(180deg);
 }
 ```
