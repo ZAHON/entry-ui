@@ -18,7 +18,7 @@ export const ToggleIndicator = component$<ToggleIndicatorProps>((props) => {
     <Indicator
       as={as}
       data-entry-ui-qwik-toggle-indicator=""
-      data-state={pressed.value ? 'on' : 'off'}
+      data-pressed={pressed.value ? '' : undefined}
       data-disabled={disabled.value ? '' : undefined}
       {...others}
     >
