@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render } from 'vitest-browser-qwik';
 import { Primitive } from '@/_internal/components/primitive';
-import { Alert } from '.';
+import { Alert } from '..';
 
 const ALERT_ROOT_TESTID = 'ALERT_ROOT_TESTID';
 
