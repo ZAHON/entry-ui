@@ -4,7 +4,7 @@ import { Indicator } from '@/_internal/components/indicator';
 import { useToggleRootContext } from '../../contexts/toggle-root-context';
 
 /**
- * An optional visual indicator that reflects the toggle's pressed or unpressed state.
+ * An optional visual indicator that reflects the toggle button's pressed or unpressed state.
  * It typically displays an icon or other visual cue to show the current status.
  *
  * Renders a `<span>` element.
