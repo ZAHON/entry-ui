@@ -14,7 +14,7 @@ export interface ToggleRootContextValue {
 
   /**
    * A `QRL` function used to programmatically set the pressed state of the toggle button.
-   * When invoked with `true`, the toggle button will be on; with `false`, it will be off.
+   * When invoked with `true`, the toggle button will be pressed; with `false`, it will be unpressed.
    */
   setPressed$: QRL<(pressed: boolean) => void>;
 
