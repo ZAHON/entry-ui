@@ -6,7 +6,7 @@ import { Primitive } from '@/_internal/components/primitive';
 import { ToggleRootContext } from '../../contexts/toggle-root-context';
 
 /**
- * Contains the content for the toggle.
+ * Contains the content for the toggle button.
  *
  * Renders a `<button>` element.
  */
