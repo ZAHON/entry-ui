@@ -1,7 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { render } from 'vitest-browser-qwik';
+import { userEvent } from 'vitest/browser';
+import { wait } from '@entry-ui/utilities/wait';
 import { Primitive } from '@/_internal/components/primitive';
-import { Toggle } from '.';
+import { Toggle } from '..';
 
 const TOGGLE_ROOT_TESTID = 'TOGGLE_ROOT_TESTID';
 const TOGGLE_INDICATOR_TESTID = 'TOGGLE_INDICATOR_TESTID';
@@ -70,19 +72,19 @@ describe('Toggle', () => {
       await expect.element(screen.getByTestId(TOGGLE_ROOT_TESTID)).toBeDisabled();
     });
 
-    it('should have the data-state="off" attribute by default', async () => {
+    it('should not have the "data-pressed" attribute by default', async () => {
       const screen = await render(<Toggle.Root data-testid={TOGGLE_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(TOGGLE_ROOT_TESTID)).toHaveAttribute('data-state', 'off');
+      await expect.element(screen.getByTestId(TOGGLE_ROOT_TESTID)).not.toHaveAttribute('data-pressed');
     });
 
-    it('should have the data-state="off" attribute when the "defaultPressed" prop is false', async () => {
+    it('should not have the "data-pressed" attribute when the "defaultPressed" prop is false', async () => {
       const screen = await render(<Toggle.Root defaultPressed={false} data-testid={TOGGLE_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(TOGGLE_ROOT_TESTID)).toHaveAttribute('data-state', 'off');
+      await expect.element(screen.getByTestId(TOGGLE_ROOT_TESTID)).not.toHaveAttribute('data-pressed');
     });
 
-    it('should have the data-state="on" attribute when the "defaultPressed" prop is true', async () => {
+    it('should have the "data-pressed" attribute with an empty value when the "defaultPressed" prop is true', async () => {
       const screen = await render(<Toggle.Root defaultPressed={true} data-testid={TOGGLE_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(TOGGLE_ROOT_TESTID)).toHaveAttribute('data-state', 'on');
+      await expect.element(screen.getByTestId(TOGGLE_ROOT_TESTID)).toHaveAttribute('data-pressed', '');
     });
 
     it('should not have the "data-disabled" attribute by default', async () => {
@@ -98,32 +100,6 @@ describe('Toggle', () => {
     it('should have the "data-disabled" attribute with an empty value when the "disabled" prop is true', async () => {
       const screen = await render(<Toggle.Root disabled={true} data-testid={TOGGLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(TOGGLE_ROOT_TESTID)).toHaveAttribute('data-disabled', '');
-    });
-
-    it('should toggle the "aria-pressed" attribute value between "false" and "true" upon user clicks', async () => {
-      const screen = await render(<Toggle.Root data-testid={TOGGLE_ROOT_TESTID} />);
-      const element = screen.getByTestId(TOGGLE_ROOT_TESTID);
-
-      await expect.element(element).toHaveAttribute('aria-pressed', 'false');
-
-      await element.click();
-      await expect.element(element).toHaveAttribute('aria-pressed', 'true');
-
-      await element.click();
-      await expect.element(element).toHaveAttribute('aria-pressed', 'false');
-    });
-
-    it('should alternate the "data-state" attribute value between "off" and "on" upon user clicks', async () => {
-      const screen = await render(<Toggle.Root data-testid={TOGGLE_ROOT_TESTID} />);
-      const element = screen.getByTestId(TOGGLE_ROOT_TESTID);
-
-      await expect.element(element).toHaveAttribute('data-state', 'off');
-
-      await element.click();
-      await expect.element(element).toHaveAttribute('data-state', 'on');
-
-      await element.click();
-      await expect.element(element).toHaveAttribute('data-state', 'off');
     });
 
     it('should have the "data-entry-ui-qwik-toggle-root" attribute with an empty value', async () => {
@@ -190,34 +166,34 @@ describe('Toggle', () => {
       await expect.element(screen.getByTestId(TOGGLE_INDICATOR_TESTID)).toHaveAttribute('aria-hidden', 'true');
     });
 
-    it('should have the data-state="off" attribute by default', async () => {
+    it('should not have the "data-pressed" attribute by default', async () => {
       const screen = await render(
         <Toggle.Root>
           <Toggle.Indicator data-testid={TOGGLE_INDICATOR_TESTID} />
         </Toggle.Root>
       );
 
-      await expect.element(screen.getByTestId(TOGGLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'off');
+      await expect.element(screen.getByTestId(TOGGLE_INDICATOR_TESTID)).not.toHaveAttribute('data-pressed');
     });
 
-    it('should have the data-state="off" attribute when the "defaultPressed" prop is false on <Toggle.Root>', async () => {
+    it('should not have the "data-pressed" attribute when the "defaultPressed" prop is false on <Toggle.Root>', async () => {
       const screen = await render(
         <Toggle.Root defaultPressed={false}>
           <Toggle.Indicator data-testid={TOGGLE_INDICATOR_TESTID} />
         </Toggle.Root>
       );
 
-      await expect.element(screen.getByTestId(TOGGLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'off');
+      await expect.element(screen.getByTestId(TOGGLE_INDICATOR_TESTID)).not.toHaveAttribute('data-pressed');
     });
 
-    it('should have the data-state="on" attribute when the "defaultPressed" prop is true on <Toggle.Root>', async () => {
+    it('should have the "data-pressed" attribute with an empty value when the "defaultPressed" prop is true on <Toggle.Root>', async () => {
       const screen = await render(
         <Toggle.Root defaultPressed={true}>
           <Toggle.Indicator data-testid={TOGGLE_INDICATOR_TESTID} />
         </Toggle.Root>
       );
 
-      await expect.element(screen.getByTestId(TOGGLE_INDICATOR_TESTID)).toHaveAttribute('data-state', 'on');
+      await expect.element(screen.getByTestId(TOGGLE_INDICATOR_TESTID)).toHaveAttribute('data-pressed', '');
     });
 
     it('should not have the "data-disabled" attribute by default', async () => {
@@ -303,6 +279,56 @@ describe('Toggle', () => {
       await expect
         .element(screen.getByTestId(TOGGLE_INDICATOR_TESTID))
         .toHaveAttribute('data-entry-ui-qwik-toggle-indicator', '');
+    });
+  });
+
+  describe('Toggle integration', () => {
+    it('should set the "aria-pressed" and "data-pressed" attributes on all parts after a click when the "defaultPressed" prop is false on <Toggle.Root>', async () => {
+      const screen = await render(
+        <Toggle.Root defaultPressed={false} data-testid={TOGGLE_ROOT_TESTID}>
+          <Toggle.Indicator data-testid={TOGGLE_INDICATOR_TESTID} />
+        </Toggle.Root>
+      );
+
+      const rootElement = screen.getByTestId(TOGGLE_ROOT_TESTID);
+      const indicatorElement = screen.getByTestId(TOGGLE_INDICATOR_TESTID);
+
+      await expect.element(rootElement).toHaveAttribute('aria-pressed', 'false');
+      await expect.element(rootElement).not.toHaveAttribute('data-pressed');
+
+      await expect.element(indicatorElement).not.toHaveAttribute('data-pressed');
+
+      await userEvent.click(rootElement);
+      await wait(500);
+
+      await expect.element(rootElement).toHaveAttribute('aria-pressed', 'true');
+      await expect.element(rootElement).toHaveAttribute('data-pressed', '');
+
+      await expect.element(indicatorElement).toHaveAttribute('data-pressed', '');
+    });
+
+    it('should unset the "aria-pressed" and "data-pressed" attributes on all parts after a click when the "defaultPressed" prop is true on <Toggle.Root>', async () => {
+      const screen = await render(
+        <Toggle.Root defaultPressed={true} data-testid={TOGGLE_ROOT_TESTID}>
+          <Toggle.Indicator data-testid={TOGGLE_INDICATOR_TESTID} />
+        </Toggle.Root>
+      );
+
+      const rootElement = screen.getByTestId(TOGGLE_ROOT_TESTID);
+      const indicatorElement = screen.getByTestId(TOGGLE_INDICATOR_TESTID);
+
+      await expect.element(rootElement).toHaveAttribute('aria-pressed', 'true');
+      await expect.element(rootElement).toHaveAttribute('data-pressed', '');
+
+      await expect.element(indicatorElement).toHaveAttribute('data-pressed', '');
+
+      await userEvent.click(rootElement);
+      await wait(500);
+
+      await expect.element(rootElement).toHaveAttribute('aria-pressed', 'false');
+      await expect.element(rootElement).not.toHaveAttribute('data-pressed');
+
+      await expect.element(indicatorElement).not.toHaveAttribute('data-pressed');
     });
   });
 });
