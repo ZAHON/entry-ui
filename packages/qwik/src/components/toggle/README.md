@@ -29,11 +29,11 @@ const Anatomy = component$(() => {
 
 ## Usage
 
-To implement a toggle, use the `<Toggle.Root>` to manage the component's interactive state and encapsulate its contents. Inside the root, you can optionally include the `<Toggle.Indicator>` to deliver a dedicated visual cue, such as an icon, that dynamically synchronizes with the component's internal flags. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity.
+To implement a toggle button, use the `<Toggle.Root>` to manage the component's interactive state and encapsulate its contents. Inside the root, you can optionally include the `<Toggle.Indicator>` to deliver a dedicated visual cue, such as an icon, that dynamically synchronizes with the component's internal flags. This layout ensures proper accessibility tree establishment, correct ARIA attribute propagation, and semantic clarity.
 
 By default, the component operates in an uncontrolled fashion, managing its pressed and unpressed states internally via the `defaultPressed` prop. However, it can also be used as a controlled component by providing a `pressed` signal and an `onPressedChange$` callback to the root component, allowing you to easily integrate it into external workflows or state-driven architectures.
 
-Below is a basic example of how to implement a simple toggle:
+Below is a basic example of how to implement a simple toggle button:
 
 ```tsx
 // index.tsx
@@ -48,12 +48,12 @@ const Usage = component$(() => {
 
 ```css
 /* index.module.css */
-.toggle-root[data-state='off'] {
+.toggle-root {
   color: oklch(0% 0 0deg);
   background-color: oklch(100% 0 0deg);
 }
 
-.toggle-root[data-state='on'] {
+.toggle-root[data-pressed] {
   color: oklch(100% 0 0deg);
   background-color: purple;
 }
@@ -73,28 +73,28 @@ Each of `Toggle` subcomponents renders a default HTML element that makes sense f
 
 ## API Reference
 
-The `Toggle` component is built using a modular, compound component pattern, providing full control over the layout and behavior of two-state interactive elements. This section provides a detailed breakdown of the properties and data attributes available for each part of the toggle system, as well as the custom hooks provided for accessing and managing its internal state, allowing for deep customization and seamless integration.
+The `Toggle` component is built using a modular, compound component pattern, providing full control over the layout and behavior of two-state interactive elements. This section provides a detailed breakdown of the properties and data attributes available for each part of the toggle button system, as well as the custom hooks provided for accessing and managing its internal state, allowing for deep customization and seamless integration.
 
 ### Root
 
-Contains the content for the toggle. Renders a `<button>` element.
+Contains the content for the toggle button. Renders a `<button>` element.
 
 | Prop               | Type                                                    | Default    | Description                                                                                                                                                                                    |
 | :----------------- | :------------------------------------------------------ | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as`               | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
-| `defaultPressed`   | `boolean \| undefined`                                  | `—`        | The pressed state of the toggle when it is initially rendered. Use when you do not need to control its pressed state.                                                                          |
-| `pressed`          | `Signal<boolean> \| undefined`                          | `—`        | The controlled pressed state of the toggle. Must be used in conjunction with `onPressedChange$`.                                                                                               |
-| `onPressedChange$` | `QRL<(pressed: boolean) => void> \| undefined`          | `—`        | A `QRL` callback function that is called when the pressed state of the toggle changes.                                                                                                         |
-| `disabled`         | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the toggle.                                                                                                                               |
+| `defaultPressed`   | `boolean \| undefined`                                  | `—`        | The pressed state of the toggle button when it is initially rendered. Use when you do not need to control its pressed state.                                                                   |
+| `pressed`          | `Signal<boolean> \| undefined`                          | `—`        | The controlled pressed state of the toggle button. Must be used in conjunction with `onPressedChange$`.                                                                                        |
+| `onPressedChange$` | `QRL<(pressed: boolean) => void> \| undefined`          | `—`        | A `QRL` callback function that is called when the pressed state of the toggle button changes.                                                                                                  |
+| `disabled`         | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the toggle button.                                                                                                                        |
 
-| Data attribute  | Values          | Description                                |
-| :-------------- | :-------------- | :----------------------------------------- |
-| `data-state`    | `"on" \| "off"` | Indicates the current state of the toggle. |
-| `data-disabled` | `—`             | Present when the toggle is disabled.       |
+| Data attribute  | Values | Description                                 |
+| :-------------- | :----- | :------------------------------------------ |
+| `data-pressed`  | `—`    | Present when the toggle button is pressed.  |
+| `data-disabled` | `—`    | Present when the toggle button is disabled. |
 
 ### Indicator
 
-An optional visual indicator that reflects the toggle's pressed or unpressed state. It typically displays an icon or other visual cue to show the current status. Renders a `<span>` element.
+An optional visual indicator that reflects the toggle button's pressed or unpressed state. It typically displays an icon or other visual cue to show the current status. Renders a `<span>` element.
 
 > [!NOTE]
 > This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the `<Toggle.Root>` interactivity or accessibility.
@@ -103,20 +103,20 @@ An optional visual indicator that reflects the toggle's pressed or unpressed sta
 | :--- | :------------------------------------------------------ | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
-| Data attribute  | Values          | Description                                |
-| :-------------- | :-------------- | :----------------------------------------- |
-| `data-state`    | `"on" \| "off"` | Indicates the current state of the toggle. |
-| `data-disabled` | `—`             | Present when the toggle is disabled.       |
+| Data attribute  | Values | Description                                 |
+| :-------------- | :----- | :------------------------------------------ |
+| `data-pressed`  | `—`    | Present when the toggle button is pressed.  |
+| `data-disabled` | `—`    | Present when the toggle button is disabled. |
 
 ### useToggleRootContext
 
-A hook that provides access to the `<Toggle.Root>` component's internal state. It exposes readonly signals and `QRL` function to interact with the toggle's state, allowing descendant components to control or react to its pressed/unpressed state. This hook returns an object containing the following properties:
+A hook that provides access to the `<Toggle.Root>` component's internal state. It exposes readonly signals and `QRL` function to interact with the toggle button's state, allowing descendant components to control or react to its pressed/unpressed state. This hook returns an object containing the following properties:
 
-| Property      | Type                              | Description                                                                                                                                                   |
-| :------------ | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `pressed`     | `Readonly<Signal<boolean>>`       | A readonly signal whose value indicates the toggle's current pressed state. It is `true` when the toggle is on, and `false` when off.                         |
-| `setPressed$` | `QRL<(pressed: boolean) => void>` | A `QRL` function used to programmatically set the pressed state of the toggle. When invoked with `true`, the toggle will be on; with `false`, it will be off. |
-| `disabled`    | `Readonly<Signal<boolean>>`       | A readonly signal that indicates whether the toggle is disabled. Its value is `true` if the toggle is disabled, preventing user interaction.                  |
+| Property      | Type                              | Description                                                                                                                                                                            |
+| :------------ | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pressed`     | `Readonly<Signal<boolean>>`       | A readonly signal that indicates whether the toggle button is pressed. Its value is `true` if the toggle button is pressed, and `false` otherwise.                                     |
+| `setPressed$` | `QRL<(pressed: boolean) => void>` | A `QRL` function used to programmatically set the pressed state of the toggle button. When invoked with `true`, the toggle button will be pressed; with `false`, it will be unpressed. |
+| `disabled`    | `Readonly<Signal<boolean>>`       | A readonly signal that indicates whether the toggle button is disabled. Its value is `true` if the toggle button is disabled, preventing user interaction.                             |
 
 ## Examples
 
@@ -124,9 +124,9 @@ Explore the following examples to discover how to effectively implement the `Tog
 
 ### Internal state management
 
-When using the uncontrolled mode, the `Toggle` component handles its pressed state internally. You define the initial state by providing a boolean to the `defaultPressed` prop on `<Toggle.Root>`, which dictates whether the toggle is initially active or inactive. The component then takes full control over subsequent state changes based on user interactions, such as clicking the button or utilizing keyboard navigation.
+When using the uncontrolled mode, the `Toggle` component handles its pressed state internally. You define the initial state by providing a boolean to the `defaultPressed` prop on `<Toggle.Root>`, which dictates whether the toggle button is initially active or inactive. The component then takes full control over subsequent state changes based on user interactions, such as clicking the button or utilizing keyboard navigation.
 
-This approach is ideal for simpler use cases where the toggle's state does not need to be managed or synchronized by a parent component.
+This approach is ideal for simpler use cases where the toggle button's state does not need to be managed or synchronized by a parent component.
 
 ```tsx
 import { component$ } from '@qwik.dev/core';
@@ -139,9 +139,9 @@ const Example = component$(() => {
 
 ### External state control
 
-When using the controlled mode, the parent component is responsible for managing the pressed state of the toggle. You achieve this by passing a signal to the `pressed` prop on the `<Toggle.Root>` component and listening for changes with the `onPressedChange$` event handler. This boolean value dictates whether the component is currently active or inactive.
+When using the controlled mode, the parent component is responsible for managing the pressed state of the toggle button. You achieve this by passing a signal to the `pressed` prop on the `<Toggle.Root>` component and listening for changes with the `onPressedChange$` event handler. This boolean value dictates whether the component is currently active or inactive.
 
-This approach is ideal for more complex use cases, such as synchronizing the toggle state with a database, integrating with external state management, or enabling a parent component to dynamically trigger state changes based on other application logic.
+This approach is ideal for more complex use cases, such as synchronizing the toggle button's state with a database, integrating with external state management, or enabling a parent component to dynamically trigger state changes based on other application logic.
 
 ```tsx
 import { component$, useSignal } from '@qwik.dev/core';
@@ -160,7 +160,7 @@ const Example = component$(() => {
 
 ### State-aware visual indicators
 
-By leveraging the `<Toggle.Indicator>` component, you can effortlessly build state-aware interfaces that swap icons or visual states based on whether the toggle is active or inactive. The indicator automatically receives the `[data-state]` attribute (`"on"` or `"off"`), allowing you to handle the visibility or styling of different elements entirely through CSS.
+By leveraging the `<Toggle.Indicator>` component, you can effortlessly build state-aware interfaces that swap icons or visual states based on whether the toggle button is pressed or unpressed. The indicator automatically receives the `[data-pressed]` attribute when active, allowing you to handle the visibility or styling of different elements entirely through CSS.
 
 This pattern is highly useful for common UI paradigms like "Favorite" or "Bookmark" buttons, where the icon itself changes its fill or shape to reflect the current selection.
 
@@ -217,18 +217,18 @@ const Example = component$(() => {
 
 ```css
 /* index.module.css */
-.toggle-indicator-not-pressed[data-state='on'] {
+.toggle-indicator-not-pressed[data-pressed] {
   display: none;
 }
 
-.toggle-indicator-pressed[data-state='off'] {
+.toggle-indicator-pressed:not([data-pressed]) {
   display: none;
 }
 ```
 
 ### Disabled interaction
 
-To prevent user interaction with the toggle, you can set the `disabled` prop to `true` on the `<Toggle.Root>` component. When the toggle is disabled, it is skipped during keyboard navigation and cannot be toggled via mouse click or keyboard selection (<kbd>Space</kbd> or <kbd>Enter</kbd>).
+To prevent user interaction with the toggle button, you can set the `disabled` prop to `true` on the `<Toggle.Root>` component. When the toggle button is disabled, it is skipped during keyboard navigation and cannot be toggled via mouse click or keyboard selection (<kbd>Space</kbd> or <kbd>Enter</kbd>).
 
 This is particularly useful for indicating that the action is currently unavailable or restricted based on the application's state or user permissions. The `[data-disabled]` attribute is automatically added to the component, allowing you to easily apply custom styles to reflect its disabled state.
 
