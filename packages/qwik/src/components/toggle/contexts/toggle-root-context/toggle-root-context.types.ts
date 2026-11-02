@@ -7,8 +7,8 @@ import type { Signal, QRL } from '@qwik.dev/core';
  */
 export interface ToggleRootContextValue {
   /**
-   * A readonly signal whose value indicates the toggle button's current pressed state.
-   * It is `true` when the toggle button is on, and `false` when off.
+   * A readonly signal that indicates whether the toggle button is pressed.
+   * Its value is `true` if the toggle button is pressed, and `false` otherwise.
    */
   pressed: Readonly<Signal<boolean>>;
 
