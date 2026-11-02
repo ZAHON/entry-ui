@@ -18,7 +18,7 @@ export namespace useToggleRootContext {
   /**
    * The value returned by the `useToggleRootContext` hook.
    *
-   * Provides access to the toggle's readonly signals and `QRL` function for descendant components.
+   * Provides access to the toggle button's readonly signals and `QRL` function for descendant components.
    */
   export type ReturnValue = UseToggleRootContextReturnValue;
 }
