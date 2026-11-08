@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render } from 'vitest-browser-qwik';
 import { Primitive } from '@/_internal/components/primitive';
-import { Separator } from '.';
+import { Separator } from '..';
 
 const SEPARATOR_ROOT_TESTID = 'SEPARATOR_ROOT_TESTID';
 
