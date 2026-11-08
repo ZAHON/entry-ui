@@ -1,8 +1,8 @@
 import type { DialogTriggerProps } from './dialog-trigger.types';
-import type { EntryUIQwikEventState } from '@/types';
 import { component$, useComputed$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { useLifecycle } from '@/hooks/use-lifecycle';
 import { mergeRefs } from '@/utilities/merge-refs';
+import { runIfHandlerNotPrevented } from '@/_internal/utilities/run-if-handler-not-prevented';
 import { Primitive } from '@/_internal/components/primitive';
 import { useDialogRootContext } from '../../contexts/dialog-root-context';
 import { DialogTriggerContext } from '../../contexts/dialog-trigger-context';
@@ -26,11 +26,14 @@ export const DialogTrigger = component$((props: DialogTriggerProps) => {
   });
 
   const handleClick$ = $((event: PointerEvent) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && !disabled.value) {
-      setOpen$(true);
-    }
+    runIfHandlerNotPrevented({
+      event,
+      callback: () => {
+        if (!disabled.value) {
+          setOpen$(true);
+        }
+      },
+    });
   });
 
   useContextProvider(DialogTriggerContext, { disabled });
