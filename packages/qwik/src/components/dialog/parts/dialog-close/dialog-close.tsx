@@ -1,6 +1,6 @@
 import type { DialogCloseProps } from './dialog-close.types';
-import type { EntryUIQwikEventState } from '@/types';
 import { component$, useComputed$, $, useContextProvider, Slot } from '@qwik.dev/core';
+import { runIfHandlerNotPrevented } from '@/_internal/utilities/run-if-handler-not-prevented';
 import { Primitive } from '@/_internal/components/primitive';
 import { useDialogRootContext } from '../../contexts/dialog-root-context';
 import { DialogCloseContext } from '../../contexts/dialog-close-context';
@@ -18,11 +18,14 @@ export const DialogClose = component$((props: DialogCloseProps) => {
   const disabled = useComputed$(() => _disabled);
 
   const handleClick$ = $((event: PointerEvent) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && !disabled.value) {
-      setOpen$(false);
-    }
+    runIfHandlerNotPrevented({
+      event,
+      callback: () => {
+        if (!disabled.value) {
+          setOpen$(false);
+        }
+      },
+    });
   });
 
   useContextProvider(DialogCloseContext, { disabled });
