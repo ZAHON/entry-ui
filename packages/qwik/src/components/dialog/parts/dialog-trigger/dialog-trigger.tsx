@@ -49,7 +49,7 @@ export const DialogTrigger = component$((props: DialogTriggerProps) => {
       aria-haspopup={popupId.id.value ? 'dialog' : undefined}
       aria-expanded={popupId.id.value ? open.value : undefined}
       data-entry-ui-qwik-dialog-trigger=""
-      data-state={open.value ? 'open' : 'closed'}
+      data-popup-open={open.value ? '' : undefined}
       data-disabled={disabled.value ? '' : undefined}
       onClick$={[onClick$, handleClick$]}
       {...others}
