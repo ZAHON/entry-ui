@@ -4,8 +4,9 @@ import { component$, useSignal, useComputed$, $, sync$, useTask$, useContextProv
 import { isBrowser, isDev } from '@qwik.dev/core';
 import { getWindow } from '@entry-ui/utilities/get-window';
 import { getDocument } from '@entry-ui/utilities/get-document';
-import { getComputedStyle } from '@entry-ui/utilities/get-computed-style';
-import { addEventListener } from '@entry-ui/utilities/add-event-listener';
+import { createAnimationFrame } from '@entry-ui/utilities/create-animation-frame';
+import { createAnimationsFinished } from '@entry-ui/utilities/create-animations-finished';
+import { getAnimationType } from '@entry-ui/utilities/get-animation-type';
 import { useScrollLock } from '@/hooks/use-scroll-lock';
 import { useLifecycle } from '@/hooks/use-lifecycle';
 import { mergeStyles } from '@/utilities/merge-styles';
@@ -44,10 +45,18 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
   const ref = useSignal<HTMLElement | undefined>(undefined);
   const hidden = useSignal(true);
   const state = useSignal<'open' | 'closed'>('closed');
+  const transitionStatus = useSignal<'starting' | 'ending' | undefined>(undefined);
+  const shouldPreventOpenAnimation = useSignal(true);
   const pointerDownOutside = useSignal(false);
 
   const mergedStyles = useComputed$(() =>
-    mergeStyles([{ display: hidden.value ? 'none !important' : undefined }, style])
+    mergeStyles([
+      {
+        display: hidden.value ? 'none !important' : undefined,
+        animationName: shouldPreventOpenAnimation.value ? 'none' : undefined,
+      },
+      style,
+    ])
   );
 
   const titleId = useIdManager({ prefix: 'entry-ui-qwik-dialog-title-' });
@@ -72,87 +81,156 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
     onUnmount$: $(() => popupId.delete$()),
   });
 
-  useTask$(async ({ track, cleanup }) => {
-    const isOpen = track(() => open.value);
+  useTask$(
+    async ({ track, cleanup }) => {
+      const isOpen = track(open);
 
-    const popupRef = ref.value;
+      const popupRef = ref.value;
 
-    if (isDev && isBrowser && popupRef && !(popupRef instanceof HTMLDialogElement)) {
-      fail([`The '<Dialog.Popup>' component must render a native HTML '<dialog>' element.`]);
-    }
-
-    if (isBrowser && popupRef && popupRef instanceof HTMLDialogElement) {
-      if (isOpen) {
-        if (preventScroll) {
-          await scrollLock.lock$();
-        }
-
-        hidden.value = false;
-        popupRef.style.removeProperty('display');
-
-        popupRef.showModal();
-
-        state.value = 'open';
-        popupRef.setAttribute('data-state', 'open');
-      } else {
-        state.value = 'closed';
-        popupRef.setAttribute('data-state', 'closed');
+      if (isBrowser && isDev && popupRef && !(popupRef instanceof HTMLDialogElement)) {
+        fail([`The '<Dialog.Popup>' component must render a native HTML '<dialog>' element.`]);
       }
 
-      const applyFinalState = () => {
-        if (!isOpen) {
-          popupRef.close();
+      if (isBrowser && popupRef && popupRef instanceof HTMLDialogElement) {
+        const frame = createAnimationFrame();
+        const animationsFinished = createAnimationsFinished();
+        const abortController = new AbortController();
 
-          hidden.value = true;
-          popupRef.style.setProperty('display', 'none !important');
-
+        if (isOpen) {
           if (preventScroll) {
-            scrollLock.unlock$();
+            await scrollLock.lock$();
           }
+
+          if (shouldPreventOpenAnimation.value) {
+            shouldPreventOpenAnimation.value = false;
+          }
+
+          hidden.value = false;
+          state.value = 'open';
+
+          const applyFinalOpenState = () => {
+            if (onOpenChangeComplete$) {
+              onOpenChangeComplete$(true);
+            }
+          };
+
+          frame.request(() => {
+            const animationType = getAnimationType({
+              element: popupRef,
+              ignoreAnimationName: shouldPreventOpenAnimation.value,
+            });
+
+            if (isDev && animationType === 'both') {
+              warn([
+                `Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component.`,
+                `Using both at the same time may cause unpredictable behavior.`,
+                `Please use only one animation method.`,
+              ]);
+            }
+
+            if (animationType === 'none') {
+              popupRef.showModal();
+
+              applyFinalOpenState();
+            }
+
+            if (animationType === 'css-transition') {
+              transitionStatus.value = 'starting';
+              popupRef.setAttribute('data-starting-style', '');
+              popupRef.style.setProperty('transition-duration', '0s');
+
+              popupRef.showModal();
+
+              frame.request(() => {
+                transitionStatus.value = undefined;
+                popupRef.removeAttribute('data-starting-style');
+                popupRef.style.removeProperty('transition-duration');
+
+                animationsFinished.waitForAnimations({
+                  element: popupRef,
+                  signal: abortController.signal,
+                  callback: applyFinalOpenState,
+                });
+              });
+            }
+
+            if (animationType === 'css-animation') {
+              popupRef.showModal();
+
+              animationsFinished.waitForAnimations({
+                element: popupRef,
+                signal: abortController.signal,
+                callback: applyFinalOpenState,
+              });
+            }
+          });
+        } else {
+          state.value = 'closed';
+
+          const applyFinalClosedState = () => {
+            popupRef.close();
+
+            hidden.value = true;
+
+            if (transitionStatus.value) {
+              transitionStatus.value = undefined;
+            }
+
+            if (preventScroll) {
+              scrollLock.unlock$();
+            }
+
+            if (onOpenChangeComplete$) {
+              onOpenChangeComplete$(false);
+            }
+          };
+
+          frame.request(() => {
+            const animationType = getAnimationType({ element: popupRef });
+
+            if (isDev && animationType === 'both') {
+              warn([
+                `Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component.`,
+                `Using both at the same time may cause unpredictable behavior.`,
+                `Please use only one animation method.`,
+              ]);
+            }
+
+            if (animationType === 'none') {
+              applyFinalClosedState();
+            }
+
+            if (animationType === 'css-transition') {
+              transitionStatus.value = 'ending';
+
+              frame.request(() => {
+                animationsFinished.waitForAnimations({
+                  element: popupRef,
+                  signal: abortController.signal,
+                  callback: applyFinalClosedState,
+                });
+              });
+            }
+
+            if (animationType === 'css-animation') {
+              animationsFinished.waitForAnimations({
+                element: popupRef,
+                signal: abortController.signal,
+                callback: applyFinalClosedState,
+              });
+            }
+          });
         }
 
-        if (onOpenChangeComplete$) {
-          onOpenChangeComplete$(isOpen);
-        }
-      };
-
-      const { transitionDuration, animationDuration } = getComputedStyle(popupRef);
-
-      if (isDev && transitionDuration !== '0s' && animationDuration !== '0s') {
-        warn([
-          `Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component.`,
-          `Using both at the same time may cause unpredictable behavior.`,
-          `Please use only one animation method.`,
-        ]);
-
-        applyFinalState();
-      } else if (transitionDuration !== '0s') {
-        const removeTransitionEndListener = addEventListener({
-          target: popupRef,
-          type: 'transitionend',
-          listener: applyFinalState,
-          options: { once: true },
-        });
-
         cleanup(() => {
-          removeTransitionEndListener();
+          frame.cancel();
+          animationsFinished.cancel();
+          abortController.abort();
         });
-      } else if (animationDuration !== '0s') {
-        const removeAnimationEndListener = addEventListener({
-          target: popupRef,
-          type: 'animationend',
-          listener: applyFinalState,
-          options: { once: true },
-        });
-
-        cleanup(() => {
-          removeAnimationEndListener();
-        });
-      } else {
-        applyFinalState();
       }
-    }
-  });
+    },
+    { deferUpdates: false }
+  );
 
   const handleCancelSync$ = sync$((event: Event) => {
     const entryUIQwikEvent = event as typeof event & { readonly entryUIQwikHandlerPrevented?: boolean };
@@ -256,7 +334,10 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
       aria-labelledby={titleId.id.value}
       aria-describedby={descriptionId.id.value}
       data-entry-ui-qwik-dialog-popup=""
-      data-state={state.value}
+      data-open={state.value === 'open' ? '' : undefined}
+      data-closed={state.value === 'closed' ? '' : undefined}
+      data-starting-style={transitionStatus.value === 'starting' ? '' : undefined}
+      data-ending-style={transitionStatus.value === 'ending' ? '' : undefined}
       onCancel$={[onCancel$, handleCancelSync$, handleCancel$]}
       onKeyDown$={[onKeyDown$, handleKeyDownSync$, handleKeyDown$]}
       onPointerDown$={[onPointerDown$, handlePointerDown$]}
