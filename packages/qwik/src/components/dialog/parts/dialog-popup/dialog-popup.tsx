@@ -290,7 +290,7 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
         const isMainButton = event.button === 0;
         const isPointerDownOutside = pointerDownOutside.value;
 
-        if (isOpen && isCurrentTarget && isMainButton && closeOnClickOutside && !isPointerDownOutside) {
+        if (isOpen && isCurrentTarget && isMainButton && !isPointerDownOutside && closeOnClickOutside) {
           const { clientX, clientY } = event;
           const { left, right, top, bottom } = currentTarget.getBoundingClientRect();
 
