@@ -282,27 +282,24 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
   });
 
   const handlePointerDown$ = $((event: PointerEvent, currentTarget: HTMLElement) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-    const isOpen = open.value;
-    const isCurrentTarget = (event.target as HTMLElement) === currentTarget;
-    const isMainButton = event.button === 0;
-    const isPointerDownOutside = pointerDownOutside.value;
+    runIfHandlerNotPrevented({
+      event,
+      callback: () => {
+        const isOpen = open.value;
+        const isCurrentTarget = (event.target as HTMLElement) === currentTarget;
+        const isMainButton = event.button === 0;
+        const isPointerDownOutside = pointerDownOutside.value;
 
-    if (
-      !entryUIQwikEvent.entryUIQwikHandlerPrevented &&
-      isOpen &&
-      isCurrentTarget &&
-      isMainButton &&
-      closeOnClickOutside &&
-      !isPointerDownOutside
-    ) {
-      const { clientX, clientY } = event;
-      const { left, right, top, bottom } = currentTarget.getBoundingClientRect();
+        if (isOpen && isCurrentTarget && isMainButton && closeOnClickOutside && !isPointerDownOutside) {
+          const { clientX, clientY } = event;
+          const { left, right, top, bottom } = currentTarget.getBoundingClientRect();
 
-      if (!(clientX >= left && clientX <= right && clientY >= top && clientY <= bottom)) {
-        pointerDownOutside.value = true;
-      }
-    }
+          if (!(clientX >= left && clientX <= right && clientY >= top && clientY <= bottom)) {
+            pointerDownOutside.value = true;
+          }
+        }
+      },
+    });
   });
 
   const handlePointerUp$ = $((event: PointerEvent, currentTarget: HTMLElement) => {
