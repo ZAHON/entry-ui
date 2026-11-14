@@ -1,5 +1,4 @@
 import type { DialogPopupProps } from './dialog-popup.types';
-import type { EntryUIQwikEventState } from '@/types';
 import { component$, useSignal, useComputed$, $, sync$, useTask$, useContextProvider, Slot } from '@qwik.dev/core';
 import { isBrowser, isDev } from '@qwik.dev/core';
 import { getWindow } from '@entry-ui/utilities/get-window';
