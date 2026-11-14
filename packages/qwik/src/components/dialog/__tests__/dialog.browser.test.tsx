@@ -1,9 +1,11 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render } from 'vitest-browser-qwik';
 import { userEvent } from 'vitest/browser';
 import { wait } from '@entry-ui/utilities/wait';
 import { Primitive } from '@/_internal/components/primitive';
-import { Dialog } from '.';
+import { Dialog } from '..';
+import { DialogPopupCssTransition } from './fixtures/dialog-popup-css-transition';
+import { DialogPopupCssAnimation } from './fixtures/dialog-popup-css-animation';
 
 const DIALOG_TRIGGER_TESTID = 'DIALOG_TRIGGER_TESTID';
 const DIALOG_POPUP_TESTID = 'DIALOG_POPUP_TESTID';
@@ -221,17 +223,17 @@ describe('Dialog', () => {
       await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).toBeDisabled();
     });
 
-    it('should have the data-state="closed" attribute by default', async () => {
+    it('should not have the "data-popup-open" attribute by default', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
         </Dialog.Root>
       );
 
-      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).not.toHaveAttribute('data-popup-open');
     });
 
-    it('should have the data-state="closed" attribute when the dialog is closed', async () => {
+    it('should not have the "data-popup-open" attribute when the dialog is closed', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
@@ -241,10 +243,10 @@ describe('Dialog', () => {
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
       await userEvent.click(screen.getByTestId(DIALOG_CLOSE_TESTID));
-      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).not.toHaveAttribute('data-popup-open');
     });
 
-    it('should have the data-state="open" attribute when the dialog is open', async () => {
+    it('should have the "data-popup-open" attribute with an empty value when the dialog is open', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
@@ -252,7 +254,7 @@ describe('Dialog', () => {
       );
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
-      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).toHaveAttribute('data-state', 'open');
+      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).toHaveAttribute('data-popup-open', '');
     });
 
     it('should not have the "data-disabled" attribute by default', async () => {
@@ -295,7 +297,7 @@ describe('Dialog', () => {
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
       await wait(500);
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'open');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-open', '');
     });
 
     it('should have the "data-entry-ui-qwik-dialog-trigger" attribute with an empty value', async () => {
@@ -312,14 +314,6 @@ describe('Dialog', () => {
   });
 
   describe('Dialog.Popup', () => {
-    beforeEach(() => {
-      document.body.removeAttribute('data-scroll-lock');
-    });
-
-    afterEach(() => {
-      document.body.removeAttribute('data-scroll-lock');
-    });
-
     it('should render a <dialog> element by default', async () => {
       const screen = await render(
         <Dialog.Root>
@@ -450,17 +444,17 @@ describe('Dialog', () => {
         .toHaveAttribute('aria-describedby', DIALOG_DESCRIPTION_ID);
     });
 
-    it('should have the data-state="closed" attribute by default', async () => {
+    it('should have the "data-closed" attribute with an empty value by default', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Popup data-testid={DIALOG_POPUP_TESTID} />
         </Dialog.Root>
       );
 
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-closed', '');
     });
 
-    it('should have the data-state="closed" attribute when the dialog is closed', async () => {
+    it('should have the "data-closed" attribute with an empty value when the dialog is closed', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
@@ -472,10 +466,10 @@ describe('Dialog', () => {
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
       await userEvent.click(screen.getByTestId(DIALOG_CLOSE_TESTID));
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-closed', '');
     });
 
-    it.skip('should lock the body scroll when the dialog is open by default', async () => {
+    it('should not have the "data-closed" attribute when the dialog is open', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
@@ -484,31 +478,44 @@ describe('Dialog', () => {
       );
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
-      await expect(document.body.hasAttribute('data-scroll-lock')).toBe(true);
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveAttribute('data-closed');
     });
 
-    it.skip('should lock the body scroll when the dialog is open and the "preventScroll" prop is true', async () => {
+    it('should not have the "data-open" attribute by default', async () => {
+      const screen = await render(
+        <Dialog.Root>
+          <Dialog.Popup data-testid={DIALOG_POPUP_TESTID} />
+        </Dialog.Root>
+      );
+
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveAttribute('data-open');
+    });
+
+    it('should have the "data-open" attribute with an empty value when the dialog is open', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
-          <Dialog.Popup preventScroll={true} data-testid={DIALOG_POPUP_TESTID} />
+          <Dialog.Popup data-testid={DIALOG_POPUP_TESTID} />
         </Dialog.Root>
       );
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
-      await expect(document.body.hasAttribute('data-scroll-lock')).toBe(true);
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-open', '');
     });
 
-    it.skip('should not lock the body scroll when the dialog is open and the "preventScroll" prop is false', async () => {
+    it('should not have the "data-open" attribute when the dialog is closed', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
-          <Dialog.Popup preventScroll={false} data-testid={DIALOG_POPUP_TESTID} />
+          <Dialog.Popup data-testid={DIALOG_POPUP_TESTID}>
+            <Dialog.Close data-testid={DIALOG_CLOSE_TESTID} />
+          </Dialog.Popup>
         </Dialog.Root>
       );
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
-      await expect(document.body.hasAttribute('data-scroll-lock')).toBe(false);
+      await userEvent.click(screen.getByTestId(DIALOG_CLOSE_TESTID));
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveAttribute('data-open');
     });
 
     it('should close the dialog when the "Escape" key is pressed by default', async () => {
@@ -521,7 +528,7 @@ describe('Dialog', () => {
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
       await userEvent.keyboard('{Escape}');
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-closed', '');
     });
 
     it('should close the dialog when the "Escape" key is pressed and the "closeOnEscapeKeyDown" prop is true', async () => {
@@ -534,7 +541,7 @@ describe('Dialog', () => {
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
       await userEvent.keyboard('{Escape}');
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-closed', '');
     });
 
     it('should not close the dialog when the "Escape" key is pressed and the "closeOnEscapeKeyDown" prop is false', async () => {
@@ -547,19 +554,7 @@ describe('Dialog', () => {
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
       await userEvent.keyboard('{Escape}');
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'open');
-    });
-
-    it('should have the data-state="open" attribute when the dialog is open', async () => {
-      const screen = await render(
-        <Dialog.Root>
-          <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
-          <Dialog.Popup data-testid={DIALOG_POPUP_TESTID} />
-        </Dialog.Root>
-      );
-
-      await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'open');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-open', '');
     });
 
     it('should close the dialog when clicking outside the <Dialog.Popup> content by default', async () => {
@@ -577,7 +572,7 @@ describe('Dialog', () => {
       // occurs on the backdrop, outside the popup content.
       await userEvent.click(document.body, { position: { x: 0, y: 0 } });
 
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-closed', '');
     });
 
     it('should close the dialog when clicking outside the <Dialog.Popup> content and the "closeOnClickOutside" prop is true', async () => {
@@ -595,7 +590,7 @@ describe('Dialog', () => {
       // occurs on the backdrop, outside the popup content.
       await userEvent.click(document.body, { position: { x: 0, y: 0 } });
 
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-closed', '');
     });
 
     it('should not close the dialog when clicking outside the <Dialog.Popup> content and the "closeOnClickOutside" prop is false', async () => {
@@ -613,31 +608,7 @@ describe('Dialog', () => {
       // occurs on the backdrop, outside the popup content.
       await userEvent.click(document.body, { position: { x: 0, y: 0 } });
 
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'open');
-    });
-
-    it('should call the "onOpenChangeComplete$" callback with the correct state upon opening and closing the popup', async () => {
-      // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
-      // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
-      // complex internal states that throw a serialization error (Code Q3).
-      const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
-
-      const screen = await render(
-        <Dialog.Root>
-          <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
-          <Dialog.Popup onOpenChangeComplete$={(open) => console.log(open)} data-testid={DIALOG_POPUP_TESTID}>
-            <Dialog.Close data-testid={DIALOG_CLOSE_TESTID} />
-          </Dialog.Popup>
-        </Dialog.Root>
-      );
-
-      await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
-      await wait(1000);
-      expect(mockConsolLog).toHaveBeenCalledWith(true);
-
-      await userEvent.click(screen.getByTestId(DIALOG_CLOSE_TESTID));
-      await wait(1000);
-      expect(mockConsolLog).toHaveBeenCalledWith(false);
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-open', '');
     });
 
     it('should have the inline style "display: none !important" when the dialog is closed and no inline "display" style when the dialog is open', async () => {
@@ -1019,7 +990,7 @@ describe('Dialog', () => {
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
       await userEvent.click(screen.getByTestId(DIALOG_CLOSE_TESTID));
-      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-state', 'closed');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).toHaveAttribute('data-closed', '');
     });
 
     it('should have the "data-entry-ui-qwik-dialog-close" attribute with an empty value', async () => {
@@ -1034,6 +1005,167 @@ describe('Dialog', () => {
       await expect
         .element(screen.getByTestId(DIALOG_CLOSE_TESTID))
         .toHaveAttribute('data-entry-ui-qwik-dialog-close', '');
+    });
+  });
+
+  describe('Dialog integration', () => {
+    it('<Dialog.Popup> without animation', async () => {
+      // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+      // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+      // complex internal states that throw a serialization error (Code Q3).
+      const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      const screen = await render(
+        <Dialog.Root>
+          <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
+          <Dialog.Popup onOpenChangeComplete$={(open) => console.log(open)} data-testid={DIALOG_POPUP_TESTID}>
+            <Dialog.Close data-testid={DIALOG_CLOSE_TESTID} />
+          </Dialog.Popup>
+        </Dialog.Root>
+      );
+
+      const triggerElement = screen.getByTestId(DIALOG_TRIGGER_TESTID);
+      const popupElement = screen.getByTestId(DIALOG_POPUP_TESTID);
+      const closeElement = screen.getByTestId(DIALOG_CLOSE_TESTID);
+
+      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-open');
+      await expect.element(popupElement).toHaveAttribute('data-closed', '');
+      await expect.element(popupElement).toHaveStyle('display: none !important');
+      await expect.element(popupElement).toHaveStyle('animation-name: none');
+
+      await userEvent.click(triggerElement);
+      await wait(100);
+
+      await expect.element(triggerElement).toHaveAttribute('data-popup-open', '');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-closed');
+      await expect.element(popupElement).toHaveAttribute('data-open', '');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveStyle('display');
+      await expect.element(popupElement).not.toHaveStyle('animation-name');
+
+      expect(mockConsolLog).toHaveBeenCalledWith(true);
+
+      await userEvent.click(closeElement);
+      await wait(100);
+
+      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-open');
+      await expect.element(popupElement).toHaveAttribute('data-closed', '');
+      await expect.element(popupElement).toHaveStyle('display: none !important');
+      await expect.element(popupElement).not.toHaveStyle('animation-name');
+
+      expect(mockConsolLog).toHaveBeenCalledWith(false);
+    });
+
+    it('<Dialog.Popup> with CSS transition', async () => {
+      // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+      // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+      // complex internal states that throw a serialization error (Code Q3).
+      const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      const screen = await render(
+        <Dialog.Root>
+          <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
+          <DialogPopupCssTransition
+            onOpenChangeComplete$={(open) => console.log(open)}
+            data-testid={DIALOG_POPUP_TESTID}
+          >
+            <Dialog.Close data-testid={DIALOG_CLOSE_TESTID} />
+          </DialogPopupCssTransition>
+        </Dialog.Root>
+      );
+
+      const triggerElement = screen.getByTestId(DIALOG_TRIGGER_TESTID);
+      const popupElement = screen.getByTestId(DIALOG_POPUP_TESTID);
+      const closeElement = screen.getByTestId(DIALOG_CLOSE_TESTID);
+
+      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-open');
+      await expect.element(popupElement).toHaveAttribute('data-closed', '');
+      await expect.element(popupElement).toHaveStyle('display: none !important');
+      await expect.element(popupElement).toHaveStyle('animation-name: none');
+
+      await userEvent.click(triggerElement);
+      await wait(100);
+
+      await expect.element(triggerElement).toHaveAttribute('data-popup-open', '');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-closed');
+      await expect.element(popupElement).toHaveAttribute('data-open', '');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveStyle('display');
+      await expect.element(popupElement).not.toHaveStyle('animation-name');
+
+      expect(mockConsolLog).toHaveBeenCalledWith(true);
+
+      await userEvent.click(closeElement);
+      await wait(100);
+
+      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-open');
+      await expect.element(popupElement).toHaveAttribute('data-closed', '');
+      await expect.element(popupElement).toHaveStyle('display: none !important');
+      await expect.element(popupElement).not.toHaveStyle('animation-name');
+
+      expect(mockConsolLog).toHaveBeenCalledWith(false);
+    });
+
+    it('<Dialog.Popup> with CSS animation', async () => {
+      // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+      // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+      // complex internal states that throw a serialization error (Code Q3).
+      const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      const screen = await render(
+        <Dialog.Root>
+          <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
+          <DialogPopupCssAnimation
+            onOpenChangeComplete$={(open) => console.log(open)}
+            data-testid={DIALOG_POPUP_TESTID}
+          >
+            <Dialog.Close data-testid={DIALOG_CLOSE_TESTID} />
+          </DialogPopupCssAnimation>
+        </Dialog.Root>
+      );
+
+      const triggerElement = screen.getByTestId(DIALOG_TRIGGER_TESTID);
+      const popupElement = screen.getByTestId(DIALOG_POPUP_TESTID);
+      const closeElement = screen.getByTestId(DIALOG_CLOSE_TESTID);
+
+      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-open');
+      await expect.element(popupElement).toHaveAttribute('data-closed', '');
+      await expect.element(popupElement).toHaveStyle('display: none !important');
+      await expect.element(popupElement).toHaveStyle('animation-name: none');
+
+      await userEvent.click(triggerElement);
+      await wait(100);
+
+      await expect.element(triggerElement).toHaveAttribute('data-popup-open', '');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-closed');
+      await expect.element(popupElement).toHaveAttribute('data-open', '');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveStyle('display');
+      await expect.element(popupElement).not.toHaveStyle('animation-name');
+
+      expect(mockConsolLog).toHaveBeenCalledWith(true);
+
+      await userEvent.click(closeElement);
+      await wait(100);
+
+      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-open');
+      await expect.element(popupElement).toHaveAttribute('data-closed', '');
+      await expect.element(popupElement).toHaveStyle('display: none !important');
+      await expect.element(popupElement).not.toHaveStyle('animation-name');
+
+      expect(mockConsolLog).toHaveBeenCalledWith(false);
     });
   });
 });
