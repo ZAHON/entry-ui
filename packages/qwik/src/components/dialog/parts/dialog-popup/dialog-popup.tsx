@@ -268,13 +268,17 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
   });
 
   const handleKeyDown$ = $((event: KeyboardEvent) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-    const isOpen = open.value;
-    const isEscapeKey = event.key === 'Escape';
+    runIfHandlerNotPrevented({
+      event,
+      callback: () => {
+        const isOpen = open.value;
+        const isEscapeKey = event.key === 'Escape';
 
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && isOpen && isEscapeKey && closeOnEscapeKeyDown) {
-      setOpen$(false);
-    }
+        if (isOpen && isEscapeKey && closeOnEscapeKeyDown) {
+          setOpen$(false);
+        }
+      },
+    });
   });
 
   const handlePointerDown$ = $((event: PointerEvent, currentTarget: HTMLElement) => {
