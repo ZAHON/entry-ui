@@ -14,6 +14,7 @@ import { mergeRefs } from '@/utilities/merge-refs';
 import { useIdManager } from '@/_internal/hooks/use-id-manager';
 import { fail } from '@/_internal/utilities/fail';
 import { warn } from '@/_internal/utilities/warn';
+import { runIfHandlerNotPrevented } from '@/_internal/utilities/run-if-handler-not-prevented';
 import { Primitive } from '@/_internal/components/primitive';
 import { useDialogRootContext } from '../../contexts/dialog-root-context';
 import { DialogPopupContext } from '../../contexts/dialog-popup-context';
@@ -244,15 +245,16 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
   });
 
   const handleCancel$ = $((event: Event) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented) {
-      // Ensures the internal state is updated when the `<dialog>` element is canceled via
-      // browser-specific actions (like the back button in Chrome/Edge).
-      // Unlike Chromium, browsers like Firefox will navigate to the previous
-      // page instead of triggering this event.
-      setOpen$(false);
-    }
+    runIfHandlerNotPrevented({
+      event,
+      callback: () => {
+        // Ensures the internal state is updated when the `<dialog>` element is canceled via
+        // browser-specific actions (like the back button in Chrome/Edge).
+        // Unlike Chromium, browsers like Firefox will navigate to the previous
+        // page instead of triggering this event.
+        setOpen$(false);
+      },
+    });
   });
 
   const handleKeyDownSync$ = sync$((event: KeyboardEvent) => {
