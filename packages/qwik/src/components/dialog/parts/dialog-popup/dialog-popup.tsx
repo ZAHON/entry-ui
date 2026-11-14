@@ -303,27 +303,25 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
   });
 
   const handlePointerUp$ = $((event: PointerEvent, currentTarget: HTMLElement) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-    const isOpen = open.value;
-    const isCurrentTarget = (event.target as HTMLElement) === currentTarget;
-    const isPointerDownOutside = pointerDownOutside.value;
+    runIfHandlerNotPrevented({
+      event,
+      callback: () => {
+        const isOpen = open.value;
+        const isCurrentTarget = (event.target as HTMLElement) === currentTarget;
+        const isPointerDownOutside = pointerDownOutside.value;
 
-    if (
-      !entryUIQwikEvent.entryUIQwikHandlerPrevented &&
-      isOpen &&
-      isCurrentTarget &&
-      isPointerDownOutside &&
-      closeOnClickOutside
-    ) {
-      const { clientX, clientY } = event;
-      const { left, right, top, bottom } = currentTarget.getBoundingClientRect();
+        if (isOpen && isCurrentTarget && isPointerDownOutside && closeOnClickOutside) {
+          const { clientX, clientY } = event;
+          const { left, right, top, bottom } = currentTarget.getBoundingClientRect();
 
-      if (!(clientX >= left && clientX <= right && clientY >= top && clientY <= bottom)) {
-        setOpen$(false);
-      }
+          if (!(clientX >= left && clientX <= right && clientY >= top && clientY <= bottom)) {
+            setOpen$(false);
+          }
 
-      pointerDownOutside.value = false;
-    }
+          pointerDownOutside.value = false;
+        }
+      },
+    });
   });
 
   useContextProvider(DialogPopupContext, { titleId, descriptionId });
