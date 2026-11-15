@@ -27,6 +27,8 @@ export interface AccordionItemProps extends PropsOf<'div'> {
 
   /**
    * When `true`, prevents the user from interacting with the accordion item.
+   * If left `undefined`, this state will be inherited from the `disabled`
+   * prop of the `<Accordion.Root>` component.
    *
    * @default false
    */
