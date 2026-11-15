@@ -3,6 +3,8 @@ import { component$, useStyles$, Slot } from '@qwik.dev/core';
 import { CollapsiblePanel } from '../../parts/collapsible-panel';
 
 export const CollapsiblePanelCssTransition = component$<CollapsiblePanelProps>((props) => {
+  const { class: className, ...others } = props;
+
   useStyles$(`
     .collapsible-panel-css-transition {
       height: var(--entry-ui-qwik-collapsible-panel-height);
@@ -17,7 +19,7 @@ export const CollapsiblePanelCssTransition = component$<CollapsiblePanelProps>((
     `);
 
   return (
-    <CollapsiblePanel {...props}>
+    <CollapsiblePanel class={['collapsible-panel-css-transition', className]} {...others}>
       <Slot />
     </CollapsiblePanel>
   );
