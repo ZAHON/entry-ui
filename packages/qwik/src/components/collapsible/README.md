@@ -130,7 +130,7 @@ A panel with the collapsible contents. Renders a `<div>` element.
 An optional visual indicator that reflects the collapsible's open or closed state. It typically displays an icon or other visual cue to show the current status. Renders a `<span>` element.
 
 > [!NOTE]
-> This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the trigger's interactivity or accessibility.
+> This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the interactivity or accessibility of underlying or parent elements.
 
 | Prop | Type                                                    | Default  | Description                                                                                                                                                                                    |
 | :--- | :------------------------------------------------------ | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
