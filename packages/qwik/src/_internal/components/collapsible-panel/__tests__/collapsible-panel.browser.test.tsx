@@ -125,6 +125,11 @@ describe('CollapsiblePanel', () => {
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('data-closed');
   });
 
+  it('should not have the "data-open" attribute by default', async () => {
+    const screen = await render(<CollapsiblePanelTest data-testid={COLLAPSIBLE_PANEL_TESTID} />);
+    await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).not.toHaveAttribute('data-open');
+  });
+
   it('should have the "data-open" attribute with an empty value when the "open" prop is true', async () => {
     const screen = await render(<CollapsiblePanelTest open={true} data-testid={COLLAPSIBLE_PANEL_TESTID} />);
     await expect.element(screen.getByTestId(COLLAPSIBLE_PANEL_TESTID)).toHaveAttribute('data-open', '');
@@ -294,21 +299,24 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
     await expect.element(panelElement).toHaveStyle('display: none !important');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
     await userEvent.click(triggerElement);
 
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(true);
   });
 
@@ -333,21 +341,24 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).toHaveStyle('animation-name: none');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
     await userEvent.click(triggerElement);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
     await expect.element(panelElement).toHaveStyle('display: none !important');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(false);
   });
 
@@ -376,8 +387,9 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
@@ -389,27 +401,31 @@ describe('CollapsiblePanel', () => {
     window.location.hash = '';
     window.location.hash = '#:~:text=' + encodeURIComponent(COLLAPSIBLE_PANEL_TEXT);
 
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).toHaveStyle('animation-name: none');
     await expect.element(panelElement).toHaveStyle('transition: none');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(true);
 
     await userEvent.click(triggerElement);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).not.toHaveStyle('transition');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
-    await wait(100);
-    expect(mockConsolLog).toHaveBeenCalledWith(true);
+    expect(mockConsolLog).toHaveBeenCalledWith(false);
   });
 
   it('should correctly open the panel and invoke the "onOpenChangeComplete$" callback with true when the animation type is "css-transition"', async () => {
@@ -433,21 +449,24 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
     await expect.element(panelElement).toHaveStyle('display: none !important');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
     await userEvent.click(triggerElement);
 
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(true);
   });
 
@@ -472,21 +491,24 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
-    await expect.element(panelElement).toHaveStyle('animation-name: none');
+    await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
     await userEvent.click(triggerElement);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
     await expect.element(panelElement).toHaveStyle('display: none !important');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(false);
   });
 
@@ -515,8 +537,9 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
@@ -528,27 +551,31 @@ describe('CollapsiblePanel', () => {
     window.location.hash = '';
     window.location.hash = '#:~:text=' + encodeURIComponent(COLLAPSIBLE_PANEL_TEXT);
 
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).toHaveStyle('animation-name: none');
     await expect.element(panelElement).toHaveStyle('transition: none');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(true);
 
     await userEvent.click(triggerElement);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).not.toHaveStyle('transition');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
-    await wait(100);
-    expect(mockConsolLog).toHaveBeenCalledWith(true);
+    expect(mockConsolLog).toHaveBeenCalledWith(false);
   });
 
   it('should correctly open the panel and invoke the "onOpenChangeComplete$" callback with true when the animation type is "css-animation"', async () => {
@@ -572,21 +599,24 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
     await expect.element(panelElement).toHaveStyle('display: none !important');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
     await userEvent.click(triggerElement);
 
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(true);
   });
 
@@ -611,21 +641,24 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
-    await expect.element(panelElement).toHaveStyle('animation-name: none');
+    await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
     await userEvent.click(triggerElement);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
     await expect.element(panelElement).toHaveStyle('display: none !important');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(false);
   });
 
@@ -654,8 +687,9 @@ describe('CollapsiblePanel', () => {
     const triggerElement = screen.getByTestId(COLLAPSIBLE_PANEL_TRIGGER_TESTID);
     const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
@@ -667,26 +701,30 @@ describe('CollapsiblePanel', () => {
     window.location.hash = '';
     window.location.hash = '#:~:text=' + encodeURIComponent(COLLAPSIBLE_PANEL_TEXT);
 
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-closed');
+    await expect.element(panelElement).toHaveAttribute('data-open', '');
     await expect.element(panelElement).not.toHaveAttribute('hidden');
-    await expect.element(panelElement).toHaveAttribute('data-open');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).toHaveStyle('animation-name: none');
     await expect.element(panelElement).toHaveStyle('transition: none');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: auto`);
 
-    await wait(100);
     expect(mockConsolLog).toHaveBeenCalledWith(true);
 
     await userEvent.click(triggerElement);
 
-    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
+    await wait(100);
+
+    await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
+    await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
     await expect.element(panelElement).not.toHaveStyle('display');
     await expect.element(panelElement).not.toHaveStyle('animation-name');
     await expect.element(panelElement).not.toHaveStyle('transition');
     await expect.element(panelElement).toHaveStyle(`${COLLAPSIBLE_PANEL_HEIGHT_VARIABLE_NAME}: none`);
 
-    await wait(100);
-    expect(mockConsolLog).toHaveBeenCalledWith(true);
+    expect(mockConsolLog).toHaveBeenCalledWith(false);
   });
 });
