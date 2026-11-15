@@ -8,7 +8,7 @@ interface CollapsiblePanelCssTransitionProps extends CollapsiblePanelProps {
 }
 
 export const CollapsiblePanelCssTransition = component$<Partial<CollapsiblePanelCssTransitionProps>>((props) => {
-  const { open: _open, heightVariableName, triggerDataTestId, ...others } = props;
+  const { open: _open, heightVariableName, triggerDataTestId, class: className, ...others } = props;
 
   const { state: open, setState$: setOpen$ } = useControllable({ defaultValue: _open ?? false });
 
@@ -34,6 +34,7 @@ export const CollapsiblePanelCssTransition = component$<Partial<CollapsiblePanel
         heightVariableName="--collapsible-panel-height"
         open={open.value}
         setOpen$={setOpen$}
+        class={['collapsible-panel-css-transition', className]}
         style={{ '--height': `var(${heightVariableName})` }}
         {...others}
       >
