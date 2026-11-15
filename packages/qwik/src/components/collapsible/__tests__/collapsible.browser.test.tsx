@@ -41,34 +41,19 @@ describe('Collapsible', () => {
       await expect.element(screen.getByText(COLLAPSIBLE_ROOT_TEXT)).toBeInstanceOf(HTMLSpanElement);
     });
 
-    it('should have the "data-closed" attribute with an empty value by default', async () => {
-      const screen = await render(<Collapsible.Root data-testid={COLLAPSIBLE_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-closed', '');
-    });
-
-    it('should have the "data-closed" attribute with an empty value when the collapsible is closed', async () => {
-      const screen = await render(<Collapsible.Root defaultOpen={false} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-closed', '');
-    });
-
-    it('should not have the "data-closed" attribute when the collapsible is open', async () => {
-      const screen = await render(<Collapsible.Root defaultOpen={true} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).not.toHaveAttribute('data-closed');
-    });
-
     it('should not have the "data-open" attribute by default', async () => {
       const screen = await render(<Collapsible.Root data-testid={COLLAPSIBLE_ROOT_TESTID} />);
+      await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).not.toHaveAttribute('data-open');
+    });
+
+    it('should not have the "data-open" attribute when the collapsible is closed', async () => {
+      const screen = await render(<Collapsible.Root defaultOpen={false} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).not.toHaveAttribute('data-open');
     });
 
     it('should have the "data-open" attribute with an empty value when the collapsible is open', async () => {
       const screen = await render(<Collapsible.Root defaultOpen={true} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
       await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).toHaveAttribute('data-open', '');
-    });
-
-    it('should not have the "data-open" attribute when the collapsible is closed', async () => {
-      const screen = await render(<Collapsible.Root defaultOpen={false} data-testid={COLLAPSIBLE_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(COLLAPSIBLE_ROOT_TESTID)).not.toHaveAttribute('data-open');
     });
 
     it('should not have the "data-disabled" attribute by default', async () => {
@@ -301,39 +286,19 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('disabled');
     });
 
-    it('should have the "data-closed" attribute with an empty value by default', async () => {
-      const screen = await render(
-        <Collapsible.Root>
-          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-closed', '');
-    });
-
-    it('should have the "data-closed" attribute with an empty value when the collapsible is closed', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={false}>
-          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-closed', '');
-    });
-
-    it('should not have the "data-closed" attribute when the collapsible is open', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={true}>
-          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('data-closed');
-    });
-
     it('should not have the "data-open" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
+          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('data-open');
+    });
+
+    it('should not have the "data-open" attribute when the collapsible is closed', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={false}>
           <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
         </Collapsible.Root>
       );
@@ -349,16 +314,6 @@ describe('Collapsible', () => {
       );
 
       await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).toHaveAttribute('data-open', '');
-    });
-
-    it('should not have the "data-open" attribute when the collapsible is closed', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={false}>
-          <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID)).not.toHaveAttribute('data-open');
     });
 
     it('should not have the "data-disabled" attribute by default', async () => {
@@ -891,39 +846,19 @@ describe('Collapsible', () => {
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('aria-hidden', 'true');
     });
 
-    it('should have the "data-closed" attribute with an empty value by default', async () => {
-      const screen = await render(
-        <Collapsible.Root>
-          <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-closed', '');
-    });
-
-    it('should have the "data-closed" attribute with an empty value when the collapsible is closed', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={false}>
-          <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-closed', '');
-    });
-
-    it('should not have the "data-closed" attribute when the collapsible is open', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={true}>
-          <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).not.toHaveAttribute('data-closed');
-    });
-
     it('should not have the "data-open" attribute by default', async () => {
       const screen = await render(
         <Collapsible.Root>
+          <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
+        </Collapsible.Root>
+      );
+
+      await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).not.toHaveAttribute('data-open');
+    });
+
+    it('should not have the "data-open" attribute when the collapsible is closed', async () => {
+      const screen = await render(
+        <Collapsible.Root defaultOpen={false}>
           <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
         </Collapsible.Root>
       );
@@ -939,16 +874,6 @@ describe('Collapsible', () => {
       );
 
       await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).toHaveAttribute('data-open', '');
-    });
-
-    it('should not have the "data-open" attribute when the collapsible is closed', async () => {
-      const screen = await render(
-        <Collapsible.Root defaultOpen={false}>
-          <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
-        </Collapsible.Root>
-      );
-
-      await expect.element(screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID)).not.toHaveAttribute('data-open');
     });
 
     it('should not have the "data-disabled" attribute by default', async () => {
@@ -1063,13 +988,10 @@ describe('Collapsible', () => {
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1082,13 +1004,10 @@ describe('Collapsible', () => {
 
         await wait(100);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1124,13 +1043,10 @@ describe('Collapsible', () => {
         const indicatorElement = screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID);
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1145,13 +1061,10 @@ describe('Collapsible', () => {
         await wait(100);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1192,13 +1105,10 @@ describe('Collapsible', () => {
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1216,13 +1126,10 @@ describe('Collapsible', () => {
 
         await wait(100);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1240,13 +1147,10 @@ describe('Collapsible', () => {
         await wait(100);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1285,13 +1189,10 @@ describe('Collapsible', () => {
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1304,13 +1205,10 @@ describe('Collapsible', () => {
 
         await wait(100);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1346,13 +1244,10 @@ describe('Collapsible', () => {
         const indicatorElement = screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID);
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1367,13 +1262,10 @@ describe('Collapsible', () => {
         await wait(100);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1414,13 +1306,10 @@ describe('Collapsible', () => {
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1438,13 +1327,10 @@ describe('Collapsible', () => {
 
         await wait(100);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1462,13 +1348,10 @@ describe('Collapsible', () => {
         await wait(100);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1507,13 +1390,10 @@ describe('Collapsible', () => {
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1526,13 +1406,10 @@ describe('Collapsible', () => {
 
         await wait(100);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1568,13 +1445,10 @@ describe('Collapsible', () => {
         const indicatorElement = screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID);
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1589,13 +1463,10 @@ describe('Collapsible', () => {
         await wait(100);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1636,13 +1507,10 @@ describe('Collapsible', () => {
         const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -1660,13 +1528,10 @@ describe('Collapsible', () => {
 
         await wait(100);
 
-        await expect.element(rootElement).not.toHaveAttribute('data-closed');
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
-        await expect.element(triggerElement).not.toHaveAttribute('data-closed');
         await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
-        await expect.element(indicatorElement).not.toHaveAttribute('data-closed');
         await expect.element(indicatorElement).toHaveAttribute('data-open', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-closed');
@@ -1684,13 +1549,10 @@ describe('Collapsible', () => {
         await wait(100);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
-        await expect.element(rootElement).toHaveAttribute('data-closed', '');
 
         await expect.element(triggerElement).not.toHaveAttribute('data-open');
-        await expect.element(triggerElement).toHaveAttribute('data-closed', '');
 
         await expect.element(indicatorElement).not.toHaveAttribute('data-open');
-        await expect.element(indicatorElement).toHaveAttribute('data-closed', '');
 
         await expect.element(panelElement).not.toHaveAttribute('data-open');
         await expect.element(panelElement).toHaveAttribute('data-closed', '');
