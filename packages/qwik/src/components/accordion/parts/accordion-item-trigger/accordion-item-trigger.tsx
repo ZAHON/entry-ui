@@ -50,8 +50,7 @@ export const AccordionItemTrigger = component$<AccordionItemTriggerProps>((props
       aria-expanded={panelId.id.value ? open.value : undefined}
       data-entry-ui-qwik-accordion-item-trigger=""
       data-open={open.value ? '' : undefined}
-      // Present when the accordion item component is in a disabled state.
-      data-disabled={itemDisabled.value ? '' : undefined}
+      data-disabled={disabled.value ? '' : undefined}
       onClick$={[onClick$, handleClick$]}
       {...others}
     >
