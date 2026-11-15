@@ -8,7 +8,7 @@ interface CollapsiblePanelCssAnimationProps extends CollapsiblePanelProps {
 }
 
 export const CollapsiblePanelCssAnimation = component$<Partial<CollapsiblePanelCssAnimationProps>>((props) => {
-  const { open: _open, heightVariableName, triggerDataTestId, ...others } = props;
+  const { open: _open, heightVariableName, triggerDataTestId, class: className, ...others } = props;
 
   const { state: open, setState$: setOpen$ } = useControllable({ defaultValue: _open ?? false });
 
@@ -54,6 +54,7 @@ export const CollapsiblePanelCssAnimation = component$<Partial<CollapsiblePanelC
         heightVariableName="--collapsible-panel-height"
         open={open.value}
         setOpen$={setOpen$}
+        class={['collapsible-panel-css-animation', className]}
         style={{ '--height': `var(${heightVariableName})` }}
         {...others}
       >
