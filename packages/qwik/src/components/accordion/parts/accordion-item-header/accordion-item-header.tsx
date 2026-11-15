@@ -21,7 +21,7 @@ export const AccordionItemHeader = component$<AccordionItemHeaderProps>((props) 
     <Primitive.h3
       as={as}
       data-entry-ui-qwik-accordion-item-header=""
-      data-state={open.value ? 'open' : 'closed'}
+      data-open={open.value ? '' : undefined}
       data-disabled={disabled.value ? '' : undefined}
       {...others}
     >
