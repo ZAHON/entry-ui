@@ -96,10 +96,10 @@ A button that opens the dialog. Renders a `<button>` element.
 | `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 | `disabled` | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the trigger.                                                                                                                              |
 
-| Data attribute  | Values               | Description                                                         |
-| :-------------- | :------------------- | :------------------------------------------------------------------ |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the dialog.                          |
-| `data-disabled` | `—`                  | Present when the trigger is disabled and cannot be interacted with. |
+| Data attribute    | Values | Description                                          |
+| :---------------- | :----- | :--------------------------------------------------- |
+| `data-popup-open` | `—`    | Present when the corresponding dialog popup is open. |
+| `data-disabled`   | `—`    | Present when the dialog trigger is disabled.         |
 
 ### Popup
 
@@ -113,9 +113,12 @@ A container for the dialog contents. Renders a `<dialog>` element.
 | `closeOnClickOutside`   | `boolean \| undefined`                                  | `true`     | If `true`, the dialog will close when the user clicks outside the dialog's content area (e.g., on the backdrop).                                                                                                                  |
 | `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined`             | `—`        | A `QRL` callback invoked once the popup's opening or closing transition has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
 
-| Data attribute | Values               | Description                                |
-| :------------- | :------------------- | :----------------------------------------- |
-| `data-state`   | `"open" \| "closed"` | Indicates the current state of the dialog. |
+| Data attribute        | Values | Description                                        |
+| :-------------------- | :----- | :------------------------------------------------- |
+| `data-open`           | `—`    | Present when the dialog popup is open.             |
+| `data-closed`         | `—`    | Present when the dialog popup is closed.           |
+| `data-starting-style` | `—`    | Present when the dialog popup begins animating in. |
+| `data-ending-style`   | `—`    | Present when the dialog popup is animating out.    |
 
 ### Title
 
@@ -142,9 +145,9 @@ A button that closes the dialog. Renders a `<button>` element.
 | `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 | `disabled` | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the close button.                                                                                                                         |
 
-| Data attribute  | Values | Description                                                              |
-| :-------------- | :----- | :----------------------------------------------------------------------- |
-| `data-disabled` | `—`    | Present when the close button is disabled and cannot be interacted with. |
+| Data attribute  | Values | Description                                       |
+| :-------------- | :----- | :------------------------------------------------ |
+| `data-disabled` | `—`    | Present when the dialog close button is disabled. |
 
 ### useDialogRootContext
 
@@ -302,7 +305,7 @@ const Example = component$(() => {
 
 ### Animating popup with CSS transitions
 
-The `Dialog.Popup` exposes a `[data-state]` attribute reflecting whether the dialog is `"open"` or `"closed"`. This allows you to leverage standard CSS transitions to create smooth entry and exit effects based on state changes. To implement this, define the transitions on the target properties (such as `opacity` and `transform`) and specify their initial and target values using the `[data-state]` attribute selectors.
+The `<Dialog.Popup>` component exposes `[data-starting-style]` and `[data-ending-style]` attributes to reflect its animation states during entry and exit. This allows you to leverage standard CSS transitions to create smooth effects. To implement this, define the transitions on the target properties (such as `opacity` and `transform`) and specify their initial and target values using these attribute selectors.
 
 > [!TIP]
 > Transitions are the recommended method for animating the `<Dialog.Popup>`, as they naturally handle animation cancellation mid-way through. For instance, if a user opens the dialog and instantly hits the <kbd>Esc</kbd> key or clicks outside before the entry effect completes, a CSS transition will smoothly reverse back to its closed state without any jarring visual jumps.
@@ -331,35 +334,31 @@ const Example = component$(() => {
 /* index.module.css */
 .dialog-popup {
   margin: unset;
-  border: unset;
   position: fixed;
   top: 50%;
   left: 50%;
   width: 90vw;
   max-width: 450px;
   max-height: 85vh;
-  transition-property: opacity, transform;
-  transition-duration: 150ms;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    transform 150ms ease-out,
+    opacity 150ms ease-out;
 }
 
-.dialog-popup[data-state='closed'] {
+.dialog-popup[data-starting-style],
+.dialog-popup[data-ending-style] {
   opacity: 0;
   transform: translate(-50%, -48%) scale(0.96);
-}
-
-.dialog-popup[data-state='open'] {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
 }
 ```
 
 ### Animating popup with CSS animations
 
-The `Dialog.Popup` can also be animated using CSS keyframes. By leveraging the `[data-state]` attribute, you can trigger distinct entry and exit keyframe animations for both the open and closed states. This method provides maximum control when you want to choreograph complex multi-stage animations, allowing you to define precise sequences for properties like `opacity` and `transform`.
+The `<Dialog.Popup>` component can also be animated using CSS keyframes by leveraging the `[data-open]` and `[data-closed]` attributes. You can trigger distinct entry and exit keyframe animations for both states, which provides maximum control when you want to choreograph complex multi-stage sequences for properties like `opacity` and `transform`.
 
 > [!NOTE]
-> Although CSS animations offer exceptional control over complex choreography, they are less forgiving than transitions when interrupted mid-way. Because keyframe animations always run from a fixed starting point to a fixed ending point, they cannot naturally reverse from a partially animated state. If a user rapidly opens and closes the dialog, the popup may visually jump to the start of the next animation phase rather than fluidly reversing from its current scale or opacity.
+> While CSS animations offer great control over choreography, they are generally less flexible than transitions for toggling the `<Dialog.Popup>` state. Because keyframe animations always run from a fixed start to a fixed end point, they cannot be smoothly cancelled mid-way. If a user interrupts the animation, the popup may "jump" to the start of the next animation state rather than reversing fluidly from its current position.
 
 ```tsx
 // index.tsx
@@ -385,7 +384,6 @@ const Example = component$(() => {
 /* index.module.css */
 .dialog-popup {
   margin: unset;
-  border: unset;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -395,12 +393,12 @@ const Example = component$(() => {
   max-height: 85vh;
 }
 
-.dialog-popup[data-state='open'] {
-  animation: dialog-popup-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+.dialog-popup[data-open] {
+  animation: dialog-popup-show 150ms ease-out;
 }
 
-.dialog-popup[data-state='closed'] {
-  animation: dialog-popup-hide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+.dialog-popup[data-closed] {
+  animation: dialog-popup-hide 150ms ease-out;
 }
 
 @keyframes dialog-popup-show {
