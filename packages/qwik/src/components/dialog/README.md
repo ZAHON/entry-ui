@@ -96,10 +96,10 @@ A button that opens the dialog. Renders a `<button>` element.
 | `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 | `disabled` | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the trigger.                                                                                                                              |
 
-| Data attribute    | Values | Description                                          |
-| :---------------- | :----- | :--------------------------------------------------- |
-| `data-popup-open` | `—`    | Present when the corresponding dialog popup is open. |
-| `data-disabled`   | `—`    | Present when the dialog trigger is disabled.         |
+| Data attribute    | Values | Description                                  |
+| :---------------- | :----- | :------------------------------------------- |
+| `data-popup-open` | `—`    | Present when the dialog popup is open.       |
+| `data-disabled`   | `—`    | Present when the dialog trigger is disabled. |
 
 ### Popup
 
