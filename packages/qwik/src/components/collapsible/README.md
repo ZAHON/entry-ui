@@ -87,7 +87,6 @@ Groups all parts of the collapsible. Renders a `<div>` element.
 | Data attribute  | Values | Description                               |
 | :-------------- | :----- | :---------------------------------------- |
 | `data-open`     | `—`    | Present when the collapsible is open.     |
-| `data-closed`   | `—`    | Present when the collapsible is closed.   |
 | `data-disabled` | `—`    | Present when the collapsible is disabled. |
 
 ### Trigger
@@ -99,11 +98,10 @@ A button that opens and closes the collapsible panel. Renders a `<button>` eleme
 | `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 | `disabled` | `boolean \| undefined`                                  | `—`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Collapsible.Root>` component.            |
 
-| Data attribute  | Values | Description                                                                     |
-| :-------------- | :----- | :------------------------------------------------------------------------------ |
-| `data-open`     | `—`    | Present when the collapsible is open.                                           |
-| `data-closed`   | `—`    | Present when the collapsible is closed.                                         |
-| `data-disabled` | `—`    | Present when the collapsible trigger is disabled and cannot be interacted with. |
+| Data attribute  | Values | Description                                       |
+| :-------------- | :----- | :------------------------------------------------ |
+| `data-open`     | `—`    | Present when the collapsible is open.             |
+| `data-disabled` | `—`    | Present when the collapsible trigger is disabled. |
 
 ### Panel
 
@@ -141,7 +139,6 @@ An optional visual indicator that reflects the collapsible's open or closed stat
 | Data attribute  | Values | Description                               |
 | :-------------- | :----- | :---------------------------------------- |
 | `data-open`     | `—`    | Present when the collapsible is open.     |
-| `data-closed`   | `—`    | Present when the collapsible is closed.   |
 | `data-disabled` | `—`    | Present when the collapsible is disabled. |
 
 ### useCollapsibleRootContext
@@ -315,7 +312,9 @@ const Example = component$(() => {
 
 ### Searchable hidden content
 
-By default, hidden content in a collapsible panel is invisible to the browser's "Find in page" feature. By setting the `hiddenUntilFound` prop to `true`, the `<Collapsible.Panel>` uses the `hidden="until-found"` HTML attribute. This allows the browser to index and search the content while it is closed. If a match is found, the browser will automatically expand the panel to reveal the content to the user.
+By default, hidden content in a collapsible panel is invisible to the browser's "Find in page" feature. By setting the `hiddenUntilFound` prop to `true`, the `<Collapsible.Panel>` uses the `hidden="until-found"` HTML attribute. This allows the browser to search its contents with find-in-page—<kbd>Ctrl</kbd>+<kbd>F</kbd> (<kbd>Cmd</kbd>+<kbd>F</kbd> on macOS)—and reveal the panel when a match is found, which also makes its contents indexable by search engines.
+
+Older browsers that do not support `hidden="until-found"` gracefully fall back to standard behavior, keeping the panel hidden until its trigger is activated, while find-in-page skips over the hidden contents.
 
 > [!IMPORTANT]
 > If the `<Collapsible.Root>` is `disabled`, the `hiddenUntilFound` functionality is automatically overridden. In this case, the `<Collapsible.Panel>` uses the standard `hidden="hidden"` attribute, ensuring that non-interactive or disabled content is not indexed or revealed by the browser's search feature.
@@ -330,12 +329,8 @@ import { Collapsible } from '@entry-ui/qwik/collapsible';
 const Example = component$(() => {
   return (
     <Collapsible.Root>
-      <Collapsible.Trigger>Technical Specifications</Collapsible.Trigger>
-      {/* Search for "SQU-2026" in the browser to see it in action */}
-      <Collapsible.Panel hiddenUntilFound={true}>
-        <p>Model Number: SQU-2026</p>
-        <p>Manufacturer: Entry UI Systems</p>
-      </Collapsible.Panel>
+      <Collapsible.Trigger>Shipping details</Collapsible.Trigger>
+      <Collapsible.Panel hiddenUntilFound={true}>Standard shipping takes 3–5 business days.</Collapsible.Panel>
     </Collapsible.Root>
   );
 });
