@@ -1,8 +1,8 @@
 import type { AccordionItemTriggerProps } from './accordion-item-trigger.types';
-import type { EntryUIQwikEventState } from '@/types';
 import { component$, useSignal, useComputed$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { useLifecycle } from '@/hooks/use-lifecycle';
 import { mergeRefs } from '@/utilities/merge-refs';
+import { runIfHandlerNotPrevented } from '@/_internal/utilities/run-if-handler-not-prevented';
 import { Primitive } from '@/_internal/components/primitive';
 import { useAccordionItemContext } from '../../contexts/accordion-item-context';
 import { AccordionItemTriggerContext } from '../../contexts/accordion-item-trigger-context';
@@ -30,11 +30,14 @@ export const AccordionItemTrigger = component$<AccordionItemTriggerProps>((props
   });
 
   const handleClick$ = $((event: PointerEvent) => {
-    const entryUIQwikEvent = event as EntryUIQwikEventState<typeof event>;
-
-    if (!entryUIQwikEvent.entryUIQwikHandlerPrevented && !disabled.value) {
-      setOpen$(!open.value);
-    }
+    runIfHandlerNotPrevented({
+      event,
+      callback: () => {
+        if (!disabled.value) {
+          setOpen$(!open.value);
+        }
+      },
+    });
   });
 
   useContextProvider(AccordionItemTriggerContext, { disabled });
