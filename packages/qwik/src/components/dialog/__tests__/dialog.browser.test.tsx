@@ -223,17 +223,17 @@ describe('Dialog', () => {
       await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).toBeDisabled();
     });
 
-    it('should not have the "data-popup-open" attribute by default', async () => {
+    it('should not have the "data-open" attribute by default', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
         </Dialog.Root>
       );
 
-      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).not.toHaveAttribute('data-popup-open');
+      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).not.toHaveAttribute('data-open');
     });
 
-    it('should not have the "data-popup-open" attribute when the dialog is closed', async () => {
+    it('should not have the "data-open" attribute when the dialog is closed', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
@@ -243,10 +243,10 @@ describe('Dialog', () => {
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
       await userEvent.click(screen.getByTestId(DIALOG_CLOSE_TESTID));
-      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).not.toHaveAttribute('data-popup-open');
+      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).not.toHaveAttribute('data-open');
     });
 
-    it('should have the "data-popup-open" attribute with an empty value when the dialog is open', async () => {
+    it('should have the "data-open" attribute with an empty value when the dialog is open', async () => {
       const screen = await render(
         <Dialog.Root>
           <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
@@ -254,7 +254,7 @@ describe('Dialog', () => {
       );
 
       await userEvent.click(screen.getByTestId(DIALOG_TRIGGER_TESTID));
-      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).toHaveAttribute('data-popup-open', '');
+      await expect.element(screen.getByTestId(DIALOG_TRIGGER_TESTID)).toHaveAttribute('data-open', '');
     });
 
     it('should not have the "data-disabled" attribute by default', async () => {
@@ -1048,7 +1048,7 @@ describe('Dialog', () => {
       const popupElement = screen.getByTestId(DIALOG_POPUP_TESTID);
       const closeElement = screen.getByTestId(DIALOG_CLOSE_TESTID);
 
-      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+      await expect.element(triggerElement).not.toHaveAttribute('data-open');
 
       await expect.element(popupElement).not.toHaveAttribute('data-open');
       await expect.element(popupElement).toHaveAttribute('data-closed', '');
@@ -1058,7 +1058,7 @@ describe('Dialog', () => {
       await userEvent.click(triggerElement);
       await wait(100);
 
-      await expect.element(triggerElement).toHaveAttribute('data-popup-open', '');
+      await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
       await expect.element(popupElement).not.toHaveAttribute('data-closed');
       await expect.element(popupElement).toHaveAttribute('data-open', '');
@@ -1070,7 +1070,7 @@ describe('Dialog', () => {
       await userEvent.click(closeElement);
       await wait(100);
 
-      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+      await expect.element(triggerElement).not.toHaveAttribute('data-open');
 
       await expect.element(popupElement).not.toHaveAttribute('data-open');
       await expect.element(popupElement).toHaveAttribute('data-closed', '');
@@ -1102,7 +1102,7 @@ describe('Dialog', () => {
       const popupElement = screen.getByTestId(DIALOG_POPUP_TESTID);
       const closeElement = screen.getByTestId(DIALOG_CLOSE_TESTID);
 
-      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+      await expect.element(triggerElement).not.toHaveAttribute('data-open');
 
       await expect.element(popupElement).not.toHaveAttribute('data-open');
       await expect.element(popupElement).toHaveAttribute('data-closed', '');
@@ -1112,7 +1112,7 @@ describe('Dialog', () => {
       await userEvent.click(triggerElement);
       await wait(100);
 
-      await expect.element(triggerElement).toHaveAttribute('data-popup-open', '');
+      await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
       await expect.element(popupElement).not.toHaveAttribute('data-closed');
       await expect.element(popupElement).toHaveAttribute('data-open', '');
@@ -1124,7 +1124,7 @@ describe('Dialog', () => {
       await userEvent.click(closeElement);
       await wait(100);
 
-      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+      await expect.element(triggerElement).not.toHaveAttribute('data-open');
 
       await expect.element(popupElement).not.toHaveAttribute('data-open');
       await expect.element(popupElement).toHaveAttribute('data-closed', '');
@@ -1156,7 +1156,7 @@ describe('Dialog', () => {
       const popupElement = screen.getByTestId(DIALOG_POPUP_TESTID);
       const closeElement = screen.getByTestId(DIALOG_CLOSE_TESTID);
 
-      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+      await expect.element(triggerElement).not.toHaveAttribute('data-open');
 
       await expect.element(popupElement).not.toHaveAttribute('data-open');
       await expect.element(popupElement).toHaveAttribute('data-closed', '');
@@ -1166,7 +1166,7 @@ describe('Dialog', () => {
       await userEvent.click(triggerElement);
       await wait(100);
 
-      await expect.element(triggerElement).toHaveAttribute('data-popup-open', '');
+      await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
       await expect.element(popupElement).not.toHaveAttribute('data-closed');
       await expect.element(popupElement).toHaveAttribute('data-open', '');
@@ -1178,7 +1178,7 @@ describe('Dialog', () => {
       await userEvent.click(closeElement);
       await wait(100);
 
-      await expect.element(triggerElement).not.toHaveAttribute('data-popup-open');
+      await expect.element(triggerElement).not.toHaveAttribute('data-open');
 
       await expect.element(popupElement).not.toHaveAttribute('data-open');
       await expect.element(popupElement).toHaveAttribute('data-closed', '');
