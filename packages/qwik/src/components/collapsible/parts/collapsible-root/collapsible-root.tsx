@@ -31,7 +31,6 @@ export const CollapsibleRoot = component$<CollapsibleRootProps>((props) => {
       as={as}
       data-entry-ui-qwik-collapsible-root=""
       data-open={open.value ? '' : undefined}
-      data-closed={!open.value ? '' : undefined}
       data-disabled={disabled.value ? '' : undefined}
       {...others}
     >
