@@ -19,7 +19,6 @@ export const CollapsibleIndicator = component$<CollapsibleIndicatorProps>((props
       as={as}
       data-entry-ui-qwik-collapsible-indicator=""
       data-open={open.value ? '' : undefined}
-      data-closed={!open.value ? '' : undefined}
       data-disabled={disabled.value ? '' : undefined}
       {...others}
     >
