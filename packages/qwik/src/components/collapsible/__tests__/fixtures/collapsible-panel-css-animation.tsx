@@ -3,6 +3,8 @@ import { component$, useStyles$, Slot } from '@qwik.dev/core';
 import { CollapsiblePanel } from '../../parts/collapsible-panel';
 
 export const CollapsiblePanelCssAnimation = component$<CollapsiblePanelProps>((props) => {
+  const { class: className, ...others } = props;
+
   useStyles$(`
     .collapsible-panel-css-animation {
       height: var(--entry-ui-qwik-collapsible-panel-height);
@@ -37,7 +39,7 @@ export const CollapsiblePanelCssAnimation = component$<CollapsiblePanelProps>((p
     `);
 
   return (
-    <CollapsiblePanel {...props}>
+    <CollapsiblePanel class={['collapsible-panel-css-animation', className]} {...others}>
       <Slot />
     </CollapsiblePanel>
   );
