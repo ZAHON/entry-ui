@@ -39,7 +39,7 @@ export const AccordionItem = component$<AccordionItemProps>((props) => {
     <Primitive.div
       as={as}
       data-entry-ui-qwik-accordion-item=""
-      data-state={open.value ? 'open' : 'closed'}
+      data-open={open.value ? '' : undefined}
       data-disabled={disabled.value ? '' : undefined}
       {...others}
     >
