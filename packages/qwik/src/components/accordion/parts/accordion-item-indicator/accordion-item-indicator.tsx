@@ -18,7 +18,7 @@ export const AccordionItemIndicator = component$<AccordionItemIndicatorProps>((p
     <Indicator
       as={as}
       data-entry-ui-qwik-accordion-item-indicator=""
-      data-state={open.value ? 'open' : 'closed'}
+      data-open={open.value ? '' : undefined}
       data-disabled={disabled.value ? '' : undefined}
       {...others}
     >
