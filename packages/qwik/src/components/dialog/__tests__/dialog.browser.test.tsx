@@ -518,6 +518,26 @@ describe('Dialog', () => {
       await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveAttribute('data-open');
     });
 
+    it('should not have the "data-starting-style" attribute by default', async () => {
+      const screen = await render(
+        <Dialog.Root>
+          <Dialog.Popup data-testid={DIALOG_POPUP_TESTID} />
+        </Dialog.Root>
+      );
+
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveAttribute('data-starting-style');
+    });
+
+    it('should not have the "data-ending-style" attribute by default', async () => {
+      const screen = await render(
+        <Dialog.Root>
+          <Dialog.Popup data-testid={DIALOG_POPUP_TESTID} />
+        </Dialog.Root>
+      );
+
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveAttribute('data-ending-style');
+    });
+
     it('should close the dialog when the "Escape" key is pressed by default', async () => {
       const screen = await render(
         <Dialog.Root>
