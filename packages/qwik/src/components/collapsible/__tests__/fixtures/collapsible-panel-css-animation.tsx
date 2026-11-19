@@ -7,7 +7,6 @@ export const CollapsiblePanelCssAnimation = component$<CollapsiblePanelProps>((p
 
   useStyles$(`
     .collapsible-panel-css-animation {
-      height: var(--entry-ui-qwik-collapsible-panel-height);
       overflow: hidden;
     }
 
