@@ -1508,6 +1508,176 @@ describe('Accordion', () => {
   });
 
   describe('Accordion integration', () => {
+    describe('multiple items expansion behavior and state synchronization', () => {
+      const ACCORDION_ITEM_1_TESTID = 'ACCORDION_ITEM_1_TESTID';
+      const ACCORDION_ITEM_1_HEADER_TESTID = 'ACCORDION_ITEM_1_HEADER_TESTID';
+      const ACCORDION_ITEM_1_TRIGGER_TESTID = 'ACCORDION_ITEM_1_TRIGGER_TESTID';
+      const ACCORDION_ITEM_1_PANEL_TESTID = 'ACCORDION_ITEM_1_PANEL_TESTID';
+      const ACCORDION_ITEM_1_INDICATOR_TESTID = 'ACCORDION_ITEM_1_INDICATOR_TESTID';
+
+      const ACCORDION_ITEM_2_TESTID = 'ACCORDION_ITEM_2_TESTID';
+      const ACCORDION_ITEM_2_HEADER_TESTID = 'ACCORDION_ITEM_2_HEADER_TESTID';
+      const ACCORDION_ITEM_2_TRIGGER_TESTID = 'ACCORDION_ITEM_2_TRIGGER_TESTID';
+      const ACCORDION_ITEM_2_PANEL_TESTID = 'ACCORDION_ITEM_2_PANEL_TESTID';
+      const ACCORDION_ITEM_2_INDICATOR_TESTID = 'ACCORDION_ITEM_2_INDICATOR_TESTID';
+
+      it('should only keep one <Accordion.Item> open at a time when "multiple" prop is false on <Accordion.Root>', async () => {
+        const screen = await render(
+          <Accordion.Root multiple={false}>
+            <Accordion.Item data-testid={ACCORDION_ITEM_1_TESTID}>
+              <Accordion.ItemHeader data-testid={ACCORDION_ITEM_1_HEADER_TESTID}>
+                <Accordion.ItemTrigger data-testid={ACCORDION_ITEM_1_TRIGGER_TESTID}>
+                  <Accordion.ItemIndicator data-testid={ACCORDION_ITEM_1_INDICATOR_TESTID} />
+                </Accordion.ItemTrigger>
+              </Accordion.ItemHeader>
+              <Accordion.ItemPanel data-testid={ACCORDION_ITEM_1_PANEL_TESTID} />
+            </Accordion.Item>
+
+            <Accordion.Item data-testid={ACCORDION_ITEM_2_TESTID}>
+              <Accordion.ItemHeader data-testid={ACCORDION_ITEM_2_HEADER_TESTID}>
+                <Accordion.ItemTrigger data-testid={ACCORDION_ITEM_2_TRIGGER_TESTID}>
+                  <Accordion.ItemIndicator data-testid={ACCORDION_ITEM_2_INDICATOR_TESTID} />
+                </Accordion.ItemTrigger>
+              </Accordion.ItemHeader>
+              <Accordion.ItemPanel data-testid={ACCORDION_ITEM_2_PANEL_TESTID} />
+            </Accordion.Item>
+          </Accordion.Root>
+        );
+
+        const item1Element = screen.getByTestId(ACCORDION_ITEM_1_TESTID);
+        const item1HeaderElement = screen.getByTestId(ACCORDION_ITEM_1_HEADER_TESTID);
+        const item1TriggerElement = screen.getByTestId(ACCORDION_ITEM_1_TRIGGER_TESTID);
+        const item1IndicatorElement = screen.getByTestId(ACCORDION_ITEM_1_INDICATOR_TESTID);
+        const item1PanelElement = screen.getByTestId(ACCORDION_ITEM_1_PANEL_TESTID);
+
+        const item2Element = screen.getByTestId(ACCORDION_ITEM_2_TESTID);
+        const item2HeaderElement = screen.getByTestId(ACCORDION_ITEM_2_HEADER_TESTID);
+        const item2TriggerElement = screen.getByTestId(ACCORDION_ITEM_2_TRIGGER_TESTID);
+        const item2IndicatorElement = screen.getByTestId(ACCORDION_ITEM_2_INDICATOR_TESTID);
+        const item2PanelElement = screen.getByTestId(ACCORDION_ITEM_2_PANEL_TESTID);
+
+        await expect.element(item1Element).not.toHaveAttribute('data-open');
+        await expect.element(item1HeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(item1TriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(item1IndicatorElement).not.toHaveAttribute('data-open');
+        await expect.element(item1PanelElement).not.toHaveAttribute('data-open');
+
+        await expect.element(item2Element).not.toHaveAttribute('data-open');
+        await expect.element(item2HeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(item2TriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(item2IndicatorElement).not.toHaveAttribute('data-open');
+        await expect.element(item2PanelElement).not.toHaveAttribute('data-open');
+
+        await userEvent.click(item1TriggerElement);
+        await wait(100);
+
+        await expect.element(item1Element).toHaveAttribute('data-open');
+        await expect.element(item1HeaderElement).toHaveAttribute('data-open');
+        await expect.element(item1TriggerElement).toHaveAttribute('data-open');
+        await expect.element(item1IndicatorElement).toHaveAttribute('data-open');
+        await expect.element(item1PanelElement).toHaveAttribute('data-open');
+
+        await expect.element(item2Element).not.toHaveAttribute('data-open');
+        await expect.element(item2HeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(item2TriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(item2IndicatorElement).not.toHaveAttribute('data-open');
+        await expect.element(item2PanelElement).not.toHaveAttribute('data-open');
+
+        await userEvent.click(item2TriggerElement);
+        await wait(100);
+
+        await expect.element(item1Element).not.toHaveAttribute('data-open');
+        await expect.element(item1HeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(item1TriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(item1IndicatorElement).not.toHaveAttribute('data-open');
+        await expect.element(item1PanelElement).not.toHaveAttribute('data-open');
+
+        await expect.element(item2Element).toHaveAttribute('data-open');
+        await expect.element(item2HeaderElement).toHaveAttribute('data-open');
+        await expect.element(item2TriggerElement).toHaveAttribute('data-open');
+        await expect.element(item2IndicatorElement).toHaveAttribute('data-open');
+        await expect.element(item2PanelElement).toHaveAttribute('data-open');
+      });
+
+      it('should allow multiple <Accordion.Item> elements to stay open at the same time when "multiple" prop is true on <Accordion.Root>', async () => {
+        const screen = await render(
+          <Accordion.Root multiple={true}>
+            <Accordion.Item data-testid={ACCORDION_ITEM_1_TESTID}>
+              <Accordion.ItemHeader data-testid={ACCORDION_ITEM_1_HEADER_TESTID}>
+                <Accordion.ItemTrigger data-testid={ACCORDION_ITEM_1_TRIGGER_TESTID}>
+                  <Accordion.ItemIndicator data-testid={ACCORDION_ITEM_1_INDICATOR_TESTID} />
+                </Accordion.ItemTrigger>
+              </Accordion.ItemHeader>
+              <Accordion.ItemPanel data-testid={ACCORDION_ITEM_1_PANEL_TESTID} />
+            </Accordion.Item>
+
+            <Accordion.Item data-testid={ACCORDION_ITEM_2_TESTID}>
+              <Accordion.ItemHeader data-testid={ACCORDION_ITEM_2_HEADER_TESTID}>
+                <Accordion.ItemTrigger data-testid={ACCORDION_ITEM_2_TRIGGER_TESTID}>
+                  <Accordion.ItemIndicator data-testid={ACCORDION_ITEM_2_INDICATOR_TESTID} />
+                </Accordion.ItemTrigger>
+              </Accordion.ItemHeader>
+              <Accordion.ItemPanel data-testid={ACCORDION_ITEM_2_PANEL_TESTID} />
+            </Accordion.Item>
+          </Accordion.Root>
+        );
+
+        const item1Element = screen.getByTestId(ACCORDION_ITEM_1_TESTID);
+        const item1HeaderElement = screen.getByTestId(ACCORDION_ITEM_1_HEADER_TESTID);
+        const item1TriggerElement = screen.getByTestId(ACCORDION_ITEM_1_TRIGGER_TESTID);
+        const item1IndicatorElement = screen.getByTestId(ACCORDION_ITEM_1_INDICATOR_TESTID);
+        const item1PanelElement = screen.getByTestId(ACCORDION_ITEM_1_PANEL_TESTID);
+
+        const item2Element = screen.getByTestId(ACCORDION_ITEM_2_TESTID);
+        const item2HeaderElement = screen.getByTestId(ACCORDION_ITEM_2_HEADER_TESTID);
+        const item2TriggerElement = screen.getByTestId(ACCORDION_ITEM_2_TRIGGER_TESTID);
+        const item2IndicatorElement = screen.getByTestId(ACCORDION_ITEM_2_INDICATOR_TESTID);
+        const item2PanelElement = screen.getByTestId(ACCORDION_ITEM_2_PANEL_TESTID);
+
+        await expect.element(item1Element).not.toHaveAttribute('data-open');
+        await expect.element(item1HeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(item1TriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(item1IndicatorElement).not.toHaveAttribute('data-open');
+        await expect.element(item1PanelElement).not.toHaveAttribute('data-open');
+
+        await expect.element(item2Element).not.toHaveAttribute('data-open');
+        await expect.element(item2HeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(item2TriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(item2IndicatorElement).not.toHaveAttribute('data-open');
+        await expect.element(item2PanelElement).not.toHaveAttribute('data-open');
+
+        await userEvent.click(item1TriggerElement);
+        await wait(100);
+
+        await expect.element(item1Element).toHaveAttribute('data-open');
+        await expect.element(item1HeaderElement).toHaveAttribute('data-open');
+        await expect.element(item1TriggerElement).toHaveAttribute('data-open');
+        await expect.element(item1IndicatorElement).toHaveAttribute('data-open');
+        await expect.element(item1PanelElement).toHaveAttribute('data-open');
+
+        await expect.element(item2Element).not.toHaveAttribute('data-open');
+        await expect.element(item2HeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(item2TriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(item2IndicatorElement).not.toHaveAttribute('data-open');
+        await expect.element(item2PanelElement).not.toHaveAttribute('data-open');
+
+        await userEvent.click(item2TriggerElement);
+        await wait(100);
+
+        await expect.element(item1Element).toHaveAttribute('data-open');
+        await expect.element(item1HeaderElement).toHaveAttribute('data-open');
+        await expect.element(item1TriggerElement).toHaveAttribute('data-open');
+        await expect.element(item1IndicatorElement).toHaveAttribute('data-open');
+        await expect.element(item1PanelElement).toHaveAttribute('data-open');
+
+        await expect.element(item2Element).toHaveAttribute('data-open');
+        await expect.element(item2HeaderElement).toHaveAttribute('data-open');
+        await expect.element(item2TriggerElement).toHaveAttribute('data-open');
+        await expect.element(item2IndicatorElement).toHaveAttribute('data-open');
+        await expect.element(item2PanelElement).toHaveAttribute('data-open');
+      });
+    });
+
     describe('<Accordion.ItemPanel> without animation', () => {
       it('should open, update state attributes and styles of all parts and call the "onOpenChangeComplete$" callback with true when the <Accordion.ItemTrigger> is clicked and the <Accordion.Item> is closed', async () => {
         // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
