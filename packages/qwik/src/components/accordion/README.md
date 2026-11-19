@@ -129,12 +129,12 @@ Groups all the parts of a collapsible section. Renders a `<div>` element.
 | :--------- | :------------------------------------------------------ | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"div"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details.                  |
 | `value`    | `string \| undefined`                                   | `—`     | A unique value that identifies this accordion item. If no value is provided, a unique ID will be generated automatically. Use when controlling the accordion programmatically, or to set an initial open state. |
-| `disabled` | `boolean \| undefined`                                  | `false` | When `true`, prevents the user from interacting with the accordion item.                                                                                                                                        |
+| `disabled` | `boolean \| undefined`                                  | `false` | When `true`, prevents the user from interacting with the accordion item. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Accordion.Root>` component.                        |
 
-| Data attribute  | Values               | Description                                        |
-| :-------------- | :------------------- | :------------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
+| Data attribute  | Values | Description                                  |
+| :-------------- | :----- | :------------------------------------------- |
+| `data-open`     | `—`    | Present when the accordion item is open.     |
+| `data-disabled` | `—`    | Present when the accordion item is disabled. |
 
 ### ItemHeader
 
@@ -144,10 +144,10 @@ A heading that labels the corresponding panel. It provides a semantic structure 
 | :--- | :------------------------------------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"h3"`  | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
-| Data attribute  | Values               | Description                                        |
-| :-------------- | :------------------- | :------------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
+| Data attribute  | Values | Description                                  |
+| :-------------- | :----- | :------------------------------------------- |
+| `data-open`     | `—`    | Present when the accordion item is open.     |
+| `data-disabled` | `—`    | Present when the accordion item is disabled. |
 
 ### ItemTrigger
 
@@ -158,10 +158,10 @@ A button that opens and closes the corresponding panel. Renders a `<button>` ele
 | `as`       | `keyof QwikIntrinsicElements \| Component \| undefined` | `"button"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 | `disabled` | `boolean`                                               | `—`        | When `true`, prevents the user from interacting with the trigger. If left `undefined`, this state will be inherited from the `disabled` prop of the `<Accordion.Item>` component.              |
 
-| Data attribute  | Values               | Description                                        |
-| :-------------- | :------------------- | :------------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
+| Data attribute  | Values | Description                                          |
+| :-------------- | :----- | :--------------------------------------------------- |
+| `data-open`     | `—`    | Present when the accordion item is open.             |
+| `data-disabled` | `—`    | Present when the accordion item trigger is disabled. |
 
 ### ItemPanel
 
@@ -173,10 +173,13 @@ A collapsible panel with the accordion item contents. Renders a `<div>` element.
 | `hiddenUntilFound`      | `boolean \| undefined`                                  | `false` | When `true`, the panel uses the `hidden="until-found"` attribute when closed. This allows the browser to search and reveal content within the panel even before it is manually opened.                                    |
 | `onOpenChangeComplete$` | `QRL<(open: boolean) => void> \| undefined`             | `—`     | A `QRL` callback invoked once the panel's expansion or collapse has fully settled. If CSS transitions or animations are present, it triggers after they finish; otherwise, it executes immediately upon the state change. |
 
-| Data attribute  | Values               | Description                                        |
-| :-------------- | :------------------- | :------------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
+| Data attribute        | Values | Description                                                |
+| :-------------------- | :----- | :--------------------------------------------------------- |
+| `data-open`           | `—`    | Present when the accordion item panel is open.             |
+| `data-closed`         | `—`    | Present when the accordion item panel is closed.           |
+| `data-starting-style` | `—`    | Present when the accordion item panel begins animating in. |
+| `data-ending-style`   | `—`    | Present when the accordion item panel is animating out.    |
+| `data-disabled`       | `—`    | Present when the accordion item is disabled.               |
 
 | CSS variable                                  | Description                        |
 | :-------------------------------------------- | :--------------------------------- |
@@ -187,16 +190,16 @@ A collapsible panel with the accordion item contents. Renders a `<div>` element.
 An optional visual indicator that reflects the item's open or closed state. It typically displays an icon or other visual cue to show the current status. Renders a `<span>` element.
 
 > [!NOTE]
-> This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the trigger's interactivity or accessibility.
+> This component is intended for visual feedback only. It is hidden from screen readers and ignores pointer events to ensure it doesn't interfere with the interactivity or accessibility of underlying or parent elements.
 
 | Prop | Type                                                    | Default  | Description                                                                                                                                                                                    |
 | :--- | :------------------------------------------------------ | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `as` | `keyof QwikIntrinsicElements \| Component \| undefined` | `"span"` | The element or component this component should render as. Read our [Composition](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/docs/guides/composition.md) guide for more details. |
 
-| Data attribute  | Values               | Description                                        |
-| :-------------- | :------------------- | :------------------------------------------------- |
-| `data-state`    | `"open" \| "closed"` | Indicates the current state of the accordion item. |
-| `data-disabled` | `—`                  | Present when the accordion item is disabled.       |
+| Data attribute  | Values | Description                                  |
+| :-------------- | :----- | :------------------------------------------- |
+| `data-open`     | `—`    | Present when the accordion item is open.     |
+| `data-disabled` | `—`    | Present when the accordion item is disabled. |
 
 ### useAccordionRootContext
 
@@ -376,10 +379,10 @@ const Example = component$(() => {
 
 ### Animating panel height with CSS transitions
 
-The `<Accordion.ItemPanel>` automatically calculates its content's height and exposes it via the `--entry-ui-qwik-accordion-item-panel-height` CSS variable. This allows you to create smooth expansion and collapse effects using standard CSS transitions. To implement this, ensure your panel has `overflow: hidden` and a transition applied to the `height` property.
+The `<Accordion.ItemPanel>` automatically calculates its content's height and provides it via the `--entry-ui-qwik-accordion-item-panel-height` CSS variable. Additionally, it applies `[data-starting-style]` and `[data-ending-style]` attributes during expansion and collapse phases to establish a clean numeric height baseline. This enables smooth CSS height transitions without layout jumps. To implement this, ensure your panel has `overflow: hidden` and target these lifecycle attributes to set `height: 0`.
 
 > [!TIP]
-> Transitions are the recommended method for animating the `<Accordion.ItemPanel>` height because they handle interrupted animations gracefully. For example, if a user quickly opens and then closes a panel before it fully expands, a transition will smoothly reverse the movement without any abrupt visual jumps.
+> Transitions are the recommended method for animating the `<Accordion.ItemPanel>` height, especially because they allow for smooth cancellation mid-way through an animation. For example, if a user quickly opens and then closes the panel before it fully expands, a transition will smoothly animate it back to its closed state without any abrupt jumps.
 
 ```tsx
 // index.tsx
@@ -429,13 +432,18 @@ const Example = component$(() => {
 .accordion-item-panel {
   overflow: hidden;
   height: var(--entry-ui-qwik-accordion-item-panel-height);
-  transition: height 300ms cubic-bezier(0.87, 0, 0.13, 1);
+  transition: height 300ms ease-out;
+}
+
+.accordion-item-panel[data-starting-style],
+.accordion-item-panel[data-ending-style] {
+  height: 0;
 }
 ```
 
 ### Animating panel height with CSS animations
 
-You can also use CSS keyframes to animate the height of the `<Accordion.ItemPanel>`. By leveraging the `[data-state]` attribute, you can trigger specific keyframe animations for both opening and closing states. This method is particularly useful when you want to choreograph the height change alongside other properties like opacity or scale, as it allows you to define the exact flow of the height animation from `0` to the value stored in the `--entry-ui-qwik-accordion-item-panel-height` CSS variable.
+You can also use CSS keyframes to animate the height of the `<Accordion.ItemPanel>`. By leveraging the `[data-open]` and `[data-closed]` attributes, you can trigger specific keyframe animations for both opening and closing states. This method is particularly useful when you want to choreograph the height change alongside other properties like opacity or scale, as it allows you to define the exact flow of the height animation from `0` to the value stored in the `--entry-ui-qwik-accordion-item-panel-height` CSS variable.
 
 > [!NOTE]
 > While CSS animations offer great control over choreography, they are generally less flexible than transitions for toggling the `<Accordion.ItemPanel>` height. Because keyframe animations always run from a fixed start to a fixed end point, they cannot be smoothly cancelled mid-way. If a user interrupts the animation, the panel may "jump" to the start of the next animation state rather than reversing fluidly from its current position.
@@ -489,12 +497,12 @@ const Example = component$(() => {
   overflow: hidden;
 }
 
-.accordion-item-panel[data-state='open'] {
-  animation: accordion-item-panel-down 300ms cubic-bezier(0.87, 0, 0.13, 1);
+.accordion-item-panel[data-open] {
+  animation: accordion-item-panel-down 300ms ease-out;
 }
 
-.accordion-item-panel[data-state='closed'] {
-  animation: accordion-item-panel-up 300ms cubic-bezier(0.87, 0, 0.13, 1);
+.accordion-item-panel[data-closed] {
+  animation: accordion-item-panel-up 300ms ease-out;
 }
 
 @keyframes accordion-item-panel-down {
@@ -518,12 +526,12 @@ const Example = component$(() => {
 
 ### Searchable hidden content
 
-By default, collapsed accordion panels are hidden from the browser's "Find in page" feature. You can enable searching through collapsed content by setting the `hiddenUntilFound` prop to `true`. This can be applied globally on the `<Accordion.Root>` to affect all items, or specifically on an individual `<Accordion.ItemPanel>` if you only want certain sections to be searchable.
+By default, hidden content in accordion item panels is invisible to the browser's "Find in page" feature. By setting the `hiddenUntilFound` prop to `true`, the `<Accordion.ItemPanel>` uses the `hidden="until-found"` HTML attribute. This allows the browser to search its contents with find-in-page—<kbd>Ctrl</kbd>+<kbd>F</kbd> (<kbd>Cmd</kbd>+<kbd>F</kbd> on macOS)—and reveal the panel when a match is found, which also makes its contents indexable by search engines.
 
-When enabled, the component uses the `hidden="until-found"` attribute, allowing the browser to find text within closed panels and automatically expand them when a match is found.
+Older browsers that do not support `hidden="until-found"` gracefully fall back to standard behavior, keeping the panel hidden until its trigger is activated, while find-in-page skips over the hidden contents.
 
 > [!IMPORTANT]
-> If the `<Accordion.Root>` or a specific `<Accordion.Item>` is `disabled`, the `hiddenUntilFound` functionality is automatically overridden. In this case, the `<Accordion.ItemPanel>` uses the standard `hidden="hidden"` attribute. This ensures that content within disabled or non-interactive items is not indexed or automatically revealed by the browser's search discovery feature, maintaining a consistent and predictable state.
+> If the `<Accordion.Root>` or a specific `<Accordion.Item>` is `disabled`, the `hiddenUntilFound` functionality is automatically overridden. In this case, the `<Accordion.ItemPanel>` uses the standard `hidden="hidden"` attribute, ensuring that non-interactive or disabled content is not indexed or revealed by the browser's search feature.
 
 > [!NOTE]
 > When a panel is automatically expanded via the "Find in page" feature, height animations are temporarily disabled. This ensures the browser can instantly scroll to and highlight the matching text, providing a better user experience by avoiding "scrolling to a moving target" during the animation.
@@ -561,9 +569,9 @@ const Example = component$(() => {
 
 ### State-aware visual indicators
 
-The `<Accordion.ItemIndicator>` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the accordion item's current layout status. By hook-riding on the context of `<Accordion.Item>`, it synchronizes effortlessly and updates its underlying data attributes automatically.
+The `<Accordion.ItemIndicator>` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the accordion item's current open or closed state[cite: 3]. By reading from the `<Accordion.Item>` context, it synchronizes effortlessly and updates its underlying data attributes automatically.
 
-This layout relies on the `[data-state]` attribute, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the panel is expanded or collapsed. This approach ensures a highly interactive and polished user experience while keeping the visual indicator decoupled from core toggle mechanics.
+This approach relies on the `[data-open]` attribute, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the item is expanded or collapsed. It keeps visual indicators decoupled from core toggle mechanics while ensuring consistent state styling across your accordion items.
 
 ```tsx
 // index.tsx
@@ -651,7 +659,7 @@ const Example = component$(() => {
   transform-origin: center;
 }
 
-.accordion-item-indicator[data-state='open'] {
+.accordion-item-indicator[data-open] {
   transform: rotate(180deg);
 }
 ```
