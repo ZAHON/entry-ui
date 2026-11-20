@@ -3,7 +3,6 @@ import type { EntryUIQwikEventState } from '@/types';
 import { component$, useComputed$, useTask$, sync$, $, useContextProvider, Slot } from '@qwik.dev/core';
 import { isDev } from '@qwik.dev/core/build';
 import { wrapArray } from '@entry-ui/utilities/wrap-array';
-import { getWindow } from '@entry-ui/utilities/get-window';
 import { focusFirstElement } from '@entry-ui/utilities/focus-first-element';
 import { fail } from '@/_internal/utilities/fail';
 import { Primitive } from '@/_internal/components/primitive';
@@ -244,12 +243,7 @@ export const TabsTab = component$<TabsTabProps>((props) => {
           : items.slice(currentIndex + 1);
       }
 
-      // Retrieve the window object associated with the current tab's DOM node.
-      // This ensures we target the correct global context and window-level APIs (like `setTimeout`),
-      // which is critical if the tabs are rendered inside an iframe or multiple windows.
-      const win = getWindow(currentTarget);
-
-      win.setTimeout(() => {
+      setTimeout(() => {
         // We use `focusVisible: true` to ensure the focus ring is displayed immediately
         // after navigation. Since this focus change is triggered by keyboard interaction
         // (arrow keys, Home, or End), we want to maintain visual consistency with the
