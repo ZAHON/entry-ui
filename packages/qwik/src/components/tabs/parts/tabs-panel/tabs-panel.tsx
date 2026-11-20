@@ -29,6 +29,7 @@ export const TabsPanel = component$<TabsPanelProps>((props) => {
   const tabId = useComputed$(() => getPartId({ id: id, value: value, part: 'tab' }));
   const panelId = useComputed$(() => getPartId({ id: id, value: value, part: 'panel' }));
   const active = useComputed$(() => activeTabValue.value === value);
+
   const mergedStyles = useComputed$(() =>
     mergeStyles([{ display: !active.value ? 'none !important' : undefined }, style])
   );
