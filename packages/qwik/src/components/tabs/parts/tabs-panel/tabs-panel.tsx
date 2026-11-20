@@ -41,7 +41,7 @@ export const TabsPanel = component$<TabsPanelProps>((props) => {
       as={as}
       role="tabpanel"
       id={panelId.value}
-      hidden={!active.value}
+      hidden={!active.value ? 'hidden' : undefined}
       tabIndex={!active.value ? -1 : containsFocusableContent ? undefined : 0}
       aria-labelledby={tabId.value}
       data-entry-ui-qwik-tabs-panel=""
