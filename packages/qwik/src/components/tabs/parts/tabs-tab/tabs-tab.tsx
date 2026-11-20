@@ -266,7 +266,7 @@ export const TabsTab = component$<TabsTabProps>((props) => {
       aria-selected={active.value}
       aria-controls={panelId.value}
       data-entry-ui-qwik-tabs-tab=""
-      data-state={active.value ? 'active' : 'inactive'}
+      data-active={active.value ? '' : undefined}
       data-disabled={disabled.value ? '' : undefined}
       data-orientation={orientation.value}
       onMouseDown$={[onMouseDown$, handleMouseDownSync$, handleMouseDown$]}
