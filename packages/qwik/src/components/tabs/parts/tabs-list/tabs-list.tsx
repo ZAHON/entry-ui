@@ -34,7 +34,7 @@ export const TabsList = component$<TabsListProps>((props) => {
     // Track the active tab value to synchronize it with the tab stop state.
     // This ensures that when the active tab is changed externally, the tab list
     // correctly updates its current focusable tab stop.
-    const activeTabValue = track(() => value.value);
+    const activeTabValue = track(value);
 
     // Prevent redundant state updates if the tab stop is already synchronized with the newly activated tab.
     if (currentTabStopId.value !== activeTabValue) {
