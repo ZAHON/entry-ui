@@ -44,7 +44,7 @@ export const TabsPanel = component$<TabsPanelProps>((props) => {
       tabIndex={!active.value ? -1 : containsFocusableContent ? undefined : 0}
       aria-labelledby={tabId.value}
       data-entry-ui-qwik-tabs-panel=""
-      data-state={active.value ? 'active' : 'inactive'}
+      data-active={active.value ? '' : undefined}
       data-orientation={orientation.value}
       style={mergedStyles.value}
       {...others}
