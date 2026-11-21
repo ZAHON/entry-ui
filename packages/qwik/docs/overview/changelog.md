@@ -2,6 +2,63 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.14.0 (2026-11-22)
+
+### Breaking changes
+
+- **Replace `[data-state]` with boolean `[data-open]` on `<Accordion.Item>`, `<Accordion.ItemHeader>`, `<Accordion.ItemTrigger>`, and `<Accordion.ItemIndicator>` components.**
+  Replaced the `[data-state]` attribute (`"open"` or `"closed"`) with a boolean `[data-open]` attribute on `<Accordion.Item>`, `<Accordion.ItemHeader>`, `<Accordion.ItemTrigger>`, and `<Accordion.ItemIndicator>` components. This aligns with the library's standardized data attribute specification for boolean state representation. CSS selectors targeting `[data-state]` should be updated to use `[data-open]`.
+
+- **Replace `[data-state]` with `[data-open]` and `[data-closed]` attributes on `<Accordion.ItemPanel>` component.**
+  Replaced the `[data-state]` attribute (`"open"` or `"closed"`) with boolean `[data-open]` and `[data-closed]` attributes on the `<Accordion.ItemPanel>`. This aligns with the library's standardized data attribute specification for boolean state representation. CSS selectors targeting `[data-state]` on the accordion item panel should be updated to use `[data-open]` and `[data-closed]`.
+
+- **Replace `[data-state]` with boolean `[data-open]` on `<Collapsible.Root>`, `<Collapsible.Trigger>`, and `<Collapsible.Indicator>` components.**
+  Replaced the `[data-state]` attribute (`"open"` or `"closed"`) with a boolean `[data-open]` attribute on `<Collapsible.Root>`, `<Collapsible.Trigger>`, and `<Collapsible.Indicator>` components. This aligns with the library's standardized data attribute specification for boolean state representation. CSS selectors targeting `[data-state]` should be updated to use `[data-open]`.
+
+- **Replace `[data-state]` with `[data-open]` and `[data-closed]` attributes on `<Collapsible.Panel>` component.**
+  Replaced the `[data-state]` attribute (`"open"` or `"closed"`) with boolean `[data-open]` and `[data-closed]` attributes on the `<Collapsible.Panel>`. This aligns with the library's standardized data attribute specification for boolean state representation. CSS selectors targeting `[data-state]` on the collapsible panel should be updated to use `[data-open]` and `[data-closed]`.
+
+- **Replace `[data-state]` with `[data-open]` attribute on `<Dialog.Trigger>` component.**
+  Replaced the `[data-state]` attribute (`"open"` or `"closed"`) with a boolean `[data-open]` attribute on `<Dialog.Trigger>`. This aligns with the library's standardized data attribute specification for boolean state representation. CSS selectors targeting `[data-state]` on the dialog trigger should be updated to use `[data-open]`.
+
+- **Replace `[data-state]` with `[data-open]` and `[data-closed]` attributes on `<Dialog.Popup>` component.**
+  Replaced the `[data-state]` attribute (`"open"` or `"closed"`) with boolean `[data-open]` and `[data-closed]` attributes on `<Dialog.Popup>`. This aligns with the library's standardized data attribute specification for boolean state representation. CSS selectors targeting `[data-state]` on the dialog popup should be updated to use `[data-open]` and `[data-closed]`.
+
+- **Replace `[data-state]` with boolean `[data-active]` attribute on `<Tabs.Tab>` and `<Tabs.Panel>` components.**
+  Replaced the `[data-state]` attribute (`"active"` or `"inactive"`) with a boolean `[data-active]` attribute on `<Tabs.Tab>` and `<Tabs.Panel>` components. This aligns with the library's standardized data attribute specification for boolean state representation. CSS selectors targeting `[data-state]` should be updated to use `[data-active]`.
+
+- **Replace `[data-state]` with boolean `[data-pressed]` attribute across `Toggle` subcomponents.**
+  Replaced the `[data-state]` attribute (`"on"` or `"off"`) with a boolean `[data-pressed]` attribute on `<Toggle.Root>` and `<Toggle.Indicator>` subcomponents. This aligns with the library's standardized data attribute specification for boolean state representation. CSS selectors targeting `[data-state]` should be updated to use `[data-pressed]`.
+
+### Features
+
+- **Introduce `[data-starting-style]` and `[data-ending-style]` animation lifecycle attributes on `<Accordion.ItemPanel>` component.**
+  Added `[data-starting-style]` and `[data-ending-style]` data attributes to `<Accordion.ItemPanel>` during expansion and collapse phases. These attributes establish a zero-height baseline to enable smooth, uninterrupted CSS height transitions using standard CSS rules without triggering layout shifts.
+
+- **Introduce `[data-starting-style]` and `[data-ending-style]` animation lifecycle attributes on `<Collapsible.Panel>` component.**
+  Added `[data-starting-style]` and `[data-ending-style]` data attributes to `<Collapsible.Panel>` during expansion and collapse phases. These attributes establish a zero-height baseline to enable smooth, uninterrupted CSS height transitions using standard CSS rules without triggering layout shifts.
+
+- **Introduce `[data-starting-style]` and `[data-ending-style]` animation lifecycle attributes on `<Dialog.Popup>` component.**
+  Added `[data-starting-style]` and `[data-ending-style]` data attributes to `<Dialog.Popup>` during opening and closing phases. These attributes establish proper lifecycle hooks to enable smooth, uninterrupted CSS transitions using standard CSS rules without triggering layout shifts.
+
+- **Introduce `useTimeout` hook for reactive delayed task management.**
+  A hook that provides a reactive controller for scheduling, canceling, and inspecting delayed callbacks safely across Qwik's runtime boundaries. It provides a deterministic execution model that automatically handles single-timer statefulness, ensuring that scheduling a new timeout automatically clears any pending operations. It features automatic cleanup upon component unmounting to prevent memory leaks and includes development-time guardrails to prevent server-side execution.
+
+### Refactors
+
+- **Update `[data-disabled]` attribute semantics on `<Accordion.ItemTrigger>` component.**
+  Updated the `[data-disabled]` attribute on `<Accordion.ItemTrigger>` to reflect the trigger's computed effective disabled state (taking into account both local `disabled` props and inherited item state) rather than strictly representing the parent item state.
+
+- **Update `[data-disabled]` attribute semantics on `<Collapsible.Trigger>` component.**
+  Updated the `[data-disabled]` attribute on `<Collapsible.Trigger>` to reflect the trigger's computed effective disabled state (taking into account both local `disabled` props and inherited root state) rather than strictly representing the root component state.
+
+- **Remove explicit `group` role from `<Collapsible.Panel>` component.**
+  Removed the `role="group"` attribute from `<Collapsible.Panel>` to simplify ARIA accessibility tree representation and rely on standard `aria-labelledby` association with the corresponding trigger.
+
+### Dependencies
+
+- **Update `@entry-ui/utilities` to version `0.13.0`.**
+
 ## 0.13.0 (2026-09-05)
 
 ### Features
