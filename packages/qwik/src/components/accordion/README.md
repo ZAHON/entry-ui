@@ -569,7 +569,7 @@ const Example = component$(() => {
 
 ### State-aware visual indicators
 
-The `<Accordion.ItemIndicator>` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the accordion item's current open or closed state[cite: 3]. By reading from the `<Accordion.Item>` context, it synchronizes effortlessly and updates its underlying data attributes automatically.
+The `<Accordion.ItemIndicator>` subcomponent provides a streamlined way to integrate visual cues, such as arrows, chevrons, or icons, that dynamically reflect the accordion item's current open or closed state. By reading from the `<Accordion.Item>` context, it synchronizes effortlessly and updates its underlying data attributes automatically.
 
 This approach relies on the `[data-open]` attribute, making it ideal for applying smooth CSS transitions, rotations, or property transforms based on whether the item is expanded or collapsed. It keeps visual indicators decoupled from core toggle mechanics while ensuring consistent state styling across your accordion items.
 
