@@ -119,11 +119,11 @@ An individual interactive tab button that toggles the corresponding panel. Rende
 | `value*`   | `string`                                                | `—`        | A unique value that associates the tab with a panel.                                                                                                                                           |
 | `disabled` | `boolean \| undefined`                                  | `false`    | When `true`, prevents the user from interacting with the tab.                                                                                                                                  |
 
-| Data attribute     | Values                       | Description                                                     |
-| :----------------- | :--------------------------- | :-------------------------------------------------------------- |
-| `data-state`       | `"active" \| "inactive"`     | Indicates whether the tab is currently active or inactive.      |
-| `data-disabled`    | `—`                          | Present when the tab is disabled and cannot be interacted with. |
-| `data-orientation` | `"horizontal" \| "vertical"` | Indicates the orientation of the tabs.                          |
+| Data attribute     | Values                       | Description                            |
+| :----------------- | :--------------------------- | :------------------------------------- |
+| `data-active`      | `—`                          | Present when the tabs tab is active.   |
+| `data-disabled`    | `—`                          | Present when the tabs tab is disabled. |
+| `data-orientation` | `"horizontal" \| "vertical"` | Indicates the orientation of the tabs. |
 
 ### Panel
 
@@ -135,10 +135,10 @@ A panel displayed when the corresponding tab is active. Renders a `<div>` elemen
 | `value*`                   | `string`                                                | `—`     | A unique value that associates the panel with a tab.                                                                                                                                                                                 |
 | `containsFocusableContent` | `boolean \| undefined`                                  | `false` | When `true`, indicates the panel contains focusable elements (like inputs or links). This removes the panel from the tab order (`tabIndex`) to avoid redundant focus stops, allowing focus to move directly to the internal content. |
 
-| Data attribute     | Values                       | Description                                                  |
-| :----------------- | :--------------------------- | :----------------------------------------------------------- |
-| `data-state`       | `"active" \| "inactive"`     | Indicates whether the panel is currently active or inactive. |
-| `data-orientation` | `"horizontal" \| "vertical"` | Indicates the orientation of the tabs.                       |
+| Data attribute     | Values                       | Description                            |
+| :----------------- | :--------------------------- | :------------------------------------- |
+| `data-active`      | `—`                          | Present when the tabs panel is active. |
+| `data-orientation` | `"horizontal" \| "vertical"` | Indicates the orientation of the tabs. |
 
 ### useTabsRootContext
 
