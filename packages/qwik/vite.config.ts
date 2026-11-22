@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
+import { readFileSync } from 'node:fs';
 import { qwikVite } from '@qwik.dev/core/optimizer';
 import { qwikRouter } from '@qwik.dev/router/vite';
-import pkg from './package.json';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { playwright } from '@vitest/browser-playwright';
+
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf-8'));
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { dependencies = {}, peerDependencies = {} } = pkg as any;
