@@ -26,6 +26,7 @@ blob-report/
 playwright/.cache
 __screenshots__/
 .vitest-attachments/
+.vitest/
 
 # Logs
 logs
