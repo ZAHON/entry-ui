@@ -1,27 +1,24 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { hasWindow } from '.';
 
 describe('hasWindow', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   it('should return true in a browser environment', () => {
-    const result = hasWindow();
-    expect(result).toBe(true);
+    expect(hasWindow()).toBe(true);
   });
 
   it('should return true when window object is defined', () => {
     expect(typeof window).toBe('object');
-    const result = hasWindow();
-    expect(result).toBe(true);
+    expect(hasWindow()).toBe(true);
   });
 
   it('should return false when window is undefined', () => {
-    const originalWindow = globalThis.window;
-    // @ts-expect-error - intentionally deleting window for testing
-    delete globalThis.window;
+    vi.stubGlobal('window', undefined);
 
-    const result = hasWindow();
-    expect(result).toBe(false);
-
-    globalThis.window = originalWindow;
+    expect(hasWindow()).toBe(false);
   });
 
   it('should work consistently across multiple calls', () => {
@@ -34,7 +31,6 @@ describe('hasWindow', () => {
   });
 
   it('should return a boolean value', () => {
-    const result = hasWindow();
-    expect(typeof result).toBe('boolean');
+    expect(typeof hasWindow()).toBe('boolean');
   });
 });
