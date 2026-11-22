@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { readFileSync } from 'node:fs';
 import { qwikVite } from '@qwik.dev/core/optimizer';
 import { qwikRouter } from '@qwik.dev/router/vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import { playwright } from '@vitest/browser-playwright';
 
 const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf-8'));
@@ -18,6 +17,9 @@ const excludeAll = (obj: any) => Object.keys(obj).map(makeRegex);
 
 export default defineConfig(() => {
   return {
+    resolve: {
+      tsconfigPaths: true,
+    },
     build: {
       target: 'es2020',
       lib: {
@@ -69,14 +71,19 @@ export default defineConfig(() => {
       setupFiles: ['./vitest.setup.ts'],
       projects: [
         {
+          resolve: {
+            tsconfigPaths: true,
+          },
           test: {
             name: 'unit',
             environment: 'jsdom',
             include: ['src/**/*.unit.test.{ts,tsx}'],
           },
-          plugins: [tsconfigPaths({ root: '.' })],
         },
         {
+          resolve: {
+            tsconfigPaths: true,
+          },
           test: {
             name: 'browser',
             testTimeout: 5000,
@@ -88,10 +95,10 @@ export default defineConfig(() => {
             },
             include: ['src/**/*.browser.test.{ts,tsx}'],
           },
-          plugins: [qwikVite({ devTools: { hmr: false } }), tsconfigPaths({ root: '.' })],
+          plugins: [qwikVite({ devTools: { hmr: false } })],
         },
       ],
     },
-    plugins: [qwikVite({ devTools: { hmr: false } }), qwikRouter(), tsconfigPaths({ root: '.' })],
+    plugins: [qwikVite({ devTools: { hmr: false } }), qwikRouter()],
   };
 });
