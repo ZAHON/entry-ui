@@ -27,7 +27,7 @@
     "@entry-ui/eslint": "workspace:*",
     "@entry-ui/prettier": "workspace:*",
     "@types/node": "^26.6.6",
-    "eslint": "^10.9.1",
+    "eslint": "^10.15.0",
     "husky": "^9.1.7",
     "prettier": "^3.9.6",
     "prettier-plugin-packagejson": "^3.0.2",
