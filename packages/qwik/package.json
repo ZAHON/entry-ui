@@ -141,7 +141,7 @@
     "@qwik.dev/core": "2.0.0-rc.5",
     "@qwik.dev/router": "2.0.0-rc.5",
     "@vitest/browser-playwright": "^5.1.1",
-    "jsdom": "^30.0.1",
+    "jsdom": "^31.0.1",
     "typescript-plugin-css-modules": "^5.2.0",
     "undici": "^8.4.1",
     "vite": "^8.2.2",
