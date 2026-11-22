@@ -81,6 +81,7 @@ export default defineConfig(() => {
           },
         },
         {
+          extends: false,
           resolve: {
             tsconfigPaths: true,
           },
