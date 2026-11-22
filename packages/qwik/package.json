@@ -138,7 +138,7 @@
   "devDependencies": {
     "@entry-ui/eslint": "workspace:*",
     "@playwright/test": "^1.62.1",
-    "@qwik.dev/core": "2.0.0-beta.42",
+    "@qwik.dev/core": "2.0.0-rc.5",
     "@qwik.dev/router": "2.0.0-beta.42",
     "@vitest/browser-playwright": "^4.1.11",
     "jsdom": "^30.0.1",
