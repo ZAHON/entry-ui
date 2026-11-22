@@ -69,18 +69,18 @@ describe('getViewportScroller', () => {
     expect(getViewportScroller({ html, body })).toBe(body);
   });
 
-  it('should return the body element when html has overflow active but display set to "inline"', () => {
+  it('should return the html element when display is "inline" because the html element is blockified', () => {
     html.style.overflow = 'auto';
     html.style.display = 'inline';
 
-    expect(getViewportScroller({ html, body })).toBe(body);
+    expect(getViewportScroller({ html, body })).toBe(html);
   });
 
-  it('should return the body element when html has overflow active but display set to "contents"', () => {
+  it('should return the html element when display is "contents" because the html element is blockified', () => {
     html.style.overflow = 'auto';
     html.style.display = 'contents';
 
-    expect(getViewportScroller({ html, body })).toBe(body);
+    expect(getViewportScroller({ html, body })).toBe(html);
   });
 
   it('should return the body element even when body itself has overflow set, if html does not', () => {
