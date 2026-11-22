@@ -114,20 +114,20 @@ describe('isViewportScrollLocked', () => {
     expect(isViewportScrollLocked({ win: window, html, body })).toBe(true);
   });
 
-  it('should return false when html has overflow active but display is "inline", causing the resolver to fall back to body', () => {
+  it('should return true when html has overflow "hidden" and display "inline", since the root element ignores display and still acts as the scroller', () => {
     html.style.overflow = 'hidden';
     html.style.display = 'inline';
     body.style.overflowY = 'auto';
 
-    expect(isViewportScrollLocked({ win: window, html, body })).toBe(false);
+    expect(isViewportScrollLocked({ win: window, html, body })).toBe(true);
   });
 
-  it('should return true when html has overflow active but display is "contents", causing the resolver to fall back to a locked body', () => {
+  it('should return false when html has overflow "auto" and display "contents", since the root element ignores display and body\'s locked overflowY is not evaluated', () => {
     html.style.overflow = 'auto';
     html.style.display = 'contents';
     body.style.overflowY = 'hidden';
 
-    expect(isViewportScrollLocked({ win: window, html, body })).toBe(true);
+    expect(isViewportScrollLocked({ win: window, html, body })).toBe(false);
   });
 
   it('should work correctly with custom detached html and body elements', () => {
