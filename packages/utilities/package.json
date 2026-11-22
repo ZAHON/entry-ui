@@ -188,7 +188,7 @@
   "devDependencies": {
     "@entry-ui/eslint": "workspace:*",
     "csstype": "^3.2.4",
-    "jsdom": "^30.0.1",
+    "jsdom": "^31.0.1",
     "mitata": "^1.0.34",
     "tsdown": "^0.22.14",
     "vitest": "^4.1.11"
