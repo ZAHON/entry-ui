@@ -123,7 +123,7 @@ describe('preventScrollInsetScrollbars', () => {
 
     const teardown = preventScrollInsetScrollbars({ win, html, body });
 
-    expect(body.style.width).toBe('calc(100vw - 15px)');
+    expect(body.style.width).toBe('calc(-15px + 100vw)');
 
     teardown();
   });
@@ -147,7 +147,7 @@ describe('preventScrollInsetScrollbars', () => {
 
     const teardown = preventScrollInsetScrollbars({ win, html, body });
 
-    expect(body.style.width).toBe('calc(100vw - 8px)');
+    expect(body.style.width).toBe('calc(-8px + 100vw)');
 
     teardown();
   });
