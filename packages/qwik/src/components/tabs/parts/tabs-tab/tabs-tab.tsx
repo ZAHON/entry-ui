@@ -4,6 +4,7 @@ import { component$, useComputed$, useTask$, sync$, $, useContextProvider, Slot 
 import { isDev } from '@qwik.dev/core/build';
 import { wrapArray } from '@entry-ui/utilities/wrap-array';
 import { focusFirstElement } from '@entry-ui/utilities/focus-first-element';
+import { useDirectionProviderContext } from '@/components/direction/hooks/use-direction-provider-context';
 import { fail } from '@/_internal/utilities/fail';
 import { Primitive } from '@/_internal/components/primitive';
 import { getPartId } from '../../utilities/get-part-id';
@@ -35,7 +36,8 @@ export const TabsTab = component$<TabsTabProps>((props) => {
     ]);
   }
 
-  const { value: activeTabValue, setValue$: setActiveTabValue$, id, dir, orientation } = useTabsRootContext();
+  const { direction } = useDirectionProviderContext();
+  const { value: activeTabValue, setValue$: setActiveTabValue$, id, orientation } = useTabsRootContext();
   const { currentTabStopId, setCurrentTabStopId$, listRef, activationMode, loopFocus } = useTabsListContext();
 
   const tabId = useComputed$(() => getPartId({ id: id, value: _value, part: 'tab' }));
@@ -187,7 +189,7 @@ export const TabsTab = component$<TabsTabProps>((props) => {
     let key: string;
 
     // Normalize horizontal arrow keys if the document reading direction is Right-to-Left (RTL).
-    if (dir.value !== 'rtl') {
+    if (direction.value !== 'rtl') {
       key = event.key;
     } else {
       key = event.key === 'ArrowLeft' ? 'ArrowRight' : event.key === 'ArrowRight' ? 'ArrowLeft' : event.key;
