@@ -56,6 +56,6 @@ Components that provide a structured way for users to navigate through different
 
 Low-level components and utilities that provide foundational logic, state management, or behavioral enhancements. These tools are designed to be composed with other components to solve complex interactive challenges while remaining unstyled and flexible.
 
-| Component | Description |
-| :-------- | :---------- |
-|           |             |
+| Component                                                                                         | Description                                                        |
+| :------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------- |
+| [`Direction`](https://github.com/ZAHON/entry-ui/tree/main/packages/qwik/src/components/direction) | A provider that enables RTL behavior for Entry UI Qwik components. |
