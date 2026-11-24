@@ -3,6 +3,7 @@ import { render } from 'vitest-browser-qwik';
 import { userEvent } from 'vitest/browser';
 import { wait } from '@entry-ui/utilities/wait';
 import { Primitive } from '@/_internal/components/primitive';
+import { Direction } from '@/components/direction';
 import { Tabs } from '..';
 
 const TABS_ROOT_TESTID = 'TABS_ROOT_TESTID';
@@ -37,21 +38,6 @@ describe('Tabs', () => {
       );
 
       await expect.element(screen.getByText(TABS_ROOT_TEXT)).toBeInstanceOf(HTMLSpanElement);
-    });
-
-    it('should have the dir="ltr" attribute by default', async () => {
-      const screen = await render(<Tabs.Root data-testid={TABS_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(TABS_ROOT_TESTID)).toHaveAttribute('dir', 'ltr');
-    });
-
-    it('should have the dir="ltr" attribute when "dir" prop is "ltr"', async () => {
-      const screen = await render(<Tabs.Root dir="ltr" data-testid={TABS_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(TABS_ROOT_TESTID)).toHaveAttribute('dir', 'ltr');
-    });
-
-    it('should have the dir="rtl" attribute when "dir" prop is "rtl"', async () => {
-      const screen = await render(<Tabs.Root dir="rtl" data-testid={TABS_ROOT_TESTID} />);
-      await expect.element(screen.getByTestId(TABS_ROOT_TESTID)).toHaveAttribute('dir', 'rtl');
     });
 
     it('should have the data-orientation="horizontal" attribute by default', async () => {
@@ -1073,16 +1059,18 @@ describe('Tabs', () => {
         await expect.element(tab2Element).not.toHaveFocus();
       });
 
-      it('should navigate focus when the "orientation" prop is "horizontal" on <Tabs.Root>, the "dir" prop is "ltr" on <Tabs.Root>, and the "loopFocus" prop is false on <Tabs.List>', async () => {
+      it('should navigate focus when the "orientation" prop is "horizontal" on <Tabs.Root>, the "direction" prop is "ltr" on <Direction.Provider>, and the "loopFocus" prop is false on <Tabs.List>', async () => {
         const screen = await render(
-          <Tabs.Root orientation="horizontal" dir="ltr">
-            <Tabs.List loopFocus={false}>
-              <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
-              <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
-              <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
-              <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
-            </Tabs.List>
-          </Tabs.Root>
+          <Direction.Provider direction="ltr">
+            <Tabs.Root orientation="horizontal">
+              <Tabs.List loopFocus={false}>
+                <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
+                <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
+                <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
+                <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
+              </Tabs.List>
+            </Tabs.Root>
+          </Direction.Provider>
         );
 
         const tab1Element = screen.getByTestId(TABS_TAB_1_TESTID);
@@ -1158,16 +1146,18 @@ describe('Tabs', () => {
         await expect.element(tab4Element).not.toHaveFocus();
       });
 
-      it('should navigate focus when the "orientation" prop is "horizontal" on <Tabs.Root>, the "dir" prop is "ltr" on <Tabs.Root>, and the "loopFocus" prop is true on <Tabs.List>', async () => {
+      it('should navigate focus when the "orientation" prop is "horizontal" on <Tabs.Root>, the "direction" prop is "ltr" on <Direction.Provider>, and the "loopFocus" prop is true on <Tabs.List>', async () => {
         const screen = await render(
-          <Tabs.Root orientation="horizontal" dir="ltr">
-            <Tabs.List loopFocus={true}>
-              <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
-              <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
-              <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
-              <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
-            </Tabs.List>
-          </Tabs.Root>
+          <Direction.Provider direction="ltr">
+            <Tabs.Root orientation="horizontal">
+              <Tabs.List loopFocus={true}>
+                <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
+                <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
+                <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
+                <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
+              </Tabs.List>
+            </Tabs.Root>
+          </Direction.Provider>
         );
 
         const tab1Element = screen.getByTestId(TABS_TAB_1_TESTID);
@@ -1227,16 +1217,18 @@ describe('Tabs', () => {
         await expect.element(tab4Element).toHaveFocus();
       });
 
-      it('should navigate focus when the "orientation" prop is "horizontal" on <Tabs.Root>, the "dir" prop is "rtl" on <Tabs.Root>, and the "loopFocus" prop is false on <Tabs.List>', async () => {
+      it('should navigate focus when the "orientation" prop is "horizontal" on <Tabs.Root>, the "direction" prop is "rtl" on <Direction.Provider>, and the "loopFocus" prop is false on <Tabs.List>', async () => {
         const screen = await render(
-          <Tabs.Root orientation="horizontal" dir="rtl">
-            <Tabs.List loopFocus={false}>
-              <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
-              <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
-              <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
-              <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
-            </Tabs.List>
-          </Tabs.Root>
+          <Direction.Provider direction="rtl">
+            <Tabs.Root orientation="horizontal">
+              <Tabs.List loopFocus={false}>
+                <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
+                <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
+                <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
+                <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
+              </Tabs.List>
+            </Tabs.Root>
+          </Direction.Provider>
         );
 
         const tab1Element = screen.getByTestId(TABS_TAB_1_TESTID);
@@ -1312,16 +1304,18 @@ describe('Tabs', () => {
         await expect.element(tab4Element).not.toHaveFocus();
       });
 
-      it('should navigate focus when the "orientation" prop is "horizontal" on <Tabs.Root>, the "dir" prop is "rtl" on <Tabs.Root>, and the "loopFocus" prop is true on <Tabs.List>', async () => {
+      it('should navigate focus when the "orientation" prop is "horizontal" on <Tabs.Root>, the "direction" prop is "rtl" on <Direction.Provider>, and the "loopFocus" prop is true on <Tabs.List>', async () => {
         const screen = await render(
-          <Tabs.Root orientation="horizontal" dir="rtl">
-            <Tabs.List loopFocus={true}>
-              <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
-              <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
-              <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
-              <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
-            </Tabs.List>
-          </Tabs.Root>
+          <Direction.Provider direction="rtl">
+            <Tabs.Root orientation="horizontal">
+              <Tabs.List loopFocus={true}>
+                <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
+                <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
+                <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
+                <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
+              </Tabs.List>
+            </Tabs.Root>
+          </Direction.Provider>
         );
 
         const tab1Element = screen.getByTestId(TABS_TAB_1_TESTID);
@@ -1410,16 +1404,18 @@ describe('Tabs', () => {
         await expect.element(tab2Element).not.toHaveFocus();
       });
 
-      it('should navigate focus when the "orientation" prop is "vertical" on <Tabs.Root>, the "dir" prop is "ltr" on <Tabs.Root>, and the "loopFocus" prop is false on <Tabs.List>', async () => {
+      it('should navigate focus when the "orientation" prop is "vertical" on <Tabs.Root>, the "direction" prop is "ltr" on <Direction.Provider>, and the "loopFocus" prop is false on <Tabs.List>', async () => {
         const screen = await render(
-          <Tabs.Root orientation="vertical" dir="ltr">
-            <Tabs.List loopFocus={false}>
-              <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
-              <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
-              <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
-              <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
-            </Tabs.List>
-          </Tabs.Root>
+          <Direction.Provider direction="ltr">
+            <Tabs.Root orientation="vertical">
+              <Tabs.List loopFocus={false}>
+                <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
+                <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
+                <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
+                <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
+              </Tabs.List>
+            </Tabs.Root>
+          </Direction.Provider>
         );
 
         const tab1Element = screen.getByTestId(TABS_TAB_1_TESTID);
@@ -1495,16 +1491,18 @@ describe('Tabs', () => {
         await expect.element(tab4Element).not.toHaveFocus();
       });
 
-      it('should navigate focus when the "orientation" prop is "vertical" on <Tabs.Root>, the "dir" prop is "ltr" on <Tabs.Root>, and the "loopFocus" prop is true on <Tabs.List>', async () => {
+      it('should navigate focus when the "orientation" prop is "vertical" on <Tabs.Root>, the "direction" prop is "ltr" on <Direction.Provider>, and the "loopFocus" prop is true on <Tabs.List>', async () => {
         const screen = await render(
-          <Tabs.Root orientation="vertical" dir="ltr">
-            <Tabs.List loopFocus={true}>
-              <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
-              <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
-              <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
-              <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
-            </Tabs.List>
-          </Tabs.Root>
+          <Direction.Provider direction="ltr">
+            <Tabs.Root orientation="vertical">
+              <Tabs.List loopFocus={true}>
+                <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
+                <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
+                <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
+                <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
+              </Tabs.List>
+            </Tabs.Root>
+          </Direction.Provider>
         );
 
         const tab1Element = screen.getByTestId(TABS_TAB_1_TESTID);
@@ -1564,16 +1562,18 @@ describe('Tabs', () => {
         await expect.element(tab4Element).toHaveFocus();
       });
 
-      it('should navigate focus when the "orientation" prop is "vertical" on <Tabs.Root>, the "dir" prop is "rtl" on <Tabs.Root>, and the "loopFocus" prop is false on <Tabs.List>', async () => {
+      it('should navigate focus when the "orientation" prop is "vertical" on <Tabs.Root>, the "direction" prop is "rtl" on <Direction.Provider>, and the "loopFocus" prop is false on <Tabs.List>', async () => {
         const screen = await render(
-          <Tabs.Root orientation="vertical" dir="rtl">
-            <Tabs.List loopFocus={false}>
-              <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
-              <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
-              <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
-              <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
-            </Tabs.List>
-          </Tabs.Root>
+          <Direction.Provider direction="rtl">
+            <Tabs.Root orientation="vertical">
+              <Tabs.List loopFocus={false}>
+                <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
+                <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
+                <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
+                <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
+              </Tabs.List>
+            </Tabs.Root>
+          </Direction.Provider>
         );
 
         const tab1Element = screen.getByTestId(TABS_TAB_1_TESTID);
@@ -1649,16 +1649,18 @@ describe('Tabs', () => {
         await expect.element(tab4Element).not.toHaveFocus();
       });
 
-      it('should navigate focus when the "orientation" prop is "vertical" on <Tabs.Root>, the "dir" prop is "rtl" on <Tabs.Root>, and the "loopFocus" prop is true on <Tabs.List>', async () => {
+      it('should navigate focus when the "orientation" prop is "vertical" on <Tabs.Root>, the "direction" prop is "rtl" on <Direction.Provider>, and the "loopFocus" prop is true on <Tabs.List>', async () => {
         const screen = await render(
-          <Tabs.Root orientation="vertical" dir="rtl">
-            <Tabs.List loopFocus={true}>
-              <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
-              <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
-              <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
-              <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
-            </Tabs.List>
-          </Tabs.Root>
+          <Direction.Provider direction="rtl">
+            <Tabs.Root orientation="vertical">
+              <Tabs.List loopFocus={true}>
+                <Tabs.Tab value="tab-1" data-testid={TABS_TAB_1_TESTID} />
+                <Tabs.Tab value="tab-2" disabled={true} data-testid={TABS_TAB_2_TESTID} />
+                <Tabs.Tab value="tab-3" data-testid={TABS_TAB_3_TESTID} />
+                <Tabs.Tab value="tab-4" data-testid={TABS_TAB_4_TESTID} />
+              </Tabs.List>
+            </Tabs.Root>
+          </Direction.Provider>
         );
 
         const tab1Element = screen.getByTestId(TABS_TAB_1_TESTID);
