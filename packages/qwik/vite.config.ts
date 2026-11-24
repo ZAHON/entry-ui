@@ -32,6 +32,7 @@ export default defineConfig(() => {
           'components/alert/index': 'src/components/alert/index.ts',
           'components/collapsible/index': 'src/components/collapsible/index.ts',
           'components/dialog/index': 'src/components/dialog/index.ts',
+          'components/direction/index': 'src/components/direction/index.ts',
           'components/separator/index': 'src/components/separator/index.ts',
           'components/tabs/index': 'src/components/tabs/index.ts',
           'components/toggle/index': 'src/components/toggle/index.ts',

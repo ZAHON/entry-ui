@@ -37,6 +37,10 @@
       "types": "./lib/components/dialog/index.d.ts",
       "import": "./lib/components/dialog/index.qwik.mjs"
     },
+    "./direction": {
+      "types": "./lib/components/direction/index.d.ts",
+      "import": "./lib/components/direction/index.qwik.mjs"
+    },
     "./separator": {
       "types": "./lib/components/separator/index.d.ts",
       "import": "./lib/components/separator/index.qwik.mjs"
