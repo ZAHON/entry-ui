@@ -40,14 +40,6 @@ export interface TabsRootProps extends PropsOf<'div'> {
   onValueChange$?: QRL<(value: string) => void> | undefined;
 
   /**
-   * The reading direction of the tabs.
-   * When set to `"rtl"`, keyboard navigation is reversed and visual alignment is adjusted for right-to-left languages.
-   *
-   * @default "ltr"
-   */
-  dir?: 'ltr' | 'rtl' | undefined;
-
-  /**
    * The orientation of the tabs.
    * This value determines whether the tabs are laid out horizontally or vertically,
    * and adjusts keyboard navigation (arrow keys) to match the visual orientation.

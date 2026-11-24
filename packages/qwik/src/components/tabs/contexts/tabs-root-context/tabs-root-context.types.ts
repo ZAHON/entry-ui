@@ -26,12 +26,6 @@ export interface TabsRootContextValue {
   id: string;
 
   /**
-   * A readonly signal whose value represents the reading direction of the tabs.
-   * This value (either `"ltr"` or `"rtl"`) affects keyboard navigation and visual layout.
-   */
-  dir: Readonly<Signal<'ltr' | 'rtl'>>;
-
-  /**
    * A readonly signal whose value represents the orientation of the tabs.
    * This value (either `"horizontal"` or `"vertical"`) determines how keyboard navigation and focus management are handled.
    */

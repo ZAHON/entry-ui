@@ -15,7 +15,6 @@ export const TabsRoot = component$<TabsRootProps>((props) => {
     defaultValue,
     value: _value,
     onValueChange$,
-    dir: _dir = 'ltr',
     orientation: _orientation = 'horizontal',
     ...others
   } = props;
@@ -27,19 +26,12 @@ export const TabsRoot = component$<TabsRootProps>((props) => {
   });
 
   const id = useId();
-  const dir = useComputed$(() => _dir);
   const orientation = useComputed$(() => _orientation);
 
-  useContextProvider(TabsRootContext, { value, setValue$, id, dir, orientation });
+  useContextProvider(TabsRootContext, { value, setValue$, id, orientation });
 
   return (
-    <Primitive.div
-      as={as}
-      dir={dir.value}
-      data-entry-ui-qwik-tabs-root=""
-      data-orientation={orientation.value}
-      {...others}
-    >
+    <Primitive.div as={as} data-entry-ui-qwik-tabs-root="" data-orientation={orientation.value} {...others}>
       <Slot />
     </Primitive.div>
   );
