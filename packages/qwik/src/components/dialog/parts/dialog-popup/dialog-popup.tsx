@@ -122,7 +122,7 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
 
             if (isDev && animationType === 'both') {
               warn([
-                `Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component.`,
+                `Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component while opening.`,
                 `Using both at the same time may cause unpredictable behavior.`,
                 `Please use only one animation method.`,
               ]);
@@ -190,7 +190,7 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
 
             if (isDev && animationType === 'both') {
               warn([
-                `Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component.`,
+                `Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component while closing.`,
                 `Using both at the same time may cause unpredictable behavior.`,
                 `Please use only one animation method.`,
               ]);
