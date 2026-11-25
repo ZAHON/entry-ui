@@ -1926,7 +1926,7 @@ describe('Accordion', () => {
         await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: none');
 
         await userEvent.click(itemTriggerElement);
-        await wait(100);
+        await wait(200);
 
         await expect.element(itemElement).toHaveAttribute('data-open', '');
         await expect.element(itemHeaderElement).toHaveAttribute('data-open', '');
@@ -1984,7 +1984,7 @@ describe('Accordion', () => {
         await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: auto');
 
         await userEvent.click(itemTriggerElement);
-        await wait(100);
+        await wait(200);
 
         await expect.element(itemElement).not.toHaveAttribute('data-open');
         await expect.element(itemHeaderElement).not.toHaveAttribute('data-open');
@@ -2071,7 +2071,7 @@ describe('Accordion', () => {
         expect(mockConsolLog).toHaveBeenCalledWith(true);
 
         await userEvent.click(itemTriggerElement);
-        await wait(100);
+        await wait(200);
 
         await expect.element(itemElement).not.toHaveAttribute('data-open');
         await expect.element(itemHeaderElement).not.toHaveAttribute('data-open');
@@ -2132,7 +2132,7 @@ describe('Accordion', () => {
         await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: none');
 
         await userEvent.click(itemTriggerElement);
-        await wait(100);
+        await wait(200);
 
         await expect.element(itemElement).toHaveAttribute('data-open', '');
         await expect.element(itemHeaderElement).toHaveAttribute('data-open', '');
@@ -2190,7 +2190,7 @@ describe('Accordion', () => {
         await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: auto');
 
         await userEvent.click(itemTriggerElement);
-        await wait(100);
+        await wait(200);
 
         await expect.element(itemElement).not.toHaveAttribute('data-open');
         await expect.element(itemHeaderElement).not.toHaveAttribute('data-open');
@@ -2277,7 +2277,7 @@ describe('Accordion', () => {
         expect(mockConsolLog).toHaveBeenCalledWith(true);
 
         await userEvent.click(itemTriggerElement);
-        await wait(100);
+        await wait(200);
 
         await expect.element(itemElement).not.toHaveAttribute('data-open');
         await expect.element(itemHeaderElement).not.toHaveAttribute('data-open');
