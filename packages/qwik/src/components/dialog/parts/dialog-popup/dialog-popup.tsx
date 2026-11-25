@@ -128,7 +128,7 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
               ]);
             }
 
-            if (animationType === 'none') {
+            if (animationType === 'none' || animationType === 'both') {
               popupRef.showModal();
 
               applyFinalOpenState();
@@ -196,7 +196,7 @@ export const DialogPopup = component$<DialogPopupProps>((props) => {
               ]);
             }
 
-            if (animationType === 'none') {
+            if (animationType === 'none' || animationType === 'both') {
               applyFinalClosedState();
             }
 
