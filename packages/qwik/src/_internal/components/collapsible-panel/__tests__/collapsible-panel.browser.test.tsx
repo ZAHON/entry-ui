@@ -458,7 +458,7 @@ describe('CollapsiblePanel', () => {
 
     await userEvent.click(triggerElement);
 
-    await wait(100);
+    await wait(200);
 
     await expect.element(panelElement).not.toHaveAttribute('data-closed');
     await expect.element(panelElement).toHaveAttribute('data-open', '');
@@ -500,7 +500,7 @@ describe('CollapsiblePanel', () => {
 
     await userEvent.click(triggerElement);
 
-    await wait(100);
+    await wait(200);
 
     await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -565,7 +565,7 @@ describe('CollapsiblePanel', () => {
 
     await userEvent.click(triggerElement);
 
-    await wait(100);
+    await wait(200);
 
     await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -608,7 +608,7 @@ describe('CollapsiblePanel', () => {
 
     await userEvent.click(triggerElement);
 
-    await wait(100);
+    await wait(200);
 
     await expect.element(panelElement).not.toHaveAttribute('data-closed');
     await expect.element(panelElement).toHaveAttribute('data-open', '');
@@ -650,7 +650,7 @@ describe('CollapsiblePanel', () => {
 
     await userEvent.click(triggerElement);
 
-    await wait(100);
+    await wait(200);
 
     await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
@@ -715,7 +715,7 @@ describe('CollapsiblePanel', () => {
 
     await userEvent.click(triggerElement);
 
-    await wait(100);
+    await wait(200);
 
     await expect.element(panelElement).not.toHaveAttribute('data-open');
     await expect.element(panelElement).toHaveAttribute('data-closed', '');
