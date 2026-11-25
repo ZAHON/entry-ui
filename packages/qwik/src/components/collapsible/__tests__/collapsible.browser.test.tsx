@@ -6,6 +6,7 @@ import { Primitive } from '@/_internal/components/primitive';
 import { Collapsible } from '..';
 import { CollapsiblePanelCssTransition } from './fixtures/collapsible-panel-css-transition';
 import { CollapsiblePanelCssAnimation } from './fixtures/collapsible-panel-css-animation';
+import { CollapsiblePanelCssTransitionAndAnimation } from './fixtures/collapsible-panel-css-transition-and-animation';
 
 const COLLAPSIBLE_ROOT_TESTID = 'COLLAPSIBLE_ROOT_TESTID';
 const COLLAPSIBLE_TRIGGER_TESTID = 'COLLAPSIBLE_TRIGGER_TESTID';
@@ -1563,6 +1564,223 @@ describe('Collapsible', () => {
         await expect.element(panelElement).toHaveStyle('--entry-ui-qwik-collapsible-panel-height: none');
 
         expect(mockConsolLog).toHaveBeenCalledWith(false);
+      });
+    });
+
+    describe('<Collapsible.Panel> with CSS transition and animation', () => {
+      it('should open, update state attributes and styles of all parts and call the "onOpenChangeComplete$" callback with true when the trigger is clicked and the collapsible is closed', async () => {
+        // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+        // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+        // complex internal states that throw a serialization error (Code Q3).
+        const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+        const mockConsolWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+        const screen = await render(
+          <Collapsible.Root defaultOpen={false} data-testid={COLLAPSIBLE_ROOT_TESTID}>
+            <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID}>
+              <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
+            </Collapsible.Trigger>
+            <CollapsiblePanelCssTransitionAndAnimation
+              onOpenChangeComplete$={(open) => console.log(open)}
+              data-testid={COLLAPSIBLE_PANEL_TESTID}
+            />
+          </Collapsible.Root>
+        );
+
+        const rootElement = screen.getByTestId(COLLAPSIBLE_ROOT_TESTID);
+        const triggerElement = screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID);
+        const indicatorElement = screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID);
+        const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
+
+        await expect.element(rootElement).not.toHaveAttribute('data-open');
+
+        await expect.element(triggerElement).not.toHaveAttribute('data-open');
+
+        await expect.element(indicatorElement).not.toHaveAttribute('data-open');
+
+        await expect.element(panelElement).not.toHaveAttribute('data-open');
+        await expect.element(panelElement).toHaveAttribute('data-closed', '');
+        await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
+        await expect.element(panelElement).toHaveStyle('display: none !important');
+        await expect.element(panelElement).not.toHaveStyle('animation-name');
+        await expect.element(panelElement).toHaveStyle('--entry-ui-qwik-collapsible-panel-height: none');
+
+        await userEvent.click(triggerElement);
+
+        await wait(200);
+
+        await expect.element(rootElement).toHaveAttribute('data-open', '');
+
+        await expect.element(triggerElement).toHaveAttribute('data-open', '');
+
+        await expect.element(indicatorElement).toHaveAttribute('data-open', '');
+
+        await expect.element(panelElement).not.toHaveAttribute('data-closed');
+        await expect.element(panelElement).toHaveAttribute('data-open', '');
+        await expect.element(panelElement).not.toHaveAttribute('hidden');
+        await expect.element(panelElement).not.toHaveStyle('display');
+        await expect.element(panelElement).not.toHaveStyle('animation-name');
+        await expect.element(panelElement).toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
+
+        expect(mockConsolLog).toHaveBeenCalledWith(true);
+        expect(mockConsolWarn).toHaveBeenCalledWith(
+          `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Collapsible.Panel>' component while opening. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+        );
+      });
+
+      it('should close, update state attributes and styles of all parts and call the "onOpenChangeComplete$" callback with false when the trigger is clicked and the collapsible is open', async () => {
+        // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+        // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+        // complex internal states that throw a serialization error (Code Q3).
+        const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+        const mockConsolWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+        const screen = await render(
+          <Collapsible.Root defaultOpen={true} data-testid={COLLAPSIBLE_ROOT_TESTID}>
+            <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID}>
+              <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
+            </Collapsible.Trigger>
+            <CollapsiblePanelCssTransitionAndAnimation
+              onOpenChangeComplete$={(open) => console.log(open)}
+              data-testid={COLLAPSIBLE_PANEL_TESTID}
+            />
+          </Collapsible.Root>
+        );
+
+        const rootElement = screen.getByTestId(COLLAPSIBLE_ROOT_TESTID);
+        const triggerElement = screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID);
+        const indicatorElement = screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID);
+        const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
+
+        await expect.element(rootElement).toHaveAttribute('data-open', '');
+
+        await expect.element(triggerElement).toHaveAttribute('data-open', '');
+
+        await expect.element(indicatorElement).toHaveAttribute('data-open', '');
+
+        await expect.element(panelElement).not.toHaveAttribute('data-closed');
+        await expect.element(panelElement).toHaveAttribute('data-open', '');
+        await expect.element(panelElement).not.toHaveAttribute('hidden');
+        await expect.element(panelElement).not.toHaveStyle('display');
+        await expect.element(panelElement).not.toHaveStyle('animation-name');
+        await expect.element(panelElement).toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
+
+        await userEvent.click(triggerElement);
+
+        await wait(200);
+
+        await expect.element(rootElement).not.toHaveAttribute('data-open');
+
+        await expect.element(triggerElement).not.toHaveAttribute('data-open');
+
+        await expect.element(indicatorElement).not.toHaveAttribute('data-open');
+
+        await expect.element(panelElement).not.toHaveAttribute('data-open');
+        await expect.element(panelElement).toHaveAttribute('data-closed', '');
+        await expect.element(panelElement).toHaveAttribute('hidden', 'hidden');
+        await expect.element(panelElement).toHaveStyle('display: none !important');
+        await expect.element(panelElement).not.toHaveStyle('animation-name');
+        await expect.element(panelElement).toHaveStyle('--entry-ui-qwik-collapsible-panel-height: none');
+
+        expect(mockConsolLog).toHaveBeenCalledWith(false);
+        expect(mockConsolWarn).toHaveBeenCalledWith(
+          `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Collapsible.Panel>' component while closing. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+        );
+      });
+
+      it('should open and call the "onOpenChangeComplete$" callback with true when the panel content is found by the browser and "hiddenUntilFound" prop is true, then close and call the callback with false when the trigger is clicked', async () => {
+        const COLLAPSIBLE_PANEL_TEXT = 'COLLAPSIBLE_PANEL_TEXT';
+
+        // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+        // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+        // complex internal states that throw a serialization error (Code Q3).
+        const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+        const mockConsolWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+        const screen = await render(
+          <Collapsible.Root defaultOpen={false} data-testid={COLLAPSIBLE_ROOT_TESTID}>
+            <Collapsible.Trigger data-testid={COLLAPSIBLE_TRIGGER_TESTID}>
+              <Collapsible.Indicator data-testid={COLLAPSIBLE_INDICATOR_TESTID} />
+            </Collapsible.Trigger>
+            <CollapsiblePanelCssTransitionAndAnimation
+              hiddenUntilFound={true}
+              onOpenChangeComplete$={(open) => console.log(open)}
+              data-testid={COLLAPSIBLE_PANEL_TESTID}
+            >
+              {COLLAPSIBLE_PANEL_TEXT}
+            </CollapsiblePanelCssTransitionAndAnimation>
+          </Collapsible.Root>
+        );
+
+        const rootElement = screen.getByTestId(COLLAPSIBLE_ROOT_TESTID);
+        const triggerElement = screen.getByTestId(COLLAPSIBLE_TRIGGER_TESTID);
+        const indicatorElement = screen.getByTestId(COLLAPSIBLE_INDICATOR_TESTID);
+        const panelElement = screen.getByTestId(COLLAPSIBLE_PANEL_TESTID);
+
+        await expect.element(rootElement).not.toHaveAttribute('data-open');
+
+        await expect.element(triggerElement).not.toHaveAttribute('data-open');
+
+        await expect.element(indicatorElement).not.toHaveAttribute('data-open');
+
+        await expect.element(panelElement).not.toHaveAttribute('data-open');
+        await expect.element(panelElement).toHaveAttribute('data-closed', '');
+        await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
+        await expect.element(panelElement).not.toHaveStyle('display');
+        await expect.element(panelElement).not.toHaveStyle('animation-name');
+        await expect.element(panelElement).toHaveStyle('--entry-ui-qwik-collapsible-panel-height: none');
+
+        // We clear the hash first to ensure the browser registers a distinct navigation change.
+        // Appending the Text Fragment (`#:~:text=`) simulates a native "find-in-page" search,
+        // which forces the browser to automatically fire the `beforematch` event on our panel
+        // utilizing the `hidden="until-found"` attribute.
+        window.location.hash = '';
+        window.location.hash = '#:~:text=' + encodeURIComponent(COLLAPSIBLE_PANEL_TEXT);
+
+        await wait(100);
+
+        await expect.element(rootElement).toHaveAttribute('data-open', '');
+
+        await expect.element(triggerElement).toHaveAttribute('data-open', '');
+
+        await expect.element(indicatorElement).toHaveAttribute('data-open', '');
+
+        await expect.element(panelElement).not.toHaveAttribute('data-closed');
+        await expect.element(panelElement).toHaveAttribute('data-open', '');
+        await expect.element(panelElement).not.toHaveAttribute('hidden');
+        await expect.element(panelElement).not.toHaveStyle('display');
+        await expect.element(panelElement).toHaveStyle('animation-name: none');
+        await expect.element(panelElement).toHaveStyle('transition: none');
+        await expect.element(panelElement).toHaveStyle('--entry-ui-qwik-collapsible-panel-height: auto');
+
+        expect(mockConsolLog).toHaveBeenCalledWith(true);
+        expect(mockConsolWarn).not.toHaveBeenCalled();
+
+        await userEvent.click(triggerElement);
+
+        await wait(200);
+
+        await expect.element(rootElement).not.toHaveAttribute('data-open');
+
+        await expect.element(triggerElement).not.toHaveAttribute('data-open');
+
+        await expect.element(indicatorElement).not.toHaveAttribute('data-open');
+
+        await expect.element(panelElement).not.toHaveAttribute('data-open');
+        await expect.element(panelElement).toHaveAttribute('data-closed', '');
+        await expect.element(panelElement).toHaveAttribute('hidden', 'until-found');
+        await expect.element(panelElement).not.toHaveStyle('display');
+        await expect.element(panelElement).not.toHaveStyle('animation-name');
+        await expect.element(panelElement).not.toHaveStyle('transition');
+        await expect.element(panelElement).toHaveStyle('--entry-ui-qwik-collapsible-panel-height: none');
+
+        expect(mockConsolLog).toHaveBeenCalledWith(false);
+        expect(mockConsolWarn).toHaveBeenCalledWith(
+          `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Collapsible.Panel>' component while closing. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+        );
       });
     });
   });
