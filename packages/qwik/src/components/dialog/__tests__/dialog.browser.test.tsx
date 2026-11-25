@@ -6,6 +6,7 @@ import { Primitive } from '@/_internal/components/primitive';
 import { Dialog } from '..';
 import { DialogPopupCssTransition } from './fixtures/dialog-popup-css-transition';
 import { DialogPopupCssAnimation } from './fixtures/dialog-popup-css-animation';
+import { DialogPopupCssTransitionAndAnimation } from './fixtures/dialog-popup-css-transition-and-animation';
 
 const DIALOG_TRIGGER_TESTID = 'DIALOG_TRIGGER_TESTID';
 const DIALOG_POPUP_TESTID = 'DIALOG_POPUP_TESTID';
@@ -1186,6 +1187,68 @@ describe('Dialog', () => {
       await expect.element(popupElement).not.toHaveStyle('animation-name');
 
       expect(mockConsolLog).toHaveBeenCalledWith(false);
+    });
+
+    it('<Dialog.Popup> with CSS transition and animation', async () => {
+      // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+      // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+      // complex internal states that throw a serialization error (Code Q3).
+      const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+      const mockConsolWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+      const screen = await render(
+        <Dialog.Root>
+          <Dialog.Trigger data-testid={DIALOG_TRIGGER_TESTID} />
+          <DialogPopupCssTransitionAndAnimation
+            onOpenChangeComplete$={(open) => console.log(open)}
+            data-testid={DIALOG_POPUP_TESTID}
+          >
+            <Dialog.Close data-testid={DIALOG_CLOSE_TESTID} />
+          </DialogPopupCssTransitionAndAnimation>
+        </Dialog.Root>
+      );
+
+      const triggerElement = screen.getByTestId(DIALOG_TRIGGER_TESTID);
+      const popupElement = screen.getByTestId(DIALOG_POPUP_TESTID);
+      const closeElement = screen.getByTestId(DIALOG_CLOSE_TESTID);
+
+      await expect.element(triggerElement).not.toHaveAttribute('data-open');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-open');
+      await expect.element(popupElement).toHaveAttribute('data-closed', '');
+      await expect.element(popupElement).toHaveStyle('display: none !important');
+      await expect.element(popupElement).toHaveStyle('animation-name: none');
+
+      await userEvent.click(triggerElement);
+      await wait(200);
+
+      await expect.element(triggerElement).toHaveAttribute('data-open', '');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-closed');
+      await expect.element(popupElement).toHaveAttribute('data-open', '');
+      await expect.element(screen.getByTestId(DIALOG_POPUP_TESTID)).not.toHaveStyle('display');
+      await expect.element(popupElement).not.toHaveStyle('animation-name');
+
+      expect(mockConsolLog).toHaveBeenCalledWith(true);
+      expect(mockConsolWarn).toHaveBeenCalledWith(
+        `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+      );
+
+      await userEvent.click(closeElement);
+      await wait(200);
+
+      await expect.element(triggerElement).not.toHaveAttribute('data-open');
+
+      await expect.element(popupElement).not.toHaveAttribute('data-open');
+      await expect.element(popupElement).toHaveAttribute('data-closed', '');
+      await expect.element(popupElement).toHaveStyle('display: none !important');
+      await expect.element(popupElement).not.toHaveStyle('animation-name');
+
+      expect(mockConsolLog).toHaveBeenCalledWith(false);
+      expect(mockConsolWarn).toHaveBeenCalledWith(
+        `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+      );
     });
   });
 });
