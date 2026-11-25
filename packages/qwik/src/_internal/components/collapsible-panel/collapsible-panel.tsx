@@ -102,7 +102,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
               ]);
             }
 
-            if (animationType === 'none') {
+            if (animationType === 'none' || animationType === 'both') {
               hidden.value = false;
 
               applyFinalOpenState();
@@ -187,7 +187,7 @@ export const CollapsiblePanel = component$<CollapsiblePanelProps>((props) => {
               ]);
             }
 
-            if (animationType === 'none') {
+            if (animationType === 'none' || animationType === 'both') {
               applyFinalClosedState();
             }
 
