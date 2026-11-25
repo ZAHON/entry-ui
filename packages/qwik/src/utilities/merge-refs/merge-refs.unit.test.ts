@@ -1,13 +1,15 @@
-import type { Signal } from '@qwik.dev/core';
+import type { QRL, Signal } from '@qwik.dev/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { isSignal } from '@qwik.dev/core';
 import { mergeRefs } from '.';
 
-vi.mock('@qwik.dev/core', () => ({
-  isSignal: vi.fn(),
-  noSerialize: vi.fn((val) => val),
-  $: vi.fn((fn) => fn),
-}));
+vi.mock('@qwik.dev/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@qwik.dev/core')>();
+  return {
+    ...actual,
+    isSignal: vi.fn(),
+  };
+});
 
 describe('mergeRefs', () => {
   const mockedIsSignal = vi.mocked(isSignal);
@@ -26,8 +28,8 @@ describe('mergeRefs', () => {
       __isMockSignal: true,
     }) as unknown as Signal<T>;
 
-  const invokeMergedRef = <T extends Element>(merged: (node: T) => void, node: T): void => {
-    merged(node);
+  const invokeMergedRef = async <T extends Element>(merged: QRL<(node: T) => void>, node: T): Promise<void> => {
+    await merged(node);
   };
 
   type FakeElement = Element;
@@ -46,122 +48,122 @@ describe('mergeRefs', () => {
     expect(typeof merged).toBe('function');
   });
 
-  it('should update the .value property of a single signal ref when invoked', () => {
+  it('should update the .value property of a single signal ref when invoked', async () => {
     const signal = createMockSignal<FakeElement | undefined>(undefined);
     const merged = mergeRefs<FakeElement>([signal]);
     const node = createFakeNode();
 
-    invokeMergedRef(merged, node);
+    await invokeMergedRef(merged, node);
 
     expect(signal.value).toBe(node);
   });
 
-  it('should call a single callback ref with the node when invoked', () => {
+  it('should call a single callback ref with the node when invoked', async () => {
     const callbackRef = vi.fn();
     const merged = mergeRefs<FakeElement>([callbackRef]);
     const node = createFakeNode();
 
-    invokeMergedRef(merged, node);
+    await invokeMergedRef(merged, node);
 
     expect(callbackRef).toHaveBeenCalledTimes(1);
     expect(callbackRef).toHaveBeenCalledWith(node);
   });
 
-  it('should update multiple signal refs when invoked', () => {
+  it('should update multiple signal refs when invoked', async () => {
     const signalA = createMockSignal<FakeElement | undefined>(undefined);
     const signalB = createMockSignal<FakeElement | undefined>(undefined);
     const merged = mergeRefs<FakeElement>([signalA, signalB]);
     const node = createFakeNode();
 
-    invokeMergedRef(merged, node);
+    await invokeMergedRef(merged, node);
 
     expect(signalA.value).toBe(node);
     expect(signalB.value).toBe(node);
   });
 
-  it('should call multiple callback refs when invoked', () => {
+  it('should call multiple callback refs when invoked', async () => {
     const callbackA = vi.fn();
     const callbackB = vi.fn();
     const merged = mergeRefs<FakeElement>([callbackA, callbackB]);
     const node = createFakeNode();
 
-    invokeMergedRef(merged, node);
+    await invokeMergedRef(merged, node);
 
     expect(callbackA).toHaveBeenCalledWith(node);
     expect(callbackB).toHaveBeenCalledWith(node);
   });
 
-  it('should handle a mixed array of signal and callback refs correctly', () => {
+  it('should handle a mixed array of signal and callback refs correctly', async () => {
     const signal = createMockSignal<FakeElement | undefined>(undefined);
     const callbackRef = vi.fn();
     const merged = mergeRefs<FakeElement>([signal, callbackRef]);
     const node = createFakeNode();
 
-    invokeMergedRef(merged, node);
+    await invokeMergedRef(merged, node);
 
     expect(signal.value).toBe(node);
     expect(callbackRef).toHaveBeenCalledWith(node);
   });
 
-  it('should ignore undefined entries without throwing', () => {
+  it('should ignore undefined entries without throwing', async () => {
     const merged = mergeRefs<FakeElement>([undefined]);
     const node = createFakeNode();
 
-    expect(() => invokeMergedRef(merged, node)).not.toThrow();
+    await expect(invokeMergedRef(merged, node)).resolves.not.toThrow();
   });
 
-  it('should skip undefined entries while still processing valid refs in the same array', () => {
+  it('should skip undefined entries while still processing valid refs in the same array', async () => {
     const signal = createMockSignal<FakeElement | undefined>(undefined);
     const callbackRef = vi.fn();
     const merged = mergeRefs<FakeElement>([undefined, signal, undefined, callbackRef]);
     const node = createFakeNode();
 
-    invokeMergedRef(merged, node);
+    await invokeMergedRef(merged, node);
 
     expect(signal.value).toBe(node);
     expect(callbackRef).toHaveBeenCalledWith(node);
   });
 
-  it('should do nothing and not throw when given an empty refs array', () => {
+  it('should do nothing and not throw when given an empty refs array', async () => {
     const merged = mergeRefs<FakeElement>([]);
     const node = createFakeNode();
 
-    expect(() => invokeMergedRef(merged, node)).not.toThrow();
+    await expect(invokeMergedRef(merged, node)).resolves.not.toThrow();
   });
 
-  it('should call isSignal for each non-undefined ref to distinguish it from a callback', () => {
+  it('should call isSignal for each non-undefined ref to distinguish it from a callback', async () => {
     const signal = createMockSignal<FakeElement | undefined>(undefined);
     const callbackRef = vi.fn();
     const merged = mergeRefs<FakeElement>([signal, callbackRef, undefined]);
     const node = createFakeNode();
 
-    invokeMergedRef(merged, node);
+    await invokeMergedRef(merged, node);
 
     expect(mockedIsSignal).toHaveBeenCalledWith(signal);
     expect(mockedIsSignal).toHaveBeenCalledWith(callbackRef);
   });
 
-  it('should overwrite a previously set signal value on subsequent invocations with a new node', () => {
+  it('should overwrite a previously set signal value on subsequent invocations with a new node', async () => {
     const signal = createMockSignal<FakeElement | undefined>(undefined);
     const merged = mergeRefs<FakeElement>([signal]);
     const firstNode = createFakeNode();
     const secondNode = createFakeNode();
 
-    invokeMergedRef(merged, firstNode);
+    await invokeMergedRef(merged, firstNode);
     expect(signal.value).toBe(firstNode);
 
-    invokeMergedRef(merged, secondNode);
+    await invokeMergedRef(merged, secondNode);
     expect(signal.value).toBe(secondNode);
   });
 
-  it('should not call a callback ref again on its own when a different node triggers a second invocation', () => {
+  it('should not call a callback ref again on its own when a different node triggers a second invocation', async () => {
     const callbackRef = vi.fn();
     const merged = mergeRefs<FakeElement>([callbackRef]);
     const firstNode = createFakeNode();
     const secondNode = createFakeNode();
 
-    invokeMergedRef(merged, firstNode);
-    invokeMergedRef(merged, secondNode);
+    await invokeMergedRef(merged, firstNode);
+    await invokeMergedRef(merged, secondNode);
 
     expect(callbackRef).toHaveBeenCalledTimes(2);
     expect(callbackRef).toHaveBeenNthCalledWith(1, firstNode);
