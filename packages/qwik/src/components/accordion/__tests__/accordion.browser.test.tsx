@@ -6,6 +6,7 @@ import { Primitive } from '@/_internal/components/primitive';
 import { Accordion } from '..';
 import { AccordionItemPanelCssTransition } from './fixtures/accordion-item-panel-css-transition';
 import { AccordionItemPanelCssAnimation } from './fixtures/accordion-item-panel-css-animation';
+import { AccordionItemPanelCssTransitionAndAnimation } from './fixtures/accordion-item-panel-css-transition-and-animation';
 
 const ACCORDION_ROOT_TESTID = 'ACCORDION_ROOT_TESTID';
 const ACCORDION_ITEM_TESTID = 'ACCORDION_ITEM_TESTID';
@@ -2293,6 +2294,228 @@ describe('Accordion', () => {
         await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: none');
 
         expect(mockConsolLog).toHaveBeenCalledWith(false);
+      });
+    });
+
+    describe('<Accordion.ItemPanel> with CSS transition and animation', () => {
+      it('should open, update state attributes and styles of all parts and call the "onOpenChangeComplete$" callback with true when the <Accordion.ItemTrigger> is clicked and the <Accordion.Item> is closed', async () => {
+        // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+        // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+        // complex internal states that throw a serialization error (Code Q3).
+        const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+        const mockConsolWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+        const screen = await render(
+          <Accordion.Root>
+            <Accordion.Item data-testid={ACCORDION_ITEM_TESTID}>
+              <Accordion.ItemHeader data-testid={ACCORDION_ITEM_HEADER_TESTID}>
+                <Accordion.ItemTrigger data-testid={ACCORDION_ITEM_TRIGGER_TESTID}>
+                  <Accordion.ItemIndicator data-testid={ACCORDION_ITEM_INDICATOR_TESTID} />
+                </Accordion.ItemTrigger>
+              </Accordion.ItemHeader>
+              <AccordionItemPanelCssTransitionAndAnimation
+                onOpenChangeComplete$={(open) => console.log(open)}
+                data-testid={ACCORDION_ITEM_PANEL_TESTID}
+              />
+            </Accordion.Item>
+          </Accordion.Root>
+        );
+
+        const itemElement = screen.getByTestId(ACCORDION_ITEM_TESTID);
+        const itemHeaderElement = screen.getByTestId(ACCORDION_ITEM_HEADER_TESTID);
+        const itemTriggerElement = screen.getByTestId(ACCORDION_ITEM_TRIGGER_TESTID);
+        const itemIndicatorElement = screen.getByTestId(ACCORDION_ITEM_INDICATOR_TESTID);
+        const itemPanelElement = screen.getByTestId(ACCORDION_ITEM_PANEL_TESTID);
+
+        await expect.element(itemElement).not.toHaveAttribute('data-open');
+        await expect.element(itemHeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(itemTriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(itemIndicatorElement).not.toHaveAttribute('data-open');
+
+        await expect.element(itemPanelElement).not.toHaveAttribute('data-open');
+        await expect.element(itemPanelElement).toHaveAttribute('data-closed', '');
+        await expect.element(itemPanelElement).toHaveAttribute('hidden', 'hidden');
+        await expect.element(itemPanelElement).toHaveStyle('display: none !important');
+        await expect.element(itemPanelElement).not.toHaveStyle('animation-name');
+        await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: none');
+
+        await userEvent.click(itemTriggerElement);
+        await wait(200);
+
+        await expect.element(itemElement).toHaveAttribute('data-open', '');
+        await expect.element(itemHeaderElement).toHaveAttribute('data-open', '');
+        await expect.element(itemTriggerElement).toHaveAttribute('data-open', '');
+        await expect.element(itemIndicatorElement).toHaveAttribute('data-open', '');
+
+        await expect.element(itemPanelElement).not.toHaveAttribute('data-closed');
+        await expect.element(itemPanelElement).toHaveAttribute('data-open', '');
+        await expect.element(itemPanelElement).not.toHaveAttribute('hidden');
+        await expect.element(itemPanelElement).not.toHaveStyle('display');
+        await expect.element(itemPanelElement).not.toHaveStyle('animation-name');
+        await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: auto');
+
+        expect(mockConsolLog).toHaveBeenCalledWith(true);
+        expect(mockConsolWarn).toHaveBeenCalledWith(
+          `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Accordion.ItemPanel>' component while opening. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+        );
+      });
+
+      it('should close, update state attributes and styles of all parts and call the "onOpenChangeComplete$" callback with false when the <Accordion.ItemTrigger> is clicked and the <Accordion.Item> is open', async () => {
+        // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+        // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+        // complex internal states that throw a serialization error (Code Q3).
+        const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+        const mockConsolWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+        const screen = await render(
+          <Accordion.Root defaultValue={['item']}>
+            <Accordion.Item value="item" data-testid={ACCORDION_ITEM_TESTID}>
+              <Accordion.ItemHeader data-testid={ACCORDION_ITEM_HEADER_TESTID}>
+                <Accordion.ItemTrigger data-testid={ACCORDION_ITEM_TRIGGER_TESTID}>
+                  <Accordion.ItemIndicator data-testid={ACCORDION_ITEM_INDICATOR_TESTID} />
+                </Accordion.ItemTrigger>
+              </Accordion.ItemHeader>
+              <AccordionItemPanelCssTransitionAndAnimation
+                onOpenChangeComplete$={(open) => console.log(open)}
+                data-testid={ACCORDION_ITEM_PANEL_TESTID}
+              />
+            </Accordion.Item>
+          </Accordion.Root>
+        );
+
+        const itemElement = screen.getByTestId(ACCORDION_ITEM_TESTID);
+        const itemHeaderElement = screen.getByTestId(ACCORDION_ITEM_HEADER_TESTID);
+        const itemTriggerElement = screen.getByTestId(ACCORDION_ITEM_TRIGGER_TESTID);
+        const itemIndicatorElement = screen.getByTestId(ACCORDION_ITEM_INDICATOR_TESTID);
+        const itemPanelElement = screen.getByTestId(ACCORDION_ITEM_PANEL_TESTID);
+
+        await expect.element(itemElement).toHaveAttribute('data-open', '');
+        await expect.element(itemHeaderElement).toHaveAttribute('data-open', '');
+        await expect.element(itemTriggerElement).toHaveAttribute('data-open', '');
+        await expect.element(itemIndicatorElement).toHaveAttribute('data-open', '');
+
+        await expect.element(itemPanelElement).not.toHaveAttribute('data-closed');
+        await expect.element(itemPanelElement).toHaveAttribute('data-open', '');
+        await expect.element(itemPanelElement).not.toHaveAttribute('hidden');
+        await expect.element(itemPanelElement).not.toHaveStyle('display');
+        await expect.element(itemPanelElement).not.toHaveStyle('animation-name');
+        await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: auto');
+
+        await userEvent.click(itemTriggerElement);
+        await wait(200);
+
+        await expect.element(itemElement).not.toHaveAttribute('data-open');
+        await expect.element(itemHeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(itemTriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(itemIndicatorElement).not.toHaveAttribute('data-open');
+
+        await expect.element(itemPanelElement).not.toHaveAttribute('data-open');
+        await expect.element(itemPanelElement).toHaveAttribute('data-closed', '');
+        await expect.element(itemPanelElement).toHaveAttribute('hidden', 'hidden');
+        await expect.element(itemPanelElement).toHaveStyle('display: none !important');
+        await expect.element(itemPanelElement).not.toHaveStyle('animation-name');
+        await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: none');
+
+        expect(mockConsolLog).toHaveBeenCalledWith(false);
+        expect(mockConsolWarn).toHaveBeenCalledWith(
+          `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Accordion.ItemPanel>' component while closing. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+        );
+      });
+
+      it('should open, update state attributes and styles of all parts and call the "onOpenChangeComplete$" callback with true when the browser reveals the hidden <Accordion.ItemPanel> content via find-in-page and "hiddenUntilFound" prop is true, then close and call it with false when the <Accordion.ItemTrigger> is clicked', async () => {
+        const ACCORDION_ITEM_PANEL_TEXT = 'ACCORDION_ITEM_PANEL_TEXT';
+
+        // We spy on `console.log` instead of using `vi.fn()` directly inside the component prop.
+        // Qwik attempts to serialize props, and Vitest mock functions (`vi.fn()`) contain
+        // complex internal states that throw a serialization error (Code Q3).
+        const mockConsolLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+        const mockConsolWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+        const screen = await render(
+          <Accordion.Root defaultValue={[]}>
+            <Accordion.Item data-testid={ACCORDION_ITEM_TESTID}>
+              <Accordion.ItemHeader data-testid={ACCORDION_ITEM_HEADER_TESTID}>
+                <Accordion.ItemTrigger data-testid={ACCORDION_ITEM_TRIGGER_TESTID}>
+                  <Accordion.ItemIndicator data-testid={ACCORDION_ITEM_INDICATOR_TESTID} />
+                </Accordion.ItemTrigger>
+              </Accordion.ItemHeader>
+              <AccordionItemPanelCssTransitionAndAnimation
+                hiddenUntilFound={true}
+                onOpenChangeComplete$={(open) => console.log(open)}
+                data-testid={ACCORDION_ITEM_PANEL_TESTID}
+              >
+                {ACCORDION_ITEM_PANEL_TEXT}
+              </AccordionItemPanelCssTransitionAndAnimation>
+            </Accordion.Item>
+          </Accordion.Root>
+        );
+
+        const itemElement = screen.getByTestId(ACCORDION_ITEM_TESTID);
+        const itemHeaderElement = screen.getByTestId(ACCORDION_ITEM_HEADER_TESTID);
+        const itemTriggerElement = screen.getByTestId(ACCORDION_ITEM_TRIGGER_TESTID);
+        const itemIndicatorElement = screen.getByTestId(ACCORDION_ITEM_INDICATOR_TESTID);
+        const itemPanelElement = screen.getByTestId(ACCORDION_ITEM_PANEL_TESTID);
+
+        await expect.element(itemElement).not.toHaveAttribute('data-open');
+        await expect.element(itemHeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(itemTriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(itemIndicatorElement).not.toHaveAttribute('data-open');
+
+        await expect.element(itemPanelElement).not.toHaveAttribute('data-open');
+        await expect.element(itemPanelElement).toHaveAttribute('data-closed', '');
+        await expect.element(itemPanelElement).toHaveAttribute('hidden', 'until-found');
+        await expect.element(itemPanelElement).not.toHaveStyle('display');
+        await expect.element(itemPanelElement).not.toHaveStyle('animation-name');
+        await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: none');
+
+        // We clear the hash first to ensure the browser registers a distinct navigation change.
+        // Appending the Text Fragment (`#:~:text=`) simulates a native "find-in-page" search,
+        // which forces the browser to automatically fire the `beforematch` event on our panel
+        // utilizing the `hidden="until-found"` attribute.
+        window.location.hash = '';
+        window.location.hash = '#:~:text=' + encodeURIComponent(ACCORDION_ITEM_PANEL_TEXT);
+
+        await wait(100);
+
+        await expect.element(itemElement).toHaveAttribute('data-open', '');
+        await expect.element(itemHeaderElement).toHaveAttribute('data-open', '');
+        await expect.element(itemTriggerElement).toHaveAttribute('data-open', '');
+        await expect.element(itemIndicatorElement).toHaveAttribute('data-open', '');
+
+        await expect.element(itemPanelElement).not.toHaveAttribute('data-closed');
+        await expect.element(itemPanelElement).toHaveAttribute('data-open', '');
+        await expect.element(itemPanelElement).not.toHaveAttribute('hidden');
+        await expect.element(itemPanelElement).not.toHaveStyle('display');
+        await expect.element(itemPanelElement).toHaveStyle('animation-name: none');
+        await expect.element(itemPanelElement).toHaveStyle('transition: none');
+        await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: auto');
+
+        expect(mockConsolLog).toHaveBeenCalledWith(true);
+        expect(mockConsolWarn).not.toHaveBeenCalled();
+
+        await userEvent.click(itemTriggerElement);
+        await wait(200);
+
+        await expect.element(itemElement).not.toHaveAttribute('data-open');
+        await expect.element(itemHeaderElement).not.toHaveAttribute('data-open');
+        await expect.element(itemTriggerElement).not.toHaveAttribute('data-open');
+        await expect.element(itemIndicatorElement).not.toHaveAttribute('data-open');
+
+        await expect.element(itemPanelElement).not.toHaveAttribute('data-open');
+        await expect.element(itemPanelElement).toHaveAttribute('data-closed', '');
+        await expect.element(itemPanelElement).toHaveAttribute('hidden', 'until-found');
+        await expect.element(itemPanelElement).not.toHaveStyle('display');
+        await expect.element(itemPanelElement).not.toHaveStyle('animation-name');
+        await expect.element(itemPanelElement).not.toHaveStyle('transition');
+        await expect.element(itemPanelElement).toHaveStyle('--entry-ui-qwik-accordion-item-panel-height: none');
+
+        expect(mockConsolLog).toHaveBeenCalledWith(false);
+        expect(mockConsolWarn).toHaveBeenCalledWith(
+          `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Accordion.ItemPanel>' component while closing. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+        );
       });
     });
   });
