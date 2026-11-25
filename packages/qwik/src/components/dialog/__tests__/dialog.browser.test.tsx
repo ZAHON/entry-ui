@@ -1110,7 +1110,7 @@ describe('Dialog', () => {
       await expect.element(popupElement).toHaveStyle('animation-name: none');
 
       await userEvent.click(triggerElement);
-      await wait(100);
+      await wait(200);
 
       await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
@@ -1122,7 +1122,7 @@ describe('Dialog', () => {
       expect(mockConsolLog).toHaveBeenCalledWith(true);
 
       await userEvent.click(closeElement);
-      await wait(100);
+      await wait(200);
 
       await expect.element(triggerElement).not.toHaveAttribute('data-open');
 
@@ -1164,7 +1164,7 @@ describe('Dialog', () => {
       await expect.element(popupElement).toHaveStyle('animation-name: none');
 
       await userEvent.click(triggerElement);
-      await wait(100);
+      await wait(200);
 
       await expect.element(triggerElement).toHaveAttribute('data-open', '');
 
@@ -1176,7 +1176,7 @@ describe('Dialog', () => {
       expect(mockConsolLog).toHaveBeenCalledWith(true);
 
       await userEvent.click(closeElement);
-      await wait(100);
+      await wait(200);
 
       await expect.element(triggerElement).not.toHaveAttribute('data-open');
 
