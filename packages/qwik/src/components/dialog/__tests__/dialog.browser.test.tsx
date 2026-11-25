@@ -1232,7 +1232,7 @@ describe('Dialog', () => {
 
       expect(mockConsolLog).toHaveBeenCalledWith(true);
       expect(mockConsolWarn).toHaveBeenCalledWith(
-        `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+        `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component while opening. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
       );
 
       await userEvent.click(closeElement);
@@ -1247,7 +1247,7 @@ describe('Dialog', () => {
 
       expect(mockConsolLog).toHaveBeenCalledWith(false);
       expect(mockConsolWarn).toHaveBeenCalledWith(
-        `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
+        `[Entry UI Qwik] Both CSS transitions and CSS animations are detected on '<Dialog.Popup>' component while closing. Using both at the same time may cause unpredictable behavior. Please use only one animation method.`
       );
     });
   });
