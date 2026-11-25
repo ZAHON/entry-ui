@@ -1203,7 +1203,7 @@ describe('Collapsible', () => {
 
         await userEvent.click(triggerElement);
 
-        await wait(100);
+        await wait(200);
 
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
@@ -1259,7 +1259,7 @@ describe('Collapsible', () => {
 
         await userEvent.click(triggerElement);
 
-        await wait(100);
+        await wait(200);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
 
@@ -1345,7 +1345,7 @@ describe('Collapsible', () => {
 
         await userEvent.click(triggerElement);
 
-        await wait(100);
+        await wait(200);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
 
@@ -1404,7 +1404,7 @@ describe('Collapsible', () => {
 
         await userEvent.click(triggerElement);
 
-        await wait(100);
+        await wait(200);
 
         await expect.element(rootElement).toHaveAttribute('data-open', '');
 
@@ -1460,7 +1460,7 @@ describe('Collapsible', () => {
 
         await userEvent.click(triggerElement);
 
-        await wait(100);
+        await wait(200);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
 
@@ -1546,7 +1546,7 @@ describe('Collapsible', () => {
 
         await userEvent.click(triggerElement);
 
-        await wait(100);
+        await wait(200);
 
         await expect.element(rootElement).not.toHaveAttribute('data-open');
 
