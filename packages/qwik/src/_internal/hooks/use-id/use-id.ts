@@ -1,4 +1,3 @@
-import type { UseIdParams } from './use-id.types';
 import { useId as useQwikId, useConstant } from '@qwik.dev/core';
 
 /**
@@ -21,16 +20,14 @@ import { useId as useQwikId, useConstant } from '@qwik.dev/core';
  * - Custom prefix: `"my-app-header-rs7mG5255s"`
  * - Custom base: `"entry-ui-qwik-custom-id"`
  */
-export const useId = (params: UseIdParams = {}) => {
-  const { prefix = 'entry-ui-qwik-', generatedId } = params;
-
+export const useId = (prefix: string | undefined = 'entry-ui-qwik-') => {
   // Retrieve an SSR-safe, automatically generated unique identifier string from Qwik's core primitives.
   // This value guarantees unique scope identity across both server and client rendering passes.
   const autoId = useQwikId();
 
   // Compute and freeze the final formatted identifier string for the entirety of the component lifecycle.
   // Uses `useConstant` to ensure the constructed ID string remains completely invariant across re-renders.
-  const id = useConstant(() => `${prefix.trim()}${generatedId ? generatedId.trim() : autoId}`);
+  const id = useConstant(() => `${prefix.trim()}${autoId}`);
 
   // Return the immutable final identifier string instance.
   // Serves as the primary stable identifier for DOM elements and accessibility associations.
