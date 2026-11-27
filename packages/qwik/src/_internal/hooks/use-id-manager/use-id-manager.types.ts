@@ -19,7 +19,7 @@ export interface UseIdManagerParams {
 
   /**
    * Determines whether the identifier should be initialized immediately upon hook creation.
-   * If set to `true`, the `id` readonly signal will be populated with the combined prefix and base ID on mount.
+   * If set to `true`, the `id` readonly signal will be populated with the combined trimmed prefix and auto-generated ID on mount.
    * If `false`, the `id` readonly signal remains `undefined` until manually set via `set$`.
    *
    * @default false
