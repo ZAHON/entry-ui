@@ -25,11 +25,11 @@ export const useId = (prefix: string | undefined = 'entry-ui-qwik-') => {
   // This value guarantees unique scope identity across both server and client rendering passes.
   const autoId = useQwikId();
 
-  // Compute and freeze the final formatted identifier string for the entirety of the component lifecycle.
+  // Trim the `prefix`, concatenate it with the auto-generated ID, and freeze the result for the component lifecycle.
   // Uses `useConstant` to ensure the constructed ID string remains completely invariant across re-renders.
   const id = useConstant(() => `${prefix.trim()}${autoId}`);
 
-  // Return the immutable final identifier string instance.
+  // Return the immutable, formatted identifier string.
   // Serves as the primary stable identifier for DOM elements and accessibility associations.
   return id;
 };
