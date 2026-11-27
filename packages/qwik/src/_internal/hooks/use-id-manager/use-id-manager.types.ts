@@ -47,7 +47,7 @@ export interface UseIdManagerReturnValue {
    * A `QRL` function that directly sets the identifier to a specific string value.
    * If a non-empty string is provided, it will be used as the new ID.
    * If the provided value is empty or undefined, the function will fall back
-   * to the default format, combining the defined prefix and the base ID.
+   * to the default format, combining the defined prefix and the auto-generated ID.
    */
   set$: QRL<(value: string | undefined) => void>;
 
