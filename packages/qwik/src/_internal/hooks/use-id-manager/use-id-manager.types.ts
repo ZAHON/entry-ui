@@ -4,8 +4,8 @@ import type { Signal, QRL } from '@qwik.dev/core';
  * Represents the configuration parameters accepted by the internal `useIdManager` hook.
  *
  * This interface defines the essential options needed to control unique identifier orchestration and initialization.
- * It establishes a unified structure for defining custom namespace prefixes and manual identifier overrides,
- * alongside optional deferred initialization behaviors for advanced lifecycle synchronization.
+ * It establishes a unified structure for defining custom namespace prefixes alongside
+ * optional deferred initialization behaviors for advanced lifecycle synchronization.
  */
 export interface UseIdManagerParams {
   /**
