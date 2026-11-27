@@ -2,6 +2,34 @@
 
 Changelogs for each `@entry-ui/qwik` release.
 
+## 0.15.0 (2026-11-27)
+
+### Breaking changes
+
+- **Remove `dir` prop from `<Tabs.Root>` component.**
+  Removed the explicit `dir` prop from `<Tabs.Root>` along with automatic `dir="ltr"` attribute injection on the underlying element. Reading direction management has been centralized into the global `<Direction.Provider>` component to keep component behavior decoupled from HTML and CSS styling. Applications requiring right-to-left (RTL) keyboard navigation should wrap their tabs or application in `<Direction.Provider direction="rtl">` and set the `dir="rtl"` HTML attribute explicitly on their own elements when needed.
+
+### Features
+
+- **Introduce `Direction` component for global reading direction context.**
+  A renderless provider component (`<Direction.Provider>`) designed to manage and propagate global reading direction (`"ltr"` or `"rtl"`) across localized applications. It enables descendant Entry UI Qwik components to adapt their interactive behaviors—such as keyboard navigation—for right-to-left (RTL) text flow without modifying HTML structure or CSS styles, leaving `dir="rtl"` attributes and `direction: rtl` rules explicitly under application control. The component defaults to `"ltr"` when no `direction` prop is provided and exposes the active reading direction as a reactive, readonly signal via the `useDirectionProviderContext` hook, which safely falls back to `"ltr"` when consumed outside of a provider boundary.
+
+### Fixes
+
+- **Handle simultaneous CSS transitions and animations in `<Accordion.ItemPanel>` component.**
+  Resolved an issue where `<Accordion.ItemPanel>` failed to expand or collapse when both CSS transitions and CSS animations were applied at the same time. Previously, this conflicting configuration left the panel unresponsive during visibility changes. The component now falls back to immediate open and close behavior—matching the standard non-animated lifecycle—after logging a development warning.
+
+- **Handle simultaneous CSS transitions and animations in `<Collapsible.Panel>` component.**
+  Resolved an issue where `<Collapsible.Panel>` failed to expand or collapse when both CSS transitions and CSS animations were applied at the same time. Previously, this conflicting configuration left the panel unresponsive during visibility changes. The component now falls back to immediate open and close behavior—matching the standard non-animated lifecycle—after logging a development warning.
+
+- **Handle simultaneous CSS transitions and animations in `<Dialog.Popup>` component.**
+  Resolved an issue where `<Dialog.Popup>` failed to open or close when both CSS transitions and CSS animations were applied at the same time. Previously, this conflicting configuration left the dialog unresponsive during visibility changes. The component now falls back to immediate open and close behavior—matching the standard non-animated lifecycle—after logging a development warning.
+
+### Dependencies
+
+- **Update `@qwik.dev/core` peer dependency minimum version.**
+  Bumped the minimum required version to `>=2.0.0-rc.5` to align with the current development environment.
+
 ## 0.14.0 (2026-11-22)
 
 ### Breaking changes
