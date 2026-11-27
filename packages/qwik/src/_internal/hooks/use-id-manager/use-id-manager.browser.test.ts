@@ -13,60 +13,36 @@ describe('useIdManager', () => {
     const { result } = await renderHook(() => useIdManager({ shouldInitialize: true }));
 
     expect(result.id.value).toBeDefined();
-    expect(result.id.value).toMatch(/^entry-ui-qwik-/);
-  });
-
-  it('should use default prefix when no prefix is provided', async () => {
-    const { result } = await renderHook(() => useIdManager({ shouldInitialize: true }));
-
-    expect(result.id.value).toMatch(/^entry-ui-qwik-/);
+    expect(result.id.value).toMatch(/^entry-ui-qwik-[a-zA-Z0-9]+$/);
   });
 
   it('should use custom prefix when provided', async () => {
     const { result } = await renderHook(() => useIdManager({ prefix: 'my-custom-', shouldInitialize: true }));
 
-    expect(result.id.value).toMatch(/^my-custom-/);
+    expect(result.id.value).toMatch(/^my-custom-[a-zA-Z0-9]+$/);
   });
 
-  it('should use generatedId when provided', async () => {
-    const { result } = await renderHook(() => useIdManager({ generatedId: 'custom-id', shouldInitialize: true }));
-
-    expect(result.id.value).toBe('entry-ui-qwik-custom-id');
-  });
-
-  it('should combine custom prefix with generatedId', async () => {
-    const { result } = await renderHook(() =>
-      useIdManager({
-        prefix: 'my-app-',
-        generatedId: 'header',
-        shouldInitialize: true,
-      })
-    );
-
-    expect(result.id.value).toBe('my-app-header');
-  });
-
-  it('should trim whitespace from custom prefix', async () => {
+  it('should trim whitespace from custom prefix on initialization', async () => {
     const { result } = await renderHook(() =>
       useIdManager({
         prefix: '  my-prefix-  ',
-        generatedId: 'test',
         shouldInitialize: true,
       })
     );
 
-    expect(result.id.value).toBe('my-prefix-test');
+    expect(result.id.value).toMatch(/^my-prefix-[a-zA-Z0-9]+$/);
   });
 
-  it('should trim whitespace from generatedId', async () => {
+  it('should work with empty string prefix', async () => {
     const { result } = await renderHook(() =>
       useIdManager({
-        generatedId: '  custom-id  ',
+        prefix: '',
         shouldInitialize: true,
       })
     );
 
-    expect(result.id.value).toBe('entry-ui-qwik-custom-id');
+    expect(result.id.value).toMatch(/^[a-zA-Z0-9]+$/);
+    expect(result.id.value).not.toMatch(/^entry-ui-qwik-/);
   });
 
   it('should set id to specific value using set$', async () => {
@@ -88,7 +64,7 @@ describe('useIdManager', () => {
   });
 
   it('should fallback to default format when set$ receives empty string', async () => {
-    const { result } = await renderHook(() => useIdManager({ generatedId: 'test', shouldInitialize: true }));
+    const { result } = await renderHook(() => useIdManager({ shouldInitialize: true }));
 
     const initialId = result.id.value;
     await result.set$('custom-id');
@@ -99,19 +75,27 @@ describe('useIdManager', () => {
   });
 
   it('should fallback to default format when set$ receives undefined', async () => {
-    const { result } = await renderHook(() => useIdManager({ generatedId: 'test' }));
+    const { result } = await renderHook(() => useIdManager());
 
     await result.set$(undefined);
 
-    expect(result.id.value).toBe('entry-ui-qwik-test');
+    expect(result.id.value).toMatch(/^entry-ui-qwik-[a-zA-Z0-9]+$/);
   });
 
   it('should fallback to default format when set$ receives whitespace only', async () => {
-    const { result } = await renderHook(() => useIdManager({ generatedId: 'test' }));
+    const { result } = await renderHook(() => useIdManager());
 
     await result.set$('   ');
 
-    expect(result.id.value).toBe('entry-ui-qwik-test');
+    expect(result.id.value).toMatch(/^entry-ui-qwik-[a-zA-Z0-9]+$/);
+  });
+
+  it('should preserve custom prefix when using set$ with empty value', async () => {
+    const { result } = await renderHook(() => useIdManager({ prefix: 'custom-' }));
+
+    await result.set$('');
+
+    expect(result.id.value).toMatch(/^custom-[a-zA-Z0-9]+$/);
   });
 
   it('should delete id using delete$', async () => {
@@ -165,39 +149,6 @@ describe('useIdManager', () => {
     expect(result.id.value).toBeUndefined();
   });
 
-  it('should preserve custom prefix when using set$ with empty value', async () => {
-    const { result } = await renderHook(() => useIdManager({ prefix: 'custom-', generatedId: 'test' }));
-
-    await result.set$('');
-
-    expect(result.id.value).toBe('custom-test');
-  });
-
-  // Skipped: `vitest-browser-qwik` environment limitation where multiple hook calls
-  // in a single test block might share or mock the Qwik ID context identically.
-  // The uniqueness works as expected in real browser and production environments.
-  it.skip('should generate unique IDs for different hook instances', async () => {
-    const { result: result1 } = await renderHook(() => useIdManager({ shouldInitialize: true }));
-
-    const { result: result2 } = await renderHook(() => useIdManager({ shouldInitialize: true }));
-
-    expect(result1.id.value).toBeDefined();
-    expect(result2.id.value).toBeDefined();
-    expect(result1.id.value).not.toBe(result2.id.value);
-  });
-
-  it('should work with empty string prefix', async () => {
-    const { result } = await renderHook(() =>
-      useIdManager({
-        prefix: '',
-        generatedId: 'test',
-        shouldInitialize: true,
-      })
-    );
-
-    expect(result.id.value).toBe('test');
-  });
-
   it('should handle complex id values with special characters', async () => {
     const { result } = await renderHook(() => useIdManager());
 
@@ -207,7 +158,7 @@ describe('useIdManager', () => {
   });
 
   it('should maintain id value across multiple operations', async () => {
-    const { result } = await renderHook(() => useIdManager({ generatedId: 'base' }));
+    const { result } = await renderHook(() => useIdManager());
 
     await result.set$('custom-1');
     expect(result.id.value).toBe('custom-1');
@@ -216,7 +167,7 @@ describe('useIdManager', () => {
     expect(result.id.value).toBe('custom-2');
 
     await result.set$('');
-    expect(result.id.value).toBe('entry-ui-qwik-base');
+    expect(result.id.value).toMatch(/^entry-ui-qwik-[a-zA-Z0-9]+$/);
 
     await result.delete$();
     expect(result.id.value).toBeUndefined();
