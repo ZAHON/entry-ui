@@ -1,5 +1,5 @@
 import type { UseIdManagerParams, UseIdManagerReturnValue } from './use-id-manager.types';
-import { useId as useQwikId, useConstant, useSignal, $ } from '@qwik.dev/core';
+import { useId as useQwikId, useSignal, $ } from '@qwik.dev/core';
 
 /**
  * An internal hook used to manage unique identifiers with support for prefixes and manual state control.
@@ -23,19 +23,15 @@ import { useId as useQwikId, useConstant, useSignal, $ } from '@qwik.dev/core';
  * - Custom base: `"entry-ui-qwik-custom-id"`
  */
 export const useIdManager = (params: UseIdManagerParams = {}): UseIdManagerReturnValue => {
-  const { prefix = 'entry-ui-qwik-', generatedId, shouldInitialize = false } = params;
+  const { prefix = 'entry-ui-qwik-', shouldInitialize = false } = params;
 
   // Retrieve an SSR-safe, automatically generated unique identifier string from Qwik's core primitives.
   // Guarantees stable unique scope identity across both server and client rendering passes.
   const autoId = useQwikId();
 
-  // Memoize the core base identifier using `useConstant` to preserve reference stability across lifecycle updates.
-  // Resolves to either the custom trimmed `generatedId` override or the auto-generated Qwik ID.
-  const baseId = useConstant(() => (generatedId ? generatedId.trim() : autoId));
-
   // Initialize a reactive signal to hold the active string identifier state.
   // Conditionally pre-populates the formatted ID value on creation when `shouldInitialize` is enabled.
-  const id = useSignal<string | undefined>(shouldInitialize ? `${prefix.trim()}${baseId}` : undefined);
+  const id = useSignal<string | undefined>(shouldInitialize ? `${prefix.trim()}${autoId}` : undefined);
 
   const set$ = $((value: string | undefined) => {
     // Check if a valid, non-empty string override was provided to assign.
@@ -43,7 +39,7 @@ export const useIdManager = (params: UseIdManagerParams = {}): UseIdManagerRetur
     if (value && value.trim() !== '') {
       id.value = value;
     } else {
-      id.value = `${prefix}${baseId}`;
+      id.value = `${prefix}${autoId}`;
     }
   });
 
