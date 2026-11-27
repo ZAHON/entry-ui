@@ -30,12 +30,12 @@ export const useIdManager = (params: UseIdManagerParams = {}): UseIdManagerRetur
   const autoId = useQwikId();
 
   // Initialize a reactive signal to hold the active string identifier state.
-  // Conditionally pre-populates the formatted ID value on creation when `shouldInitialize` is enabled.
+  // Conditionally pre-populates the trimmed `prefix` and `autoId` combination when `shouldInitialize` is enabled
   const id = useSignal<string | undefined>(shouldInitialize ? `${prefix.trim()}${autoId}` : undefined);
 
   const set$ = $((value: string | undefined) => {
     // Check if a valid, non-empty string override was provided to assign.
-    // Assigns the custom value directly or falls back to the default prefix and base ID combination.
+    // Assigns the custom value directly or falls back to the `prefix` and `autoId` combination.
     if (value && value.trim() !== '') {
       id.value = value;
     } else {
