@@ -16,7 +16,7 @@ export const AccordionItem = component$<AccordionItemProps>((props) => {
 
   const { value: rootValue, disabled: rootDisabled, onItemOpen$, onItemClose$ } = useAccordionRootContext();
 
-  const fallbackValue = useId({ prefix: 'entry-ui-qwik-accordion-item-' });
+  const fallbackValue = useId('entry-ui-qwik-accordion-item-');
 
   const value = useComputed$(() => _value ?? fallbackValue);
   const open = useComputed$(() => rootValue.value.includes(value.value));
